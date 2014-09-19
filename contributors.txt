@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-Habitat for Humanity Project Contributors:
-=======
-Habitat Project Contributors:
 
-Christopher Stewart
->>>>>>> master
+Habitat for Humanity Project Contributors:
+1. Sarah Etter
