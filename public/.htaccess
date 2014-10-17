@@ -1,0 +1,76 @@
+#<IfModule mod_rewrite.c>
+#    <IfModule mod_negotiation.c>
+#        Options -MultiViews
+#    </IfModule>
+#
+#    RewriteEngine On
+#
+#    # Redirect Trailing Slashes...
+#    RewriteRule ^(.*)/$ /$1 [L,R=301]
+#
+#   # Handle Front Controller...
+#    RewriteCond %{REQUEST_FILENAME} !-d
+#    RewriteCond %{REQUEST_FILENAME} !-f
+#    RewriteRule ^ index.php [L]
+#</IfModule>
+
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+	
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_URI} cst200
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ /~cst200/habitat/public/index.php/$1 [L]
+
+	# Handle Front Controller...
+    RewriteCond %{REQUEST_URI} cst222
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ /~cst222/habitat/public/index.php/$1 [L]
+	
+	# Handle Front Controller...
+    RewriteCond %{REQUEST_URI} cst230
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ /~cst230/habitat/public/index.php/$1 [L]
+	    
+	# Handle Front Controller...
+    RewriteCond %{REQUEST_URI} cst220
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ /~cst220/habitat/public/index.php/$1 [L]
+	
+	# Handle Front Controller...
+    RewriteCond %{REQUEST_URI} cst224
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ /~cst224/habitat/public/index.php/$1 [L]
+	
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_URI} cst217
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ /~cst217/habitat/public/index.php/$1 [L]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_URI} cst210
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ /~cst210/habitat/public/index.php/$1 [L]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_URI} cst200
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ /~cst200/habitat/public/index.php/$1 [L]	
+#    RewriteRule ^ index.php [L]
+</IfModule>
+
