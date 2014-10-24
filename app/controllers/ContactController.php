@@ -1,14 +1,14 @@
 <?php
-use App\Repositories\ContactRepository;
+use App\Repositories\ContactRepository as Contact;
 
 class ContactController extends \BaseController {
     
         public $repo;
 
-        public function __construct(ContactRepository $repo)
-        {
-            $this->repo = $repo;
-        }
+//        public function __construct(ContactRepository $repo)
+//        {
+//            $this->repo = $repo;
+//        }
     
 
 	/**
