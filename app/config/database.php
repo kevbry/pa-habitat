@@ -1,4 +1,7 @@
-<?php
+<?php 
+require "local.php";
+
+
 
 return array(
 
@@ -55,12 +58,12 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'forge',
-			'username'  => 'forge',
-			'password'  => '',
+			'database'  => $myDatabase,
+			'username'  => $myUsername,
+			'password'  => $myPassword,
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
+			'prefix'    => 'habitat_',
 		),
 
 		'pgsql' => array(
@@ -122,3 +125,4 @@ return array(
 	),
 
 );
+
