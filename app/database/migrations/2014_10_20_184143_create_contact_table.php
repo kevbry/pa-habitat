@@ -18,6 +18,16 @@ class CreateContactTable extends Migration {
 			$table->timestamps();
                         $table->string("first_name");
                         $table->string("last_name");
+                        $table->string("remail_address");
+                        $table->string("home_phone");
+                        $table->string("cell_phone");
+                        $table->string("work_phone");
+                        $table->string("street_address");
+                        $table->string("city");
+                        $table->string("province");
+                        $table->string("postal_code");
+                        $table->string("country");
+                        $table->string("comments");
 		});
 	}
 
