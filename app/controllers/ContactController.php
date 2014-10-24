@@ -43,7 +43,8 @@ class ContactController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+            //$contact = ;
+            return View::make('contact.show')->with('contact' ,$contact);
 	}
 
 
