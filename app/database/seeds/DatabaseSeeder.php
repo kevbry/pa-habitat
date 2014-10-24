@@ -13,6 +13,10 @@ class DatabaseSeeder extends Seeder
          * 
 	 * The class names for seeders should follow this pattern:
          *      <tablename>TableSeeder
+         * 
+         * For information on how to create a database seeder, please see
+         *      ContactTableSeeder.php.
+         * All seeds should be created in the 'seeds' folder.
 	 */
 	public function run()
 	{
