@@ -19,7 +19,7 @@ class CreateContactTable extends Migration
 			$table->timestamps();
                         $table->string("first_name");
                         $table->string("last_name");
-                        $table->string("remail_address");
+                        $table->string("email_address");
                         $table->string("home_phone");
                         $table->string("cell_phone");
                         $table->string("work_phone");
