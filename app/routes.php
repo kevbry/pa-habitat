@@ -16,4 +16,4 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::get('/showcontact', 'ContactController@show');
+Route::get('contact/{id}', 'ContactController@show');
