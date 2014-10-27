@@ -11,6 +11,13 @@
  *
  * @author cst217
  */
-class ViewContacts {
+class contactControllerTest extends TestCase
+{
     //put your code here
+    public function testShowIsTrue()
+    {
+        $myTestContact = $this->show($id);
+        
+        
+    }
 }
