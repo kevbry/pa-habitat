@@ -1,12 +1,11 @@
 <?php
 
-/**
- * 
- */
 class ContactTableSeeder extends Seeder 
 {
     
     /**
+     * Format: MODELNAME::create(array('key' => 'value', ...));
+     * 
      * Template Contact:
      * Contact::create(array(  'first_name' => '', 
                                 'last_name' => '', 
@@ -24,8 +23,6 @@ class ContactTableSeeder extends Seeder
     public function run()
     {
         DB::table('contact')->delete();
-        
-        // Format: MODELNAME::create(array('key' => 'value'));
         
         Contact::create(array(  'first_name' => 'Greg', 
                                 'last_name' => 'Smith', 
