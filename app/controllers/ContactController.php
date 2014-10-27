@@ -1,11 +1,11 @@
 <?php
-use App\Repositories\ContactRepository as Contact;
+use App\Repositories\ContactRepository;
 
 class ContactController extends \BaseController {
     
         public $repo;
 
-        public function __construct(Contact $repo)
+        public function __construct(ContactRepository $repo)
         {
             $this->repo = $repo;
         }
@@ -44,12 +44,20 @@ class ContactController extends \BaseController {
 	 */
 	public function store()
 	{
-            $values = Input::all();
+            $values = Input::only('first_name', 
+                                    'last_name', 
+                                    'email_address',
+                                    'home_phone', 
+                                    'cell_phone', 
+                                    'work_phone', 
+                                    'street_address', 
+                                    'city', 
+                                    'province', 
+                                    'postal_code', 
+                                    'country', 
+                                    'comments');
+            $contact = new Contact($values);
             
-            $result = $this->repo->saveContact($values);
-            
-            return $result;
-            //return Redirect::route('contact.index');
 	}
 
 
@@ -61,7 +69,8 @@ class ContactController extends \BaseController {
 	 */
 	public function show($id)
 	{
-
+            $contact = $this->repo->getContact($id);
+            return 'Hi the id number is ' . $id . 'and the name is' . $contact->first_name;
 	}
 
 
@@ -99,4 +108,6 @@ class ContactController extends \BaseController {
 	{
 		//
 	}
+
+
 }

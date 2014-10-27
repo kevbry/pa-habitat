@@ -9,32 +9,32 @@ Create a Contact
     {{ Form::open(['route' => 'contact.store']) }}
     
     <div>
-        {{ Form::label('firstName', 'First Name: ') }}
-        {{ Form::input('text', 'firstName') }}
+        {{ Form::label('first_name', 'First Name: ') }}
+        {{ Form::input('text', 'first_name') }}
     </div>
     <div>
-        {{ Form::label('lastName', 'Last Name: ') }}
-        {{ Form::input('text', 'lastName') }}
+        {{ Form::label('last_name', 'Last Name: ') }}
+        {{ Form::input('text', 'last_name') }}
     </div>
     <div>
-        {{ Form::label('emailAddress', 'Email Address: ') }}
-        {{ Form::input('email', 'emailAddress') }}
+        {{ Form::label('email_address', 'Email Address: ') }}
+        {{ Form::input('email', 'email_address') }}
     </div>
     <div>
-        {{ Form::label('homePhone', 'Home Phone: ') }}
-        {{ Form::input('text', 'homePhone') }}
+        {{ Form::label('home_phone', 'Home Phone: ') }}
+        {{ Form::input('text', 'home_phone') }}
     </div>
     <div>
-        {{ Form::label('cellPhone', 'Cell Phone: ') }}
-        {{ Form::input('text', 'cellPhone') }}
+        {{ Form::label('cell_phone', 'Cell Phone: ') }}
+        {{ Form::input('text', 'cell_phone') }}
     </div>
     <div>
-        {{ Form::label('workPhone', 'Work Phone: ') }}
-        {{ Form::input('text', 'workPhone') }}
+        {{ Form::label('work_phone', 'Work Phone: ') }}
+        {{ Form::input('text', 'work_phone') }}
     </div>
     <div>
-        {{ Form::label('streetNo', 'Street Address: ') }}
-        {{ Form::input('text', 'streetNo') }}
+        {{ Form::label('street_address', 'Street Address: ') }}
+        {{ Form::input('text', 'street_address') }}
     </div>
     <div>
         {{ Form::label('city', 'City: ') }}
@@ -45,8 +45,8 @@ Create a Contact
         {{ Form::input('text', 'province') }}
     </div>
     <div>
-        {{ Form::label('postalCode', 'Postal Code: ') }}
-        {{ Form::input('text', 'postalCode') }}
+        {{ Form::label('postal_code', 'Postal Code: ') }}
+        {{ Form::input('text', 'postal_code') }}
     </div>
     <div>
         {{ Form::label('country', 'Country: ') }}
