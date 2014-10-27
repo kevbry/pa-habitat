@@ -5,10 +5,10 @@ class ContactController extends \BaseController {
     
         public $repo;
 
-//        public function __construct(ContactRepository $repo)
-//        {
-//            $this->repo = $repo;
-//        }
+        public function __construct(Contact $repo)
+        {
+            $this->repo = $repo;
+        }
     
 
 	/**
@@ -44,7 +44,8 @@ class ContactController extends \BaseController {
             
             $result = $this->repo->saveContact($values);
             
-            return Redirect::route('contact.index');
+            return $result;
+            //return Redirect::route('contact.index');
 	}
 
 
