@@ -18,7 +18,11 @@ class ContactController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+            // Retrieve all contacts from the database
+            $contactList = $this->repo->getAllContacts();
+            
+            // Return that to the list view
+            return View::make('contact.index')->with('contacts', $contactList);
 	}
 
 
@@ -57,7 +61,7 @@ class ContactController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+
 	}
 
 
@@ -69,7 +73,7 @@ class ContactController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+
 	}
 
 
@@ -95,6 +99,4 @@ class ContactController extends \BaseController {
 	{
 		//
 	}
-
-
 }
