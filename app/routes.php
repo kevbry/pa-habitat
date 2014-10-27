@@ -16,4 +16,4 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::get('contact/{id}', 'ContactController@show');
+Route::resource('contact', 'ContactController');

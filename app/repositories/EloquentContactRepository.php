@@ -1,8 +1,6 @@
 <?php
 namespace App\Repositories;
 
-use Contact;
-
 /**
  * Description of EloquentContactRepository
  *
@@ -12,17 +10,18 @@ class EloquentContactRepository implements ContactRepository
 {
     public function getContact($id)
     {
-        return Contact::find($id);
+        return \Contact::find($id);
     }
     
     
     public function getAllContacts()
     {
-        return Contact::all();        
+        return \Contact::all();        
     }
     
     public function saveContact($data)
     {
-        return Contact::create($data);
+        //return \Contact::create($data);
+        return 'hello';
     }
 }

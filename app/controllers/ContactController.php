@@ -1,6 +1,15 @@
 <?php
+use App\Repositories\ContactRepository as Contact;
 
 class ContactController extends \BaseController {
+    
+        public $repo;
+
+        public function __construct(Contact $repo)
+        {
+            $this->repo = $repo;
+        }
+    
 
 	/**
 	 * Display a listing of the resource.
@@ -20,7 +29,7 @@ class ContactController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+            return View::make('contact.create');
 	}
 
 
@@ -31,7 +40,12 @@ class ContactController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+            $values = Input::all();
+            
+            $result = $this->repo->saveContact($values);
+            
+            return $result;
+            //return Redirect::route('contact.index');
 	}
 
 
