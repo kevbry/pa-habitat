@@ -57,7 +57,7 @@ class ContactController extends \BaseController {
                                     'country', 
                                     'comments');
             $contact = new Contact($values);
-            
+            $this->repo->saveContact($contact,$values);
             $id = $contact->id;
             return Redirect::action('ContactController@show',array($id));
 	}
