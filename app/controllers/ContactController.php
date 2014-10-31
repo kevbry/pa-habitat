@@ -1,6 +1,15 @@
 <?php
+use App\Repositories\ContactRepository;
 
 class ContactController extends \BaseController {
+    
+        public $repo;
+
+        public function __construct(ContactRepository $repo)
+        {
+            $this->repo = $repo;
+        }
+    
 
 	/**
 	 * Display a listing of the resource.
@@ -9,7 +18,11 @@ class ContactController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+            // Retrieve all contacts from the database
+            $contactList = $this->repo->getAllContacts();
+            
+            // Return that to the list view
+            return View::make('contact.index')->with('contacts', $contactList);
 	}
 
 
@@ -20,7 +33,7 @@ class ContactController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+            return View::make('contact.create');
 	}
 
 
@@ -31,7 +44,22 @@ class ContactController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+            $values = Input::only('first_name', 
+                                    'last_name', 
+                                    'email_address',
+                                    'home_phone', 
+                                    'cell_phone', 
+                                    'work_phone', 
+                                    'street_address', 
+                                    'city', 
+                                    'province', 
+                                    'postal_code', 
+                                    'country', 
+                                    'comments');
+            $contact = new Contact($values);
+            $this->repo->saveContact($contact,$values);
+            $id = $contact->id;
+            return Redirect::action('ContactController@show',array($id));
 	}
 
 
@@ -43,7 +71,9 @@ class ContactController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+            $contact = $this->repo->getContact($id);
+            return View::make('contact.show')->withContact($contact);
+            
 	}
 
 
@@ -55,7 +85,7 @@ class ContactController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+
 	}
 
 
