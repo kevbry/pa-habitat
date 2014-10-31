@@ -17,7 +17,7 @@ Index of all contacts
         <td>{{$contact->first_name . ' ' . $contact->last_name}}</td>
         <td>{{$contact->home_phone}}</td>
         <td>{{$contact->email_address}}</td>
-        <td><a href="contact/show/{{$contact->id}}">View Details</a></td>
+        <td><a href="contact/{{$contact->id}}">View Details</a></td>
     </tr>
     @endforeach
 </table>
