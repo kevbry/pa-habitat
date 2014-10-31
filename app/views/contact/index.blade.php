@@ -5,6 +5,7 @@ Index of all contacts
 @stop
 
 @section('content')
+
 <h1>Contacts</h1>
 <a href="contact/create">Add Contact</a>
 
