@@ -58,6 +58,8 @@ class ContactController extends \BaseController {
                                     'comments');
             $contact = new Contact($values);
             
+            $id = $contact->id;
+            return Redirect::action('ContactController@show',array($id));
 	}
 
 
@@ -69,7 +71,7 @@ class ContactController extends \BaseController {
 	 */
 	public function show($id)
 	{
-            $contact = Contact::find($id);
+            $contact = $this->repo->getContact($id);
             return View::make('contact.show')->withContact($contact);
             
 	}
