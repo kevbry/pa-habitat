@@ -4,8 +4,10 @@
 Contact Details
 @stop
 
-@section('content') 
-<h1>{{ $contact->firstName . " " . $contact->lastName }}</h1>
+@section('content')
+<ul><a href="">Add Contact</a><a href="">View a Contact</a><a href="">View all contact</a></ul>
+<h1>Contact details</h1>
+<h3>{{ $contact->firstName . " " . $contact->lastName }}</h3>
 
  {{ Form::open() }}
  <div>
