@@ -100,7 +100,6 @@ class ContactController extends \BaseController {
 		//
 	}
 
-
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -111,6 +110,4 @@ class ContactController extends \BaseController {
 	{
 		//
 	}
-
-
 }
