@@ -15,5 +15,5 @@ class Donor extends \Eloquent
 	 * @fillable array with column names we wish to be able to assign to.
 	 */
 
-        protected $fillable = array('amount_donated');
+        protected $fillable = array('business_name');
 }

@@ -10,7 +10,6 @@ class DonorController extends \BaseController {
             $this->repo = $repo;
         }
     
-
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -18,13 +17,8 @@ class DonorController extends \BaseController {
 	 */
 	public function index()
 	{
-            // Retrieve all contacts from the database
-            $donorList = $this->repo->getAllDonors();
             
-            // Return that to the list view
-            return View::make('donor.index')->with('donors', $donorList);
 	}
-
 
 	/**
 	 * Show the form for creating a new resource.
@@ -36,7 +30,6 @@ class DonorController extends \BaseController {
             return View::make('donor.create');
 	}
 
-
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -44,13 +37,12 @@ class DonorController extends \BaseController {
 	 */
 	public function store()
 	{
-            $values = Input::only('amount_donated');
+            $values = Input::only('business_name');
             $donor = new Donor($values);
             $this->repo->saveDonor($donor,$values);
             $id = $donor->id;
             return Redirect::action('DonorController@show',array($id));
 	}
-
 
 	/**
 	 * Display the specified resource.
@@ -60,11 +52,8 @@ class DonorController extends \BaseController {
 	 */
 	public function show($id)
 	{
-            $donor = $this->repo->getDonor($id);
-            return View::make('donor.show')->withDonor($donor);
             
 	}
-
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -76,7 +65,6 @@ class DonorController extends \BaseController {
 	{
 
 	}
-
 
 	/**
 	 * Update the specified resource in storage.
