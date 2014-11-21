@@ -10,5 +10,5 @@ interface DonorRepository
 {
     public function getDonor($id);
     public function getAllDonors();
-    public function saveDonor($donor, $values);
+    public function saveDonor($donor);
 }

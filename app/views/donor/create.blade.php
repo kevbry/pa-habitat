@@ -1,4 +1,4 @@
-@extends('master')
+@extends('donor.donormaster')
 
 @section('title')
 Create a Donor
