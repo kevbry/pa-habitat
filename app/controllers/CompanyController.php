@@ -1,7 +1,9 @@
 <?php
-
 use App\Repositories\CompanyRepository;
 
+/**
+ * 
+ */
 class CompanyController extends \BaseController
 {
     public $repo;
@@ -17,7 +19,7 @@ class CompanyController extends \BaseController
     
     
     /**
-     * Show the form for creating a new resource.
+     * Display a listening of the resource.
      *
      * @return Response
      */
@@ -37,7 +39,7 @@ class CompanyController extends \BaseController
         $companyList = $this->repo->getAllCompanies();
 
         // Return that to the list view
-        return View::make('company.index')->with('company', $companyList);
+        return View::make('company.index')->with('companies', $companyList);
     }
 
 
@@ -48,10 +50,12 @@ class CompanyController extends \BaseController
 	 */
 	public function store()
 	{
-            $values = Input::only('first_name', 
+            //we have to retrieve the contact ID for a company
+            $contactId = $contact->id;
+            $values = Input::only('Company_name', 
+                                    'first_name', 
                                     'last_name', 
                                     'email_address',
-                                    'home_phone', 
                                     'cell_phone', 
                                     'work_phone', 
                                     'street_address', 
@@ -60,10 +64,10 @@ class CompanyController extends \BaseController
                                     'postal_code', 
                                     'country', 
                                     'comments');
-            $contact = new Contact($values);
-            $this->repo->saveContact($contact,$values);
-            $id = $contact->id;
-            return Redirect::action('ContactController@show',array($id));
+            $company = new Company($values);
+            $this->repo->saveCompany($company,$values);
+            $id = $company->id;
+            return Redirect::action('CompanyController@show',array($id));
 	}
 
 
@@ -75,9 +79,8 @@ class CompanyController extends \BaseController
 	 */
 	public function show($id)
 	{
-            $contact = $this->repo->getContact($id);
-            return View::make('contact.show')->withContact($contact);
-            
+            $company = $this->repo->getCompany($id);
+            return View::make('company.show')->withCompany($company);
 	}
 
 

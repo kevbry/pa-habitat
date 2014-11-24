@@ -13,6 +13,7 @@
                     <li>{{ HTML::linkAction('ContactController@index','All Contacts') }}</li>
                     <li>{{ HTML::linkAction('ContactController@create','Add a Contact') }}</li>
                     <li>{{ HTML::linkAction('CompanyController@create','Add a Company') }}</li>
+                    <li>{{ HTML::linkAction('CompanyController@index','All Company') }}</li>
                 </ul>
             </nav>
         </header>
