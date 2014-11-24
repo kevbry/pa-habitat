@@ -8,7 +8,7 @@ namespace App\Repositories;
  * @author cst217, cst220
  */
 
-interface CompanyRepository
+interface CompanyRepository 
 {
     public function getCompany($id);
     public function getAllCompanies();

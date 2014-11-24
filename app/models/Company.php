@@ -12,5 +12,16 @@ class Company extends \Eloquent implements Contact
     
     
     
-    protected $
+    protected $fillable = array('first_name', 
+                                'last_name', 
+                                'email_address',
+                                'home_phone', 
+                                'cell_phone', 
+                                'work_phone', 
+                                'street_address', 
+                                'city', 
+                                'province', 
+                                'postal_code', 
+                                'country', 
+                                'comments');
 }

@@ -11,7 +11,7 @@ namespace App\Repositories;
  *
  * @author cst217
  */
-class EloquentCompanyRepository implements CompanyRepository
+class EloquentCompanyRepository  implements CompanyRepository
 {
     //put your code here
     public function getCompany($id)
