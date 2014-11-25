@@ -6,12 +6,20 @@ Create Company
 
 @section('content')
 <h1>Create Company</h1>
-    {{Form::open(['route' => 'company.store'])}}
+    <fieldset> 
+         <legend>Company Information</legend>  
+    <div> 
+        {{Form::open(['route' => 'company.store'])}} 
+    </div>
     
     <div>
         {{Form::label('company_name', 'Company Name: ')}}
         {{Form::input('text', 'company_name')}}
     </div>
+     </fieldset> 
+    <div>
+     <fieldset> 
+         <legend>Contact Information</legend>
     <div>
         {{ Form::label('first_name', 'First Name: ') }}
         {{ Form::input('text', 'first_name') }}
@@ -56,8 +64,10 @@ Create Company
         {{ Form::label('comments', 'Comments: ') }}
         {{ Form::input('textarea', 'comments') }}
     </div>
+           </fieldset>
     <div>
         {{Form::submit('Create new Company')}}
     </div>
+          </fieldset>
     {{Form::close()}}
 @stop
