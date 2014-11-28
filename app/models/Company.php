@@ -7,21 +7,17 @@ use Contact;
  */
 class Company extends \Eloquent implements Contact
 {
-    //put your code here
-    protected $table = 'company';
+    /**
+    * The database table used by the model.
+    *
+    * @var string
+    */
+    protected $table = 'company';  
     
-    
-    
-    protected $fillable = array('first_name', 
-                                'last_name', 
-                                'email_address',
-                                'home_phone', 
-                                'cell_phone', 
-                                'work_phone', 
-                                'street_address', 
-                                'city', 
-                                'province', 
-                                'postal_code', 
-                                'country', 
-                                'comments');
+    /**
+    * The attributes that are mass-assignment
+    *
+    * @fillable array with column names we wish to be able to assign to.
+    */
+    protected $fillable = array('company_name', 'contact_id');
 }
