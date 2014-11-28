@@ -56,6 +56,24 @@ Create a Contact
         {{ Form::label('comments', 'Comments: ') }}
         {{ Form::input('textarea', 'comments') }}
     </div>
+
+    <div>
+        {{Form::label('is_volunteer', 'Is a Volunteer')}}
+        {{Form::checkbox('is_volunteer', true)}}
+    </div>
+    
+    <!-- TODO: Make this stuff disappear with JavaScript -->
+    <div class="volunteerFields">
+        <div>
+            {{Form::label('active_status', 'Current Volunteer Status: ')}}
+            {{Form::input('checkbox', 'active_status')}}
+        </div>
+        <div>
+            {{Form::label('safety_status', 'Last Attended Safety Meeting: ')}}
+            {{Form::input('date', 'safety_status')}}
+        </div>
+    </div>
+    
     <div>
         {{Form::submit('Create New Contact')}}
     </div>

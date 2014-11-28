@@ -44,7 +44,11 @@ class ContactController extends \BaseController {
 	 */
 	public function store()
 	{
-            $values = Input::only('first_name', 
+            // Check if the contact being created is a volunteer
+            $volunteerStatus = Input::has('is_volunteer');
+            
+            // Store values from the contact form
+            $contactValues = Input::only('first_name', 
                                     'last_name', 
                                     'email_address',
                                     'home_phone', 
@@ -56,9 +60,31 @@ class ContactController extends \BaseController {
                                     'postal_code', 
                                     'country', 
                                     'comments');
-            $contact = new Contact($values);
+            
+            // Create a new contact object to store in the database
+            $contact = new Contact($contactValues);
+            
+            // Store contact
             $this->repo->saveContact($contact);
+            
+            // Grab the id of the new contact
             $id = $contact->id;
+            
+            // Add the contact as a volunteer if specified -- Should probably be moved somewhere else
+            if ($volunteerStatus)
+            {
+                // Store values from the volunteer portion of contact form
+                $volunteerValues = Input::only('active_status', 'safety_status');
+                
+                // Assign the contact
+                $volunteerValues['contact_id'] = $id;
+                
+                $volunteer = new Volunteer($volunteerValues);
+                
+                $this->repo->saveVolunteer($volunteer);
+            }
+            
+            // Redirect to view the newly created contact
             return Redirect::action('ContactController@show',array($id));
 	}
 
