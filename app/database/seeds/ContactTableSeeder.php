@@ -22,7 +22,7 @@ class ContactTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('contact')->delete();
+        DB::table('Contact')->delete();
         
         Contact::create(array(  'first_name' => 'Greg', 
                                 'last_name' => 'Smith', 
