@@ -52,8 +52,8 @@ class DonorController extends \BaseController {
 	 */
 	public function show($id)
 	{
-            $donor = $this->repo->getDonor($id);
-            return View::make('donor.show')->withDonor($donor);
+            //$donor = $this->repo->getDonor($id);
+            //return View::make('donor.show')->withDonor($donor);
 	}
 
 	/**
