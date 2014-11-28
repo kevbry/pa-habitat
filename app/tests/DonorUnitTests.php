@@ -3,7 +3,7 @@
 /**
  * Unit tests for the Contact Controller class
  */
-class DonorUnitTests extends TestCase {
+class ContactUnitTests extends TestCase {
     
     /**
      * Set up function for the tests.  Creates dummy objects to use for Testing.
@@ -28,23 +28,50 @@ class DonorUnitTests extends TestCase {
             'comments' => 'Is a really ordinary person.'
          ];
         
-        // Create dummy Donor information
+        // Create dummy Volunteer information
+        $volunteerInput = [
+            'active_status' => 'active',
+            'lastAttendedSafetyMeetingDate' => 'null'
+        ];
         $donorInput = [
-            'business_name' => 'Test Business',
+            'business_name' => 'Test Business'  
         ];
         
         // Instantiate objects with dummy data
         $this->testContact = new Contact($contactInput);
+        $this->testVolunteer = new Volunteer($volunteerInput);
         $this->testDonor = new Donor($donorInput);
         
     }
     
     /**
-     * Purpose: Test the store method for sucessfully storing a donor
+     * Purpose: Test the store method for sucessfully storing a volunteer
      */
-    public function testStoreDonorSuccess()
+    public function testStoreVolunteerSuccess()
     {
         // Assemble
+        $isVolunteer = true;
+
+        $mockedRepo = Mockery::mock('app\repositories\VolunteerRepository');
+        $this->app->instance('app/repositories/VolunteerRepository', $mockedRepo);
+        
+        $mockedRepo->shouldReceive('saveContact')->once()->with($this->testContact);
+        $mockedRepo->shouldReceive('saveVolunteer')->once()->with($this->testVolunteer);
+        
+        $testController = new ContactController($mockedRepo);
+
+        // Act    
+        $this->call("POST", "contact/store");
+        
+        // Assert
+        $this->assertTrue($isVolunteer);
+        $this->assertTrue(1, $this->testContact->id);
+        $this->assertTrue($this->testContact->id, $this->testVolunteer->contact_id);
+
+    }
+    public function testStoreDonorSuccess()
+    {
+                // Assemble
         $isDonor = true;
 
         $mockedRepo = Mockery::mock('app\repositories\DonorRepository');
@@ -62,9 +89,7 @@ class DonorUnitTests extends TestCase {
         $this->assertTrue($isDonor);
         $this->assertTrue(1, $this->testContact->id);
         $this->assertTrue($this->testContact->id, $this->testDonor->contact_id);
-
     }
-    
     /**
      * Purpose: Test that the store method redirects to the show page
      */
@@ -81,17 +106,34 @@ class DonorUnitTests extends TestCase {
         $this->call("POST", "contact/store");
         
         // Assert
-        $this->assertRedirectedToRoute('donor.show');
+        $this->assertRedirectedToRoute('contact.show');
     }
     
     
     /**
-     * Purpose: Test coverage for if the system fails to add a contact before the donor
+     * Purpose: Test coverage for if the system fails to add a contact before the volunteer
      * @expectedException ApplicationException
      */
-    public function testStoreDonorFails()
+    public function testStoreVolunteerFails()
     {
         // Assemble
+        $isVolunteer = true;
+
+        
+        $mockedRepo = Mockery::mock('app\repositories\VolunteerRepository');
+        $this->app->instance('app/repositories/VolunteerRepository', $mockedRepo);
+        
+        $testController = new ContactController($mockedRepo);
+
+        // Act    
+        $mockedRepo->shouldReceive('saveContact')->once()->with(null);
+        $mockedRepo->shouldReceive('saveVolunteer')->once()->with($this->testVolunteer);
+        
+        // Assert
+    }
+    public function testStoreDonorFails()
+    {
+                // Assemble
         $isDonor = true;
 
         
@@ -108,8 +150,16 @@ class DonorUnitTests extends TestCase {
     }
     
     /**
-     * Test creating a view, ensuring that the donor fields exist
+     * Test creating a view, ensuring that the volunteer fields exist
      */
+    public function testCreateVolunteerView()
+    {
+        // Call the method
+        $response = $this->call('GET', 'contact/create');
+        
+        // Make assertions
+        $this->assertContains('Volunteer', $response->getContent());
+    }
     public function testCreateDonorView()
     {
         // Call the method
@@ -118,7 +168,6 @@ class DonorUnitTests extends TestCase {
         // Make assertions
         $this->assertContains('Donor', $response->getContent());
     }
-    
     
     /** 
      * Function for cleaning up after tests ar complete
