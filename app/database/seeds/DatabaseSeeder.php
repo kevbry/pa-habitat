@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
                 // Runs the seeder for the Contact table.
 		$this->call('ContactTableSeeder');
                 $this->command->info('contact table seeded!');
+                $this->call('CompanyTableSeeder');
+                $this->command->info('company table seeded!');
 	}
 
 }

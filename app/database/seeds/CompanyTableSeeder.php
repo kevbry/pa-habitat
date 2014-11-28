@@ -11,7 +11,7 @@
  *
  * @author cst217
  */
-class CompanyTableSeeder extends Seeder implements ContactTableSeeder
+class CompanyTableSeeder extends Seeder
 {
     //put your code here
     public function run()
