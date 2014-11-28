@@ -1,16 +1,12 @@
 <?php
 
-class DonorTest extends TestCase {
+class DonorIntegrationTest extends TestCase {
     
-    /*
+    
     public function testIndex() 
     {
-        $response = $this->call('GET', 'donor');
-        $this->assertContains('Donors',$response->getContent());
-        $crawler = $this->client->request('GET', 'donor');
-        $this->assertTrue($this->client->getResponse()->isOk());
-        $this->assertCount(1, $crawler->filter('td:contains("Greg Smith")'));
-    }*/
+
+    }
     
     public function testCreate() 
     {
@@ -20,7 +16,7 @@ class DonorTest extends TestCase {
         $this->assertTrue($this->client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('label:contains("Business Name:")'));
     }
-    /*
+    
     public function testStore() 
     {
         // Reset and Refresh database (MAYBE TRY TO DO THIS BETTER NEXT TIME)
@@ -42,12 +38,10 @@ class DonorTest extends TestCase {
         $this->assertRedirectedTo('/donor/1');
 
         
-    }*/
-    /*
+    }
+    
     public function testShow()
     {
-        $response = $this->action('GET', 'DonorController@show', array('user' => 1));
-        $this->assertContains('Test',$response->getContent());
         
-    }*/
+    }
 }

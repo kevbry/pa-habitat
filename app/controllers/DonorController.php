@@ -1,7 +1,7 @@
 <?php
 use App\Repositories\DonorRepository;
 
-class DonorController extends \BaseController {
+class DonorController extends \ContactController {
     
         public $repo;
 
