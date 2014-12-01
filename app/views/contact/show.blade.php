@@ -49,6 +49,32 @@ Contact Details
      {{ Form::label('comments','Comments: ') }}
      {{ Form::text('comments',$contact->comments) }}
  </div>
+ 
+ <?php
+    $volunteerStatus = 0;
+    $volunteerSafetyDate = "";
+    
+    if( $volunteer )
+    {
+        $volunteerStatus = $volunteer->active_status;
+        $volunteerSafetyDate = $volunteer->last_attended_safety_meeting_date;
+    }
+ ?>
+ 
+ 
+ <div>
+     {{ Form::label('is_volunteer', 'Is a Volunteer: ') }}
+     {{ Form::text('is_volunteer', $volunteer ? 'Yes' : 'No') }}
+ </div>
+ <div>
+     {{ Form::label('volunteer_status', 'Volunteer Status: ') }}
+     {{ Form::text('volunteer_status', $volunteerStatus) }}
+ </div>
+ 
+ <div>
+     {{ Form::label('safety_date', 'Last Attended Safety Meeting Date: ') }}
+     {{ Form::text('safety_date', $volunteerSafetyDate) }}
+ </div>
  {{ Form::close() }}
 
  @stop            
