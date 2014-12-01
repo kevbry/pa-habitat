@@ -48,13 +48,16 @@ class ContactUnitTests extends TestCase {
         // Assemble
         $isVolunteer = true;
 
-        $mockedRepo = Mockery::mock('app\repositories\VolunteerRepository');
-        $this->app->instance('app/repositories/VolunteerRepository', $mockedRepo);
+        $mockedContactRepo = Mockery::mock('app\repositories\ContactRepository');
+        $this->app->instance('app/repositories/ContactRepository', $mockedContactRepo);
         
-        $mockedRepo->shouldReceive('saveContact')->once()->with($this->testContact);
-        $mockedRepo->shouldReceive('saveVolunteer')->once()->with($this->testVolunteer);
+        $mockedVolunteerRepo = Mockery::mock('app\repositories\VolunteerRepository');
+        $this->app->instance('app/repositories/VolunteerRepository', $mockedVolunteerRepo);
         
-        $testController = new ContactController($mockedRepo);
+        $mockedContactRepo->shouldReceive('saveContact')->once()->with($this->testContact);
+        $mockedVolunteerRepo->shouldReceive('saveVolunteer')->once()->with($this->testVolunteer);
+        
+        $testController = new ContactController($mockedRepo, $mockedVolunteerRepo);
 
         // Act    
         $this->call("POST", "contact/store");

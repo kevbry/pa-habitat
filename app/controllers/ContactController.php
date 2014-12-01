@@ -3,11 +3,13 @@ use App\Repositories\ContactRepository;
 
 class ContactController extends \BaseController {
     
-        public $repo;
+        public $contactRepo;
+        public $volunteerRepo;
 
-        public function __construct(ContactRepository $repo)
+        public function __construct(ContactRepository $contactRepo, VolunteerRepository $volunteerRepo)
         {
-            $this->repo = $repo;
+            $this->contactRepo = $contactRepo;
+            $this->volunteerRepo = $volunteerRepo;
         }
     
 
