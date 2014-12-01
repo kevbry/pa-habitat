@@ -1,5 +1,6 @@
 <?php
 use App\Repositories\ContactRepository;
+use App\Repositories\VolunteerRepository;
 
 class ContactController extends \BaseController {
     
@@ -21,7 +22,7 @@ class ContactController extends \BaseController {
 	public function index()
 	{
             // Retrieve all contacts from the database
-            $contactList = $this->repo->getAllContacts();
+            $contactList = $this->contactRepo->getAllContacts();
             
             // Return that to the list view
             return View::make('contact.index')->with('contacts', $contactList);
@@ -67,7 +68,7 @@ class ContactController extends \BaseController {
             $contact = new Contact($contactValues);
             
             // Store contact
-            $this->repo->saveContact($contact);
+            $this->contactRepo->saveContact($contact);
             
             // Grab the id of the new contact
             $id = $contact->id;
@@ -76,14 +77,16 @@ class ContactController extends \BaseController {
             if ($volunteerStatus)
             {
                 // Store values from the volunteer portion of contact form
-                $volunteerValues = Input::only('active_status', 'safety_status');
+                $volunteerValues = Input::only('active_status', 'last_attended_safety_meeting_date');
+                
+                $volunteerValues['active_status'] = Input::has('active_status') ? 1 : 0;
                 
                 // Assign the contact
-                $volunteerValues['contact_id'] = $id;
+                $volunteerValues['id'] = $id;
                 
                 $volunteer = new Volunteer($volunteerValues);
                 
-                $this->repo->saveVolunteer($volunteer);
+                $this->volunteerRepo->saveVolunteer($volunteer);
             }
             
             // Redirect to view the newly created contact
@@ -99,7 +102,7 @@ class ContactController extends \BaseController {
 	 */
 	public function show($id)
 	{
-            $contact = $this->repo->getContact($id);
+            $contact = $this->contactRepo->getContact($id);
             return View::make('contact.show')->withContact($contact);
             
 	}
