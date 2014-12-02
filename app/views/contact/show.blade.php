@@ -60,20 +60,70 @@ Contact Details
         $volunteerSafetyDate = $volunteer->last_attended_safety_meeting_date;
     }
  ?>
+     <div>
+        {{ Form::label('is_volunteer', 'Is a Volunteer: ') }}
+        {{ Form::text('is_volunteer', $volunteer ? 'Yes' : 'No') }}
+    </div>
  
- 
- <div>
-     {{ Form::label('is_volunteer', 'Is a Volunteer: ') }}
-     {{ Form::text('is_volunteer', $volunteer ? 'Yes' : 'No') }}
- </div>
- <div>
-     {{ Form::label('volunteer_status', 'Volunteer Status: ') }}
-     {{ Form::text('volunteer_status', $volunteerStatus) }}
- </div>
- 
- <div>
-     {{ Form::label('safety_date', 'Last Attended Safety Meeting Date: ') }}
-     {{ Form::text('safety_date', $volunteerSafetyDate) }}
+ <div class='volunteerFields'>
+
+    <div>
+        {{ Form::label('volunteer_status', 'Volunteer Status: ') }}
+        {{ Form::text('volunteer_status', $volunteerStatus) }}
+    </div>
+
+    <div>
+        {{ Form::label('safety_date', 'Last Attended Safety Meeting Date: ') }}
+        {{ Form::text('safety_date', $volunteerSafetyDate) }}
+    </div>
+     
+     
+    <div>
+        {{ Form::label('hours', 'Volunteered Hours: ') }}
+        
+        <!-- Hours Table to go here -->
+        
+    </div>
+     
+    <div>
+        {{ Form::label('availability', 'Availability: ') }}
+        {{ Form::button( 'Edit Availiability' ) }}
+        
+        <!-- Availability Table to go here -->
+        
+    </div>
+     
+    <div>
+        {{ Form::label('certification', 'Certification(s): ') }}
+        {{ Form::button('Edit Certifications') }}
+        
+        <!-- Certification Table to go here -->
+        
+    </div>
+     
+    <div>
+        {{ Form::label('trades', 'Trade(s): ') }}
+        {{ Form::button('Edit Trades') }}
+        
+        <!-- Trades Table to go here -->
+        
+    </div>
+     
+    <div>
+        {{ Form::label('skills', 'Skill(s) and Experience(s): ') }}
+        {{ Form::button('Edit Skills') }}
+                
+        <!-- Skills Table to go here -->
+        
+    </div>
+     
+    <div>
+        {{ Form::label('interests', 'Interest(s): ') }}
+        {{ Form::button('Edit Interests') }}
+        
+        <!-- Skills Table to go here -->
+    </div>
+          
  </div>
  {{ Form::close() }}
 

@@ -14,6 +14,7 @@ class ContactUnitTests extends TestCase {
 
         // Create dummy Contact information
         $contactInput = [
+            'id' => '555',
             'first_name' => 'Test', 
             'last_name' => 'Testerson', 
             'email_address' => 'testT@example.com',
@@ -57,14 +58,14 @@ class ContactUnitTests extends TestCase {
         $mockedContactRepo->shouldReceive('saveContact')->once()->with($this->testContact);
         $mockedVolunteerRepo->shouldReceive('saveVolunteer')->once()->with($this->testVolunteer);
         
-        $testController = new ContactController($mockedRepo, $mockedVolunteerRepo);
+        $testController = new ContactController($mockedContactRepo, $mockedVolunteerRepo);
 
         // Act    
-        $this->call("POST", "contact/store");
+        $this->call("GET", "contact/store");
         
         // Assert
         $this->assertTrue($isVolunteer);
-        $this->assertTrue(1, $this->testContact->id);
+        $this->assertEquals(555, $this->testContact->id);
         $this->assertTrue($this->testContact->id, $this->testVolunteer->contact_id);
 
     }
@@ -77,12 +78,15 @@ class ContactUnitTests extends TestCase {
         $mockedRepo = Mockery::mock('app\repositories\ContactRepository');
         $this->app->instance('app/repositories/ContactRepository', $mockedRepo);
         
+        $mockedVolunteerRepo = Mockery::mock('app\repositories\VolunteerRepository');
+        $this->app->instance('app/repositories/VolunteerRepository', $mockedVolunteerRepo);
+        
         $mockedRepo->shouldReceive('saveContact')->once()->with($this->testContact);
         
-        $testController = new ContactController($mockedRepo);
+        $testController = new ContactController($mockedRepo, $mockedVolunteerRepo);
 
         // Act    
-        $this->call("POST", "contact/store");
+        //$this->call("GET", "contact/store");
         
         // Assert
         $this->assertRedirectedToRoute('contact.show');
