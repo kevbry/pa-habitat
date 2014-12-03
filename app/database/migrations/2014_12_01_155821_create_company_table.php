@@ -20,7 +20,7 @@ class CreateCompanyTable extends Migration {
                     $table->increments('id');
                     $table->string('company_name');
                     $table->integer('contact_id')->unsigned();;
-                    $table->foreign('contact_id')->references('id')->on('contact');
+                    $table->foreign('contact_id')->references('id')->on('Contact');
                     $table->timestamps();
 		});
 	}
@@ -32,7 +32,8 @@ class CreateCompanyTable extends Migration {
 	 */
 	public function down()
 	{
-                 Schema::drop('Company');
+            Schema::dropIfExists('contact');
+            Schema::dropIfExists('Company');
 	}
 
 }
