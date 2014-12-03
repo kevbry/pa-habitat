@@ -9,9 +9,9 @@ Index of all contacts
 <h1>Contacts</h1>
 <a href="contact/create">Add Contact</a>
 
-<table>
+<table class="table table-hover">
     <thead>
-        <tr><th>Name</th><th>Phone</th><th>Email</th></tr>
+        <tr><th>Name</th><th>Phone</th><th>Email</th><th></th></tr>
     </thead>
     @foreach($contacts as $contact)
     <tr>

@@ -4,21 +4,31 @@
         <meta charset="UTF-8">
         <title>@yield('title') | Habitat For Humanity</title>
         {{ HTML::style('assets/css/style.css'); }}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <header>
-            <nav>
-                <ul>
-                    <li>{{ HTML::linkAction('ContactController@index','All Contacts') }}</li>
-                    <li>{{ HTML::linkAction('ContactController@create','Add a Contact') }}</li>
-                </ul>
-            </nav>
-        </header>
-    <main>
+    <header class="container">
+        {{ HTML::image('assets/img/logo.png') }}
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Contacts <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>{{ HTML::linkAction('ContactController@index','All Contacts') }}</li>
+                                <li>{{ HTML::linkAction('ContactController@create','Add a Contact') }}</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="container row center-block">
 @yield('content')
     </main>
-{{ HTML::script('assets/javascript/jquery-1.11.1.min.js'); }}
-{{ HTML::script('assets/javascript/bootstrap.min.js'); }}
-{{ HTML::script('assets/javascript/npm.js'); }}
+{{ HTML::script('assets/js/jquery-1.11.1.min.js'); }}
+{{ HTML::script('assets/js/bootstrap.min.js'); }}
     </body>
 </html>

@@ -6,48 +6,68 @@ Contact Details
 
 @section('content')
 <h1>Contact details</h1>
-<h3>{{ $contact->first_name . " " . $contact->last_name }}</h3>
-<section class="generalInfo">
- {{ Form::open() }}
- <div>
-     {{ Form::label('email_address','Email: ') }}
-     {{ Form::text('email_address',$contact->email_address) }}
+<h2>{{ $contact->first_name . " " . $contact->last_name }}</h2>
+<section class="generalInfo col-md-7">
+ {{ Form::open(array('class'=>'form-horizontal')) }}
+ <div class="form-group">
+     {{ Form::label('email_address','Email: ',array('class'=>'col-sm-3')) }}
+     <div class="col-sm-7">
+     {{ Form::text('email_address',$contact->email_address,array('class'=>'form-control')) }}
+     </div>
  </div>
- <div>
-     {{ Form::label('home_phone','Home Phone: ') }}
-     {{ Form::text('home_phone',$contact->home_phone) }}
+ <div class="form-group">
+     {{ Form::label('home_phone','Home Phone: ',array('class'=>'col-sm-3')) }}
+     <div class="col-sm-7">
+     {{ Form::text('home_phone',$contact->home_phone,array('class'=>'form-control')) }}
+     </div>
  </div>
- <div>
-     {{ Form::label('cell_phone','Cell Phone: ') }}
-     {{ Form::text('cell_phone',$contact->cell_phone) }}
+ <div class="form-group">
+     {{ Form::label('cell_phone','Cell Phone: ',array('class'=>'col-sm-3')) }}
+     <div class="col-sm-7">
+     {{ Form::text('cell_phone',$contact->cell_phone,array('class'=>'form-control')) }}
+     </div>
  </div>
- <div>
-     {{ Form::label('work_phone','Work Phone: ') }}
-     {{ Form::text('work_phone',$contact->work_phone) }}
+ <div class="form-group">
+     {{ Form::label('work_phone','Work Phone: ',array('class'=>'col-sm-3')) }}
+     <div class="col-sm-7">
+     {{ Form::text('work_phone',$contact->work_phone,array('class'=>'form-control')) }}
+     </div>
  </div>
- <div>
-     {{ Form::label('street_address','Street Address: ') }}
-     {{ Form::text('street_address',$contact->street_address) }}
+ <div class="form-group">
+     {{ Form::label('street_address','Street Address: ',array('class'=>'col-sm-3')) }}
+     <div class="col-sm-7">
+     {{ Form::text('street_address',$contact->street_address,array('class'=>'form-control')) }}
+     </div>
  </div>
- <div>
-     {{ Form::label('city','City: ') }}
-     {{ Form::text('city',$contact->city) }}
+ <div class="form-group">
+     {{ Form::label('city','City: ',array('class'=>'col-sm-3')) }}
+     <div class="col-sm-7">
+     {{ Form::text('city',$contact->city,array('class'=>'form-control')) }}
+     </div>
  </div>
- <div>
-     {{ Form::label('province','Province: ') }}
-     {{ Form::text('province',$contact->province) }}
+ <div class="form-group">
+     {{ Form::label('province','Province: ',array('class'=>'col-sm-3')) }}
+     <div class="col-sm-7">
+     {{ Form::text('province',$contact->province,array('class'=>'form-control')) }}
+     </div>
  </div>
- <div>
-     {{ Form::label('postal_code','Postal Code: ') }}
-     {{ Form::text('postal_code',$contact->postal_code) }}
+ <div class="form-group">
+     {{ Form::label('postal_code','Postal Code: ',array('class'=>'col-sm-3')) }}
+     <div class="col-sm-7">
+     {{ Form::text('postal_code',$contact->postal_code,array('class'=>'form-control')) }}
+     </div>
  </div>
- <div>
-     {{ Form::label('country','Country: ') }}
-     {{ Form::text('country',$contact->country) }}
+ <div class="form-group">
+     {{ Form::label('country','Country: ',array('class'=>'col-sm-3')) }}
+     <div class="col-sm-7">
+     {{ Form::text('country',$contact->country,array('class'=>'form-control')) }}
+     </div>
  </div>
- <div>
-     {{ Form::label('comments','Comments: ') }}
-     {{ Form::text('comments',$contact->comments) }}
+ <div class="form-group">
+     {{ Form::label('comments','Comments: ',array('class'=>'col-sm-3')) }}
+     <div class="col-sm-7">
+     {{ Form::textarea('comments',$contact->comments,array('class'=>'form-control')) }}
+     </div>
  </div>
 </section>
  <?php
@@ -68,27 +88,27 @@ Contact Details
  ?>
 
  
- <section class='volunteerFields'>
-     <div>
-        {{ Form::label('is_volunteer', 'Is a Volunteer: ') }}
-        {{ Form::text('is_volunteer', $volunteer ? 'Yes' : 'No') }}
+ <section class='volunteerFields col-md-5 row'>
+     <div class="form-group">
+        {{ Form::label('is_volunteer', 'Is a Volunteer:') }}
+        {{ Form::text('is_volunteer', $volunteer ? 'Yes' : 'No',array('class'=>'form-control')) }}
     </div>
-    <div>
-        {{ Form::label('volunteer_status', 'Volunteer Status: ') }}
-        {{ Form::text('volunteer_status', $volunteerStatus) }}
+    <div class="form-group">
+        {{ Form::label('volunteer_status', 'Volunteer Status:') }}
+        {{ Form::text('volunteer_status', $volunteerStatus,array('class'=>'form-control')) }}
     </div>
 
-    <div>
-        {{ Form::label('safety_date', 'Last Attended Safety Meeting Date: ') }}
-        {{ Form::text('safety_date', $volunteerSafetyDate) }}
+    <div class="form-group">
+        {{ Form::label('safety_date', 'Last Attended Safety Meeting Date:') }}
+        {{ Form::text('safety_date', $volunteerSafetyDate,array('class'=>'form-control')) }}
     </div>
      
      
-    <div>
-        {{ Form::label('hours', 'Volunteered Hours: ') }}
+    <div class="form-group row">
+        {{ Form::label('hours', 'Volunteered Hours:') }}
         
         <!-- Hours Table to go here -->
-        <table>
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Project</th>
@@ -112,9 +132,9 @@ Contact Details
         </table>
     </div>
      
-    <div>
-        {{ Form::label('availability', 'Availability: ') }}
-        <table>
+    <div class="form-group">
+        {{ Form::label('availability', 'Availability:') }}
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Date</th>
@@ -135,9 +155,9 @@ Contact Details
         {{ Form::button( 'Edit Availability', array('id' => 'editAvail') ) }}
     </div>
      
-    <div>
-        {{ Form::label('certification', 'Certification(s): ') }}      
-        <table>
+    <div class="form-group">
+        {{ Form::label('certification', 'Certification(s):') }}      
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Certification</th>
@@ -160,9 +180,9 @@ Contact Details
         {{ Form::button('Edit Certifications', array('id' => 'editCerts')) }}
     </div>
      
-    <div>
-        {{ Form::label('trades', 'Trade(s): ') }}
-        <table>
+    <div class="form-group">
+        {{ Form::label('trades', 'Trade(s):') }}
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Trade</th>
@@ -181,9 +201,9 @@ Contact Details
         {{ Form::button('Edit Trades', array('id' => 'editTrades')) }}       
     </div>
      
-    <div>
-        {{ Form::label('skills', 'Skill(s) and Experience(s): ') }}      
-        <table>
+    <div class="form-group">
+        {{ Form::label('skills', 'Skill(s) and Experience(s):') }}      
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Skill</th>
@@ -204,9 +224,9 @@ Contact Details
         {{ Form::button('Edit Skills', array('id' => 'editSkills')) }}  
     </div>
      
-    <div>
-        {{ Form::label('interests', 'Interest(s): ') }}
-        <table>
+    <div class="form-group">
+        {{ Form::label('interests', 'Interest(s):') }}
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Interest</th>
