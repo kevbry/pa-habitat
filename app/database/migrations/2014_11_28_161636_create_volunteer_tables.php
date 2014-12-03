@@ -129,6 +129,8 @@ class CreateVolunteerTables extends Migration {
 	 */
 	public function down()
 	{
+            Schema::rename('Contact', 'contact');
+            
             Schema::drop('Availability');    
             Schema::drop('VolunteerCertification');
             Schema::drop('VolunteerInterest');
