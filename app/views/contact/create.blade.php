@@ -6,31 +6,27 @@ Create a Contact
 
 @section('content')
 <h1>Create a Contact</h1>
+{{ Form::open(array('route'=>'contact.store','class'=>'form-horizontal')) }}
+<section class="row">
 <section class="col-md-7">
-    {{ Form::open(array('route'=>'contact.store','class'=>'form-horizontal')) }}
-    
-    <!---Hide using Java Script-->
-    <div class="companyFields">
-        <div>
-            <fieldset>
-                <legend>Company Information</legend>
-                {{Form::label('company_name', 'Company Name: ')}}
-                {{Form::input('text', 'company_name')}} 
-            </fieldset>
-    <!--------------------------->
-    <legend>Contact information</legend>
     <div class="form-group">
         {{ Form::label('first_name', 'First Name: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::text('first_name',null,array('class'=>'form-control')) }}
         </div>
     </div>
-    
     <div class="form-group">
         {{ Form::label('last_name', 'Last Name: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::text('last_name',null,array('class'=>'form-control')) }}
         </div>
+    </div>
+    <div class="form-group">
+        {{Form::label('company_name', 'Company Name:',array('class'=>'col-sm-3'))}}
+        <div class="col-sm-7">
+        {{Form::text('company_name',null,array('class'=>'form-control'))}}
+        </div>
+    </div>
     <div class="form-group">
         {{ Form::label('email_address', 'Email Address: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
@@ -86,59 +82,49 @@ Create a Contact
         </div>
     </div>
     <div class="form-group">
-        {{ Form::label('comments', 'Comments: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('comments', 'Comments:',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::textarea('comments',null,array('class'=>'form-control')) }}
         </div>
     </div>
-
-    <div class="form-group">
-        {{Form::label('is_volunteer', 'Is a Volunteer',array('class'=>'col-sm-3'))}}
-        <div class="col-sm-7">
+</section>
+<section class="col-md-5">
+        <div class="form-group">
+        {{Form::label('is_volunteer', 'Is a Volunteer:',array('class'=>'col-sm-6'))}}
+        <div class="col-sm-6">
         {{Form::checkbox('is_volunteer',true)}}
         </div>
     </div>
-    
-    <div>
-        {{Form::label('is_donor', 'Is a Donor')}}
-        {{Form::checkbox('is_donor', true)}}
-    </div>
-    
     <!-- TODO: Make this stuff disappear with JavaScript -->
-    <div class="donorFields">
-        <div>
-            {{Form::label('business_name', 'Business Name: ')}}
-            {{Form::input('text', 'business_name')}}
-        </div>
-    </div>
-    
-    <div>
-    <div>
-        {{Form::label('company_add', 'Add Company: ')}}
-        {{Form::checkbox('company_add', true)}}
-    
-    <!-- TODO: Make this stuff disappear with JavaScript -->
-    <div class="volunteerFields">
+
         <div class="form-group">
-            {{Form::label('active_status', 'Current Volunteer Status: ',array('class'=>'col-sm-3'))}}
-            <div class="col-sm-7">
+            {{Form::label('active_status', 'Is Volunteer Active: ',array('class'=>'col-sm-6'))}}
+            <div class="col-sm-6">
             {{Form::input('checkbox', 'active_status')}}
             </div>
         </div>
         <div class="form-group">
-            {{Form::label('safety_status', 'Last Attended Safety Meeting: ',array('class'=>'col-sm-3'))}}
-            <div class="col-sm-7">
-            {{Form::input('date', 'safety_status',null,array('class'=>'form-control'))}}
+            {{Form::label('last_attended_safety_meeting_date', 'Last Attended Safety Meeting: ',array('class'=>'col-sm-6'))}}
+            <div class="col-sm-6">
+            {{Form::input('date', 'last_attended_safety_meeting_date',null,array('class'=>'form-control'))}}
             </div>
         </div>
-    </div>
-    
+
     <div class="form-group">
-        {{Form::submit('Create New Contact',array('class'=>'btn btn-primary btn-lg'))}}
+        {{Form::label('is_donor', 'Is a Donor:',array('class'=>'col-sm-6'))}}
+        <div class="col-sm-6">
+        {{Form::checkbox('is_donor', true)}}
+        </div>
     </div>
-     
-    {{Form::close()}}
 </section>
+</section>
+<section class="row text-right">
+      <div class="form-group">
+        {{Form::submit('Create New Contact',array('class'=>'btn btn-primary btn-lg'))}}
+    </div>  
+</section>
+
+{{Form::close()}}
 
 
 @stop

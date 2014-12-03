@@ -7,8 +7,9 @@ Contact Details
 @section('content')
 <h1>Contact details</h1>
 <h2>{{ $contact->first_name . " " . $contact->last_name }}</h2>
-<section class="generalInfo col-md-7">
  {{ Form::open(array('class'=>'form-horizontal')) }}
+<section class="generalInfo col-md-7">
+
  <div class="form-group">
      {{ Form::label('email_address','Email: ',array('class'=>'col-sm-3')) }}
      <div class="col-sm-7">
@@ -101,8 +102,7 @@ Contact Details
     <div class="form-group">
         {{ Form::label('safety_date', 'Last Attended Safety Meeting Date:') }}
         {{ Form::text('safety_date', $volunteerSafetyDate,array('class'=>'form-control')) }}
-    </div>
-     
+    </div>    
      
     <div class="form-group row">
         {{ Form::label('hours', 'Volunteered Hours:') }}
