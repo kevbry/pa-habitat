@@ -143,6 +143,7 @@ Contact Details
                 </tr>
             </thead>
             <tbody>
+                @if (isset($volunteer))
                 @foreach ($volunteer->availability as $availHours)
                     <tr>
                         <td>{{$availHours->date}}</td>
@@ -150,6 +151,7 @@ Contact Details
                         <td>{{$availHours->hours_available}}</td>
                     </tr>
                 @endforeach
+                @endif
             </tbody>
         </table>
         {{ Form::button( 'Edit Availability', array('id' => 'editAvail') ) }}
@@ -167,6 +169,7 @@ Contact Details
                 </tr>
             </thead>
             <tbody>
+                @if (isset($volunteer))
                 @foreach ($volunteer->certifications as $certification)
                     <tr>
                         <td>{{$certification->cert_name}}</td>
@@ -175,6 +178,7 @@ Contact Details
                         <td>{{$certification->pivot->comment}}</td>
                     </tr>
                 @endforeach
+                @endif
             </tbody>
         </table>
         {{ Form::button('Edit Certifications', array('id' => 'editCerts')) }}
@@ -190,12 +194,14 @@ Contact Details
                 </tr>
             </thead>
             <tbody>
+                @if (isset($volunteer))
                 @foreach ($volunteer->trades as $trade)
                     <tr>
                         <td>{{$trade->trade_name}}</td>
                         <td>{{$trade->pivot->comments}}</td>
                     </tr>
                 @endforeach
+                @endif
             </tbody>
         </table>
         {{ Form::button('Edit Trades', array('id' => 'editTrades')) }}       
@@ -212,6 +218,7 @@ Contact Details
                 </tr>
             </thead>
             <tbody>
+                @if (isset($volunteer))
                 @foreach ($volunteer->skills as $skill)
                     <tr>
                         <td>{{$skill->description}}</td>
@@ -219,6 +226,7 @@ Contact Details
                         <td>{{$skill->pivot->comments}}</td>
                     </tr>
                 @endforeach
+                @endif
             </tbody>
         </table>
         {{ Form::button('Edit Skills', array('id' => 'editSkills')) }}  
@@ -234,12 +242,14 @@ Contact Details
                 </tr>
             </thead>
             <tbody>
+                @if (isset($volunteer))
                 @foreach ($volunteer->interests as $interest)
                     <tr>
                         <td>{{$interest->description}}</td>
                         <td>{{$interest->pivot->comments}}</td>
                     </tr>
                 @endforeach
+                @endif
             </tbody>
         </table>
         {{ Form::button('Edit Interests', array('id' => 'editInterests')) }}

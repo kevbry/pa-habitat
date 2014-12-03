@@ -110,7 +110,6 @@ class ContactController extends \BaseController {
                     ->withVolunteer($volunteer);
 	}
 
-
 	/**
 	 * Show the form for editing the specified resource.
 	 *

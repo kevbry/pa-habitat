@@ -5,7 +5,7 @@ class EloquentVolunteerRepository implements VolunteerRepository
 {
     public function getVolunteer($id)
     {
-        return \Volunteer::find($id);
+        return \Volunteer::with('availability')->with('certifications')->find($id);
     }
     
     
