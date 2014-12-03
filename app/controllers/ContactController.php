@@ -19,7 +19,6 @@ class ContactController extends \BaseController {
             $this->volunteerRepo = $volunteerRepo;
         }
     
-
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -34,7 +33,6 @@ class ContactController extends \BaseController {
             return View::make('contact.index')->with('contacts', $contactList);
 	}
 
-
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -45,7 +43,6 @@ class ContactController extends \BaseController {
             return View::make('contact.create');
 	}
 
-
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -55,11 +52,8 @@ class ContactController extends \BaseController {
 	{
             // Check if the contact being created is a donor
             $donorStatus = Input::has('is_donor');
-
-			// Check if the contact being created is a volunteer
+            // Check if the contact being created is a volunteer
             $volunteerStatus = Input::has('is_volunteer');
-             // Check a company is being created
-            $companyStatus = Input::has('company_add');
             
             // Store values from the contact form
             $contactValues = Input::only('first_name', 
@@ -86,10 +80,7 @@ class ContactController extends \BaseController {
             
             // Add the contact as a donor if specified -- Should probably be moved somewhere else
             if ($donorStatus)
-            {
-                // Store values from the donor portion of contact form
-                $donorValues = Input::only('business_name');
-                
+            {                
                 // Assign the contact
                 $donorValues['id'] = $id;
                 
@@ -97,14 +88,12 @@ class ContactController extends \BaseController {
                 
                 $this->donorRepo->saveDonor($donor);
             }
-// Add the contact as a volunteer if specified -- Should probably be moved somewhere else
+            
+            // Add the contact as a volunteer if specified -- Should probably be moved somewhere else
             if ($volunteerStatus)
             {
-                // Store values from the volunteer portion of contact form
-                $volunteerValues = Input::only('active_status', 'last_attended_safety_meeting_date');
-                
                 $volunteerValues['active_status'] = Input::has('active_status') ? 1 : 0;
-                
+                $volunteerValues['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
                 // Assign the contact
                 $volunteerValues['id'] = $id;
                 
@@ -113,14 +102,9 @@ class ContactController extends \BaseController {
                 $this->volunteerRepo->saveVolunteer($volunteer);
             }
             
-            // Redirect to view the newly created contact
-                        
-            //assign a redirect variable
-            $redirectVariable = Redirect::action('ContactController@show',array($id));
-            
             // Add the contact as a company if specified -- Should probably be moved somewhere else
             // Checkbox doesnt work, the if statement.
-            if ($companyStatus)
+            if (Input::has('company_name'))
             {
                 // Store values from the company portion of contact form
                 $companyValues = Input::only('company_name');
@@ -131,11 +115,10 @@ class ContactController extends \BaseController {
                 $company = new Company($companyValues);
                 
                 $this->companyRepo->saveCompany($company);
-               
-                // Grab the id of the new contact
-                $id = $company->id;
-               $redirectVariable = Redirect::action('ContactController@show',array($id));
            }
+           
+            //assign a redirect variable
+            $redirectVariable = Redirect::action('ContactController@show',array($id));
             // Redirect to view the newly created contact
             return $redirectVariable;
 	}
