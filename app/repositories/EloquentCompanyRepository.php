@@ -24,7 +24,7 @@ class EloquentCompanyRepository  implements CompanyRepository
     {
         return \Company::all();        
     }
-    public function saveCompany($company, $values)
+    public function saveCompany($company)
     {       
         $company->save();
     }

@@ -12,13 +12,14 @@ class CreateCompanyTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('company', function(Blueprint $table)
+		Schema::create('Company', function(Blueprint $table)
 		{
-			//Create comapny table and assign a foreign key 
+			//
+                    			//Create comapny table and assign a foreign key 
                     //to contact Id.
                     $table->increments('id');
                     $table->string('company_name');
-                    $table->integer('contact_id');
+                    $table->integer('contact_id')->unsigned();;
                     $table->foreign('contact_id')->references('id')->on('contact');
                     $table->timestamps();
 		});
@@ -31,11 +32,7 @@ class CreateCompanyTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('company', function(Blueprint $table)
-		{
-			//
-                    Schema::drop('company');
-		});
+                 Schema::drop('Company');
 	}
 
 }

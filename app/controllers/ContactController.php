@@ -1,13 +1,16 @@
 <?php
 use App\Repositories\ContactRepository;
+use App\Repositories\CompanyRepository;
 
 class ContactController extends \BaseController {
     
         public $repo;
+        public $companyRepo;
 
-        public function __construct(ContactRepository $repo)
+        public function __construct(ContactRepository $repo, CompanyRepository $companyRepo)
         {
             $this->repo = $repo;
+            $this->companyRepo = $companyRepo;
         }
     
 
@@ -44,7 +47,11 @@ class ContactController extends \BaseController {
 	 */
 	public function store()
 	{
-            $values = Input::only('first_name', 
+             // Check a company is being created
+            $companyStatus = Input::has('company_add');
+            
+            // Store values from the contact form
+            $contactValues = Input::only('first_name', 
                                     'last_name', 
                                     'email_address',
                                     'home_phone', 
@@ -56,10 +63,39 @@ class ContactController extends \BaseController {
                                     'postal_code', 
                                     'country', 
                                     'comments');
-            $contact = new Contact($values);
-            $this->repo->saveContact($contact,$values);
+            
+            // Create a new contact object to store in the database
+            $contact = new Contact($contactValues);
+            
+            // Store contact
+            $this->repo->saveContact($contact);
+            
+            // Grab the id of the new contact
             $id = $contact->id;
-            return Redirect::action('ContactController@show',array($id));
+                        
+            //assign a redirect varibale
+            $redirectVariable = Redirect::action('ContactController@show',array($id));
+            
+            // Add the contact as a volunteer if specified -- Should probably be moved somewhere else
+            // Checkbox dosent work, the if statement.
+            if ($companyStatus)
+            {
+                // Store values from the company portion of contact form
+                $companyValues = Input::only('company_name');
+                
+                // Assign the company
+                $companyValues['contact_id'] = $id;
+                
+                $company = new Company($companyValues);
+                
+               $this->companyRepo->saveCompany($company);
+               
+                // Grab the id of the new contact
+                $id = $company->id;
+               $redirectVariable = Redirect::action('ContactController@show',array($id));
+           }
+            // Redirect to view the newly created contact
+            return $redirectVariable;
 	}
 
 

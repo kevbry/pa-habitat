@@ -136,5 +136,7 @@ return array(
 	*/
 
 	'secure' => false,
+    
+        'company_show' => false,
 
 );

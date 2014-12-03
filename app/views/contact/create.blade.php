@@ -7,7 +7,19 @@ Create a Contact
 @section('content')
 <h1>Create a Contact</h1>
     {{ Form::open(['route' => 'contact.store']) }}
-    
+    <!---Hide using Java Script-->
+    <div class="companyFields">
+        <div>
+            <fieldset>
+                <legend>Company Information</legend>
+                {{Form::label('company_name', 'Company Name: ')}}
+                {{Form::input('text', 'company_name')}} 
+            </fieldset>
+        </div>
+    </div>
+    <!--------------------------->
+    <fieldset>
+    <legend>Contact information</legend>
     <div>
         {{ Form::label('first_name', 'First Name: ') }}
         {{ Form::input('text', 'first_name') }}
@@ -57,8 +69,14 @@ Create a Contact
         {{ Form::input('textarea', 'comments') }}
     </div>
     <div>
+        {{Form::label('company_add', 'Add Company: ')}}
+        {{Form::checkbox('company_add', true)}}
+    </div>
+    </fieldset>
+    <div>
         {{Form::submit('Create New Contact')}}
     </div>
+     
     {{Form::close()}}
 
 

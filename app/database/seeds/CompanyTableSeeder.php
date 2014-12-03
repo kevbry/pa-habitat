@@ -16,23 +16,12 @@ class CompanyTableSeeder extends Seeder
     //put your code here
     public function run()
     {
-         DB::table('contact')->delete();
+         DB::table('Company')->delete();
          
-         Contact::create(array('first_name' => 'Joe', 
-                                'last_name' => 'Lovelace', 
-                                'email_address' => 'joe@test.com',
-                                'home_phone' => '', 
-                                'cell_phone' => '306-927-3782', 
-                                'work_phone' => '306-832-4821', 
-                                'street_address' => '1645 Greg blvd', 
-                                'city' => 'Gregtopia', 
-                                'province' => 'Fred', 
-                                'postal_code' => 'G9F-6G3', 
-                                'country' => 'Canada', 
-                                'comments' => 'Is mostly a Joe.'));
-         $contactid = DB::select('select id from contact where first_name = "Joe" AND last_name = "Lovelace"');
+         Company::create(array('company_name' => 'Joe'));
+         $contactid = DB::select('select id from contact where first_name = "Joe";');
          
-         Company::create(array( 'comapny_name' => 'Fake cop',
+         Company::create(array( 'comapny_name' => 'Joe',
                                 'contact_id' => $contactid ));
         
     }
