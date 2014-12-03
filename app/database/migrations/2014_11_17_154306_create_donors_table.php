@@ -14,15 +14,11 @@ class CreateDonorsTable extends Migration {
 	{
 		Schema::create('donor', function(Blueprint $table)
 		{
-                        $table->integer('contact_id');
+                        $table->integer('id')->unsigned();
+                        $table->foreign('id')->references('id')->on("Contact");
 			$table->timestamps();
                         $table->string("business_name");
 		});
-                Schema::table('donor', function(Blueprint $table)
-                {
-                    $table->foreign('contact_id')->references('contact_id')
-                    ->on('contact')->onDelete('cascade'); 
-                });
 	}
 
 	/**
