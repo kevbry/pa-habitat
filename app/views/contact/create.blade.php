@@ -24,7 +24,7 @@ Create a Contact
     <div class="form-group">
         {{ Form::label('email_address', 'Email Address: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::email('email_address',null,array('class'=>'form-control')) }}
+        {{ Form::input('email','email_address',null,array('class'=>'form-control')) }}
         </div>
     </div>
     <div class="form-group">
@@ -106,7 +106,7 @@ Create a Contact
     </div>
     
     <div class="form-group">
-        {{Form::submit('Create New Contact')}}
+        {{Form::submit('Create New Contact',array('class'=>'btn btn-primary btn-lg'))}}
     </div>
     {{Form::close()}}
 </section>

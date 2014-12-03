@@ -10,6 +10,12 @@
     <header class="container">
         {{ HTML::image('assets/img/logo.png') }}
         <nav class="navbar navbar-default" role="navigation">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
@@ -28,6 +34,10 @@
     <main class="container row center-block">
 @yield('content')
     </main>
+    <footer class="container">
+        <p>Copyright 2014</p>
+    </footer>
+    
 {{ HTML::script('assets/js/jquery-1.11.1.min.js'); }}
 {{ HTML::script('assets/js/bootstrap.min.js'); }}
     </body>

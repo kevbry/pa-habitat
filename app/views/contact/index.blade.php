@@ -7,8 +7,9 @@ Index of all contacts
 @section('content')
 
 <h1>Contacts</h1>
-<a href="contact/create">Add Contact</a>
-
+<nav>
+<a href="contact/create" class="btn btn-primary">Add Contact</a>
+</nav>
 <table class="table table-hover">
     <thead>
         <tr><th>Name</th><th>Phone</th><th>Email</th><th></th></tr>
@@ -22,4 +23,5 @@ Index of all contacts
     </tr>
     @endforeach
 </table>
+<?php echo $contacts->links(); ?>
 @stop

@@ -151,10 +151,14 @@ Contact Details
                         <td>{{$availHours->hours_available}}</td>
                     </tr>
                 @endforeach
+                @else
+                    <tr>
+                        <td colspan="3">No availability</td>
+                    </tr>
                 @endif
             </tbody>
         </table>
-        {{ Form::button( 'Edit Availability', array('id' => 'editAvail') ) }}
+        {{ Form::button( 'Edit Availability', array('id' => 'editAvail','class'=>'btn btn-primary') ) }}
     </div>
      
     <div class="form-group">
@@ -178,10 +182,14 @@ Contact Details
                         <td>{{$certification->pivot->comment}}</td>
                     </tr>
                 @endforeach
+                @else
+                    <tr>
+                        <td colspan="4">No certifications</td>
+                    </tr>
                 @endif
             </tbody>
         </table>
-        {{ Form::button('Edit Certifications', array('id' => 'editCerts')) }}
+        {{ Form::button('Edit Certifications', array('id' => 'editCerts','class'=>'btn btn-primary')) }}
     </div>
      
     <div class="form-group">
@@ -201,10 +209,14 @@ Contact Details
                         <td>{{$trade->pivot->comments}}</td>
                     </tr>
                 @endforeach
+                @else
+                    <tr>
+                        <td colspan="2">No trades</td>
+                    </tr>                
                 @endif
             </tbody>
         </table>
-        {{ Form::button('Edit Trades', array('id' => 'editTrades')) }}       
+        {{ Form::button('Edit Trades', array('id' => 'editTrades','class'=>'btn btn-primary')) }}       
     </div>
      
     <div class="form-group">
@@ -226,10 +238,14 @@ Contact Details
                         <td>{{$skill->pivot->comments}}</td>
                     </tr>
                 @endforeach
+                @else
+                    <tr>
+                        <td colspan="3">No skills</td>
+                    </tr>
                 @endif
             </tbody>
         </table>
-        {{ Form::button('Edit Skills', array('id' => 'editSkills')) }}  
+        {{ Form::button('Edit Skills', array('id' => 'editSkills','class'=>'btn btn-primary')) }}  
     </div>
      
     <div class="form-group">
@@ -249,10 +265,14 @@ Contact Details
                         <td>{{$interest->pivot->comments}}</td>
                     </tr>
                 @endforeach
+                @else
+                    <tr>
+                        <td colspan="3">No interests</td>
+                    </tr>
                 @endif
             </tbody>
         </table>
-        {{ Form::button('Edit Interests', array('id' => 'editInterests')) }}
+        {{ Form::button('Edit Interests', array('id' => 'editInterests','class'=>'btn btn-primary')) }}
     </div>
           
  </section>
