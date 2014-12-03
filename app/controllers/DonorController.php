@@ -1,7 +1,7 @@
 <?php
 use App\Repositories\DonorRepository;
 
-class DonorController extends \ContactController {
+class DonorController extends \BaseController {
     
         public $repo;
 
@@ -27,7 +27,9 @@ class DonorController extends \ContactController {
 	 */
 	public function create()
 	{
-            return View::make('donor.create');
+                return View::make('donor.donorindex');
+                
+
 	}
 
 	/**
@@ -52,8 +54,8 @@ class DonorController extends \ContactController {
 	 */
 	public function show($id)
 	{
-            //$donor = $this->repo->getDonor($id);
-            //return View::make('donor.show')->withDonor($donor);
+            $donor = $this->repo->getDonor($id);
+            return View::make('donor.show')->withDonor($donor);
 	}
 
 	/**

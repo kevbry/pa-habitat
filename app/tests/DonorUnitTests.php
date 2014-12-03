@@ -135,7 +135,6 @@ class ContactUnitTests extends TestCase {
     {
                 // Assemble
         $isDonor = true;
-
         
         $mockedRepo = Mockery::mock('app\repositories\DonorRepository');
         $this->app->instance('app/repositories/DonorRepository', $mockedRepo);

@@ -14,10 +14,15 @@ class CreateDonorsTable extends Migration {
 	{
 		Schema::create('donor', function(Blueprint $table)
 		{
-			$table->increments('id');
+                        $table->integer('contact_id');
 			$table->timestamps();
                         $table->string("business_name");
 		});
+                Schema::table('donor', function(Blueprint $table)
+                {
+                    $table->foreign('contact_id')->references('contact_id')
+                    ->on('contact')->onDelete('cascade'); 
+                });
 	}
 
 	/**
@@ -27,7 +32,7 @@ class CreateDonorsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('donor');
+		Schema::dropIfExists('donor');
 	}
 
 }

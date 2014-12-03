@@ -12,6 +12,7 @@
                 <ul>
                     <li>{{ HTML::linkAction('ContactController@index','All Contacts') }}</li>
                     <li>{{ HTML::linkAction('ContactController@create','Add a Contact') }}</li>
+                    <li>{{ HTML::linkAction('DonorController@index','All Donors') }}</li>
                 </ul>
             </nav>
         </header>

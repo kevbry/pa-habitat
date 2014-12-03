@@ -1,4 +1,4 @@
-@extends('donor.donormaster')
+@extends('master')
 
 @section('title')
 Donor Details
@@ -11,7 +11,7 @@ Donor Details
  {{ Form::open() }}
  <div>
      {{ Form::label('business_name','Business Name: ') }}
-     {{ Form::text('business_name',$donor->email_address) }}
+     {{ Form::text('business_name',$donor->business_name) }}
  </div>
  {{ Form::close() }}
 

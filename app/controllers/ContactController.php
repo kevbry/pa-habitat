@@ -1,13 +1,16 @@
 <?php
 use App\Repositories\ContactRepository;
+use App\Repositories\DonorRepository;
 
 class ContactController extends \BaseController {
     
-        public $repo;
-
-        public function __construct(ContactRepository $repo)
+        public $contactRepo;
+        public $donorRepo;
+        
+        public function __construct(ContactRepository $contactRepo, DonorRepository $donorRepo)
         {
-            $this->repo = $repo;
+            $this->contactRepo = $contactRepo;
+            $this->donorRepo = $donorRepo;
         }
     
 
@@ -19,7 +22,7 @@ class ContactController extends \BaseController {
 	public function index()
 	{
             // Retrieve all contacts from the database
-            $contactList = $this->repo->getAllContacts();
+            $contactList = $this->contactRepo->getAllContacts();
             
             // Return that to the list view
             return View::make('contact.index')->with('contacts', $contactList);
@@ -44,7 +47,10 @@ class ContactController extends \BaseController {
 	 */
 	public function store()
 	{
-            $values = Input::only('first_name', 
+            // Check if the contact being created is a donor
+            $donorStatus = Input::has('is_donor');
+
+            $contactValues = Input::only('first_name', 
                                     'last_name', 
                                     'email_address',
                                     'home_phone', 
@@ -56,9 +62,24 @@ class ContactController extends \BaseController {
                                     'postal_code', 
                                     'country', 
                                     'comments');
-            $contact = new Contact($values);
-            $this->repo->saveContact($contact,$values);
+            $contact = new Contact($contactValues);
+            $this->contactRepo->saveContact($contact,$contactValues);
             $id = $contact->id;
+            
+            // Add the contact as a volunteer if specified -- Should probably be moved somewhere else
+            if ($donorStatus)
+            {
+                // Store values from the volunteer portion of contact form
+                $donorValues = Input::only('business_name');
+                
+                // Assign the contact
+                $donorValues['contact_id'] = $id;
+                
+                $donor = new Donor($donorValues);
+                
+                $this->donorRepo->saveDonor($donor);
+            }
+            
             return Redirect::action('ContactController@show',array($id));
 	}
 
@@ -71,7 +92,7 @@ class ContactController extends \BaseController {
 	 */
 	public function show($id)
 	{
-            $contact = $this->repo->getContact($id);
+            $contact = $this->contactRepo->getContact($id);
             return View::make('contact.show')->withContact($contact);
             
 	}

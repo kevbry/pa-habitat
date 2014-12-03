@@ -56,6 +56,20 @@ Create a Contact
         {{ Form::label('comments', 'Comments: ') }}
         {{ Form::input('textarea', 'comments') }}
     </div>
+    
+    <div>
+        {{Form::label('is_donor', 'Is a Donor')}}
+        {{Form::checkbox('is_donor', true)}}
+    </div>
+    
+    <!-- TODO: Make this stuff disappear with JavaScript -->
+    <div class="donorFields">
+        <div>
+            {{Form::label('business_name', 'Business Name: ')}}
+            {{Form::input('text', 'business_name')}}
+        </div>
+    </div>
+    
     <div>
         {{Form::submit('Create New Contact')}}
     </div>
