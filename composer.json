@@ -8,7 +8,8 @@
 	},
         "require-dev":
         {
-            "mockery/mockery" : "dev-master"
+            "mockery/mockery" : "dev-master@dev",
+            "doctrine/dbal": "~2.3"
         },
 	"autoload": {
 		"classmap": [

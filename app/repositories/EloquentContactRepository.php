@@ -11,24 +11,15 @@ class EloquentContactRepository implements ContactRepository
     
     public function getAllContacts()
     {
-        return \Contact::all();        
+        return \Contact::orderBy('last_name','asc')->paginate(20);        
     }
     
-    public function saveContact($contact, $values)
+    /**
+     * Purpose: Save contact information to the database
+     * @param Contact $contact A contact object to save to the database
+     */
+    public function saveContact($contact)
     {
-//        $contact->firstName = $values['firstName'];
-//        $contact->lastName = $values['lastName'];
-//        $contact->email_address = $values['emailAddress'];
-//        $contact->home_phone = $values['homePhone'];
-//        $contact->cell_phone = $values['cellPhone'];
-//        $contact->work_phone = $values['workPhone'];
-//        $contact->street_address = $values['streetNo'];
-//        $contact->city = $values['city'];
-//        $contact->province = $values['province'];
-//        $contact->postal_code = $values['postalCode'];
-//        $contact->country = $values['country'];
-//        $contact->comments = $values['comments'];
-        
         $contact->save();
     }
 }

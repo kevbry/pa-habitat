@@ -1,6 +1,6 @@
 <?php
 
-class ContactTest extends TestCase {
+class ContactIntegrationTests extends TestCase {
     
     
     public function testIndex() 

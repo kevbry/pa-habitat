@@ -1,13 +1,16 @@
 <?php
 use App\Repositories\ContactRepository;
+use App\Repositories\VolunteerRepository;
 
 class ContactController extends \BaseController {
     
-        public $repo;
+        public $contactRepo;
+        public $volunteerRepo;
 
-        public function __construct(ContactRepository $repo)
+        public function __construct(ContactRepository $contactRepo, VolunteerRepository $volunteerRepo)
         {
-            $this->repo = $repo;
+            $this->contactRepo = $contactRepo;
+            $this->volunteerRepo = $volunteerRepo;
         }
     
 
@@ -19,7 +22,7 @@ class ContactController extends \BaseController {
 	public function index()
 	{
             // Retrieve all contacts from the database
-            $contactList = $this->repo->getAllContacts();
+            $contactList = $this->contactRepo->getAllContacts();
             
             // Return that to the list view
             return View::make('contact.index')->with('contacts', $contactList);
@@ -44,7 +47,11 @@ class ContactController extends \BaseController {
 	 */
 	public function store()
 	{
-            $values = Input::only('first_name', 
+            // Check if the contact being created is a volunteer
+            $volunteerStatus = Input::has('is_volunteer');
+            
+            // Store values from the contact form
+            $contactValues = Input::only('first_name', 
                                     'last_name', 
                                     'email_address',
                                     'home_phone', 
@@ -56,9 +63,33 @@ class ContactController extends \BaseController {
                                     'postal_code', 
                                     'country', 
                                     'comments');
-            $contact = new Contact($values);
-            $this->repo->saveContact($contact,$values);
+            
+            // Create a new contact object to store in the database
+            $contact = new Contact($contactValues);
+            
+            // Store contact
+            $this->contactRepo->saveContact($contact);
+            
+            // Grab the id of the new contact
             $id = $contact->id;
+            
+            // Add the contact as a volunteer if specified -- Should probably be moved somewhere else
+            if ($volunteerStatus)
+            {
+                // Store values from the volunteer portion of contact form
+                $volunteerValues = Input::only('active_status', 'last_attended_safety_meeting_date');
+                
+                $volunteerValues['active_status'] = Input::has('active_status') ? 1 : 0;
+                
+                // Assign the contact
+                $volunteerValues['id'] = $id;
+                
+                $volunteer = new Volunteer($volunteerValues);
+                
+                $this->volunteerRepo->saveVolunteer($volunteer);
+            }
+            
+            // Redirect to view the newly created contact
             return Redirect::action('ContactController@show',array($id));
 	}
 
@@ -71,11 +102,13 @@ class ContactController extends \BaseController {
 	 */
 	public function show($id)
 	{
-            $contact = $this->repo->getContact($id);
-            return View::make('contact.show')->withContact($contact);
+            $contact = $this->contactRepo->getContact($id);
+            $volunteer = $this->volunteerRepo->getVolunteer($id);
             
+            return View::make('contact.show')
+                    ->withContact($contact)
+                    ->withVolunteer($volunteer);
 	}
-
 
 	/**
 	 * Show the form for editing the specified resource.
