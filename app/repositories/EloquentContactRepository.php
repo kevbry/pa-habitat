@@ -11,7 +11,7 @@ class EloquentContactRepository implements ContactRepository
     
     public function getAllContacts()
     {
-        return \Contact::all();        
+        return \Contact::orderBy('last_name','asc')->get();        
     }
     
     /**

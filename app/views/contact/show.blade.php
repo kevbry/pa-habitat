@@ -7,7 +7,7 @@ Contact Details
 @section('content')
 <h1>Contact details</h1>
 <h3>{{ $contact->first_name . " " . $contact->last_name }}</h3>
-
+<section class="generalInfo">
  {{ Form::open() }}
  <div>
      {{ Form::label('email_address','Email: ') }}
@@ -49,7 +49,7 @@ Contact Details
      {{ Form::label('comments','Comments: ') }}
      {{ Form::text('comments',$contact->comments) }}
  </div>
- 
+</section>
  <?php
     $volunteerStatus = 0;
     $volunteerSafetyDate = "";
@@ -59,14 +59,20 @@ Contact Details
         $volunteerStatus = $volunteer->active_status;
         $volunteerSafetyDate = $volunteer->last_attended_safety_meeting_date;
     }
+    if ($volunteerStatus === 1) {
+        $volunteerStatus = 'Active';
+    }
+    elseif ($volunteerStatus === 0){
+        $volunteerStatus = 'Inactive';
+    }
  ?>
+
+ 
+ <section class='volunteerFields'>
      <div>
         {{ Form::label('is_volunteer', 'Is a Volunteer: ') }}
         {{ Form::text('is_volunteer', $volunteer ? 'Yes' : 'No') }}
     </div>
- 
- <div class='volunteerFields'>
-
     <div>
         {{ Form::label('volunteer_status', 'Volunteer Status: ') }}
         {{ Form::text('volunteer_status', $volunteerStatus) }}
@@ -82,49 +88,144 @@ Contact Details
         {{ Form::label('hours', 'Volunteered Hours: ') }}
         
         <!-- Hours Table to go here -->
-        
+        <table>
+            <thead>
+                <tr>
+                    <th>Project</th>
+                    <th>Date</th>
+                    <th>Hours</th>
+                </tr>
+            </thead>
+            <tfoot>
+            <td></td>
+            <td>Total:</td>
+            <td>Total Hours Here</td>
+            </tfoot>
+            <tbody>
+                <!--Do a foreach loop here for the volunteer hours-->
+                <tr>
+                    <td>Project Name</td>
+                    <td>Date of Project</td>
+                    <td>Hours spent on this day</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
      
     <div>
         {{ Form::label('availability', 'Availability: ') }}
-        {{ Form::button( 'Edit Availiability' ) }}
-        
-        <!-- Availability Table to go here -->
-        
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Hours Available</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($volunteer->availability as $availHours)
+                    <tr>
+                        <td>{{$availHours->date}}</td>
+                        <td>{{$availHours->time}}</td>
+                        <td>{{$availHours->hours_available}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        {{ Form::button( 'Edit Availability', array('id' => 'editAvail') ) }}
     </div>
      
     <div>
-        {{ Form::label('certification', 'Certification(s): ') }}
-        {{ Form::button('Edit Certifications') }}
-        
-        <!-- Certification Table to go here -->
-        
+        {{ Form::label('certification', 'Certification(s): ') }}      
+        <table>
+            <thead>
+                <tr>
+                    <th>Certification</th>
+                    <th>Earned Date</th>
+                    <th>Expiry Date</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($volunteer->certifications as $certification)
+                    <tr>
+                        <td>{{$certification->cert_name}}</td>
+                        <td>{{$certification->pivot->cert_earned_date}}</td>
+                        <td>{{$certification->pivot->cert_expiry_date}}</td>
+                        <td>{{$certification->pivot->comment}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        {{ Form::button('Edit Certifications', array('id' => 'editCerts')) }}
     </div>
      
     <div>
         {{ Form::label('trades', 'Trade(s): ') }}
-        {{ Form::button('Edit Trades') }}
-        
-        <!-- Trades Table to go here -->
-        
+        <table>
+            <thead>
+                <tr>
+                    <th>Trade</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($volunteer->trades as $trade)
+                    <tr>
+                        <td>{{$trade->trade_name}}</td>
+                        <td>{{$trade->pivot->comments}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        {{ Form::button('Edit Trades', array('id' => 'editTrades')) }}       
     </div>
      
     <div>
-        {{ Form::label('skills', 'Skill(s) and Experience(s): ') }}
-        {{ Form::button('Edit Skills') }}
-                
-        <!-- Skills Table to go here -->
-        
+        {{ Form::label('skills', 'Skill(s) and Experience(s): ') }}      
+        <table>
+            <thead>
+                <tr>
+                    <th>Skill</th>
+                    <th>Years of Experience</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($volunteer->skills as $skill)
+                    <tr>
+                        <td>{{$skill->description}}</td>
+                        <td>{{$skill->pivot->yearsExperience}}</td>
+                        <td>{{$skill->pivot->comments}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        {{ Form::button('Edit Skills', array('id' => 'editSkills')) }}  
     </div>
      
     <div>
         {{ Form::label('interests', 'Interest(s): ') }}
-        {{ Form::button('Edit Interests') }}
-        
-        <!-- Skills Table to go here -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Interest</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($volunteer->interests as $interest)
+                    <tr>
+                        <td>{{$interest->description}}</td>
+                        <td>{{$interest->pivot->comments}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        {{ Form::button('Edit Interests', array('id' => 'editInterests')) }}
     </div>
           
- </div>
+ </section>
  {{ Form::close() }}
 
  @stop            

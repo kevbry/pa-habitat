@@ -108,7 +108,6 @@ class ContactController extends \BaseController {
             return View::make('contact.show')
                     ->withContact($contact)
                     ->withVolunteer($volunteer);
-            
 	}
 
 
