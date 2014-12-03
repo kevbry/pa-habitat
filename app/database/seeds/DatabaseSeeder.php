@@ -24,7 +24,16 @@ class DatabaseSeeder extends Seeder
                 
                 // Runs the seeder for the Contact table.
 		$this->call('ContactTableSeeder');
-                $this->command->info('contact table seeded!');
+                $this->command->info('Contact table seeded!');
+                
+                // Interest, Skill, and Certification Seeders
+                // Temporarily disabled until models and views are created
+//                $this->call('InterestTableSeeder');
+//                $this->command->info('Interest table seeded!');
+//                $this->call('SkillTableSeeder');
+//                $this->command->info('Skill table seeded!');
+//                $this->call('CertificationTableSeeder');
+//                $this->command->info('Certification table seeded!');
 	}
 
 }
