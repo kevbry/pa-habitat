@@ -2,17 +2,20 @@
 use App\Repositories\ContactRepository;
 use App\Repositories\CompanyRepository;
 use App\Repositories\VolunteerRepository;
+use App\Repositories\DonorRepository;
 
 class ContactController extends \BaseController {
     
         public $companyRepo;
         public $contactRepo;
+        public $donorRepo;
         public $volunteerRepo;
 
-        public function __construct(ContactRepository $contactRepo, VolunteerRepository $volunteerRepo, CompanyRepository $companyRepo)
+        public function __construct(ContactRepository $contactRepo, VolunteerRepository $volunteerRepo, CompanyRepository $companyRepo, DonorRepository $donorRepo)
         {
             $this->companyRepo = $companyRepo;
             $this->contactRepo = $contactRepo;
+            $this->donorRepo = $donorRepo;
             $this->volunteerRepo = $volunteerRepo;
         }
     
@@ -50,6 +53,9 @@ class ContactController extends \BaseController {
 	 */
 	public function store()
 	{
+            // Check if the contact being created is a donor
+            $donorStatus = Input::has('is_donor');
+
 			// Check if the contact being created is a volunteer
             $volunteerStatus = Input::has('is_volunteer');
              // Check a company is being created
@@ -71,6 +77,8 @@ class ContactController extends \BaseController {
             
             // Create a new contact object to store in the database
             $contact = new Contact($contactValues);
+            $this->repo->saveContact($contact,$values);
+            $this->contactRepo->saveContact($contact,$contactValues);
             
             // Store contact
             $this->contactRepo->saveContact($contact);
@@ -78,7 +86,20 @@ class ContactController extends \BaseController {
             // Grab the id of the new contact
             $id = $contact->id;
             
-            // Add the contact as a volunteer if specified -- Should probably be moved somewhere else
+            // Add the contact as a donor if specified -- Should probably be moved somewhere else
+            if ($donorStatus)
+            {
+                // Store values from the donor portion of contact form
+                $donorValues = Input::only('business_name');
+                
+                // Assign the contact
+                $donorValues['id'] = $id;
+                
+                $donor = new Donor($donorValues);
+                
+                $this->donorRepo->saveDonor($donor);
+            }
+// Add the contact as a volunteer if specified -- Should probably be moved somewhere else
             if ($volunteerStatus)
             {
                 // Store values from the volunteer portion of contact form
@@ -161,7 +182,6 @@ class ContactController extends \BaseController {
 		//
 	}
 
-
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -172,6 +192,4 @@ class ContactController extends \BaseController {
 	{
 		//
 	}
-
-
 }

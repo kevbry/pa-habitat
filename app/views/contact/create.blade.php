@@ -98,6 +98,20 @@ Create a Contact
         {{Form::checkbox('is_volunteer',true)}}
         </div>
     </div>
+    
+    <div>
+        {{Form::label('is_donor', 'Is a Donor')}}
+        {{Form::checkbox('is_donor', true)}}
+    </div>
+    
+    <!-- TODO: Make this stuff disappear with JavaScript -->
+    <div class="donorFields">
+        <div>
+            {{Form::label('business_name', 'Business Name: ')}}
+            {{Form::input('text', 'business_name')}}
+        </div>
+    </div>
+    
     <div>
     <div>
         {{Form::label('company_add', 'Add Company: ')}}
