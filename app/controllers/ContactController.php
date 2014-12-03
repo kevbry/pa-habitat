@@ -1,14 +1,17 @@
 <?php
 use App\Repositories\ContactRepository;
+use App\Repositories\CompanyRepository;
 use App\Repositories\VolunteerRepository;
 
 class ContactController extends \BaseController {
     
+        public $companyRepo;
         public $contactRepo;
         public $volunteerRepo;
 
-        public function __construct(ContactRepository $contactRepo, VolunteerRepository $volunteerRepo)
+        public function __construct(ContactRepository $contactRepo, VolunteerRepository $volunteerRepo, CompanyRepository $companyRepo)
         {
+            $this->companyRepo = $companyRepo;
             $this->contactRepo = $contactRepo;
             $this->volunteerRepo = $volunteerRepo;
         }
@@ -47,8 +50,10 @@ class ContactController extends \BaseController {
 	 */
 	public function store()
 	{
-            // Check if the contact being created is a volunteer
+			// Check if the contact being created is a volunteer
             $volunteerStatus = Input::has('is_volunteer');
+             // Check a company is being created
+            $companyStatus = Input::has('company_add');
             
             // Store values from the contact form
             $contactValues = Input::only('first_name', 
@@ -90,7 +95,30 @@ class ContactController extends \BaseController {
             }
             
             // Redirect to view the newly created contact
-            return Redirect::action('ContactController@show',array($id));
+                        
+            //assign a redirect variable
+            $redirectVariable = Redirect::action('ContactController@show',array($id));
+            
+            // Add the contact as a company if specified -- Should probably be moved somewhere else
+            // Checkbox doesnt work, the if statement.
+            if ($companyStatus)
+            {
+                // Store values from the company portion of contact form
+                $companyValues = Input::only('company_name');
+                
+                // Assign the company
+                $companyValues['contact_id'] = $id;
+                
+                $company = new Company($companyValues);
+                
+                $this->companyRepo->saveCompany($company);
+               
+                // Grab the id of the new contact
+                $id = $company->id;
+               $redirectVariable = Redirect::action('ContactController@show',array($id));
+           }
+            // Redirect to view the newly created contact
+            return $redirectVariable;
 	}
 
 

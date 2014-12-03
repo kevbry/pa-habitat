@@ -9,18 +9,28 @@ Create a Contact
 <section class="col-md-7">
     {{ Form::open(array('route'=>'contact.store','class'=>'form-horizontal')) }}
     
+    <!---Hide using Java Script-->
+    <div class="companyFields">
+        <div>
+            <fieldset>
+                <legend>Company Information</legend>
+                {{Form::label('company_name', 'Company Name: ')}}
+                {{Form::input('text', 'company_name')}} 
+            </fieldset>
+    <!--------------------------->
+    <legend>Contact information</legend>
     <div class="form-group">
         {{ Form::label('first_name', 'First Name: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::text('first_name',null,array('class'=>'form-control')) }}
         </div>
     </div>
+    
     <div class="form-group">
         {{ Form::label('last_name', 'Last Name: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::text('last_name',null,array('class'=>'form-control')) }}
         </div>
-    </div>
     <div class="form-group">
         {{ Form::label('email_address', 'Email Address: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
@@ -88,6 +98,10 @@ Create a Contact
         {{Form::checkbox('is_volunteer',true)}}
         </div>
     </div>
+    <div>
+    <div>
+        {{Form::label('company_add', 'Add Company: ')}}
+        {{Form::checkbox('company_add', true)}}
     
     <!-- TODO: Make this stuff disappear with JavaScript -->
     <div class="volunteerFields">
@@ -108,6 +122,7 @@ Create a Contact
     <div class="form-group">
         {{Form::submit('Create New Contact',array('class'=>'btn btn-primary btn-lg'))}}
     </div>
+     
     {{Form::close()}}
 </section>
 

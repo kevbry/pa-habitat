@@ -10,10 +10,13 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\ContactRepository',
             'App\Repositories\EloquentContactRepository'
         );
+        $this->app->bind(   
+			'App\Repositories\CompanyRepository',
+            'App\Repositories\EloquentCompanyRepository');
         
         $this->app->bind(
-                'App\Repositories\VolunteerRepository',
-                'App\Repositories\EloquentVolunteerRepository'
+            'App\Repositories\VolunteerRepository',
+            'App\Repositories\EloquentVolunteerRepository'
         );
     }
 }
