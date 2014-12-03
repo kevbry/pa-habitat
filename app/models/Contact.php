@@ -7,7 +7,7 @@ class Contact extends \Eloquent
 	 *
 	 * @var string
 	 */
-	protected $table = 'contact';
+	protected $table = 'Contact';
 
 	/**
 	 * The attributes that are mass-assignment

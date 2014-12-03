@@ -69,11 +69,11 @@ class ContactController extends \BaseController {
             // Add the contact as a volunteer if specified -- Should probably be moved somewhere else
             if ($donorStatus)
             {
-                // Store values from the volunteer portion of contact form
+                // Store values from the donor portion of contact form
                 $donorValues = Input::only('business_name');
                 
                 // Assign the contact
-                $donorValues['contact_id'] = $id;
+                $donorValues['id'] = $id;
                 
                 $donor = new Donor($donorValues);
                 

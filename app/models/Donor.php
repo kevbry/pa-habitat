@@ -7,7 +7,7 @@ class Donor extends \Eloquent
 	 *
 	 * @var string
 	 */
-	protected $table = 'donor';
+	protected $table = 'Donor';
 
 	/**
 	 * The attributes that are mass-assignment
@@ -15,5 +15,5 @@ class Donor extends \Eloquent
 	 * @fillable array with column names we wish to be able to assign to.
 	 */
 
-        protected $fillable = array('business_name');
+        protected $fillable = array('id', 'business_name');
 }

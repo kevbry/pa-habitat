@@ -12,10 +12,10 @@ class CreateDonorsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('donor', function(Blueprint $table)
+		Schema::create('Donor', function(Blueprint $table)
 		{
                         $table->integer('id')->unsigned();
-                        $table->foreign('id')->references('id')->on("Contact");
+                        $table->foreign('id')->references('id')->on('Contact');
 			$table->timestamps();
                         $table->string("business_name");
 		});
@@ -28,7 +28,7 @@ class CreateDonorsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('donor');
+		Schema::dropIfExists('Donor');
 	}
 
 }
