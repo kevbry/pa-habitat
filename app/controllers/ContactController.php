@@ -77,8 +77,6 @@ class ContactController extends \BaseController {
             
             // Create a new contact object to store in the database
             $contact = new Contact($contactValues);
-            $this->repo->saveContact($contact,$values);
-            $this->contactRepo->saveContact($contact,$contactValues);
             
             // Store contact
             $this->contactRepo->saveContact($contact);
