@@ -1,7 +1,13 @@
 <?php
+use App\Repositories\ProjectRepository;
 
 class ProjectController extends \BaseController {
-
+        public $projectRepo;
+        
+        public function __construct(ProjectRepository $projectRepo)
+        {
+            $this->projectRepo = $projectRepo;
+        }
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,7 +15,11 @@ class ProjectController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+            // Retrieve all contacts from the database
+            $projectList = $this->projectRepo->getAllProjects();
+            
+            // Return that to the list view
+            return View::make('project.index')->with('projects', $projectList);
 	}
 
 
@@ -31,7 +41,23 @@ class ProjectController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+            // Store values from the contact form
+            $projectValues = Input::only('name');
+            
+            // Create a new contact object to store in the database
+            $project = new Project($projectValues);
+            
+            // Store contact
+            $this->projectRepo->saveProject($project);
+            
+            // Grab the id of the new contact
+            $id = $project->id;
+
+           
+            //assign a redirect variable
+            $redirectVariable = Redirect::action('ProjectController@show',array($id));
+            // Redirect to view the newly created contact
+            return $redirectVariable;
 	}
 
 
@@ -43,7 +69,10 @@ class ProjectController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+            $project = $this->projectRepo->getProject($id);
+            
+            return View::make('project.show')
+                    ->withProject($project);
 	}
 
 

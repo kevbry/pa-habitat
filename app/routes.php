@@ -18,3 +18,4 @@ Route::get('/', function()
 Route::resource('contact', 'ContactController');
 Route::resource('donor', 'DonorController');
 Route::resource('company', 'CompanyController');
+Route::resource('project', 'ProjectController');

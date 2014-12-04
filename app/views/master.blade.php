@@ -29,7 +29,8 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Projects<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li>{{ HTML::linkAction('ProjectController@index','Add Project') }}</li>
+                                <li>{{ HTML::linkAction('ProjectController@index','All Projects') }}</li>
+                                <li>{{ HTML::linkAction('ProjectController@create','Add a Project') }}</li>
                             </ul>
                         </li>
                     </ul>
