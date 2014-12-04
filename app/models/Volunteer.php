@@ -8,7 +8,7 @@ class Volunteer extends \Eloquent
      * @var string
      */
     protected $table = 'Volunteer';
-    protected $with = array('availability','certifications','trades','skills','interests');
+    protected $with = array('availability','certifications','trades','skills','interests','contact');
     
     /**
      * The attributes that are mass-assignment

@@ -5,12 +5,12 @@ class EloquentVolunteerRepository implements VolunteerRepository
 {
     public function getVolunteer($id)
     {
-        return \Volunteer::with('availability')->with('certifications')->find($id);
+        return \Volunteer::find($id);
     }
         
     public function getAllVolunteers()
     {
-        return \Volunteer::all();        
+        return \Volunteer::paginate(20);        
     }
     
     /**

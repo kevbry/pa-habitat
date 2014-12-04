@@ -1,7 +1,14 @@
 <?php
+use App\Repositories\VolunteerRepository;
 
 class VolunteerController extends \BaseController {
 
+        public $volunteerRepo;
+
+        public function __construct(VolunteerRepository $volunteerRepo)
+        {
+            $this->volunteerRepo = $volunteerRepo;
+        }
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,7 +16,11 @@ class VolunteerController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+            // Retrieve all contacts from the database
+            $volunteerList = $this->volunteerRepo->getAllVolunteers();
+            
+            // Return that to the list view
+            return View::make('volunteer.index')->with('volunteers', $volunteerList);
 	}
 
 
