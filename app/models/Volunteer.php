@@ -17,6 +17,11 @@ class Volunteer extends \Eloquent
      */
     protected $fillable = array('id', 'active_status', 'last_attended_safety_meeting_date');
     
+    public function contact()
+    {
+        return $this->belongsTo('Contact','id', 'id');
+    }
+    
     public function availability()
     {
         return $this->hasMany('Availability', 'volunteer_id');

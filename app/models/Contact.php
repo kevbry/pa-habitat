@@ -27,4 +27,9 @@ class Contact extends \Eloquent
                                     'postal_code', 
                                     'country', 
                                     'comments');
+        
+          public function volunteer()
+        {
+            return $this->hasOne('Volunteer','id', 'id');
+        }
 }
