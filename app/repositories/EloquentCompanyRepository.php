@@ -19,11 +19,11 @@ class EloquentCompanyRepository  implements CompanyRepository
         return \Company::find($id);
     }
     
-    
     public function  getAllCompanies()
     {
-        return \Company::all();        
+        return \Company::orderBy('company_name','asc')->paginate(20);        
     }
+    
     public function saveCompany($company)
     {       
         $company->save();

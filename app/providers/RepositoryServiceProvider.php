@@ -15,7 +15,7 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\EloquentDonorRepository'     
         );
         $this->app->bind(   
-			'App\Repositories\CompanyRepository',
+            'App\Repositories\CompanyRepository',
             'App\Repositories\EloquentCompanyRepository');
         
         $this->app->bind(

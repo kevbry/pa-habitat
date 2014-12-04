@@ -1,10 +1,4 @@
 <?php
-use Contact;
-/**
- * Description of Company
- *
- * @author cst217
- */
 class Company extends \Eloquent
 {
     /**
@@ -20,4 +14,10 @@ class Company extends \Eloquent
     * @fillable array with column names we wish to be able to assign to.
     */
     protected $fillable = array('company_name','contact_id');
+    
+    
+    public function mainContact()
+    {
+        return $this->belongsTo('Contact','contact_id','id');
+    }
 }
