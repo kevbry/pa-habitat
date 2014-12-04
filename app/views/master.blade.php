@@ -20,10 +20,16 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Contacts <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Contacts<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li>{{ HTML::linkAction('ContactController@index','All Contacts') }}</li>
                                 <li>{{ HTML::linkAction('ContactController@create','Add a Contact') }}</li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Projects<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>{{ HTML::linkAction('ProjectController@index','Add Project') }}</li>
                             </ul>
                         </li>
                     </ul>
