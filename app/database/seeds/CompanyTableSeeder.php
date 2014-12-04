@@ -18,10 +18,20 @@ class CompanyTableSeeder extends Seeder
     {
          DB::table('Company')->delete();
          
-         Company::create(array('company_name' => 'Joe'));
-         $contactid = DB::select('select id from contact where first_name = "Joe";');
+         $contactid = DB::table('Contact')->where('first_name', 'Greg')->pluck('id');
+         Company::create(array( 'company_name' => 'Interactive Hardware',
+                                'contact_id' => $contactid ));
          
-         Company::create(array( 'comapny_name' => 'Joe',
+         $contactid = DB::table('Contact')->where('first_name', 'Melanie')->pluck('id');
+         Company::create(array( 'company_name' => 'New Homes Construction Co',
+                                'contact_id' => $contactid ));
+         
+         $contactid = DB::table('Contact')->where('first_name', 'Todd')->pluck('id');
+         Company::create(array( 'company_name' => 'Samples R Us Catering Co',
+                                'contact_id' => $contactid ));
+         
+         $contactid = DB::table('Contact')->where('first_name', 'Esther')->pluck('id');
+         Company::create(array( 'company_name' => 'CST Vehicle Rentals',
                                 'contact_id' => $contactid ));
         
     }

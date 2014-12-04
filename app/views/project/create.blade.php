@@ -5,7 +5,7 @@ Create a Project
 @stop
 
 @section('content')
-<h1>Create a Contact</h1>
+<h1>Create a Project</h1>
 {{ Form::open(array('route'=>'project.store','class'=>'form-horizontal')) }}
 <section class="row">
 <section class="col-md-7">

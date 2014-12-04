@@ -21,12 +21,19 @@ class DatabaseSeeder extends Seeder
 	public function run()
 	{
 		Eloquent::unguard();
+                DB::statement('SET FOREIGN_KEY_CHECKS = 0');
                 
                 // Runs the seeder for the Contact table.
 		$this->call('ContactTableSeeder');
-                $this->command->info('contact table seeded!');
+                $this->command->info('Contact table seeded!');
                 $this->call('CompanyTableSeeder');
-                $this->command->info('company table seeded!');
+                $this->command->info('Company table seeded!');
+                $this->call('ProjectTableSeeder');
+                $this->command->info('Project table seeded!');
+                $this->call('VolunteerTableSeeder');
+                $this->command->info('Volunteer table seeded!');
+                
+                DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 	}
 
 }
