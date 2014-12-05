@@ -10,7 +10,7 @@ class ContactTableSeeder extends Seeder
      * Contact::create(array(  'first_name' => '', 
                                 'last_name' => '', 
                                 'email_address' => '',
-                                'home_phone' => '', 
+                                'home_phone' => '',
                                 'cell_phone' => '', 
                                 'work_phone' => '', 
                                 'street_address' => '', 

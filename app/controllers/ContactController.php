@@ -1,19 +1,24 @@
 <?php
 use App\Repositories\ContactRepository;
+use App\Repositories\CompanyRepository;
 use App\Repositories\VolunteerRepository;
+use App\Repositories\DonorRepository;
 
 class ContactController extends \BaseController {
     
+        public $companyRepo;
         public $contactRepo;
+        public $donorRepo;
         public $volunteerRepo;
 
-        public function __construct(ContactRepository $contactRepo, VolunteerRepository $volunteerRepo)
+        public function __construct(ContactRepository $contactRepo, VolunteerRepository $volunteerRepo, CompanyRepository $companyRepo, DonorRepository $donorRepo)
         {
+            $this->companyRepo = $companyRepo;
             $this->contactRepo = $contactRepo;
+            $this->donorRepo = $donorRepo;
             $this->volunteerRepo = $volunteerRepo;
         }
     
-
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -28,7 +33,6 @@ class ContactController extends \BaseController {
             return View::make('contact.index')->with('contacts', $contactList);
 	}
 
-
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -39,7 +43,6 @@ class ContactController extends \BaseController {
             return View::make('contact.create');
 	}
 
-
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -47,6 +50,8 @@ class ContactController extends \BaseController {
 	 */
 	public function store()
 	{
+            // Check if the contact being created is a donor
+            $donorStatus = Input::has('is_donor');
             // Check if the contact being created is a volunteer
             $volunteerStatus = Input::has('is_volunteer');
             
@@ -73,14 +78,22 @@ class ContactController extends \BaseController {
             // Grab the id of the new contact
             $id = $contact->id;
             
+            // Add the contact as a donor if specified -- Should probably be moved somewhere else
+            if ($donorStatus)
+            {                
+                // Assign the contact
+                $donorValues['id'] = $id;
+                
+                $donor = new Donor($donorValues);
+                
+                $this->donorRepo->saveDonor($donor);
+            }
+            
             // Add the contact as a volunteer if specified -- Should probably be moved somewhere else
             if ($volunteerStatus)
             {
-                // Store values from the volunteer portion of contact form
-                $volunteerValues = Input::only('active_status', 'last_attended_safety_meeting_date');
-                
                 $volunteerValues['active_status'] = Input::has('active_status') ? 1 : 0;
-                
+                $volunteerValues['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
                 // Assign the contact
                 $volunteerValues['id'] = $id;
                 
@@ -89,8 +102,25 @@ class ContactController extends \BaseController {
                 $this->volunteerRepo->saveVolunteer($volunteer);
             }
             
+            // Add the contact as a company if specified -- Should probably be moved somewhere else
+            // Checkbox doesnt work, the if statement.
+            if (Input::has('company_name'))
+            {
+                // Store values from the company portion of contact form
+                $companyValues = Input::only('company_name');
+                
+                // Assign the company
+                $companyValues['contact_id'] = $id;
+                
+                $company = new Company($companyValues);
+                
+                $this->companyRepo->saveCompany($company);
+           }
+           
+            //assign a redirect variable
+            $redirectVariable = Redirect::action('ContactController@show',array($id));
             // Redirect to view the newly created contact
-            return Redirect::action('ContactController@show',array($id));
+            return $redirectVariable;
 	}
 
 
@@ -133,7 +163,6 @@ class ContactController extends \BaseController {
 		//
 	}
 
-
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -144,6 +173,4 @@ class ContactController extends \BaseController {
 	{
 		//
 	}
-
-
 }

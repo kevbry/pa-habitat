@@ -8,7 +8,7 @@ class Volunteer extends \Eloquent
      * @var string
      */
     protected $table = 'Volunteer';
-    protected $with = array('availability','certifications','trades','skills','interests');
+    protected $with = array('availability','certifications','trades','skills','interests','contact');
     
     /**
      * The attributes that are mass-assignment
@@ -16,6 +16,11 @@ class Volunteer extends \Eloquent
      * @fillable array with column names we wish to be able to assign to.
      */
     protected $fillable = array('id', 'active_status', 'last_attended_safety_meeting_date');
+    
+    public function contact()
+    {
+        return $this->belongsTo('Contact','id', 'id');
+    }
     
     public function availability()
     {

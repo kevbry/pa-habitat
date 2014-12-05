@@ -21,19 +21,21 @@ class DatabaseSeeder extends Seeder
 	public function run()
 	{
 		Eloquent::unguard();
+                DB::statement('SET FOREIGN_KEY_CHECKS = 0');
                 
                 // Runs the seeder for the Contact table.
 		$this->call('ContactTableSeeder');
                 $this->command->info('Contact table seeded!');
+                $this->call('CompanyTableSeeder');
+                $this->command->info('Company table seeded!');
+                $this->call('ProjectTableSeeder');
+                $this->command->info('Project table seeded!');
+                $this->call('VolunteerTableSeeder');
+                $this->command->info('Volunteer table seeded!');
+                $this->call('DonorTableSeeder');
+                $this->command->info('Donor table seeded!');
                 
-                // Interest, Skill, and Certification Seeders
-                // Temporarily disabled until models and views are created
-//                $this->call('InterestTableSeeder');
-//                $this->command->info('Interest table seeded!');
-//                $this->call('SkillTableSeeder');
-//                $this->command->info('Skill table seeded!');
-//                $this->call('CertificationTableSeeder');
-//                $this->command->info('Certification table seeded!');
+                DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 	}
 
 }
