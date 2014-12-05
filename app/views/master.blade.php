@@ -24,6 +24,7 @@
                             <ul class="dropdown-menu">
                                 <li>{{ HTML::linkAction('ContactController@index','All People') }}</li>
                                 <li>{{ HTML::linkAction('VolunteerController@index','Just Volunteers') }}</li>
+                                <li>{{ HTML::linkAction('DonorController@index','Just Donors') }}</li>
                                 <li>{{ HTML::linkAction('CompanyController@index','Companies') }}</li>
                                 <li>{{ HTML::linkAction('ContactController@create','Add a Contact') }}</li>
                             </ul>
