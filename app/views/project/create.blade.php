@@ -12,7 +12,7 @@ Create a Project
     <div class="form-group">
         {{ Form::label('name', 'Project Name: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('name',"House 106",array('class'=>'form-control')) }}
+        {{ Form::text('name',null,array('class'=>'form-control')) }}
         </div>
     </div>
 </section>
