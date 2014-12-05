@@ -5,7 +5,10 @@ class DonorIntegrationTest extends TestCase {
     
     public function testIndex() 
     {
-
+        $response = $this->call('GET', 'donor');
+        $this->assertContains('Donors',$response->getContent());
+        $crawler = $this->client->request('GET', 'donor');
+        $this->assertTrue($this->client->getResponse()->isOk());
     }
     
     public function testCreate() 
