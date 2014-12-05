@@ -8,10 +8,9 @@ class EloquentDonorRepository implements DonorRepository
         return \Donor::find($id);
     }
     
-    
     public function getAllDonors()
     {
-        return \Donor::all();        
+        return \Donor::paginate(20);     
     }
     
     public function saveDonor($donor)

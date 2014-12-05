@@ -15,7 +15,7 @@ class CreateDonorsTable extends Migration {
 		Schema::create('Donor', function(Blueprint $table)
 		{
                         $table->integer('id')->unsigned();
-                        $table->foreign('id')->references('id')->on('Contact');
+                        $table->foreign('id')->references('id')->on('contact');
 			$table->timestamps();
                         $table->string("business_name");
 		});
