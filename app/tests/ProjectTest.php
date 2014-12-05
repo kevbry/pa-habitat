@@ -29,11 +29,10 @@ class ProjectTest extends TestCase {
     public function testStoreProjectSuccess()
     {
         // Assemble
-
         $mockedProjectRepo = Mockery::mock('app\repositories\ProjectRepository');
         $this->app->instance('app/repositories/ProjectRepository', $mockedProjectRepo);
         
-        $mockedProjectRepo->shouldReceive('saveContact')->once()->with($this->testContact);
+        $mockedProjectRepo->shouldReceive('saveProject')->once()->with($this->testProject);
         
         $testController = new ProjectController($mockedProjectRepo);
 

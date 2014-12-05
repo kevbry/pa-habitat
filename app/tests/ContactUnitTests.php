@@ -1,9 +1,25 @@
 <?php
 
 /**
- * Unit tests for the Contact Controller class
+ * Description of ContactUnitTests
+ *
+ * @author cst222
  */
-class ContactUnitTests extends TestCase {
+class ContactUnitTests  extends TestCase
+{
+    var $mockedContactRepo;
+    var $mockedVolunteerRepo;
+    var $mockedCompanyRepo;
+    var $mockedDonorRepo;
+    var $mockedContactController;
+    
+    var $testController;
+    
+    var $testContact;
+    var $testVolunteer;
+    
+    var $contactInput;
+    var $volunteerInput;
     
     /**
      * Set up function for the tests.  Creates dummy objects to use for Testing.
@@ -13,7 +29,7 @@ class ContactUnitTests extends TestCase {
         parent::setUp();
 
         // Create dummy Contact information
-        $contactInput = [
+        $this->contactInput = [
             'id' => '555',
             'first_name' => 'Test', 
             'last_name' => 'Testerson', 
@@ -29,45 +45,73 @@ class ContactUnitTests extends TestCase {
             'comments' => 'Is a really ordinary person.'
          ];
         
-        // Create dummy Volunteer information
-        $volunteerInput = [
-            'active_status' => 'active',
-            'lastAttendedSafetyMeetingDate' => 'null'
-        ];
-        
+
         // Instantiate objects with dummy data
-        $this->testContact = new Contact($contactInput);
-        $this->testVolunteer = new Volunteer($volunteerInput);
+        $this->testContact = new Contact($this->contactInput);
+
         
+        $this->mockedContactRepo = Mockery::mock('app\repositories\ContactRepository');
+        $this->app->instance('app/repositories/ContactRepository', $this->mockedContactRepo);
+        
+        
+        $this->mockedCompanyRepo = Mockery::mock('app\repositories\CompanyRepository');
+        $this->app->instance('app/respositories/CompanyRepository', $this->mockedCompanyRepo);
+        
+        $this->mockedDonorRepo = Mockery::mock('app\repositories\DonorRepository');
+        $this->app->instance('app/repositories/DonorRepository', $this->mockedDonorRepo);
+        
+        $this->mockedContactController = Mockery::mock('app\controllers\ContactController');
+        $this->app->instance('app/controllers/ContactController', $this->mockedContactController);
+        
+        $this->testController = new ContactController($this->mockedContactRepo, $this->mockedVolunteerRepo, $this->mockedCompanyRepo, $this->mockedDonorRepo);
     }
     
-    /**
-     * Purpose: Test the store method for sucessfully storing a volunteer
-     */
-    public function testStoreVolunteerSuccess()
+    public function testStoreContactSuccess()
     {
         // Assemble
-        $isVolunteer = true;
-
-        $mockedContactRepo = Mockery::mock('app\repositories\ContactRepository');
-        $this->app->instance('app/repositories/ContactRepository', $mockedContactRepo);
+        $this->mockedContactRepo->shouldReceive('saveContact')->once()->with(Mockery::type('Contact'));
         
-        $mockedVolunteerRepo = Mockery::mock('app\repositories\VolunteerRepository');
-        $this->app->instance('app/repositories/VolunteerRepository', $mockedVolunteerRepo);
+        $this->mockedContactController->shouldReceive('storeContactWith')->once()->with($this->contactInput)->andReturn('555');
         
-        $mockedContactRepo->shouldReceive('saveContact')->once()->with($this->testContact);
-        $mockedVolunteerRepo->shouldReceive('saveVolunteer')->once()->with($this->testVolunteer);
-        
-        $testController = new ContactController($mockedContactRepo, $mockedVolunteerRepo);
-
-        // Act    
-        $this->call("GET", "contact/store");
+        // Act 
+        //$this->action("GET", "ContactController@store");
+        //$testController->store();
         
         // Assert
-        $this->assertTrue($isVolunteer);
-        $this->assertEquals(555, $this->testContact->id);
-        $this->assertTrue($this->testContact->id, $this->testVolunteer->contact_id);
 
+    }
+
+    public function testStoreContactFails()
+    {
+        // TODO: Make sure to test when a contact fails to be added
+    }
+    
+    public function testView()
+    {
+        // Call the method
+        $response = $this->call('GET', 'contact/create');
+        
+        // Make assertions -- maybe add some more stuff to assert.
+        $this->assertContains('Contact', $response->getContent());
+    }
+    
+    public function testCreate()
+    {
+        $response = $this->action('GET', 'ContactController@create');
+        $crawler = $this->client->request('GET', 'create');
+        
+        $this->assertContains('Create a Contact',$response->getContent());
+        $this->assertTrue($this->client->getResponse()->isOk());
+        $this->assertCount(1, $crawler->filter('label:contains("First Name:")'));
+    }
+    
+    public function testStoreContactWith()
+    {
+        // Assemble
+        $this->mockedContactRepo->shouldReceive('saveContact')->once()->with(Mockery::type('Contact'));
+      
+        // Act
+        $this->testController->storeContactWith($this->contactInput);
     }
     
     /**
@@ -75,62 +119,16 @@ class ContactUnitTests extends TestCase {
      */
     public function testStoreRedirect()
     {
-        $mockedRepo = Mockery::mock('app\repositories\ContactRepository');
-        $this->app->instance('app/repositories/ContactRepository', $mockedRepo);
-        
-        $mockedVolunteerRepo = Mockery::mock('app\repositories\VolunteerRepository');
-        $this->app->instance('app/repositories/VolunteerRepository', $mockedVolunteerRepo);
-        
-        $mockedRepo->shouldReceive('saveContact')->once()->with($this->testContact);
-        
-        $testController = new ContactController($mockedRepo, $mockedVolunteerRepo);
+
+        $this->mockedContactRepo->shouldReceive('saveContact')->once()->with($this->testContact);
 
         // Act    
-        //$this->call("GET", "contact/store");
+        $this->call("GET", "contact/store");
         
         // Assert
         $this->assertRedirectedToRoute('contact.show');
     }
     
-    
-    /**
-     * Purpose: Test coverage for if the system fails to add a contact before the volunteer
-     * @expectedException ApplicationException
-     */
-    public function testStoreVolunteerFails()
-    {
-        // Assemble
-        $isVolunteer = true;
-
-        
-        $mockedRepo = Mockery::mock('app\repositories\VolunteerRepository');
-        $this->app->instance('app/repositories/VolunteerRepository', $mockedRepo);
-        
-        $testController = new ContactController($mockedRepo);
-
-        // Act    
-        $mockedRepo->shouldReceive('saveContact')->once()->with(null);
-        $mockedRepo->shouldReceive('saveVolunteer')->once()->with($this->testVolunteer);
-        
-        // Assert
-    }
-    
-    /**
-     * Test creating a view, ensuring that the volunteer fields exist
-     */
-    public function testCreateVolunteerView()
-    {
-        // Call the method
-        $response = $this->call('GET', 'contact/create');
-        
-        // Make assertions
-        $this->assertContains('Volunteer', $response->getContent());
-    }
-    
-    
-    /** 
-     * Function for cleaning up after tests ar complete
-     */
     public function tearDown()
     {
         Mockery::close();
