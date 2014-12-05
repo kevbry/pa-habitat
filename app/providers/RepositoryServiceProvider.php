@@ -26,5 +26,9 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\ProjectRepository',
             'App\Repositories\EloquentProjectRepository'
         );
+        $this->app->bind(
+            'App\Repositories\DonorRepository',
+            'App\Repositories\EloquentDonorRepository'
+        );
     }
 }

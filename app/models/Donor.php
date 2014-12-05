@@ -16,4 +16,9 @@ class Donor extends \Eloquent
 	 */
 
         protected $fillable = array('id');
+        
+        public function contact()
+        {
+            return $this->belongsTo('Contact','id', 'id');
+        }
 }
