@@ -5,21 +5,21 @@
  *
  * @author cst222
  */
-class ContactUnitTests  extends TestCase
+class ContactUnitTest  extends TestCase
 {
-    var $mockedContactRepo;
-    var $mockedVolunteerRepo;
-    var $mockedCompanyRepo;
-    var $mockedDonorRepo;
-    var $mockedContactController;
+    protected $mockedContactRepo;
+    protected $mockedVolunteerRepo;
+    protected $mockedCompanyRepo;
+    protected $mockedDonorRepo;
+    protected $mockedContactController;
     
-    var $testController;
+    protected $testController;
     
-    var $testContact;
-    var $testVolunteer;
+    protected $testContact;
+    protected $testVolunteer;
     
-    var $contactInput;
-    var $volunteerInput;
+    protected $contactInput;
+    protected $volunteerInput;
     
     /**
      * Set up function for the tests.  Creates dummy objects to use for Testing.
@@ -51,41 +51,58 @@ class ContactUnitTests  extends TestCase
 
         
         $this->mockedContactRepo = Mockery::mock('app\repositories\ContactRepository');
-        $this->app->instance('app/repositories/ContactRepository', $this->mockedContactRepo);
-        
-        
+        $this->app->instance('app\repositories\ContactRepository', $this->mockedContactRepo);
+
         $this->mockedCompanyRepo = Mockery::mock('app\repositories\CompanyRepository');
-        $this->app->instance('app/respositories/CompanyRepository', $this->mockedCompanyRepo);
+        $this->app->instance('app\respositories\CompanyRepository', $this->mockedCompanyRepo);
+        
+        $this->mockedVolunteerRepo = Mockery::mock('app\repositories\VolunteerRepository');
+        $this->app->instance('app\repositories\VolunteerRepository', $this->mockedVolunteerRepo);
         
         $this->mockedDonorRepo = Mockery::mock('app\repositories\DonorRepository');
-        $this->app->instance('app/repositories/DonorRepository', $this->mockedDonorRepo);
+        $this->app->instance('app\repositories\DonorRepository', $this->mockedDonorRepo);
         
         $this->mockedContactController = Mockery::mock('app\controllers\ContactController');
-        $this->app->instance('app/controllers/ContactController', $this->mockedContactController);
+        $this->app->instance('app\controllers\ContactController', $this->mockedContactController);
         
         $this->testController = new ContactController($this->mockedContactRepo, $this->mockedVolunteerRepo, $this->mockedCompanyRepo, $this->mockedDonorRepo);
     }
     
+    /**
+     * Test that the system can sucessfully add a contact to the database
+     * NOTE: as of release two, despite it seeming like this should work, it is
+     *       broken.
+     */
     public function testStoreContactSuccess()
     {
         // Assemble
+        $this->mockedContactController->shouldReceive('storeContactWith')->once()->with($this->contactInput);
         $this->mockedContactRepo->shouldReceive('saveContact')->once()->with(Mockery::type('Contact'));
+
         
-        $this->mockedContactController->shouldReceive('storeContactWith')->once()->with($this->contactInput)->andReturn('555');
+        Redirect::shouldReceive('action')->once()->with('ContactController@show');
         
         // Act 
-        //$this->action("GET", "ContactController@store");
-        //$testController->store();
+        $response = $this->route("POST", "contact.store", $this->contactInput);
+        //$this->testController->store();
         
         // Assert
-
+        $this->assertTrue("first_name", $response);
+        
     }
 
+    /**
+     * Test that the system can gracefully handle not successfully adding contacts
+     */
     public function testStoreContactFails()
     {
-        // TODO: Make sure to test when a contact fails to be added
+        // TODO: Make sure to test when a contact fails to be added once that
+        // story comes up
     }
     
+    /**
+     * Test that the appropriate view gets called
+     */
     public function testView()
     {
         // Call the method
@@ -95,6 +112,9 @@ class ContactUnitTests  extends TestCase
         $this->assertContains('Contact', $response->getContent());
     }
     
+    /**
+     * Test that the appropriate view is created
+     */
     public function testCreate()
     {
         $response = $this->action('GET', 'ContactController@create');
@@ -105,10 +125,38 @@ class ContactUnitTests  extends TestCase
         $this->assertCount(1, $crawler->filter('label:contains("First Name:")'));
     }
     
+    /**
+     * Test helper method that creates a contact object and passes it to the
+     * repository
+     */
     public function testStoreContactWith()
     {
         // Assemble
         $this->mockedContactRepo->shouldReceive('saveContact')->once()->with(Mockery::type('Contact'));
+        
+        // Act
+        $this->testController->storeContactWith($this->contactInput);
+    }
+    
+    /**
+     * Test that the helper method passes values into the repository methods
+     */
+    public function testStoreContactWithReceivesContactInfo()
+    {
+        // Assemble
+        $contactInput = $this->contactInput;
+        
+        $this->mockedContactRepo->shouldReceive('saveContact')
+                ->once()
+                ->with(Mockery::on(
+                        function($passedInContactInfo) use($contactInput)
+                {
+                    $this->assertNull($passedInContactInfo['id']);
+                    $this->assertEquals($contactInput['last_name'], $passedInContactInfo['last_name']);
+                    
+                    return true;
+                }
+                ));
       
         // Act
         $this->testController->storeContactWith($this->contactInput);
@@ -117,7 +165,7 @@ class ContactUnitTests  extends TestCase
     /**
      * Purpose: Test that the store method redirects to the show page
      */
-    public function testStoreRedirect()
+    public function OFF_testStoreRedirect()
     {
 
         $this->mockedContactRepo->shouldReceive('saveContact')->once()->with($this->testContact);
@@ -129,6 +177,9 @@ class ContactUnitTests  extends TestCase
         $this->assertRedirectedToRoute('contact.show');
     }
     
+    /**
+     * Test clean up
+     */
     public function tearDown()
     {
         Mockery::close();

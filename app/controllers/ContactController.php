@@ -116,7 +116,7 @@ class ContactController extends \BaseController {
            }
            
             //assign a redirect variable
-            $redirectVariable = Redirect::action('ContactController@show', array($id));
+            $redirectVariable = Redirect::action('ContactController@show', $id);
             // Redirect to view the newly created contact
             return $redirectVariable;
 	}

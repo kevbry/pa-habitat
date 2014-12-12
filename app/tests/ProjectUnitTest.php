@@ -3,7 +3,7 @@
 /**
  * Unit tests for the Contact Controller class
  */
-class ProjectTest extends TestCase {
+class ProjectUnitTests extends TestCase {
     
     /**
      * Set up function for the tests.  Creates dummy objects to use for Testing.
@@ -26,7 +26,7 @@ class ProjectTest extends TestCase {
     /**
      * Purpose: Test the store method for sucessfully storing a volunteer
      */
-    public function testStoreProjectSuccess()
+    public function OFF_testStoreProjectSuccess()
     {
         // Assemble
         $mockedProjectRepo = Mockery::mock('app\repositories\ProjectRepository');
