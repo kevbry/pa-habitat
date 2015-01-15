@@ -124,7 +124,7 @@ class ContactUnitTest  extends TestCase
         $this->assertTrue($this->client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('label:contains("First Name:")'));
     }
-    
+
     /**
      * Test helper method that creates a contact object and passes it to the
      * repository
@@ -177,6 +177,43 @@ class ContactUnitTest  extends TestCase
         $this->assertRedirectedToRoute('contact.show');
     }
     
+
+    /**
+     * Test that the controller can sucessfully add hours to the database
+     */
+    public function testStoreEditSuccess()
+    {
+        // Assemble
+        $this->mockedContactController
+                ->shouldReceive('edit')->once()
+                ->with($this->contactInput);
+        $this->mockedContactRepo->shouldReceive('saveContact')
+                ->once()->with(Mockery::type('Contact'));
+
+        // Act 
+        $response = $this->route("POST", "contact.show", 
+                $this->contactInput);
+
+        // Assert
+        $this->assertResponseOK();
+    }
+    
+    public function testStoreEditFailure()
+    {
+        $this->contactInput = [];
+        
+        // Assemble
+        $this->mockedContactController
+                ->shouldReceive('edit')
+                ->once()
+                ->with($this->contactInput)
+                ->andThrow($this->invalidDataException);
+
+        // Act 
+        $response = $this->route("POST", "contact.edit", 
+                $this->contactInput);
+    }
+   
     /**
      * Test clean up
      */
