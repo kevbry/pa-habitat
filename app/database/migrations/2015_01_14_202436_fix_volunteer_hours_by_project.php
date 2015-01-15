@@ -18,8 +18,6 @@ class FixVolunteerHoursByProject extends Migration {
 
                 $table->dropColumn('paid_hours');
                 
-                
-                
             });
 
             Schema::table('VolunteeredHours', function($table)
