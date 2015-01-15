@@ -210,7 +210,7 @@ class ContactUnitTest  extends TestCase
                 ->andThrow($this->invalidDataException);
 
         // Act 
-        $response = $this->route("POST", "contact.edit", 
+        $response = $this->route("POST", "contact.show", 
                 $this->contactInput);
     }
    
