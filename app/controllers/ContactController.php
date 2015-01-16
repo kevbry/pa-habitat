@@ -193,10 +193,19 @@ class ContactController extends \BaseController {
 	{
             // Store values from the contact form
             //$contact = $this->contactRepo->getContact($id);
-            $contactInfo = Input::all();
+            $contactInfo = Input::only(
+                        'email_address',
+                        'home_phone', 
+                        'cell_phone', 
+                        'work_phone', 
+                        'street_address', 
+                        'city', 
+                        'province', 
+                        'postal_code', 
+                        'country', 
+                        'comments');
 
-            $fieldNames = array('first_name', 
-                        'last_name', 
+            $fieldNames = array(
                         'email_address',
                         'home_phone', 
                         'cell_phone', 

@@ -5,9 +5,9 @@ Contact Details
 @stop
 
 @section('content')
-<h1>Contact details</h1>
+<h1>Edit Contact</h1>
 <h2>{{ $contact->first_name . " " . $contact->last_name }}</h2> 
-{{ Form::open(array('method'=>'get','route'=>array('contact.update', $contact->id), 'class'=>'form-horizontal')) }}
+{{ Form::open(array('method'=>'put','route'=>array('contact.update', $contact->id), 'class'=>'form-horizontal')) }}
 <section class="generalInfo col-md-7">
 
  <div class="form-group">
