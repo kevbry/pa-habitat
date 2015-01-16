@@ -6,9 +6,9 @@ Contact Details
 
 @section('content')
 <h1>Contact details</h1>
-{{ Form::open(array('route'=>'contact.edit', 'class'=>'form-horizontal')) }}
+{{ Form::open(array('method'=>'get','route'=>array('contact.edit', $contact->id), 'class'=>'form-horizontal')) }}
 <h2>{{ $contact->first_name . " " . $contact->last_name }} 
-    {{ Form::submit( 'Edit Details', array('class'=>'btn btn-primary') ) }}</h2> 
+    {{ Form::submit('Edit Details', array('class'=>'btn btn-primary') ) }}</h2> 
 <section class="generalInfo col-md-7">
 
  <div class="form-group">
@@ -72,6 +72,8 @@ Contact Details
      </div>
  </div>
 </section>
+{{ Form::close() }}
+{{ Form::open(array('class'=>'form-horizontal')) }}
  <?php
     $volunteerStatus = 0;
     $volunteerSafetyDate = "";

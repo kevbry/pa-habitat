@@ -7,7 +7,7 @@ Contact Details
 @section('content')
 <h1>Contact details</h1>
 <h2>{{ $contact->first_name . " " . $contact->last_name }}</h2> 
-{{ Form::open(array('route'=>'contact.store', 'class'=>'form-horizontal')) }}
+{{ Form::open(array('method'=>'get','route'=>array('contact.update', $contact->id), 'class'=>'form-horizontal')) }}
 <section class="generalInfo col-md-7">
 
  <div class="form-group">
@@ -70,8 +70,9 @@ Contact Details
      {{ Form::textarea('comments',$contact->comments,array('class'=>'form-control')) }}
      </div>
  </div>
+    {{Form::submit('Save Details',array('class'=>'btn btn-primary btn-lg'))}}
 </section>
-{{Form::submit('Save Details',array('class'=>'btn btn-primary btn-lg'))}}
+
 {{ Form::close() }}
 
  @stop            

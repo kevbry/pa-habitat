@@ -191,7 +191,32 @@ class ContactController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+            // Store values from the contact form
+            //$contact = $this->contactRepo->getContact($id);
+            $contactInfo = Input::all();
+
+            $fieldNames = array('first_name', 
+                        'last_name', 
+                        'email_address',
+                        'home_phone', 
+                        'cell_phone', 
+                        'work_phone', 
+                        'street_address', 
+                        'city', 
+                        'province', 
+                        'postal_code', 
+                        'country', 
+                        'comments');
+            var_dump($fieldNames);
+            $counter = 0;
+            
+            foreach($contactInfo as $fieldValue)
+            {
+                $affectedRows = Contact::where('id','=',$id)->update(array($fieldNames[$counter] => $fieldValue));
+                $counter++;
+            }
+            echo $affectedRows;
+            // Store the contact
 	}
 
 	/**
