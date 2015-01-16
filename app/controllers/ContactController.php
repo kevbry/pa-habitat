@@ -176,7 +176,10 @@ class ContactController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-
+            $contact = $this->contactRepo->getContact($id);
+            
+            return View::make('contact.edit')
+                    ->withContact($contact);
 	}
 
 
@@ -199,6 +202,6 @@ class ContactController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		//boom
 	}
 }

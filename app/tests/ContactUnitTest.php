@@ -213,6 +213,11 @@ class ContactUnitTest  extends TestCase
         $response = $this->route("POST", "contact.show", 
                 $this->contactInput);
     }
+    
+    public funciton testEditRedirect()
+    {
+        
+    }
    
     /**
      * Test clean up
