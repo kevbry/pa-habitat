@@ -1,14 +1,20 @@
 <?php
+use App\Repositories\VolunteerHoursRepository;
 use App\Repositories\VolunteerRepository;
+use App\Repositories\ProjectRepository;
 
 class VolunteerHoursController extends \BaseController {
         
     
     public $volunteerRepo;
+    public $projectRepo;
+    public $volunteerHrsRepo;
 
-    public function __construct(VolunteerRepository $volunteerRepo)
+    public function __construct(VolunteerRepository $volunteerRepo, ProjectRepository $projectRepo, VolunteerHoursRepository $volunteerHrsRepo)
     {
         $this->volunteerRepo = $volunteerRepo;
+        $this->projectRepo = $projectRepo;
+        $this->volunteerHrsRepo = $volunteerHrsRepo;
     }
     
     /**
@@ -19,12 +25,10 @@ class VolunteerHoursController extends \BaseController {
 	public function indexForProject($projectId)
 	{
             $volunteers = $this->volunteerRepo->getAllVolunteers();
-            foreach ($volunteers as $volunteer)
-            {
-                $volunteers['id'] = $
-            } 
+            $projects = $this->projectRepo->getAllProjects();
             
-            return View::make('volunteerhours.project',array('id'=>$projectId, 'volunteers' => $volunteers));
+            
+            return View::make('volunteerhours.project',array('id'=>$projectId, 'volunteers' => $volunteers, 'projects'=>$projects));
 	}
 
 	public function indexForContact($contactId)
@@ -37,10 +41,34 @@ class VolunteerHoursController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function storehours()
 	{
-		//
+            // Check if the hours being created are paid
+            //$paidStatus = Input::has('paid_hours');
+            
+            // Store values from the contact form
+            $hoursInfo = Input::only('volunteer_id', 
+                                    'hours', 
+                                    'date_of_contribution',
+                                    'project_id');
+            $hoursInfo['paid_hours'] = Input::has('paid_hours') ? 1 : 0;
+            
+            // Store the contact
+            $id = $this->storeHoursWith($hoursInfo);
 	}
+        
+        public function storeHoursWith($hoursInfo)
+        {
+            $hours = new VolunteerHours($hoursInfo);
+            
+//            $hours = array('volunteer_id'=>14,'project_id'=>7,'date_of_contribution'=>'2014-01-16','hours'=>3,'paid_hours'=>0);
+//            $volunteerHours = new VolunteerHours($hours);
+            
+            // Store contact
+            $this->volunteerHrsRepo->saveVolunteerHours($hours);
+            
+            return $hours->id;
+        }
 
 
 	/**

@@ -16,6 +16,8 @@ class EloquentVolunteerHoursRepository implements VolunteerHoursRepository {
     
     public function saveVolunteerHours($volunteerHours)
     {
+
         
+        $volunteerHours->save();
     }
 }

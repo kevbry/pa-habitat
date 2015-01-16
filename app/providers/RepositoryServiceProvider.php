@@ -30,5 +30,9 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\DonorRepository',
             'App\Repositories\EloquentDonorRepository'
         );
+        $this->app->bind(
+            'App\Repositories\VolunteerHoursRepository',
+            'App\Repositories\EloquentVolunteerHoursRepository'
+        );
     }
 }
