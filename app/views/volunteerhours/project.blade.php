@@ -14,6 +14,16 @@ Add Volunteer Hours for Project {{$id}}
         <tr><th>Name</th><th>Hours</th><th>Date</th><th>Paid Hours</th><th>Project</th><th>Family</th></tr>
     </thead>
     <tbody>
+            @foreach($volunteerhours as $volunteerhour)
+            <tr>
+                <td>{{$volunteerhour->volunteer->contact->first_name . ' ' . $volunteerhour->volunteer->contact->last_name}}</td>
+                <td>{{$volunteerhour->hours}}</td>
+                <td>{{$volunteerhour->date_of_contribution}}</td>
+                <td>{{$volunteerhour->paid_hours}}</td>
+                <td>{{$volunteerhour->project->name}}</td>
+                <td>{{$volunteerhour->family_id}}</td>
+            </tr>
+            @endforeach
         <tr>
             <td>
                 <select name="volunteer_id" class="form-control">
@@ -27,9 +37,7 @@ Add Volunteer Hours for Project {{$id}}
             <td>{{Form::checkbox('paid_hours', 'paid')}}</td>
             <td>
                 <select name="project_id" class="form-control">
-                @foreach($projects as $project)
                     <option value="{{$project->id}}">{{$project->name}}</option>
-                @endforeach
                 </select>
             </td>
             <td>

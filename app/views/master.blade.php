@@ -47,8 +47,8 @@
     <footer class="container">
         <p>Copyright 2014</p>
     </footer>
-    
 {{ HTML::script('assets/js/jquery-1.11.1.min.js'); }}
 {{ HTML::script('assets/js/bootstrap.min.js'); }}
+{{ HTML::script('assets/js/habitat.js');}}
     </body>
 </html>

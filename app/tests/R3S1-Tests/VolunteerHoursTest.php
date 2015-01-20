@@ -74,8 +74,20 @@ class VolunteerHoursTest extends VolunteerHours
 
         // Act 
         $response = $this->route("POST", "volunteerHours.create", $this->volunteerHoursInput);
-
     }
+    
+    public function testIndexForProject()
+    {
+        $this->mockedVolunteerHoursRepo
+                ->shouldReceive('getHoursForProject')->once();
+        
+        $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
+        
+        $this->call('GET','volunteerHours.indexForProject');
+        
+        $this->assertViewHas('volunteerhours');
+    }
+    
     
 }
 

@@ -15,10 +15,15 @@ class VolunteerHours extends \Eloquent
      *
      * @fillable array with column names we wish to be able to assign to.
      */
-    protected $fillable = array('volunteer_id', 'project_id', 'date_of_contribution', 'hours', 'paid_hours', 'family_id');
+    protected $fillable = array('id','volunteer_id', 'project_id', 'date_of_contribution', 'hours', 'paid_hours', 'family_id');
     
     public function project()
     {
-        return $this->belongsTo('Project','id','project_id');
+        return $this->hasOne('Project','id','project_id');
+    }
+    
+    public function volunteer()
+    {
+        return $this->hasOne('Volunteer','id','volunteer_id');
     }
 }

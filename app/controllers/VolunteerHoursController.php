@@ -25,10 +25,12 @@ class VolunteerHoursController extends \BaseController {
 	public function indexForProject($projectId)
 	{
             $volunteers = $this->volunteerRepo->getAllVolunteers();
-            $projects = $this->projectRepo->getAllProjects();
-            
-            
-            return View::make('volunteerhours.project',array('id'=>$projectId, 'volunteers' => $volunteers, 'projects'=>$projects));
+            $project = $this->projectRepo->getProject($projectId);
+            $volunteerHours = $this->volunteerHrsRepo->getHoursForProject($projectId);
+
+            return View::make('volunteerhours.project',
+                    array('id'=>$projectId, 'volunteers' => $volunteers,
+                        'project'=>$project, 'volunteerhours'=>$volunteerHours));
 	}
 
 	public function indexForContact($contactId)
