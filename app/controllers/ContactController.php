@@ -194,6 +194,8 @@ class ContactController extends \BaseController {
             // Store values from the contact form
             //$contact = $this->contactRepo->getContact($id);
             $contactInfo = Input::only(
+                        'first_name',
+                        'last_name',
                         'email_address',
                         'home_phone', 
                         'cell_phone', 
@@ -206,6 +208,8 @@ class ContactController extends \BaseController {
                         'comments');
 
             $fieldNames = array(
+                        'first_name',
+                        'last_name',
                         'email_address',
                         'home_phone', 
                         'cell_phone', 
@@ -216,16 +220,20 @@ class ContactController extends \BaseController {
                         'postal_code', 
                         'country', 
                         'comments');
-            var_dump($fieldNames);
+            //var_dump($fieldNames);
             $counter = 0;
             
             foreach($contactInfo as $fieldValue)
             {
-                $affectedRows = Contact::where('id','=',$id)->update(array($fieldNames[$counter] => $fieldValue));
+                Contact::where('id','=',$id)->update(array($fieldNames[$counter] => $fieldValue)); 
                 $counter++;
             }
-            echo $affectedRows;
-            // Store the contact
+            //echo $affectedRows;
+            $contact = $this->contactRepo->getContact($id);
+            $volunteer = $this->volunteerRepo->getVolunteer($id);
+            return View::make('contact.show')
+                    ->withContact($contact)
+                    ->withVolunteer($volunteer);
 	}
 
 	/**

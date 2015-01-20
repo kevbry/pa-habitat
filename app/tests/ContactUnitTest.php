@@ -212,9 +212,10 @@ class ContactUnitTest  extends TestCase
         // Act 
         $response = $this->route("POST", "contact.show", 
                 $this->contactInput);
+        //Assert
     }
     
-    public funciton testEditRedirect()
+    public function testToEditRedirect()
     {
         
     }

@@ -1,15 +1,27 @@
 @extends('master')
 
 @section('title')
-Contact Details
+Edit Contact
 @stop
 
 @section('content')
-<h1>Edit Contact</h1>
-<h2>{{ $contact->first_name . " " . $contact->last_name }}</h2> 
+<h1>Editing Details</h1>
+<h2>{{$contact->first_name . " " . $contact->last_name}}</h2>
 {{ Form::open(array('method'=>'put','route'=>array('contact.update', $contact->id), 'class'=>'form-horizontal')) }}
 <section class="generalInfo col-md-7">
 
+<div class="form-group">
+    {{ Form::label('first_name', 'First Name: ',array('class'=>'col-sm-3')) }}
+    <div class="col-sm-7">
+    {{ Form::text('first_name',$contact->first_name,array('class'=>'form-control')) }}
+    </div>
+</div>
+<div class="form-group">
+    {{ Form::label('last_name', 'Last Name: ',array('class'=>'col-sm-3')) }}
+    <div class="col-sm-7">
+    {{ Form::text('last_name',$contact->last_name,array('class'=>'form-control')) }}
+    </div>
+</div>
  <div class="form-group">
      {{ Form::label('email_address','Email: ',array('class'=>'col-sm-3')) }}
      <div class="col-sm-7">
