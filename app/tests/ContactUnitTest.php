@@ -20,6 +20,7 @@ class ContactUnitTest  extends TestCase
     
     protected $contactInput;
     protected $volunteerInput;
+    protected $invalidDataException;
     
     /**
      * Set up function for the tests.  Creates dummy objects to use for Testing.
@@ -176,16 +177,19 @@ class ContactUnitTest  extends TestCase
         // Assert
         $this->assertRedirectedToRoute('contact.show');
     }
-    
+    /**
+     * 
+     * Editing Contact tests
+     */
 
     /**
-     * Test that the controller can sucessfully add hours to the database
+     * Test that the controller can sucessfully edit a contact
      */
     public function testStoreEditSuccess()
     {
         // Assemble
         $this->mockedContactController
-                ->shouldReceive('edit')->once()
+                ->shouldReceive('update')->once()
                 ->with($this->contactInput);
         $this->mockedContactRepo->shouldReceive('saveContact')
                 ->once()->with(Mockery::type('Contact'));
@@ -195,7 +199,7 @@ class ContactUnitTest  extends TestCase
                 $this->contactInput);
 
         // Assert
-        $this->assertResponseOK();
+        $this->assertResponseOk();
     }
     
     public function testStoreEditFailure()
@@ -204,7 +208,7 @@ class ContactUnitTest  extends TestCase
         
         // Assemble
         $this->mockedContactController
-                ->shouldReceive('edit')
+                ->shouldReceive('update')
                 ->once()
                 ->with($this->contactInput)
                 ->andThrow($this->invalidDataException);
@@ -215,11 +219,36 @@ class ContactUnitTest  extends TestCase
         //Assert
     }
     
-    public function testToEditRedirect()
+    public function testShowToEditRedirectSuccess()
     {
+        //Assemble
+        $this->mockedContactController
+                ->shouldReceive('edit')
+                ->once()
+                ->with($this->contactInput);
+        //Act
+        $response = $this->route("POST", "contact.edit",
+                $this->contactInput);
         
+        //Assert
+        $this->assertResponseOk();
     }
-   
+    public function testShowToEditRedirectFailure()
+    {
+                //Assemble
+        $this->mockedContactController
+                ->shouldReceive('edit')
+                ->once()
+                ->with($this->contactInput)
+                ->andThrow($this->invalidDataException);
+        //Act
+        $response = $this->route("POST", "contact.edit",
+                $this->contactInput);
+    }
+    /**
+     * Editing contact tests end
+     */
+    
     /**
      * Test clean up
      */

@@ -228,6 +228,7 @@ class ContactController extends \BaseController {
                 Contact::where('id','=',$id)->update(array($fieldNames[$counter] => $fieldValue)); 
                 $counter++;
             }
+             
             //echo $affectedRows;
             $contact = $this->contactRepo->getContact($id);
             $volunteer = $this->volunteerRepo->getVolunteer($id);
