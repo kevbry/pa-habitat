@@ -15,10 +15,15 @@ class ProjectUnitTests extends TestCase {
         // Create dummy Contact information
         $projectInput = [
             'id' => '33',
-            'name' => 'Cool House'
+            'name' => 'Test House',
+            'location'=> '289 Spruce Avenue',
+            'family'=> 'Bruce and Anne Gable',
+            'Items'=>'A washing machine',
+            'Volunteers'=>'',
+            'Comments'=>''
          ];
         
-        // Instantiate objects with dummy data
+        // Instantiate house object with the data objects 
         $this->testProject = new Project($projectInput);
         
     }
