@@ -45,18 +45,27 @@ class VolunteerHoursController extends \BaseController {
 	 */
 	public function storehours()
 	{
-            // Check if the hours being created are paid
-            //$paidStatus = Input::has('paid_hours');
-            
             // Store values from the contact form
-            $hoursInfo = Input::only('volunteer_id', 
-                                    'hours', 
-                                    'date_of_contribution',
-                                    'project_id');
-            $hoursInfo['paid_hours'] = Input::has('paid_hours') ? 1 : 0;
+//            $hoursInfo = Input::only('volunteer_id', 
+//                                    'hours', 
+//                                    'date_of_contribution',
+//                                    'project_id');
+//            // Check if the hours being created are paid
+//            $hoursInfo['paid_hours'] = Input::has('paid_hours') ? 1 : 0;
             
             // Store the contact
-            $id = $this->storeHoursWith($hoursInfo);
+            //$id = $this->storeHoursWith($hoursInfo);
+            for($i = 0; $i < count(Input::get('volunteer_id')); $i++){
+                $hoursInfo['volunteer_id']          = Input::get('volunteer_id')[$i];
+                $hoursInfo['hours']                 = Input::get('hours')[$i];
+                $hoursInfo['date_of_contribution']  = Input::get('date_of_contribution')[$i];
+                $hoursInfo['project_id']            = Input::get('project_id')[$i];
+                $hoursInfo['paid_hours']            = Input::get('paid_hours')[$i];
+                $id = $this->storeHoursWith($hoursInfo);
+            }
+            
+            return Redirect::action('VolunteerHoursController@indexForProject', $hoursInfo['project_id']);
+
 	}
         
         public function storeHoursWith($hoursInfo)
