@@ -16,7 +16,7 @@ class CreateFamilyTables extends Migration {
             // Creates the Family table.           
             Schema::create('Family', function(Blueprint $table)
             {
-                $table->integer('id')->unsigned();
+                $table->increments('id');
                 $table->timestamps();
                 $table->string('name');
                 $table->string('status');

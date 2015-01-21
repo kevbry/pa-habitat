@@ -18,11 +18,17 @@ class Family extends \Eloquent
     protected $fillable = array('name',
                                 'status',
                                 'comments');
+    
+    protected $with = array('familycontact', 'volunteerhours');
         
-    public function family()
+    public function familycontact()
     {
-        return $this->belongsToMany('Family', 'FamilyContact', 'family_id', 'contact_id')
-                ->withPivot('primary', 'currently_active');
+        return $this->hasMany('FamilyContact', 'family_id');
+    }
+    
+    public function volunteerhours()
+    {
+        return $this->hasMany('VolunteerHours', 'family_id');
     }
 }
 

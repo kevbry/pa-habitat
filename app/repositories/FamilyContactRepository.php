@@ -6,7 +6,7 @@ namespace App\Repositories;
  *
  * @author cst220
  */
-class FamilyContactRepository {
+interface FamilyContactRepository {
     
     public function getContactsInFamily($id);
     public function getFamilyByContact($id);
