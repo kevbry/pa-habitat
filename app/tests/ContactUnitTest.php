@@ -5,7 +5,7 @@
  *
  * @author cst222
  */
-class ContactUnitTest  extends TestCase
+class ContactUnitTest extends TestCase
 {
     protected $mockedContactRepo;
     protected $mockedVolunteerRepo;
@@ -177,78 +177,7 @@ class ContactUnitTest  extends TestCase
         // Assert
         $this->assertRedirectedToRoute('contact.show');
     }
-    /**
-     * 
-     * Editing Contact tests
-     */
-
-    /**
-     * Test that the controller can sucessfully edit a contact
-     */
-    public function testStoreEditSuccess()
-    {
-        // Assemble
-        $this->mockedContactController
-                ->shouldReceive('update')->once()
-                ->with($this->contactInput);
-        $this->mockedContactRepo->shouldReceive('saveContact')
-                ->once()->with(Mockery::type('Contact'));
-
-        // Act 
-        $response = $this->route("POST", "contact.show", 
-                $this->contactInput);
-
-        // Assert
-        $this->assertResponseOk();
-    }
-    
-    public function testStoreEditFailure()
-    {
-        $this->contactInput = [];
-        
-        // Assemble
-        $this->mockedContactController
-                ->shouldReceive('update')
-                ->once()
-                ->with($this->contactInput)
-                ->andThrow($this->invalidDataException);
-
-        // Act 
-        $response = $this->route("POST", "contact.show", 
-                $this->contactInput);
-        //Assert
-    }
-    
-    public function testShowToEditRedirectSuccess()
-    {
-        //Assemble
-        $this->mockedContactController
-                ->shouldReceive('edit')
-                ->once()
-                ->with($this->contactInput);
-        //Act
-        $response = $this->route("POST", "contact.edit",
-                $this->contactInput);
-        
-        //Assert
-        $this->assertResponseOk();
-    }
-    public function testShowToEditRedirectFailure()
-    {
-                //Assemble
-        $this->mockedContactController
-                ->shouldReceive('edit')
-                ->once()
-                ->with($this->contactInput)
-                ->andThrow($this->invalidDataException);
-        //Act
-        $response = $this->route("POST", "contact.edit",
-                $this->contactInput);
-    }
-    /**
-     * Editing contact tests end
-     */
-    
+  
     /**
      * Test clean up
      */
