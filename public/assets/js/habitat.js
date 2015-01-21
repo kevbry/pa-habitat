@@ -7,13 +7,22 @@ $(document).ready(function(){
         $('body').on('click','.remove',function(e){
             e.preventDefault();
             var row = $(this).closest('.hourrow');
-            row.remove();
+            var allRows = $('.hourrow');
+            if (allRows.size() > 1)
+            {
+                row.remove();
+            }
         });
     });
     
     $('.remove').click(function(e){
         e.preventDefault();
         var row = $(this).closest('.hourrow');
-        row.remove();
+        var allRows = $('.hourrow');
+        if (allRows.size() > 1)
+        {
+            row.remove();
+        }
+        
     });
 });
