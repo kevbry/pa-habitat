@@ -16,17 +16,16 @@ class FixVolunteerHours extends Migration {
             
             Schema::create('VolunteerHours', function(Blueprint $table)
             {
-                $table->integer('id')->unsigned();
+                $table->increments('id');
                 $table->integer('volunteer_id')->unsigned();
                 $table->foreign('volunteer_id')->references('id')->on('Volunteer');
                 $table->integer('project_id')->unsigned();
                 $table->foreign('project_id')->references('id')->on('Project');
-                $table->integer('family_id')->nullable();
+                $table->integer('family_id')->unsigned()->nullable();
                 $table->foreign('family_id')->references('id')->on('Family');
                 $table->date('date_of_contribution');
                 $table->boolean('paid_hours')->nullable();
                 $table->integer('hours')->nullable();
-                $table->primary('id');
                 $table->timestamps();
             });
 	}
@@ -40,7 +39,7 @@ class FixVolunteerHours extends Migration {
 	{
             Schema::dropIfExists('VolunteerHours');
              
-            Schema::create('VolunteerHours', function(Blueprint $table)
+            Schema::create('VolunteeredHours', function(Blueprint $table)
             {
                 $table->integer('volunteer_id')->unsigned();
                 $table->foreign('volunteer_id')->references('id')->on('Volunteer');

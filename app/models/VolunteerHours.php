@@ -7,8 +7,8 @@ class VolunteerHours extends \Eloquent
      *
      * @var string
      */
-    protected $table = 'VolunteeredHours';
-    //protected $with = array('availability','certifications','trades','skills','interests','contact');
+    protected $table = 'VolunteerHours';
+    protected $with = array('project','volunteer','family');
     
     /**
      * The attributes that are mass-assignment
@@ -26,4 +26,10 @@ class VolunteerHours extends \Eloquent
     {
         return $this->hasOne('Volunteer','id','volunteer_id');
     }
+    
+    public function family()
+    {
+        return $this->hasOne('Family','id','family_id');
+    }
+    
 }

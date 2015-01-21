@@ -19,7 +19,7 @@ class Family extends \Eloquent
                                 'status',
                                 'comments');
     
-    protected $with = array('familycontact', 'volunteerhours');
+    protected $with = array('familycontact');
         
     public function familycontact()
     {
@@ -28,7 +28,7 @@ class Family extends \Eloquent
     
     public function volunteerhours()
     {
-        return $this->hasMany('VolunteerHours', 'family_id');
+        return $this->belongsToMany('VolunteerHours', 'family_id');
     }
 }
 

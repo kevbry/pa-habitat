@@ -6,7 +6,7 @@ Add Volunteer Hours for Project {{$id}}
 
 @section('content')
 
-<h1>Volunteer Hours</h1>
+<h1>Volunteer Hours for {{$project->name}}</h1>
 {{ Form::open(array('route'=>'storehours','class'=>'form-horizontal')) }}
 {{Form::submit('Save All',array('class'=>'btn btn-primary btn-lg'))}}
 <table class="table">
@@ -27,7 +27,12 @@ Add Volunteer Hours for Project {{$id}}
                  @endif
                 </td>
                 <td>{{$volunteerhour->project->name}}</td>
-                <td>{{$volunteerhour->family_id}}</td>
+                <td>
+                @if(isset($volunteerhour->family->name))
+                {{$volunteerhour->family->name}}
+                @else
+                --
+                @endif</td>
                 <td></td>
             </tr>
             @endforeach
@@ -48,7 +53,12 @@ Add Volunteer Hours for Project {{$id}}
                 </select>
             </td>
             <td>
-                TODO ADD FAMILY DROP DOWN HERE
+                <select name="family_id[]" class="form-control">
+                    <option value="0" selected>--</option>
+                @foreach($families as $family)
+                    <option value="{{$family->id}}">{{$family->name}}</option>
+                @endforeach
+                </select>
             </td>
             <td><a href="#" class="remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
         </tr>   
