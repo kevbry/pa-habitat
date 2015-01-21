@@ -71,6 +71,13 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ /~cst200/habitat/public/index.php/$1 [L]	
+	
+	
+	# Handle Front Controller...
+    RewriteCond %{REQUEST_URI} cst211
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ /~cst211/habitat/public/index.php/$1 [L]	
 #    RewriteRule ^ index.php [L]
 </IfModule>
 
