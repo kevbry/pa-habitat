@@ -14,6 +14,7 @@ Add Volunteer Hours for Project {{$id}}
         <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project</th><th>Family</th></tr>
     </thead>
     <tbody>
+        @if (!empty($volunteerhours)) 
             @foreach($volunteerhours as $volunteerhour)
             <tr>
                 <td>{{$volunteerhour->volunteer->contact->first_name . ' ' . $volunteerhour->volunteer->contact->last_name}}</td>
@@ -36,12 +37,15 @@ Add Volunteer Hours for Project {{$id}}
                 <td></td>
             </tr>
             @endforeach
+        @endif
         <tr class="hourrow">
             <td>
                 <select name="volunteer_id[]" class="form-control">
+            @if (!empty($volunteers))
                 @foreach($volunteers as $volunteer)
                     <option value="{{$volunteer->id}}">{{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name}}</option>
                 @endforeach
+            @endif
                 </select>
             </td>  
             <td>{{Form::number('hours[]', '0',array('min'=>0,'class'=>'form-control'))}}</td>
@@ -55,9 +59,11 @@ Add Volunteer Hours for Project {{$id}}
             <td>
                 <select name="family_id[]" class="form-control">
                     <option value="0" selected>--</option>
+                @if (!empty($families))
                 @foreach($families as $family)
                     <option value="{{$family->id}}">{{$family->name}}</option>
                 @endforeach
+                @endif
                 </select>
             </td>
             <td><a href="#" class="remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>

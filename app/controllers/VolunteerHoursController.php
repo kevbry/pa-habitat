@@ -51,6 +51,7 @@ class VolunteerHoursController extends \BaseController {
 	 */
 	public function storehours()
 	{
+            $hoursInfo = array();
             for($i = 0; $i < count(Input::get('volunteer_id')); $i++){
                 $hoursInfo['volunteer_id']          = Input::get('volunteer_id')[$i];
                 $hoursInfo['hours']                 = Input::get('hours')[$i];
@@ -62,7 +63,12 @@ class VolunteerHoursController extends \BaseController {
                     $hoursInfo['family_id']         = Input::get('family_id')[$i];
                 }
                 
+                if (empty($hoursInfo))
+                {
+                    throw new Exception('No Hours info inserted.');
+                }
                 $this->storeHoursWith($hoursInfo);
+
             }
             
             return Redirect::action('VolunteerHoursController@indexForProject', $hoursInfo['project_id']);
@@ -70,6 +76,7 @@ class VolunteerHoursController extends \BaseController {
         
         public function storeHoursWith($hoursInfo)
         {
+
             $hours = new VolunteerHours($hoursInfo);
             
             // Store contact
