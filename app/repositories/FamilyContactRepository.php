@@ -8,7 +8,7 @@ namespace App\Repositories;
  */
 interface FamilyContactRepository {
     
-    public function getContactsInFamily($id);
+    public function getActiveContactsInFamily($id);
     public function getFamilyByContact($id);
     public function saveFamilyContact($familycontact);
 }

@@ -87,6 +87,8 @@ class FamilyController extends \BaseController
                 }
             }
         }
+        
+        return Redirect::action('FamilyController@show', $familyID);
     }
     
     /**
@@ -97,7 +99,12 @@ class FamilyController extends \BaseController
      */
     public function show($id)
     {
+        $family = $this->familyRepo->getFamily($id);
+        $familyContacts = $this->familyContactRepo->getActiveContactsInFamily($id);
+
+        $happyFamily = array($family, $familyContacts);
         
+        return View::make('family.show')->with('family', $happyFamily);
     }
     
     /**

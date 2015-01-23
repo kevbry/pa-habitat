@@ -14,21 +14,18 @@ class Family extends \Eloquent
      *
      * @fillable array with column names we wish to be able to assign to.
      */
-
     protected $fillable = array('name',
                                 'status',
                                 'comments');
-    
-    protected $with = array('familycontact');
-        
+
     public function familycontact()
     {
         return $this->hasMany('FamilyContact', 'family_id');
     }
-    
+
     public function volunteerhours()
     {
-        return $this->belongsToMany('VolunteerHours', 'family_id');
+        return $this->belongsToMany('VolunteerHours');
     }
 }
 
