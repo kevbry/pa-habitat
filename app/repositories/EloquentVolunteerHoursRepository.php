@@ -20,4 +20,9 @@ class EloquentVolunteerHoursRepository implements VolunteerHoursRepository {
         
         $volunteerHours->save();
     }
+    
+     public function getHoursForVolunteer($volunteerId){
+         
+         return \VolunteerHours::whereRaw('volunteer_id ='.$volunteerId)->orderBy('date_of_contribution','asc')->get(); 
+     }
 }

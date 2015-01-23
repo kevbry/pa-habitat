@@ -130,6 +130,7 @@ Contact Details
                 </tr>
             </tbody>
         </table>
+         {{ HTML::linkRoute('volHoursRoute', 'Add Hours', array($contact->id), array('class' => 'btn btn-primary')) }}
     </div>
      
     <div class="form-group">
