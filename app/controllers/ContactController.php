@@ -229,12 +229,10 @@ class ContactController extends \BaseController {
                 $counter++;
             }
              
-            //echo $affectedRows;
-            $contact = $this->contactRepo->getContact($id);
-            $volunteer = $this->volunteerRepo->getVolunteer($id);
-            return View::make('contact.show')
-                    ->withContact($contact)
-                    ->withVolunteer($volunteer);
+            //assign a redirect variable
+            $redirectVariable = Redirect::action('ContactController@show', $id);
+            // Redirect to view the updated contact info
+            return $redirectVariable;
 	}
 
 	/**
