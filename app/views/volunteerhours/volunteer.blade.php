@@ -8,7 +8,8 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
 
 <h1>Volunteer Hours for {{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</h1>
 {{ Form::open(array('route'=>'storehours','class'=>'form-horizontal')) }}
-{{Form::submit('Save All',array('class'=>'btn btn-primary btn-lg'))}}
+
+ {{ HTML::linkAction('ContactController@show','Back To Volunteer', array($volunteer->id), array('class'=>'btn btn-primary btn-lg')) }}
 <table class="table">
     <thead>
         <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project</th><th>Family</th></tr>
@@ -73,6 +74,8 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
         </tr>   
     </tbody>
 </table>
-<a href="#" id="addhours" class="btn btn-primary btn-lg">Add Row</a>
+<p> <a href="#" id="addhours" class="btn btn-primary btn-lg">Add Row</a> </p>
+ {{Form::submit('Save All',array('class'=>'btn btn-primary btn-lg'))}}
+{{Form::hidden('pageType','volunteer')}}
 {{Form::close()}}
 @stop

@@ -71,5 +71,6 @@ Add Volunteer Hours for Project {{$id}}
     </tbody>
 </table>
 <a href="#" id="addhours" class="btn btn-primary btn-lg">Add Row</a>
+{{Form::hidden('pageType','project')}}
 {{Form::close()}}
 @stop

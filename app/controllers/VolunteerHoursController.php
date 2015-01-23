@@ -39,8 +39,9 @@ class VolunteerHoursController extends \BaseController {
         $volunteer = $this->volunteerRepo->getVolunteer($contactId);
         $projects = $this->projectRepo->getAllProjects();
         $volunteerHours = $this->volunteerHrsRepo->getHoursForVolunteer($contactId);
+       
         $families = $this->familyRepo->getAllFamilies();
-
+       
         return View::make('volunteerhours.volunteer', array('id' => $contactId, 'volunteer' => $volunteer,
                     'projects' => $projects, 'volunteerhours' => $volunteerHours,
                     'families' => $families));
@@ -68,8 +69,15 @@ class VolunteerHoursController extends \BaseController {
             }
             $this->storeHoursWith($hoursInfo);
         }
-
-        return Redirect::action('VolunteerHoursController@indexForProject', $hoursInfo['project_id']);
+$type=Input::get('pageType');
+        if($type=='volunteer')
+        {
+             return Redirect::action('VolunteerHoursController@indexForContact', $hoursInfo['volunteer_id']);
+        }
+        else{
+             return Redirect::action('VolunteerHoursController@indexForProject', $hoursInfo['project_id']);
+        }
+       
     }
 
     public function storeHoursWith($hoursInfo) {
@@ -81,5 +89,7 @@ class VolunteerHoursController extends \BaseController {
 
         return $hours->id;
     }
+    
+    
 
 }
