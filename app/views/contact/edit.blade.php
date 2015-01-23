@@ -3,7 +3,9 @@
 @section('title')
 Edit Contact
 @stop
-
+    @if($errors->any())
+    <h1>{{$errors->first()}}</h1>
+    @endif
 @section('content')
 <h1>Editing Details</h1>
 <h2>{{$contact->first_name . " " . $contact->last_name}}</h2>

@@ -232,7 +232,7 @@ class ContactController extends \BaseController {
                 $counter++;
             }
             //updating the record in the contact table for the contact with the id passed in
-            $affectedRows = Contact::where('id','=',$id)->update($fieldUpdateValues);
+            $affectedRows = 0;//Contact::where('id','=',$id)->update($fieldUpdateValues);
             //var_dump($affectedRows);
             //use affected rows to dertirming if it was a success or not
             if($affectedRows > 0)
@@ -242,7 +242,7 @@ class ContactController extends \BaseController {
             }
             else
             {
-                $redirectVariable = Redirect::action('ContactController@edit', $id);
+                $redirectVariable = Redirect::action('ContactController@edit', $id)->withErrors(['Error', 'The Message']);
             }
             // return to redirect
             return $redirectVariable;
