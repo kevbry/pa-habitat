@@ -6,7 +6,7 @@ Contact Details
 
 @section('content')
 <h1>Contact details</h1>
-{{ Form::open(array('method'=>'get','route'=>array('contact.edit', $contact->id), 'class'=>'form-horizontal')) }}
+{{ Form::open(array('method'=>'GET','route'=>array('contact.edit', $contact->id), 'class'=>'form-horizontal')) }}
 <h2>{{ $contact->first_name . " " . $contact->last_name }} 
     {{ Form::submit('Edit Details', array('class'=>'btn btn-primary') ) }}</h2> 
 <section class="generalInfo col-md-7">
@@ -14,66 +14,66 @@ Contact Details
  <div class="form-group">
      {{ Form::label('email_address','Email: ',array('class'=>'col-sm-3')) }}
      <div class="col-sm-7">
-     {{ Form::text('email_address',$contact->email_address,array('class'=>'form-control')) }}
+     {{ Form::text('email_address',$contact->email_address,array('class'=>'form-control', 'readonly'=>'readonly')) }}
      </div>
  </div>
  <div class="form-group">
      {{ Form::label('home_phone','Home Phone: ',array('class'=>'col-sm-3')) }}
      <div class="col-sm-7">
-     {{ Form::text('home_phone',$contact->home_phone,array('class'=>'form-control')) }}
+     {{ Form::text('home_phone',$contact->home_phone,array('class'=>'form-control', 'readonly'=>'readonly')) }}
      </div>
  </div>
  <div class="form-group">
      {{ Form::label('cell_phone','Cell Phone: ',array('class'=>'col-sm-3')) }}
      <div class="col-sm-7">
-     {{ Form::text('cell_phone',$contact->cell_phone,array('class'=>'form-control')) }}
+     {{ Form::text('cell_phone',$contact->cell_phone,array('class'=>'form-control', 'readonly'=>'readonly')) }}
      </div>
  </div>
  <div class="form-group">
      {{ Form::label('work_phone','Work Phone: ',array('class'=>'col-sm-3')) }}
      <div class="col-sm-7">
-     {{ Form::text('work_phone',$contact->work_phone,array('class'=>'form-control')) }}
+     {{ Form::text('work_phone',$contact->work_phone,array('class'=>'form-control', 'readonly'=>'readonly')) }}
      </div>
  </div>
  <div class="form-group">
      {{ Form::label('street_address','Street Address: ',array('class'=>'col-sm-3')) }}
      <div class="col-sm-7">
-     {{ Form::text('street_address',$contact->street_address,array('class'=>'form-control')) }}
+     {{ Form::text('street_address',$contact->street_address,array('class'=>'form-control', 'readonly'=>'readonly')) }}
      </div>
  </div>
  <div class="form-group">
      {{ Form::label('city','City: ',array('class'=>'col-sm-3')) }}
      <div class="col-sm-7">
-     {{ Form::text('city',$contact->city,array('class'=>'form-control')) }}
+     {{ Form::text('city',$contact->city,array('class'=>'form-control', 'readonly'=>'readonly')) }}
      </div>
  </div>
  <div class="form-group">
      {{ Form::label('province','Province: ',array('class'=>'col-sm-3')) }}
      <div class="col-sm-7">
-     {{ Form::text('province',$contact->province,array('class'=>'form-control')) }}
+     {{ Form::text('province',$contact->province,array('class'=>'form-control', 'readonly'=>'readonly')) }}
      </div>
  </div>
  <div class="form-group">
      {{ Form::label('postal_code','Postal Code: ',array('class'=>'col-sm-3')) }}
      <div class="col-sm-7">
-     {{ Form::text('postal_code',$contact->postal_code,array('class'=>'form-control')) }}
+     {{ Form::text('postal_code',$contact->postal_code,array('class'=>'form-control', 'readonly'=>'readonly')) }}
      </div>
  </div>
  <div class="form-group">
      {{ Form::label('country','Country: ',array('class'=>'col-sm-3')) }}
      <div class="col-sm-7">
-     {{ Form::text('country',$contact->country,array('class'=>'form-control')) }}
+     {{ Form::text('country',$contact->country,array('class'=>'form-control', 'readonly'=>'readonly')) }}
      </div>
  </div>
  <div class="form-group">
-     {{ Form::label('comments','Comments: ',array('class'=>'col-sm-3')) }}
+     {{ Form::label('comments','Comments: ',array('class'=>'col-sm-3', 'readonly'=>'readonly')) }}
      <div class="col-sm-7">
-     {{ Form::textarea('comments',$contact->comments,array('class'=>'form-control')) }}
+     {{ Form::textarea('comments',$contact->comments,array('class'=>'form-control', 'readonly'=>'readonly')) }}
      </div>
  </div>
 </section>
 {{ Form::close() }}
-{{ Form::open(array('class'=>'form-horizontal')) }}
+{{ Form::open(array('class'=>'form-horizontal')) }}#
  <?php
     $volunteerStatus = 0;
     $volunteerSafetyDate = "";
@@ -95,16 +95,16 @@ Contact Details
  <section class='volunteerFields col-md-5 row'>
      <div class="form-group">
         {{ Form::label('is_volunteer', 'Is a Volunteer:') }}
-        {{ Form::text('is_volunteer', $volunteer ? 'Yes' : 'No',array('class'=>'form-control')) }}
+        {{ Form::text('is_volunteer', $volunteer ? 'Yes' : 'No',array('class'=>'form-control', 'readonly'=>'readonly')) }}
     </div>
     <div class="form-group">
         {{ Form::label('volunteer_status', 'Volunteer Status:') }}
-        {{ Form::text('volunteer_status', $volunteerStatus,array('class'=>'form-control')) }}
+        {{ Form::text('volunteer_status', $volunteerStatus,array('class'=>'form-control', 'readonly'=>'readonly')) }}
     </div>
 
     <div class="form-group">
         {{ Form::label('safety_date', 'Last Attended Safety Meeting Date:') }}
-        {{ Form::text('safety_date', $volunteerSafetyDate,array('class'=>'form-control')) }}
+        {{ Form::text('safety_date', $volunteerSafetyDate,array('class'=>'form-control', 'readonly'=>'readonly')) }}
     </div>    
      
     <div class="form-group row">

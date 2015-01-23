@@ -53,15 +53,18 @@ class EditContactTest extends TestCase
         // Assemble
         $this->mockedContactController
                 ->shouldReceive('update')->once()
-                ->with($this->contactInput);
-        $this->mockedContactRepo->shouldReceive('getContact')
-                ->once()->with($this->contactInput['id']);
+                ->with($this->contactInput['id']);
+        /*$this->mockedContactRepo->shouldReceive('getContact')
+                ->once()->with($this->contactInput);*/
+                //->andThrow($this->invalidDataException);
 
         // Act 
-        $this->route("GET", "contact.show",$this->contactInput['id']);
-        //$this->call('GET', '/contact/555/edit');
-        // Assert
-        $this->assertResponseOk();
+        $this->mockedContactController->update($this->contactInput['id']);
+        $this->route("PUT", "contact.update", $this->contactInput);
+
+        //Assert
+        //$this->assertResponseOk();
+        $this->assertRedirectedTo('contact/555');
     }
     
     public function testStoreEditFailure()
@@ -71,16 +74,18 @@ class EditContactTest extends TestCase
         // Assemble
         $this->mockedContactController
                 ->shouldReceive('update')->once()
-                ->with($this->contactInput);
-        $this->mockedContactRepo->shouldReceive('getContact')
-                ->once()->with(Mockery::type('Contact'));
+                ->with($this->contactInput['id']);
+        /*$this->mockedContactRepo->shouldReceive('getContact')
+                ->once()->with($this->contactInput);*/
                 //->andThrow($this->invalidDataException);
 
         // Act 
-        //$response = $this->route("POST", "contact.show", $this->contactInput);
-        //$response = $this->call('GET', '/contact/update', $this->contactInput);
+        $this->mockedContactController->update($this->contactInput['id']);
+        $this->route("PUT", "contact.update", $this->contactInput);
+
         //Assert
-        $this->assertRedirectedToRoute('contact.show');
+        //$this->assertResponseOk();
+        $this->assertRedirectedTo('contact/555');
     }
     
     public function testShowToEditRedirectSuccess()
@@ -89,12 +94,16 @@ class EditContactTest extends TestCase
         $this->mockedContactController
                 ->shouldReceive('edit')
                 ->once()
-                ->with($this->contactInput);
+                ->with($this->contactInput['id']);
+        $this->mockedContactRepo->shouldReceive('getContact')
+                ->once()->with($this->contactInput['id']);
+        
         //Act
-        //$response = $this->route("POST", "contact.edit",$this->contactInput);
+        $this->mockedContactController->edit($this->contactInput['id']);
+        $this->call("POST", "contact/555/edit",$this->contactInput);
         
         //Assert
-        $this->assertRedirectedToRoute('contact.edit');
+        $this->assertRedirectedTo('contact/555/edit');
     }
     public function testShowToEditRedirectFailure()
     {
@@ -102,18 +111,19 @@ class EditContactTest extends TestCase
         $this->mockedContactController
                 ->shouldReceive('edit')
                 ->once()
-                ->with($this->contactInput);
+                ->with($this->contactInput['id']);
+        /*$this->mockedContactRepo->shouldReceive('getContact')
+                ->once()->with($this->contactInput['id']);*/
                // ->andThrow($this->invalidDataException);
                
         //Act
-       // $response = $this->route("POST", "contact.edit",
-               // $this->contactInput);
+        //$response = $this->route("GET", "contact.edit",$this->contactInput['id']);
 
         // Act    
         //$this->call("GET", "contact/edit");
         
         // Assert
-        $this->assertRedirectedToRoute('contact.edit');
+        $this->assertRedirectedTo('contact/555/edit');
     }
 
     /**
