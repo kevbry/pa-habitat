@@ -2393,7 +2393,6 @@ fieldset[disabled] .form-control {
   cursor: allowed;
   background-color: #fff;
   border: 0px;
-  outline: 0;
   opacity: 1;
   resize: none;
 }
@@ -2405,6 +2404,7 @@ fieldset[disabled] .form-control:focus {
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, .6);
           box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, .6);
 }
+
 textarea.form-control {
   height: auto;
 }

@@ -192,7 +192,6 @@ class ContactController extends \BaseController {
 	public function update($id)
 	{
             // Store values from the contact form
-            //$contact = $this->contactRepo->getContact($id);
             $contactInfo = Input::only(
                         'first_name',
                         'last_name',
@@ -206,7 +205,7 @@ class ContactController extends \BaseController {
                         'postal_code', 
                         'country', 
                         'comments');
-
+            // Array of field names
             $fieldNames = array(
                         'first_name',
                         'last_name',
@@ -220,17 +219,32 @@ class ContactController extends \BaseController {
                         'postal_code', 
                         'country', 
                         'comments');
-            //var_dump($fieldNames);
-            $counter = 0;
             
+            //Used to count the field number based on the number of time through
+            //the for each loop
+            $counter = 0;
+            //Creating an associate array for the update
+            $fieldUpdateValues = array();
+            //added key value pairs to the array
             foreach($contactInfo as $fieldValue)
             {
-                Contact::where('id','=',$id)->update(array($fieldNames[$counter] => $fieldValue)); 
+                $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
                 $counter++;
             }
-             
-            $redirectVariable = Redirect::action('ContactController@show', $id);
-            // Redirect to view the newly created contact
+            //updating the record in the contact table for the contact with the id passed in
+            $affectedRows = Contact::where('id','=',$id)->update($fieldUpdateValues);
+            var_dump($affectedRows);
+            //use affected rows to dertirming if it was a success or not
+            if($affectedRows > 0)
+            {
+                // Redirect to view the updated contact info
+                $redirectVariable = Redirect::action('ContactController@show', $id);
+            }
+            else
+            {
+                $redirectVariable = Redirect::action('ContactController@edit', $id);
+            }
+            // return to redirect
             return $redirectVariable;
 	}
 
