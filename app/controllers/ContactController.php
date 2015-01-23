@@ -233,7 +233,7 @@ class ContactController extends \BaseController {
             }
             //updating the record in the contact table for the contact with the id passed in
             $affectedRows = Contact::where('id','=',$id)->update($fieldUpdateValues);
-            var_dump($affectedRows);
+            //var_dump($affectedRows);
             //use affected rows to dertirming if it was a success or not
             if($affectedRows > 0)
             {
