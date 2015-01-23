@@ -36,6 +36,13 @@
                                 <li>{{ HTML::linkAction('ProjectController@create','Add a Project') }}</li>
                             </ul>
                         </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Families<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>{{ HTML::linkAction('FamilyController@index','All Families') }}</li>
+                                <li>{{ HTML::linkAction('FamilyController@create','Add a Family') }}</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>

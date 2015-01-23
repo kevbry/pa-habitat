@@ -23,5 +23,6 @@ Route::resource('donor', 'DonorController');
 Route::resource('company', 'CompanyController');
 Route::resource('project', 'ProjectController');
 Route::resource('volunteer', 'VolunteerController');
+Route::resource('family', 'FamilyController');
 Route::get('volunteerhours/project/{project}','VolunteerHoursController@indexForProject');
 Route::post('volunteerhours',array('as'=>'storehours','uses'=>'VolunteerHoursController@storehours'));
