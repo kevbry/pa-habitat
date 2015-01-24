@@ -21,4 +21,11 @@ class EloquentVolunteerRepository implements VolunteerRepository
     {
         $volunteer->save();
     }
+    
+    public function orderBy($sortby, $order)
+    {
+           return \Contact::orderBy($sortby,$order)->get();
+        
+        
+    }
 }

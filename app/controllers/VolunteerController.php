@@ -1,97 +1,98 @@
 <?php
+
 use App\Repositories\VolunteerRepository;
 
 class VolunteerController extends \BaseController {
 
-        public $volunteerRepo;
+    public $volunteerRepo;
 
-        public function __construct(VolunteerRepository $volunteerRepo)
-        {
-            $this->volunteerRepo = $volunteerRepo;
+    public function __construct(VolunteerRepository $volunteerRepo) {
+        $this->volunteerRepo = $volunteerRepo;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index() {
+        // Retrieve all contacts from the database
+      //  $volunteerList = $this->volunteerRepo->getAllVolunteers();
+
+
+
+
+        $sortby = Input::get('sortby');
+        $order = Input::get('order');
+
+        if ($sortby && $order) {
+            $volunteerList = $this->volunteerRepo->orderBy($sortby, $order)->get();
+        } else {
+             $volunteerList = $this->volunteerRepo->getAllVolunteers();
         }
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-            // Retrieve all contacts from the database
-            $volunteerList = $this->volunteerRepo->getAllVolunteers();
-            
-            // Return that to the list view
-            return View::make('volunteer.index')->with('volunteers', $volunteerList);
-	}
 
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
 
+        // Return that to the list view
+        return View::make('volunteer.index', compact('sortby','order'))->with('volunteers', $volunteerList);
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create() {
+        //
+    }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store() {
+        //
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        //
+    }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id) {
+        //
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id) {
+        //
+    }
 
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        //
+    }
 
 }
