@@ -17,6 +17,7 @@ All Projects
     @foreach($projects as $project)
     <tr>
         <td>{{$project->name}}</td>
+          <td><a href="project/{{$project->id}}">View Details</a></td>
     </tr>
     @endforeach
 </table>
