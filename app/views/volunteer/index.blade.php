@@ -10,29 +10,14 @@ All Volunteers
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>
+            <th>Name
                 
                 @if ($sortby == 'first_name' && $order == 'asc')
-               {{HTML::linkAction(
-                            'VolunteerController@index',
-                            'Name',
-                            array(
-                                'sortby' => 'first_name',
-                                'order' => 'desc'
-                            )
-                        )
-                    }}
+               <a href="?sort=first_name&order=desc" class="remove"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
                     @else 
-                    {{HTML::linkAction(
-                            'VolunteerController@index',
-                            'Name',
-                            array(
-                                'sortby' => 'first_name',
-                                'order' => 'asc'
-                            )
-                        )
-                    }}
+                    <a href="?sort=first_name&order=asc" class="remove"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
                     @endif
+                    
             </th>
             <th>Phone</th>
             <th>Email</th>
