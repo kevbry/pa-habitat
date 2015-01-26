@@ -13,9 +13,26 @@ All Volunteers
             <th>Name
                 
                 @if ($sortby == 'first_name' && $order == 'asc')
-               <a href="?sort=first_name&order=desc" class="remove"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+                 <a href='{{action(
+                           'VolunteerController@index',
+                           
+                            array(
+                               'sortby' => 'first_name',
+                                'order' => 'desc'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
                     @else 
-                    <a href="?sort=first_name&order=asc" class="remove"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+                  
+                 <a href='{{action(
+                           'VolunteerController@index',
+                           
+                            array(
+                               'sortby' => 'first_name',
+                                'order' => 'asc'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
                     @endif
                     
             </th>
