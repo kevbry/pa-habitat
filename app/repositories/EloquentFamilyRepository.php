@@ -23,8 +23,4 @@ class EloquentFamilyRepository implements FamilyRepository
         $family->save();
     }
     
-    public function showHoursContributedToFamily($family_id)
-    {
-        return \Family::query();
-    }
 }

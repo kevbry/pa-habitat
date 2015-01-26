@@ -1,6 +1,7 @@
 <?php
 use App\Repositories\FamilyRepository;
 use App\Repositories\FamilyContactRepository;
+use App\Repositories\VolunteerHoursRepository;
 /**
  * Description of FamilyController
  *
@@ -10,12 +11,15 @@ class FamilyController extends \BaseController
 {
     public $familyRepo;
     public $familyContactRepo;
+    public $volunteerHoursRepo;
     
-    public function __construct(FamilyRepository $familyRepo, FamilyContactRepository $familyContactRepo)
+    public function __construct(FamilyRepository $familyRepo, 
+            FamilyContactRepository $familyContactRepo, VolunteerHoursRepository $volunteerHoursRepo)
     {
         // Assigning Dependancies
         $this->familyRepo = $familyRepo;
         $this->familyContactRepo = $familyContactRepo;
+        $this->volunteerHoursRepo = $volunteerHoursRepo;
     }
     
     /**
@@ -60,36 +64,41 @@ class FamilyController extends \BaseController
         // Pull any array key that references a contact id
         $contactRegEx = '/[a-z_]*contact_\d/';
         
-        $inputStringArray = array(); 
-        
+        $inputStringArray = array();
         preg_match_all($contactRegEx, implode($contactArray, " "), $inputStringArray);
-        
-        $numContacts = sizeof($inputStringArray[0]);
         
         //Store family contacts
         $familyID = $this->createFamilyWith($familyInput);
-        
-        
+ 
+        // If the family was successfully created
         if ($familyID > 0)
         {
+            // Set the family ID
             $familyContactInput['family_id'] = $familyID;
             
+            // For each contact in the family
             foreach($inputStringArray[0] as $contactKey)
             {
+                // Get the contact_id
                 $familyContactInput['contact_id'] = Input::get($contactKey);
-                    
+                
+                // Make sure to only create contacts that the user has passed in
                 if ( ! empty($familyContactInput['contact_id']))
                 {
+                    // Determine if the contact is a primary family member or not
                     $familyContactInput['primary'] = strpos($contactKey, 'primary') !== false ? true : false;
                     $familyContactInput['currently_active'] = true;
 
+                    // Add the record to the database
                     $this->createFamilyContactWith($familyContactInput);                       
                 }
             }
         }
         
+        // Redirect user to newly created family's detail page
         return Redirect::action('FamilyController@show', $familyID);
     }
+    
     
     /**
      * Display the specified resource.
@@ -101,10 +110,12 @@ class FamilyController extends \BaseController
     {
         $family = $this->familyRepo->getFamily($id);
         $familyContacts = $this->familyContactRepo->getActiveContactsInFamily($id);
-
-        $happyFamily = array($family, $familyContacts);
         
-        return View::make('family.show')->with('family', $happyFamily);
+        //$familyContactHours = $this->volunteerHoursRepo->getHoursForFamily($id);
+
+        $familyInformation = array($family, $familyContacts/*, $familyContactHours*/);
+        
+        return View::make('family.show')->with('family', $familyInformation);
     }
     
     /**
@@ -129,7 +140,7 @@ class FamilyController extends \BaseController
         //
     }
     
-    private function createFamilyWith($data)
+    public function createFamilyWith($data)
     {
         $family = new Family($data);
         
@@ -138,7 +149,7 @@ class FamilyController extends \BaseController
         return $family->id;
     }
     
-    private function createFamilyContactWith($data)
+    public function createFamilyContactWith($data)
     {
         $familyContact = new FamilyContact($data);
         
