@@ -11,6 +11,9 @@
 |
 */
 
+// NOTE TO FUTURE SELVES: FIX THIS TO BE MORE SECURE.
+
+
 Route::get('/', function()
 {
 	return View::make('hello');
@@ -20,3 +23,7 @@ Route::resource('donor', 'DonorController');
 Route::resource('company', 'CompanyController');
 Route::resource('project', 'ProjectController');
 Route::resource('volunteer', 'VolunteerController');
+Route::resource('family', 'FamilyController');
+Route::get('volunteerhours/project/{project}','VolunteerHoursController@indexForProject');
+Route::post('volunteerhours',array('as'=>'storehours','uses'=>'VolunteerHoursController@storehours'));
+Route::get('volunteerhours/volunteer/{volunteer}',array('as'=>'volHoursRoute', 'uses'=>'VolunteerHoursController@indexForContact'));

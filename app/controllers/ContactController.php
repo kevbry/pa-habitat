@@ -52,11 +52,15 @@ class ContactController extends \BaseController {
 	{
             // Check if the contact being created is a donor
             $donorStatus = Input::has('is_donor');
+            
             // Check if the contact being created is a volunteer
             $volunteerStatus = Input::has('is_volunteer');
             
+            // Check if the contact being created is a company
+            $companyStatus = Input::has('company_name');
+            
             // Store values from the contact form
-            $contactValues = Input::only('first_name', 
+            $contactInfo = Input::only('first_name', 
                                     'last_name', 
                                     'email_address',
                                     'home_phone', 
@@ -69,61 +73,85 @@ class ContactController extends \BaseController {
                                     'country', 
                                     'comments');
             
-            // Create a new contact object to store in the database
-            $contact = new Contact($contactValues);
+            // Store the contact
+            $id = $this->storeContactWith($contactInfo);
             
-            // Store contact
-            $this->contactRepo->saveContact($contact);
-            
-            // Grab the id of the new contact
-            $id = $contact->id;
-            
-            // Add the contact as a donor if specified -- Should probably be moved somewhere else
+            // Add the contact as a donor if specified
             if ($donorStatus)
             {                
                 // Assign the contact
-                $donorValues['id'] = $id;
+                $donorInfo['id'] = $id;
                 
-                $donor = new Donor($donorValues);
-                
-                $this->donorRepo->saveDonor($donor);
+                // Store Donor
+                $this->storeDonorWith($donorInfo);
+
             }
             
-            // Add the contact as a volunteer if specified -- Should probably be moved somewhere else
+            // Add the contact as a volunteer if specified
             if ($volunteerStatus)
             {
-                $volunteerValues['active_status'] = Input::has('active_status') ? 1 : 0;
-                $volunteerValues['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
-                // Assign the contact
-                $volunteerValues['id'] = $id;
+                // Get volunteer information
+                $volunteerInfo['active_status'] = Input::has('active_status') ? 1 : 0;
+                $volunteerInfo['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
                 
-                $volunteer = new Volunteer($volunteerValues);
+                // Assign the contact id
+                $volunteerInfo['id'] = $id;
                 
-                $this->volunteerRepo->saveVolunteer($volunteer);
+                // Store Volunteer
+                $this->storeVolunteerWith($volunteerInfo);
             }
             
-            // Add the contact as a company if specified -- Should probably be moved somewhere else
-            // Checkbox doesnt work, the if statement.
-            if (Input::has('company_name'))
+            // Add the contact as a company if specified
+            if ($companyStatus)
             {
                 // Store values from the company portion of contact form
-                $companyValues = Input::only('company_name');
+                $companyInfo = Input::only('company_name');
                 
-                // Assign the company
-                $companyValues['contact_id'] = $id;
+                // Assign the contact's id
+                $companyInfo['contact_id'] = $id;
                 
-                $company = new Company($companyValues);
-                
-                $this->companyRepo->saveCompany($company);
+                // Store Company
+                $this->storeCompanyWith($companyInfo);
+
            }
            
             //assign a redirect variable
-            $redirectVariable = Redirect::action('ContactController@show',array($id));
+            $redirectVariable = Redirect::action('ContactController@show', $id);
             // Redirect to view the newly created contact
             return $redirectVariable;
 	}
 
+        public function storeDonorWith($donorInfo)
+        {               
+            $donor = new Donor($donorInfo);
+                
+            $this->donorRepo->saveDonor($donor);
+        }
+        
+        public function storeContactWith($contactInfo)
+        {
+            $contact = new Contact($contactInfo);
+            
+            // Store contact
+            $this->contactRepo->saveContact($contact);
+            
+            return $contact->id;
+        }
+        
+        public function storeVolunteerWith($volunteerInfo)
+        {
+            $volunteer = new Volunteer($volunteerInfo);
 
+            $this->volunteerRepo->saveVolunteer($volunteer);
+        }
+        
+        public function storeCompanyWith($companyInfo)
+        {
+            $company = new Company($companyInfo);
+                
+            $this->companyRepo->saveCompany($company);
+        }
+        
 	/**
 	 * Display the specified resource.
 	 *

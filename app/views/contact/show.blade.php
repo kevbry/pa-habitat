@@ -108,7 +108,7 @@ Contact Details
         {{ Form::label('hours', 'Volunteered Hours:') }}
         
         <!-- Hours Table to go here -->
-        <table class="table table-hover">
+        <table class="table table-hover scrollable">
             <thead>
                 <tr>
                     <th>Project</th>
@@ -119,17 +119,33 @@ Contact Details
             <tfoot>
             <td></td>
             <td>Total:</td>
-            <td>Total Hours Here</td>
+            
+            <td>   
+                @if (isset($volunteer))
+               <?php $totalHours=0;?>
+                    @foreach($volunteer->volunteerHours as $hour)
+
+               <?php $totalHours=$totalHours+$hour->hours;?>
+
+                   @endforeach
+                   {{$totalHours}}
+                @endif </td>
             </tfoot>
             <tbody>
-                <!--Do a foreach loop here for the volunteer hours-->
-                <tr>
-                    <td>Project Name</td>
-                    <td>Date of Project</td>
-                    <td>Hours spent on this day</td>
-                </tr>
+                  @if (isset($volunteer))
+                    @foreach($volunteer->volunteerHours as $hour)
+
+                   <tr>
+                       <td>{{$hour->project->name}}</td>
+                       <td>{{$hour->date_of_contribution}}</td>
+                       <td>{{$hour->hours}}</td>
+                   </tr>
+
+                   @endforeach
+                @endif
             </tbody>
         </table>
+         {{ HTML::linkRoute('volHoursRoute', 'Add Hours', array($contact->id), array('class' => 'btn btn-primary')) }}
     </div>
      
     <div class="form-group">
