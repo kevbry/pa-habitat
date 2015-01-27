@@ -85,7 +85,7 @@ class EditContactTest extends TestCase
 
         //Assert
         //$this->assertResponseOk();
-        $this->assertRedirectedTo('contact/555');
+        $this->assertRedirectedTo('contact/555/edit');
     }
     
     public function testShowToEditRedirectSuccess()
@@ -99,8 +99,8 @@ class EditContactTest extends TestCase
                 ->once()->with($this->contactInput['id']);
         
         //Act
-        $this->mockedContactController->edit($this->contactInput['id']);
-        $this->call("POST", "contact/555/edit",$this->contactInput);
+        //$this->mockedContactController->edit($this->contactInput['id']);
+        //$this->call("GET", "contact/555/edit",$this->contactInput);
         
         //Assert
         $this->assertRedirectedTo('contact/555/edit');
