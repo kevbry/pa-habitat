@@ -243,6 +243,7 @@ class ContactController extends \BaseController {
             }
             else
             {
+                //Redirect back to the edit page with an error message
                 $redirectVariable = Redirect::action('ContactController@edit', $id)->withErrors(['Error', 'The Message']);
             }
             // return to redirect
