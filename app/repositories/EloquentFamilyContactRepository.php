@@ -7,13 +7,13 @@ namespace App\Repositories;
  */
 class EloquentFamilyContactRepository implements FamilyContactRepository
 {
-    public function getActiveContactsInFamily($family_id)
+    public function getContactsInFamily($family_id)
     {
         return \FamilyContact::query()
-                ->select('Contact.first_name', 'Contact.last_name', 'primary', 'Contact.id')
+                ->select('Contact.first_name', 'Contact.last_name', 'primary', 
+                        'Contact.id', 'currently_active')
                 ->join('Contact', 'contact_id', '=', 'Contact.id')
                 ->where('family_id', '=', $family_id)
-                ->where('currently_active', '=', true)
                 ->orderBy('primary', 'desc')
                 ->get();
     }

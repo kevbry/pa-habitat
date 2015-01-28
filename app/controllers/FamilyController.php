@@ -109,11 +109,11 @@ class FamilyController extends \BaseController
     public function show($id)
     {
         $family = $this->familyRepo->getFamily($id);
-        $familyContacts = $this->familyContactRepo->getActiveContactsInFamily($id);
+        $familyContacts = $this->familyContactRepo->getContactsInFamily($id);
         
-        //$familyContactHours = $this->volunteerHoursRepo->getHoursForFamily($id);
+        $familyContactHours = $this->volunteerHoursRepo->getHoursForFamily($id);
 
-        $familyInformation = array($family, $familyContacts/*, $familyContactHours*/);
+        $familyInformation = array($family, $familyContacts, $familyContactHours);
         
         return View::make('family.show')->with('family', $familyInformation);
     }
