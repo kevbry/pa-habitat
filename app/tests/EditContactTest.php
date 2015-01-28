@@ -63,6 +63,7 @@ class EditContactTest extends TestCase
         $this->route("PUT", "contact.update", $this->contactInput);
 
         //Assert
+        //$this->assertRedirectedToAction("ContactController@update",1);
         $this->assertResponseStatus(302);
         //$this->assertRedirectedTo('contact/555');
     }
@@ -86,7 +87,6 @@ class EditContactTest extends TestCase
         $this->route("PUT", "contact.update", $this->contactInput);
 
         //Assert
-        //$this->assertResponseOk();
         $this->assertRedirectedTo('contact/555/edit');
     }
     /* TODO: Find out how to test "GET" form methods
