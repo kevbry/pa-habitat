@@ -65,7 +65,7 @@ class ProjectUnitTests extends TestCase {
         
         $this->testController = new ProjectController($this->mockedProjectRepo, $this->mockedProjectContactRepo);
         
-        // Instantiate objects with dummy data
+        // Instantiate house object with the data objects 
         
         
     }
