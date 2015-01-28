@@ -17,22 +17,20 @@ class VolunteerController extends \BaseController {
      */
     public function index() {
         // Retrieve all contacts from the database
-      //  $volunteerList = $this->volunteerRepo->getAllVolunteers();
-
-
-
+        //  $volunteerList = $this->volunteerRepo->getAllVolunteers();
 
         $sortby = Input::get('sortby');
         $order = Input::get('order');
 
         if ($sortby && $order) {
-            $volunteerList = $this->volunteerRepo->orderBy($sortby, $order)->get();
+
+            $volunteerList = $this->volunteerRepo->orderBy($sortby, $order);
         } else {
-             $volunteerList = $this->volunteerRepo->getAllVolunteers();
+            $volunteerList = $this->volunteerRepo->getAllVolunteers();
         }
 
 
-
+        
         // Return that to the list view
         return View::make('volunteer.index', compact('sortby','order'))->with('volunteers', $volunteerList);
     }

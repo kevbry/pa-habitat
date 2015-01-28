@@ -7,18 +7,18 @@ All Volunteers
 @section('content')
 
 <h1>Volunteers</h1>
+
 <table class="table table-hover">
     <thead>
         <tr>
             <th>Name
                 
-                @if ($sortby == 'first_name' && $order == 'asc')
+                @if ($sortby == 'f' && $order == 'd')
                  <a href='{{action(
                            'VolunteerController@index',
-                           
                             array(
-                               'sortby' => 'first_name',
-                                'order' => 'desc'
+                               'sortby' => 'f',
+                                'order' => 'a'
                            )
                        )
                   }}'  ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
@@ -26,18 +26,59 @@ All Volunteers
                   
                  <a href='{{action(
                            'VolunteerController@index',
-                           
                             array(
-                               'sortby' => 'first_name',
-                                'order' => 'asc'
+                               'sortby' => 'f',
+                                'order' => 'd'
                            )
                        )
                   }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
                     @endif
                     
             </th>
-            <th>Phone</th>
-            <th>Email</th>
+            
+            <th>Phone
+            @if ($sortby == 'h' && $order == 'd')
+                 <a href='{{action(
+                           'VolunteerController@index',
+                            array(
+                               'sortby' => 'h',
+                                'order' => 'a'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+                    @else 
+                  
+                 <a href='{{action(
+                           'VolunteerController@index',
+                            array(
+                               'sortby' => 'h',
+                                'order' => 'd'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+                    @endif</th>
+            
+            <th>Email
+            @if ($sortby == 'e' && $order == 'd')
+                 <a href='{{action(
+                           'VolunteerController@index',
+                            array(
+                               'sortby' => 'e',
+                                'order' => 'a'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+                    @else 
+                  
+                 <a href='{{action(
+                           'VolunteerController@index',
+                            array(
+                               'sortby' => 'e',
+                                'order' => 'd'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+                    @endif</th>
             <th></th>
         </tr>
     </thead>

@@ -22,4 +22,17 @@ class EloquentProjectRepository implements ProjectRepository
     {
         $project->save();
     }
+    
+    public function orderBy($sortby, $order) {
+        
+        $order = ($order == 'a' ? 'asc' : 'desc');
+
+        switch ($sortby) {
+            case 'n':
+                $sortby = 'name';
+                break;
+        }
+            
+        return \Project::orderBy($sortby, $order)->paginate(20);
+    }
 }
