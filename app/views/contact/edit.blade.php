@@ -7,8 +7,8 @@ Edit Contact
     <h1>{{$errors->first()}}</h1>
     @endif
 @section('content')
-<h1>Editing Details</h1>
-<h2>{{$contact->first_name . " " . $contact->last_name}}</h2>
+<h2>Editing Details for {{$contact->first_name . " " . $contact->last_name}}</h2>
+<h2></h2>
 {{ Form::open(array('method'=>'PUT','route'=>array('contact.update', $contact->id), 'class'=>'form-horizontal', 'id'=>'form')) }}
 <section class="generalInfo col-md-7">
 
@@ -84,7 +84,8 @@ Edit Contact
      {{ Form::textarea('comments',$contact->comments,array('class'=>'form-control')) }}
      </div>
  </div>
-    {{Form::submit('Save Details',array('class'=>'btn btn-primary btn-lg', 'onclick'=>'confirmExit(false); return false;'))}}
+    {{HTML::linkAction('ContactController@show', "Discard Changes", array($contact->id), array('class'=>'btn btn-primary btn-lg')) }}
+    {{Form::submit('Save Changes',array('class'=>'btn btn-primary btn-lg', 'onclick'=>'confirmExit(false); return false;'))}}
 </section>
 
 {{ Form::close() }}
