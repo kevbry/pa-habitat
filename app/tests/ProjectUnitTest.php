@@ -1,10 +1,22 @@
 <?php
-
 /**
- * Unit tests for the Contact Controller class
+ * Description of ProjectUnitTests
+ *
+ * @author cst217, cst220, cst222
+ * 
  */
 class ProjectUnitTests extends TestCase {
     
+    protected $mockedProjectRepo;
+    protected $mockedProjectContactRepo;
+    protected $mockedProjectController; 
+    
+    protected $testController;
+      
+    protected $projectInput;
+    protected $projectContactInput;
+
+
     /**
      * Set up function for the tests.  Creates dummy objects to use for Testing.
      */
@@ -12,14 +24,49 @@ class ProjectUnitTests extends TestCase {
     {
         parent::setUp();
 
-        // Create dummy Contact information
-        $projectInput = [
+        // Create dummy Project information
+        $this->projectInput = [
             'id' => '33',
-            'name' => 'Cool House'
-         ];
+            'family_id' => '22',
+            'blueprint_id' => '45',
+            'project_name' => '123 fake street',
+            'street_number' => '123 fake street',
+            'city'=> 'Calgary',
+            'province' => 'AB',
+            'postal_code' => 'S7R 4J2',
+            'project_coordinator' => 'Merve Murphy',
+            'start_date' => '12-02-2015',
+            'end_date' => '',
+            'blueprint_designer' => 'Blueprint Bob',
+            'blueprint_plan_number' => '12G435',
+            'building_permit_number' => '8472616',
+            'building_permit_date' => '15-01-2015',
+            'mortgage_data' => '17-05-2016',
+            'comments' => 'My first house'
+           ];
+        
+        
+        $this->projectContactInput = [
+            'contact_id' => '5',
+            'project_id' => '33',
+            'role' => 'Project Coordinator'
+             ];
+        
+
+        $this->projectInput['contact'] = $this->projectContactInput;
+
+        
+        //Instantiate mocked objects with dummy data
+        $this->mockedProjectRepo = Mockery::mock('app\repositories\ProjectRepository');
+        $this->app->instance('app\repositories\ProjectRepository', $this->mockedProjectRepo);
+        
+        $this->mockedProjectContactRepo = Mockery::mock('app\repositories\ProjectContactRepository');
+        $this->app->instance('app\repositories\ProjectContactRepository', $this->mockedProjectContactRepo);
+        
+        $this->testController = new ProjectController($this->mockedProjectRepo, $this->mockedProjectContactRepo);
         
         // Instantiate objects with dummy data
-        $this->testProject = new Project($projectInput);
+        
         
     }
     

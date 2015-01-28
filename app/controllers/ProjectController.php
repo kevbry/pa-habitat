@@ -42,7 +42,7 @@ class ProjectController extends \BaseController {
 	public function store()
 	{
             // Store values from the contact form
-            $projectValues = Input::only('name');
+            $projectValues = Input::only('project_name');
             
             // Create a new contact object to store in the database
             $project = new Project($projectValues);

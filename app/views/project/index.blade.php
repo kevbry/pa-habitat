@@ -12,11 +12,11 @@ All Projects
 </nav>
 <table class="table table-hover">
     <thead>
-        <tr><th>Name</th></tr>
+        <tr><th>project_name</th></tr>
     </thead>
     @foreach($projects as $project)
     <tr>
-        <td>{{$project->name}}</td>
+        <td>{{$project->project_name}}</td>
     </tr>
     @endforeach
 </table>

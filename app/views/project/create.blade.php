@@ -10,9 +10,9 @@ Create a Project
 <section class="row">
 <section class="col-md-7">
     <div class="form-group">
-        {{ Form::label('name', 'Project Name: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('project_name', 'Project Name: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('name',null,array('class'=>'form-control')) }}
+        {{ Form::text('project_name',null,array('class'=>'form-control')) }}
         </div>
     </div>
 </section>

@@ -17,11 +17,11 @@ class VolunteerHoursByProjectCreate extends Migration {
             //  in the VolunteeredHours table. It will be overwritten in the
             //  future.
             //
-            Schema::create('Project', function(Blueprint $table)
-            {
-                $table->increments('id');
-                $table->timestamps();
-            });
+//            Schema::create('Project', function(Blueprint $table)
+//            {
+//                $table->increments('id');
+//                $table->timestamps();
+//            });
             
             Schema::create('VolunteeredHours', function(Blueprint $table)
             {
@@ -44,8 +44,8 @@ class VolunteerHoursByProjectCreate extends Migration {
 	 */
 	public function down()
 	{
-            schema::drop('Project');
-            schema::drop('VolunteeredHours');
+            Schema::dropIfExists('Project');
+            Schema::dropIfExists('VolunteeredHours');
 	}
 
 }

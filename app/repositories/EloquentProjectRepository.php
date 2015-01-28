@@ -11,7 +11,7 @@ class EloquentProjectRepository implements ProjectRepository
     
     public function getAllProjects()
     {
-        return \Project::orderBy('name','asc')->paginate(20);        
+        return \Project::orderBy('project_name','asc')->paginate(20);        
     }
     
     /**
