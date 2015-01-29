@@ -89,6 +89,19 @@ class VolunteerHoursTest extends TestCase
         
     }
     
+     public function testIndexForVolunteer()
+    {
+        $this->mockedVolunteerHoursRepo
+                ->shouldReceive('getHoursForVolunteer')->once()->with(1);
+        
+        $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
+        
+        $this->call('GET','volunteerhours/volunteer/1');
+        
+        $this->assertResponseOk();
+        
+    }
+    
     
 
     

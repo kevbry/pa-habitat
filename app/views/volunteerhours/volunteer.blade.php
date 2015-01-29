@@ -1,15 +1,15 @@
 @extends('master')
 
 @section('title')
-Add Volunteer Hours for Project {{$id}}
+Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}
 @stop
 
 @section('content')
 
-<h1>Volunteer Hours for {{$project->name}}</h1>
+<h1>Volunteer Hours for {{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</h1>
 {{ Form::open(array('route'=>'storehours','class'=>'form-horizontal')) }}
-{{Form::submit('Save All',array('class'=>'btn btn-primary btn-lg'))}}
- {{ HTML::linkAction('ProjectController@show','Back To Project', array($project->id), array('class'=>'btn btn-primary btn-lg')) }}
+
+ {{ HTML::linkAction('ContactController@show','Back To Volunteer', array($volunteer->id), array('class'=>'btn btn-primary btn-lg')) }}
 <table class="table">
     <thead>
         <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project</th><th>Family</th></tr>
@@ -42,11 +42,10 @@ Add Volunteer Hours for Project {{$id}}
         <tr class="hourrow">
             <td>
                 <select name="volunteer_id[]" class="form-control">
-            @if (!empty($volunteers))
-                @foreach($volunteers as $volunteer)
+            
                     <option value="{{$volunteer->id}}">{{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name}}</option>
-                @endforeach
-            @endif
+             
+           
                 </select>
             </td>  
             <td>{{Form::number('hours[]', '0',array('min'=>0,'class'=>'form-control'))}}</td>
@@ -54,7 +53,11 @@ Add Volunteer Hours for Project {{$id}}
             <td>{{Form::select('paid_hours[]', array('0' => 'Volunteer', '1' => 'Paid'), '', array('min'=>0,'class'=>'form-control'));}}</td>
             <td>
                 <select name="project_id[]" class="form-control">
-                    <option value="{{$project->id}}">{{$project->name}}</option>
+                    @if(!empty($projects))
+                        @foreach($projects as $project)
+                            <option value="{{$project->id}}">{{$project->name}}</option>
+                        @endforeach
+                    @endif
                 </select>
             </td>
             <td>
@@ -71,7 +74,8 @@ Add Volunteer Hours for Project {{$id}}
         </tr>   
     </tbody>
 </table>
-<a href="#" id="addhours" class="btn btn-primary btn-lg">Add Row</a>
-{{Form::hidden('pageType','project')}}
+<p> <a href="#" id="addhours" class="btn btn-primary btn-lg">Add Row</a> </p>
+ {{Form::submit('Save All',array('class'=>'btn btn-primary btn-lg'))}}
+{{Form::hidden('pageType','volunteer')}}
 {{Form::close()}}
 @stop
