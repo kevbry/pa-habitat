@@ -220,14 +220,24 @@ class ContactController extends \BaseController {
                         'postal_code', 
                         'country', 
                         'comments');
-            $volunteerInfo = Input::only(
-                    $id,
-                    'volunteer_status',
-                    'safety_date'
-            );
-            var_dump($volunteerInfo);
-            
-            $this->storeVolunteerWith($volunteerInfo);
+            $volunteerPassed = Input::has('is_volunteer');
+            $volunteerInfo = [];
+            if($volunteerPassed)
+            {
+                $volunteerInfo['active_status'] = Input::has('active_status') ? 1 : 0;
+                $volunteerInfo['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
+                // Assign the contact id
+                $volunteerInfo['id'] = $id;
+                
+                $this->storeVolunteerWith($volunteerInfo);         
+            }
+            else
+            {
+                $volunteerInfo['active_status'] = Input::has('active_status') ? 1 : 0;
+                $volunteerInfo['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
+                Volunteer::where('id','=',$id)->update($volunteerInfo);
+            }
+
             //Used to count the field number based on the number of time through
             //the for each loop
             $counter = 0;

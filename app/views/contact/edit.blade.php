@@ -103,21 +103,34 @@ Edit Contact
         $volunteerStatus = 'Inactive';
     }
  ?>
-
- 
- <section class='volunteerFields col-md-5 row'>
-     <div class="form-group">
-        {{ Form::label('is_volunteer', 'Is a Volunteer:') }}
-        {{ Form::text('is_volunteer', $volunteer ? 'Yes' : 'No',array('class'=>'form-control')) }}
+ <?php
+    $volunteerSafetyDate = "";
+    
+    if( $volunteer )
+    {
+        $volunteerSafetyDate = $volunteer->last_attended_safety_meeting_date;
+    }
+ ?>
+<section class='volunteerFields col-md-5 row'>
+@if (!$volunteer)
+    <div class="form-group">
+        {{Form::label('is_volunteer', 'Is a Volunteer:',array('class'=>'col-sm-6'))}}
+        <div class="col-sm-6">
+        {{Form::checkbox('is_volunteer',true)}}
+        </div>
+    </div>
+@endif
+    <div class="form-group">
+        {{Form::label('active_status', 'Is Volunteer Active: ',array('class'=>'col-sm-6'))}}
+        <div class="col-sm-6">
+        {{Form::input('checkbox', 'active_status', $volunteer->active_status, $volunteer->active_status ? array('checked') : array(''))}}
+        </div>
     </div>
     <div class="form-group">
-        {{ Form::label('volunteer_status', 'Volunteer Status:') }}
-        {{ Form::text('volunteer_status', $volunteerStatus,array('class'=>'form-control')) }}
-    </div>
-
-    <div class="form-group">
-        {{ Form::label('safety_date', 'Last Attended Safety Meeting Date:') }}
-        {{ Form::text('safety_date', $volunteerSafetyDate,array('class'=>'form-control')) }}
+        {{Form::label('last_attended_safety_meeting_date', 'Last Attended Safety Meeting: ',array('class'=>'col-sm-6'))}}
+        <div class="col-sm-6">
+        {{Form::input('date', 'last_attended_safety_meeting_date',$volunteerSafetyDate,array('class'=>'form-control'))}}
+        </div>
     </div>
  </section>
 
