@@ -9,6 +9,7 @@ Add Volunteer Hours for Project {{$id}}
 <h1>Volunteer Hours for {{$project->name}}</h1>
 {{ Form::open(array('route'=>'storehours','class'=>'form-horizontal')) }}
 {{Form::submit('Save All',array('class'=>'btn btn-primary btn-lg'))}}
+ {{ HTML::linkAction('ProjectController@show','Back To Project', array($project->id), array('class'=>'btn btn-primary btn-lg')) }}
 <table class="table">
     <thead>
         <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project</th><th>Family</th></tr>

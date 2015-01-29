@@ -26,3 +26,5 @@ Route::resource('volunteer', 'VolunteerController');
 Route::resource('family', 'FamilyController');
 Route::get('volunteerhours/project/{project}','VolunteerHoursController@indexForProject');
 Route::post('volunteerhours',array('as'=>'storehours','uses'=>'VolunteerHoursController@storehours'));
+ Route::get('volunteerhours/project/{project}',array('as'=>'projHoursRoute', 'uses'=>'VolunteerHoursController@indexForProject'));
+

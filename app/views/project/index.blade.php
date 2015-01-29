@@ -12,11 +12,14 @@ All Projects
 </nav>
 <table class="table table-hover">
     <thead>
-        <tr><th>Name</th></tr>
+        <tr><th>Name</th><th></th></tr>
+        
     </thead>
     @foreach($projects as $project)
     <tr>
         <td>{{$project->name}}</td>
+        <td><a href="project/{{$project->id}}">View Details</a></td>
+        
     </tr>
     @endforeach
 </table>
