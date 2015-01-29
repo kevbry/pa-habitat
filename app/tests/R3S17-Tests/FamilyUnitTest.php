@@ -69,7 +69,7 @@ class FamilyUnitTest extends TestCase
         $this->mockedFamilyContactRepo = Mockery::mock('app\repositories\FamilyContactRepository');
         $this->app->instance('app\repositories\FamilyContactRepository', $this->mockedFamilyContactRepo);
         
-        $this->testController = new FamliyController($this->mockedFamilyRepo, $this->mockedFamilyContactRepo);
+        $this->testController = new FamilyController($this->mockedFamilyRepo, $this->mockedFamilyContactRepo);
         
     }
     

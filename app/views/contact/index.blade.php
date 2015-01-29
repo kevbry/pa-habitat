@@ -84,14 +84,15 @@ Index of all contacts
             <th></th>
         </tr>
     </thead>
-    @foreach($contacts as $contact)
-    <tr>
-        <td>{{$contact->first_name . ' ' . $contact->last_name}}</td>
-        <td>{{$contact->home_phone}}</td>
-        <td>{{$contact->email_address}}</td>
-        <td><a href="contact/{{$contact->id}}">View Details</a></td>
-    </tr>
-    @endforeach
+    @if (!empty($contacts))
+        @foreach($contacts as $contact)
+        <tr>
+            <td>{{$contact->first_name . ' ' . $contact->last_name}}</td>
+            <td>{{$contact->home_phone}}</td>
+            <td>{{$contact->email_address}}</td>
+            <td><a href="contact/{{$contact->id}}">View Details</a></td>
+        </tr>
+        @endforeach
+    @endif
 </table>
-<?php echo $contacts->links(); ?>
 @stop
