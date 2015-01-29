@@ -46,7 +46,17 @@ class VolunteerHoursController extends \BaseController {
                     'projects' => $projects, 'volunteerhours' => $volunteerHours,
                     'families' => $families));
     }
-
+    public function indexForEditContact($contactId) {
+        $volunteer = $this->volunteerRepo->getVolunteer($contactId);
+        $projects = $this->projectRepo->getAllProjects();
+        $volunteerHours = $this->volunteerHrsRepo->getHoursForVolunteer($contactId);
+       
+        $families = $this->familyRepo->getAllFamilies();
+       
+        return View::make('volunteerhours.volunteerEdit', array('id' => $contactId, 'volunteer' => $volunteer,
+                    'projects' => $projects, 'volunteerhours' => $volunteerHours,
+                    'families' => $families));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -88,6 +98,61 @@ $type=Input::get('pageType');
         $this->volunteerHrsRepo->saveVolunteerHours($hours);
 
         return $hours->id;
+    }
+    
+    public function updatehours()
+    {
+        $hoursInfo = array();
+        for ($i = 0; $i < count(Input::get('volunteer_id')); $i++) {
+            $hoursInfo['volunteer_id'] = Input::get('volunteer_id')[$i];
+            $hoursInfo['hours'] = Input::get('hours')[$i];
+            $hoursInfo['date_of_contribution'] = Input::get('date_of_contribution')[$i];
+            $hoursInfo['project_id'] = Input::get('project_id')[$i];
+            $hoursInfo['paid_hours'] = Input::get('paid_hours')[$i];
+            if (Input::get('family_id')[$i] != 0) {
+                $hoursInfo['family_id'] = Input::get('family_id')[$i];
+            }
+            else
+            {
+                $hoursInfo['family_id'] = null;
+            }
+
+            if (empty($hoursInfo)) {
+                throw new Exception('No Hours info inserted.');
+            }
+            
+            
+            $infoArray[$i] = $hoursInfo;
+        }
+        //Delete everything. - You like spaghetti?
+        VolunteerHours::where('volunteer_id','=',$hoursInfo['volunteer_id'])->delete();
+        
+        for($i = 0; $i < count($infoArray); $i++)
+        {
+            $this->storeHoursWith($infoArray[$i]);
+        }
+
+        return Redirect::action('VolunteerHoursController@indexForContact', $hoursInfo['volunteer_id']);
+        
+    }
+    public function updateHoursWith($hoursInfo)
+    {
+        $counter = 0;
+        $fieldNames = array(
+            'volunteer_id',
+            'hours',
+            'date_of_contribution',
+            'project_id',
+            'paid_hours',
+            'family_id'
+        );
+        $fieldUpdateValues = array();
+        foreach($hoursInfo as $fieldValue)
+        {
+            $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
+            $counter++;
+        }
+        $affectedRows = VolunteerHours::where('id','=',$hoursInfo['volunteer_id'])->update($fieldUpdateValues);
     }
     
     
