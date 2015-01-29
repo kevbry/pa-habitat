@@ -15,14 +15,20 @@ class Project extends \Eloquent
 	 * @fillable array with column names we wish to be able to assign to.
 	 */
 
-        protected $fillable = array('project_name',
+        protected $fillable = array('family_id',
+                                    'blueprint_id',
+                                    'build_number',            
+                                    'project_name',
                                     'street_number',
                                     'postal_code',
+                                    'city',
                                     'province',
                                     'start_date',
                                     'end_date',
-                                    'family_id',
-                                    'coordinator');
+                                    'comments',
+                                    'building_permit_number',
+                                    'building_permit_date',
+                                    'mortgage_date');
         
         /**
          * 
@@ -33,4 +39,9 @@ class Project extends \Eloquent
              return $this->hasMany('VolunteeredHours', 'vounteer_id', 'id');                       
         }
         
+        
+//        public function vounteerHours() 
+//        {
+//             return $this->hasMany('VolunteeredHours', 'vounteer_id', 'id');                       
+//        }
 }

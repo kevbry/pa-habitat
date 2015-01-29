@@ -65,31 +65,168 @@ class ProjectUnitTests extends TestCase {
         
         $this->testController = new ProjectController($this->mockedProjectRepo, $this->mockedProjectContactRepo);
         
-        // Instantiate house object with the data objects 
-        
-        
+        // Instantiate house object with the data objects         
     }
     
     /**
      * Purpose: Test the store method for sucessfully storing a volunteer
      */
-    public function OFF_testStoreProjectSuccess()
+    public function testStoreProjectSuccess()
     {
         // Assemble
-        $mockedProjectRepo = Mockery::mock('app\repositories\ProjectRepository');
-        $this->app->instance('app/repositories/ProjectRepository', $mockedProjectRepo);
+        $this->mockedProjectController->shouldReceive('storeProjectWith')->once()->with($this->projectInput);
+        $this->mockedProjectRepo->shouldReceive('saveProject')->once()->with(Mockery::type('Project'));
         
-        $mockedProjectRepo->shouldReceive('saveProject')->once()->with($this->testProject);
+        Redirect::shouldReceive('action')->once()->with('ProjectController@show');
         
-        $testController = new ProjectController($mockedProjectRepo);
-
-        // Act    
-        $this->call("GET", "project/store");
+        //Act
+        $response = $this->route("POST", "family.store", $this->projectInput);        
+         
+        //Assert
+        $this->assertTrue("project_name", $response);
         
-        // Assert
-        $this->assertEquals(33, $this->testProject->id);
     }
     
+    /**
+     * 
+     */
+    public function testStoreProjectContactSuccess()
+    {
+        //Assemble
+        $this->mockedProjectController->shouldRecieve('storeProjectContactWith')->once()->with($this->projectContactInput);
+        $this->mockedProjectContactRepo->shouldReceive('saveProjectContact')->once()->with(Mockery::type('ProjectContact'));
+        
+         Redirect::shouldReceive('action')->once()->with('ProjectController@show');
+         
+         //Act
+         $response = $$this->route("POST", "project.store", $this->projectInput);
+         
+         //Assert
+         $this->assertTrue("role", $response);
+    }
+    
+    /**
+     * 
+     */
+    public function testStoreProjectFails()
+    {
+        //TODO: Make a test that will fail with a Project is created        
+    }
+    
+    /**
+     * 
+     */
+    public function testStoreProjectContactFails()
+    {
+        //TODO: Make a test that will fail with a ProjectContact is created        
+    }
+    
+    /**
+     * Test the Project view gets called
+     */
+    public function testView()
+    {
+       //Call the method
+        $response = $this->call('GET', 'project/create');
+        
+        //Make assertions
+        $this->assertContains('Project', $response->getContent());
+    }
+    
+    /**
+     * Test that the appropriate view is created
+     */
+    public function testCreate()
+    {
+        $response = $this->action('GET', 'ProjectController@create');
+        $crawler = $this->client->request('GET', 'create');
+        
+        
+        $this->assertContains('Create a Project', $response->getContent());
+        $this->assertTrue($this->client->getResponse()->isOk());
+        
+        $this->assertCount(1, $crawler->filter('label:contains("Project name")'));
+        $this->assertCount(1, $crawler->filter('label:cotains("Project coordinator")'));
+    }
+    
+    /**
+     * Test helper method that creates a project object and passes it to the repository
+     */
+    public function testStoreProjectWith()
+    {
+        //Assemble
+        $this->mockedProjectRepo->shouldReceive('saveProject')->once()->with(Mockery::type('Project'));
+        
+        //Act
+        $this->testController->storeFamilyWith($this->projectInput);
+    }
+    
+    /*
+     * Test helper method that create ProjectContact info
+     */
+    public function testStoreProjectContactWith()
+    {
+        //Assemble
+        $this->mockedProjectContactRepo->shouldReceive('saveProjectContact')->once()->with(Mockery::type('ProjectContact'));
+        
+        //Act
+        $this->testController->storeProjectContactWith($this->projectContactInput);
+    }
+        
+   /*
+    *  Test that the helper method passes values into the repository methods
+    */
+    public function  testStoreProjectWithReceivesProjectInfo()
+    {
+      //Assemble 
+      $projectInput = $this->projectInput;
+      
+      $this->mockedProjectRepo->shouldReceive('saveProject')->once()->with(Mockery::on(
+                function($passedInProjectInfo) use($projectInput)
+                {
+                    $this->assertNull($passedInProjectInfo['id']);
+                    $this->assertEquals($projectInput['proejct_name'], $passedInProjectInfo['project_name']);
+                    return true;
+                }
+                ));
+                
+        //Act
+        $this->testController->storeProjectWith($this->projectInput);
+    }
+    
+    /**
+     * Test that the helper method passes values into the repository methods
+     */
+    public function testStoreProjectContactWithReceivesProjectContactInfo()
+    {
+       //Assemble
+        $projectContactInput = $this->projectContactInput;
+        
+        $this->mockedProjectContactRepo->shouldReceive('saveProjectContact')->once()->with(Mockery::on(
+                        function($passedInProjectContactInfo) use($projectContactInput)
+                        {
+                            $this->assertNotNull($passedInContactInfo['project_id']);
+                            $this->assertEquals($projectContactInput['primary'], $passedInContactInfo['primary']);
+                            return true;                             
+                        }));
+       //Act
+       $this->testController->storeProjectContactWith($this->projectContactInput);
+    }
+    
+    /**
+     * 
+     */
+    public function OFF_testStoreRedirect()
+    {
+        //Assemble
+        $this->mockedProjectRepo->shouldReceive('saveProject')->once()->with($this->testProject);
+        
+        //Act
+        $this->call('GET', 'project/store');
+        
+        //Assert
+        $this->assertRedirectedToRoute('project.show');
+    }
     /** 
      * Function for cleaning up after tests ar complete
      */
