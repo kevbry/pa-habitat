@@ -94,7 +94,9 @@ Contact Details
         {{ Form::label('is_volunteer', 'Is a Volunteer:') }}
         {{ Form::text('is_volunteer', $volunteer ? 'Yes' : 'No',array('class'=>'form-control')) }}
     </div>
-    <div class="form-group">
+    @if($volunteer)
+    
+     <div class="form-group">
         {{ Form::label('volunteer_status', 'Volunteer Status:') }}
         {{ Form::text('volunteer_status', $volunteerStatus,array('class'=>'form-control')) }}
     </div>
@@ -290,7 +292,7 @@ Contact Details
         </table>
         {{ Form::button('Edit Interests', array('id' => 'editInterests','class'=>'btn btn-primary')) }}
     </div>
-          
+          @endif
  </section>
  {{ Form::close() }}
 
