@@ -87,6 +87,39 @@ Edit Contact
     {{HTML::linkAction('ContactController@show', "Discard Changes", array($contact->id), array('class'=>'btn btn-primary btn-lg')) }}
     {{Form::submit('Save Changes',array('class'=>'btn btn-primary btn-lg', 'onclick'=>'confirmExit(false); return false;'))}}
 </section>
+ <?php
+    $volunteerStatus = 0;
+    $volunteerSafetyDate = "";
+    
+    if( $volunteer )
+    {
+        $volunteerStatus = $volunteer->active_status;
+        $volunteerSafetyDate = $volunteer->last_attended_safety_meeting_date;
+    }
+    if ($volunteerStatus === 1) {
+        $volunteerStatus = 'Active';
+    }
+    elseif ($volunteerStatus === 0){
+        $volunteerStatus = 'Inactive';
+    }
+ ?>
+
+ 
+ <section class='volunteerFields col-md-5 row'>
+     <div class="form-group">
+        {{ Form::label('is_volunteer', 'Is a Volunteer:') }}
+        {{ Form::text('is_volunteer', $volunteer ? 'Yes' : 'No',array('class'=>'form-control')) }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('volunteer_status', 'Volunteer Status:') }}
+        {{ Form::text('volunteer_status', $volunteerStatus,array('class'=>'form-control')) }}
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('safety_date', 'Last Attended Safety Meeting Date:') }}
+        {{ Form::text('safety_date', $volunteerSafetyDate,array('class'=>'form-control')) }}
+    </div>
+ </section>
 
 {{ Form::close() }}
 

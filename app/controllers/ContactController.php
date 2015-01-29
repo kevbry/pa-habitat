@@ -177,9 +177,10 @@ class ContactController extends \BaseController {
 	public function edit($id)
 	{
             $contact = $this->contactRepo->getContact($id);
-            
+            $volunteer = $this->volunteerRepo->getVolunteer($id);
             return View::make('contact.edit')
-                    ->withContact($contact);
+                    ->withContact($contact)
+                    ->withVolunteer($volunteer);
 	}
 
 
@@ -219,21 +220,31 @@ class ContactController extends \BaseController {
                         'postal_code', 
                         'country', 
                         'comments');
+            $volunteerInfo = Input::only(
+                    $id,
+                    'volunteer_status',
+                    'safety_date'
+            );
+            var_dump($volunteerInfo);
             
+            $this->storeVolunteerWith($volunteerInfo);
             //Used to count the field number based on the number of time through
             //the for each loop
             $counter = 0;
             //Creating an associate array for the update
             $fieldUpdateValues = array();
+
             //added key value pairs to the array
             foreach($contactInfo as $fieldValue)
             {
                 $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
                 $counter++;
             }
+            
             //updating the record in the contact table for the contact with the id passed in
             
             $affectedRows = Contact::where('id','=',$id)->update($fieldUpdateValues);
+
             //var_dump($affectedRows);
             //use affected rows to dertirming if it was a success or not
             if($affectedRows > 0)
