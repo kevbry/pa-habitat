@@ -22,4 +22,24 @@ class EloquentContactRepository implements ContactRepository
     {
         $contact->save();
     }
+    
+    
+    public function orderBy($sortby, $order) {
+        
+        $order = ($order == 'a' ? 'asc' : 'desc');
+
+        switch ($sortby) {
+            case 'f':
+                $sortby = 'first_name';
+                break;
+            case 'h':
+                $sortby = 'home_phone';
+                break;
+            case 'e':
+                $sortby = 'email_address';
+                break;
+        }
+            
+        return \Contact::orderBy($sortby, $order)->paginate(20);
+    }
 }
