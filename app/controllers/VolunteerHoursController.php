@@ -104,6 +104,7 @@ $type=Input::get('pageType');
     {
         $hoursInfo = array();
         for ($i = 0; $i < count(Input::get('volunteer_id')); $i++) {
+            $hoursInfo['id'] = Input::get('row_id')[$i];
             $hoursInfo['volunteer_id'] = Input::get('volunteer_id')[$i];
             $hoursInfo['hours'] = Input::get('hours')[$i];
             $hoursInfo['date_of_contribution'] = Input::get('date_of_contribution')[$i];
@@ -124,12 +125,10 @@ $type=Input::get('pageType');
             
             $infoArray[$i] = $hoursInfo;
         }
-        //Delete everything. - You like spaghetti?
-        VolunteerHours::where('volunteer_id','=',$hoursInfo['volunteer_id'])->delete();
         
         for($i = 0; $i < count($infoArray); $i++)
         {
-            $this->storeHoursWith($infoArray[$i]);
+            $this->updateHoursWith($infoArray[$i]);
         }
 
         return Redirect::action('VolunteerHoursController@indexForContact', $hoursInfo['volunteer_id']);
@@ -139,6 +138,7 @@ $type=Input::get('pageType');
     {
         $counter = 0;
         $fieldNames = array(
+            'id',
             'volunteer_id',
             'hours',
             'date_of_contribution',
@@ -149,10 +149,14 @@ $type=Input::get('pageType');
         $fieldUpdateValues = array();
         foreach($hoursInfo as $fieldValue)
         {
-            $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
-            $counter++;
+            if($counter != 0)
+            {
+                array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
+            }
+            $counter++; 
         }
-        $affectedRows = VolunteerHours::where('id','=',$hoursInfo['volunteer_id'])->update($fieldUpdateValues);
+        var_dump($fieldUpdateValues);
+        $affectedRows = VolunteerHours::where('id','=',$hoursInfo['id'])->update($fieldUpdateValues);
     }
     
     
