@@ -34,14 +34,25 @@ class Project extends \Eloquent
          * 
          * @return Response
          */
-        public function vounteerHours() 
+        public function projectContact () 
         {
-             return $this->hasMany('VolunteeredHours', 'vounteer_id', 'id');                       
+             return $this->hasMany('ProjectContact', 'project_id', 'id');                       
         }
         
+        /**
+         * 
+         * @return type Response
+         */
+        public function family()
+        {
+            return $this->belongsTo('Family', 'family_id', 'id');
+        }
         
-//        public function vounteerHours() 
-//        {
-//             return $this->hasMany('VolunteeredHours', 'vounteer_id', 'id');                       
-//        }
+        /**
+         * @return type Response
+         */
+        public function blueprint()       
+        {
+            return $this->hasOne('Blueprint','id', 'blueprint_id');
+        }
 }

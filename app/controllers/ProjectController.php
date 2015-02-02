@@ -1,12 +1,16 @@
 <?php
 use App\Repositories\ProjectRepository;
+use App\Repositories\ProjectContactRepository;
 
 class ProjectController extends \BaseController {
         public $projectRepo;
-        
-        public function __construct(ProjectRepository $projectRepo)
+        public $projectContactRepo;
+
+
+        public function __construct(ProjectRepository $projectRepo, ProjectContactRepository $projectContactRepo )
         {
             $this->projectRepo = $projectRepo;
+            $this->projectContactRepo = $projectContactRepo;
         }
 	/**
 	 * Display a listing of the resource.
@@ -41,21 +45,49 @@ class ProjectController extends \BaseController {
 	 */
 	public function store()
 	{
+            //Retrieve Project information from user
+            
+            $projectInput['build_number'] = Input::get('build_number');
+            $projectInput['project_name'] = Input::get('project_name');
+            $projectInput['street_number'] = Input::get('street_number');
+            $projectInput['postal_code'] = Input::get('postal_code');
+            $projectInput['city'] = Input::get('city');
+            $projectInput['province'] = Input::get('province');
+            $projectInput['start_date'] = Input::get('start_date');
+            $projectInput['end_date'] = Input::get('end_date');
+            $projectInput['comments'] = Input::get('comments');
+            $projectInput['building_permit_date'] = Input::get('building_permit_date');
+            $projectInput['building_permit_number'] = Input::get('building_permit_number');
+            $projectInput['mortgage_date'] = Input::get('mortgage_date');
+             
+            if(Input::get('family_id') > 0)
+            {
+                $projectInput['family_id'] = Input::get('family_id');
+            }
+            
+            if(Input::get('blueprint_id') > 0)
+            {
+                $projectInput['blueprint_id'] = Input::get('blueprint_id');
+            }
+            
+            //Assign returned value of a project id created to a variable.
+            $projectID = $this->createProjectWith($projectInput);
+            
             // Store values from the contact form
-            $projectValues = Input::only('project_name');
-            
-            // Create a new contact object to store in the database
-            $project = new Project($projectValues);
-            
-            // Store contact
-            $this->projectRepo->saveProject($project);
-            
-            // Grab the id of the new contact
-            $id = $project->id;
-
-           
-            //assign a redirect variable
-            $redirectVariable = Redirect::action('ProjectController@show',array($id));
+//            $projectValues = Input::only('project_name');
+//            
+//            // Create a new contact object to store in the database
+//            $project = new Project($projectValues);
+//            
+//            // Store contact
+//            $this->projectRepo->saveProject($project);
+//            
+//            // Grab the id of the new contact
+//            $id = $project->id;
+//
+//           
+//            //assign a redirect variable
+//            $redirectVariable = Redirect::action('ProjectController@show',array($id));
             // Redirect to view the newly created contact
             return $redirectVariable;
 	}
@@ -110,6 +142,30 @@ class ProjectController extends \BaseController {
 	{
 		//
 	}
-
+        
+        /**
+         * 
+         * @param type $data
+         * @return type ID
+         */
+        public function createProjectWith($data) 
+        {
+            $project = new Project($data);
+            
+            $this->projectRepo->saveProject($project);
+            
+            return $project->id;
+        }
+        
+        /**
+         * 
+         * @param type $data
+         */
+        public function createProjectContactWith($data)
+        {
+            $projectContact = new ProjectContact($data);
+            
+            $this->projectContactRepo->saveProjectContact($projectContact);            
+        }
 
 }

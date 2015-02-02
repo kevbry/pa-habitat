@@ -74,7 +74,7 @@ class ProjectUnitTests extends TestCase {
     public function testStoreProjectSuccess()
     {
         // Assemble
-        $this->mockedProjectController->shouldReceive('storeProjectWith')->once()->with($this->projectInput);
+        $this->mockedProjectController->shouldReceive('createProjectWith')->once()->with($this->projectInput);
         $this->mockedProjectRepo->shouldReceive('saveProject')->once()->with(Mockery::type('Project'));
         
         Redirect::shouldReceive('action')->once()->with('ProjectController@show');
@@ -93,7 +93,7 @@ class ProjectUnitTests extends TestCase {
     public function testStoreProjectContactSuccess()
     {
         //Assemble
-        $this->mockedProjectController->shouldRecieve('storeProjectContactWith')->once()->with($this->projectContactInput);
+        $this->mockedProjectController->shouldRecieve('createProjectContactWith')->once()->with($this->projectContactInput);
         $this->mockedProjectContactRepo->shouldReceive('saveProjectContact')->once()->with(Mockery::type('ProjectContact'));
         
          Redirect::shouldReceive('action')->once()->with('ProjectController@show');
