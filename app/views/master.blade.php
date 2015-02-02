@@ -4,6 +4,13 @@
         <meta charset="UTF-8">
         <title>@yield('title') | Habitat For Humanity</title>
         {{ HTML::style('assets/css/style.css'); }}
+        
+        {{ HTML::script('assets/js/jquery-1.11.1.min.js'); }}
+        {{ HTML::script('assets/js/bootstrap.min.js'); }}
+
+        {{ HTML::script('assets/js/dist/typeahead.bundle.js');}}
+        {{ HTML::script('assets/js/dist/bloodhound.js');}}
+        
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
@@ -27,6 +34,7 @@
                                 <li>{{ HTML::linkAction('DonorController@index','Just Donors') }}</li>
                                 <li>{{ HTML::linkAction('CompanyController@index','Companies') }}</li>
                                 <li>{{ HTML::linkAction('ContactController@create','Add a Contact') }}</li>
+                                
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -36,6 +44,7 @@
                                 <li>{{ HTML::linkAction('ProjectController@create','Add a Project') }}</li>
                             </ul>
                         </li>
+                        <li class=""><?php $masterSearch = new HabitatSearchBox("master", "Search..."); $masterSearch->show(); ?></li>
                     </ul>
                 </div>
             </div>
@@ -47,8 +56,6 @@
     <footer class="container">
         <p>Copyright 2014</p>
     </footer>
-    
-{{ HTML::script('assets/js/jquery-1.11.1.min.js'); }}
-{{ HTML::script('assets/js/bootstrap.min.js'); }}
+    <?php $masterSearch->build(); ?>
     </body>
 </html>

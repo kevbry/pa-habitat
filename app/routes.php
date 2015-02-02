@@ -23,3 +23,4 @@ Route::resource('donor', 'DonorController');
 Route::resource('company', 'CompanyController');
 Route::resource('project', 'ProjectController');
 Route::resource('volunteer', 'VolunteerController');
+Route::resource('search/searchContacts', 'SearchAPIController@searchContacts');

@@ -11,4 +11,5 @@ interface ContactRepository
     public function getContact($id);
     public function getAllContacts();
     public function saveContact($contact);
+    public function getContactSearchInfo(/*$filter*/);
 }

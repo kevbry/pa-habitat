@@ -22,4 +22,12 @@ class EloquentContactRepository implements ContactRepository
     {
         $contact->save();
     }
+    
+    public function getContactSearchInfo(/*$filter*/)
+    {
+        return \Contact::query()
+                ->select('id', 'first_name', 'last_name')
+                /*->where('first_name', 'LIKE', "'" . $filter . "'")*/
+                ->get();
+    }
 }
