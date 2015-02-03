@@ -6,7 +6,7 @@ class EloquentVolunteerHoursRepository implements VolunteerHoursRepository {
     
     public function getHoursForProject($id)
     {
-        return \VolunteerHours::whereRaw('project_id ='.$id)->orderBy('date_of_contribution','asc')->get(); 
+        return \VolunteerHours::whereRaw('project_id ='.$id)->orderBy('date_of_contribution','asc')->paginate(15); 
     }
     
     public function getAllHours()
@@ -16,13 +16,11 @@ class EloquentVolunteerHoursRepository implements VolunteerHoursRepository {
     
     public function saveVolunteerHours($volunteerHours)
     {
-
-        
         $volunteerHours->save();
     }
     
      public function getHoursForVolunteer($volunteerId){
          
-         return \VolunteerHours::whereRaw('volunteer_id ='.$volunteerId)->orderBy('date_of_contribution','asc')->get(); 
+         return \VolunteerHours::whereRaw('volunteer_id ='.$volunteerId)->orderBy('date_of_contribution','asc')->paginate(15); 
      }
 }

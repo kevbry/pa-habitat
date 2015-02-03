@@ -23,6 +23,10 @@ $(document).ready(function(){
         {
             row.remove();
         }
+        else 
+        {
+            $('form')[0].reset();
+        }
         
     });
 });

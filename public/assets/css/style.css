@@ -58,3 +58,7 @@ footer p {
     float:left;
     margin-right:20px;
 }
+
+.pagination {
+    display: block;
+}
