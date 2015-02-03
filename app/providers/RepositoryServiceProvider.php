@@ -38,9 +38,9 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\FamilyContactRepository',
             'App\Repositories\EloquentFamilyContactRepository'
         );
-		$this->app->bind(
-		    'App\Repositories\FamilyRepository',
+        $this->app->bind(
+            'App\Repositories\FamilyRepository',
             'App\Repositories\EloquentFamilyRepository'
-		);
+        );
     }
 }
