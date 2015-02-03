@@ -19,6 +19,9 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
         <tbody>
             @if (!empty($volunteerhours)) 
                 @foreach($volunteerhours as $volunteerhour)
+                <tr>
+                    {{Form::hidden('volunteer_id[]', $volunteer->id)}}
+                </tr>
                 <tr class="hourrow">
                     <td>
                         <!--<select name="volunteer_id[]" class="form-control" readonly='readonly'>
@@ -28,7 +31,6 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
                             echo "<input id='row_id[]' name='row_id[]' type='hidden' value='$volunteerhour->id'></input>"
                                    
                         ?>
-                        {{Form::hidden('volunteer_id[]', $volunteer->id)}}
                         {{Form::input('name', 'volunteer_name', $volunteer->contact->first_name . ' ' . $volunteer->contact->last_name, 
                                     array('readonly'=>'readonly', 'class'=>'form-control'))}}
                     </td>
