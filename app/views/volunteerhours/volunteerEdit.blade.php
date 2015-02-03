@@ -7,7 +7,7 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
 @section('content')
 
 <h1>Volunteer Hours for {{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</h1>
-{{ Form::open(array('route'=>'updatehours','class'=>'form-horizontal')) }}
+{{ Form::open(array('route'=> array('updatehours',),'class'=>'form-horizontal')) }}
 
  {{ HTML::linkAction('ContactController@show','Back To Volunteer', array($volunteer->id), array('class'=>'btn btn-primary btn-lg')) }}
 <br />

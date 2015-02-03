@@ -102,6 +102,7 @@ $type=Input::get('pageType');
     
     public function updatehours()
     {
+        $infoArray = array();
         $hoursInfo = array();
         for ($i = 0; $i < count(Input::get('volunteer_id')); $i++) {
             $hoursInfo['id'] = Input::get('row_id')[$i];
@@ -126,22 +127,28 @@ $type=Input::get('pageType');
             $infoArray[$i] = $hoursInfo;
         }
         
-        for($i = 0; $i < count($infoArray); $i++)
+        if(!empty($infoArray))
         {
-            $this->updateHoursWith($infoArray[$i]);
+            for($i = 0; $i < count($infoArray); $i++)
+            {
+                $this->updateHoursWith($infoArray[$i]);
+            }
         }
-        var_dump($hourArray);
+        
         $hourArray = $this->volunteerHrsRepo->getHoursForVolunteer($hoursInfo['volunteer_id']);
         foreach($hourArray as $hourEntry)
         {
             $bFound = false;
-            foreach($infoArray as $formEntry)
+            if(!empty($infoArray))
             {
-                var_dump(strval($hourEntry['id']));
-                var_dump($formEntry['id']);
-                if( strval($hourEntry['id']) == $formEntry['id'] )
+                foreach($infoArray as $formEntry)
                 {
-                    $bFound = true;
+                    var_dump(strval($hourEntry['id']));
+                    var_dump($formEntry['id']);
+                    if( strval($hourEntry['id']) == $formEntry['id'] )
+                    {
+                        $bFound = true;
+                    }
                 }
             }
             
