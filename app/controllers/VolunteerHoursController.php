@@ -130,20 +130,26 @@ $type=Input::get('pageType');
         {
             $this->updateHoursWith($infoArray[$i]);
         }
-        
+        var_dump($hourArray);
         $hourArray = $this->volunteerHrsRepo->getHoursForVolunteer($hoursInfo['volunteer_id']);
         foreach($hourArray as $hourEntry)
         {
+            $bFound = false;
             foreach($infoArray as $formEntry)
             {
-                if( $hourEntry['id'] != $formEntry['id'] )
+                var_dump(strval($hourEntry['id']));
+                var_dump($formEntry['id']);
+                if( strval($hourEntry['id']) == $formEntry['id'] )
                 {
-                    $affectedRows = VolunteerHours::where('id','=',$hourEntry['id'])->delete();
-                    
+                    $bFound = true;
                 }
-                    
             }
             
+            if(!$bFound)
+            {
+                $affectedRows = VolunteerHours::where('id','=',$hourEntry['id'])->delete();
+                var_dump($affectedRows);
+            }
         }
 
         return Redirect::action('VolunteerHoursController@indexForContact', $hoursInfo['volunteer_id']);

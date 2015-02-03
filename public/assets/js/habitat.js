@@ -25,4 +25,10 @@ $(document).ready(function(){
         }
         
     });
+    
+    $('.removeEdit').click(function(e){
+        e.preventDefault();
+        var row = $(this).closest('.hourrow');
+        row.remove();
+    });
 });

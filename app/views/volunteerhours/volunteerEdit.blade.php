@@ -69,7 +69,7 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
                         </select>
                     </td>
                     <td></td>
-                    <td><a href="#" class="remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                    <td><a href="#" class="removeEdit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 @endforeach
             @endif
