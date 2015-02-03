@@ -6,7 +6,7 @@ Index of all Families
 
 @section('content')
 
-<h1>Contacts</h1>
+<h1>Families</h1>
 <nav>
 <a href="family/create" class="btn btn-primary">Add Family</a>
 </nav>
