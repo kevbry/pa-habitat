@@ -29,8 +29,8 @@ class EloquentContactRepository implements ContactRepository
         $order = ($order == 'a' ? 'asc' : 'desc');
 
         switch ($sortby) {
-            case 'f':
-                $sortby = 'first_name';
+            case 'l':
+                $sortby = 'last_name';
                 break;
             case 'h':
                 $sortby = 'home_phone';

@@ -13,11 +13,11 @@ All Volunteers
         <tr>
             <th>Name
                 
-                @if ($sortby == 'f' && $order == 'd')
+                @if ($sortby == 'l' && $order == 'd')
                  <a href='{{action(
                            'VolunteerController@index',
                             array(
-                               'sortby' => 'f',
+                               'sortby' => 'l',
                                 'order' => 'a'
                            )
                        )
@@ -27,7 +27,7 @@ All Volunteers
                  <a href='{{action(
                            'VolunteerController@index',
                             array(
-                               'sortby' => 'f',
+                               'sortby' => 'l',
                                 'order' => 'd'
                            )
                        )

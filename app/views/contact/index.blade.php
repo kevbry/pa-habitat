@@ -15,11 +15,11 @@ Index of all contacts
          <tr>
             <th>Name
                 
-                @if ($sortby == 'f' && $order == 'd')
+                @if ($sortby == 'l' && $order == 'd')
                  <a href='{{action(
                            'ContactController@index',
                             array(
-                               'sortby' => 'f',
+                               'sortby' => 'l',
                                 'order' => 'a'
                            )
                        )
@@ -29,7 +29,7 @@ Index of all contacts
                  <a href='{{action(
                            'ContactController@index',
                             array(
-                               'sortby' => 'f',
+                               'sortby' => 'l',
                                 'order' => 'd'
                            )
                        )
