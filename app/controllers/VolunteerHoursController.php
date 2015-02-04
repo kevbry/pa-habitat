@@ -104,7 +104,7 @@ $type=Input::get('pageType');
     {
         $infoArray = array();
         $hoursInfo = array();
-        for ($i = 0; $i < count(Input::get('volunteer_id')); $i++) {
+        for ($i = 0; $i < count(Input::get('row_id')); $i++) {
             $hoursInfo['id'] = Input::get('row_id')[$i];
             $hoursInfo['volunteer_id'] = Input::get('volunteer_id')[$i];
             $hoursInfo['hours'] = Input::get('hours')[$i];
@@ -122,11 +122,10 @@ $type=Input::get('pageType');
             if (empty($hoursInfo)) {
                 throw new Exception('No Hours info inserted.');
             }
-            
-            
             $infoArray[$i] = $hoursInfo;
         }
-        $id = $hoursInfo['volunteer_id'];
+        $volID = Input::get('vol_id');
+        $id = $volID;
         
         if(!empty($infoArray))
         {
@@ -137,6 +136,7 @@ $type=Input::get('pageType');
         }
         
         $hourArray = $this->volunteerHrsRepo->getHoursForVolunteer($id);
+
         foreach($hourArray as $hourEntry)
         {
             $bFound = false;
@@ -144,8 +144,6 @@ $type=Input::get('pageType');
             {
                 foreach($infoArray as $formEntry)
                 {
-                    var_dump(strval($hourEntry['id']));
-                    var_dump($formEntry['id']);
                     if( strval($hourEntry['id']) == $formEntry['id'] )
                     {
                         $bFound = true;
@@ -156,8 +154,8 @@ $type=Input::get('pageType');
             if(!$bFound)
             {
                 $affectedRows = VolunteerHours::where('id','=',$hourEntry['id'])->delete();
-                var_dump($affectedRows);
             }
+
         }
 
         return Redirect::action('VolunteerHoursController@indexForContact', $id);

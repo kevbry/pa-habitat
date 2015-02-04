@@ -6,20 +6,34 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
 
 @section('content')
 
-<h1>Volunteer Hours for {{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</h1>
-{{ Form::open(array('route'=> array('updatehours',),'class'=>'form-horizontal')) }}
+<h1>Editing Volunteer Hours for {{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</h1>
+{{ Form::open(array('route'=> array('updatehours'),'class'=>'form-horizontal')) }}
 
  {{ HTML::linkAction('ContactController@show','Back To Volunteer', array($volunteer->id), array('class'=>'btn btn-primary btn-lg')) }}
 <br />
-<div style="max-height:500px;overflow:scroll;overflow-x:hidden;">
+
+@if(count($volunteerhours) > 9)
+
+        <div style="max-height:500px;overflow:scroll;overflow-x:hidden;">
+
+@else
+
+        <div>
+
+@endif
 <table class="table">
     <thead style="position: inherit">
-        <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project</th><th>Family</th></tr>
+        @if (count($volunteerhours) == 0)
+            <tr><h3>No hours found for {{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</h3></tr>
+        @else
+            <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project</th><th>Family</th></tr>
+        @endif
     </thead>
         <tbody>
             @if (!empty($volunteerhours)) 
                 @foreach($volunteerhours as $volunteerhour)
                 <tr>
+                    {{Form::hidden('vol_id', $volunteer->id)}}
                     {{Form::hidden('volunteer_id[]', $volunteer->id)}}
                 </tr>
                 <tr class="hourrow">
@@ -77,9 +91,9 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
             @endif
         </tbody>
 </table>
+<br />
 </div>
- <br />
-{{Form::submit('Save All',array('class'=>'btn btn-primary btn-lg'))}}
+{{Form::submit('Save All',array('class'=>'btn btn-primary btn-lg','id'=>'submitEdit'))}}
 {{Form::hidden('pageType','volunteer')}}
 {{Form::close()}}
 @stop

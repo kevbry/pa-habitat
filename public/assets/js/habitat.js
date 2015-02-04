@@ -31,4 +31,10 @@ $(document).ready(function(){
         var row = $(this).closest('.hourrow');
         row.remove();
     });
+     
+    if($('.hourrow').length === 0)
+    {
+        $('#submitEdit').remove();
+    }
+    
 });
