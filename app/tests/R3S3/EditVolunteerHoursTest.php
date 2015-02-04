@@ -23,7 +23,6 @@ class EditVolunteerHoursTest extends TestCase
         
     }
     
-    
     /**
      * Test that the controller creates and displays the view for adding hours
      */
