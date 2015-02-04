@@ -14,6 +14,7 @@ class HabitatSearchBox
     private $placeholderText;
     private $bloodHoundEngines = array();
     private $typeAheadConfig;
+    private $datumFormatTemplate;
     
     
     function __construct($searchName, $placeholderText="") 
@@ -30,30 +31,41 @@ class HabitatSearchBox
      * @param type $dataURL
      * @param type $dataFormat
      */
-    public function searchFor(/*$engineName, $dataURL, $dataFormat*/)
+    public function configureEngine($engineName = 'contactSearch', 
+            $dataURL = 'http://kelcstu06/~cst230/habitat/public/search/searchContacts')
     {
         //TODO: Separate out the hard-coded stuff for flexibility
-        $this->bloodHoundEngines[0] = <<<EOT
-            var contactSearch = new Bloodhound({
+        $this->bloodHoundEngines[$engineName] = <<<EOT
+            var %s = new Bloodhound({
                 datumTokenizer: function(data) { return Bloodhound.tokenizers.whitespace(data.value)},
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 limit: 10,
                 remote: {
-                    url: 'http://kelcstu06/~cst222/habitat/public/search/searchContacts',
+                    url: "%s",
                     filter: function(list)
                     {
-                        return $.map(list, function(contact){return {value: contact.id, name: contact.first_name + " " + contact.last_name};});
+                        return $.map(list, function(result){return %s;});
                     }
                 }
             });
                 
-            contactSearch.initialize();
+            %s.initialize();
 EOT;
-        
         // Add code to array of data sources
+        $this->bloodHoundEngines[$engineName] = sprintf($this->bloodHoundEngines[$engineName], 
+                $engineName, $dataURL, $this->datumFormatTemplate, $engineName);
+        
     }
     
-    public function configureSettings()
+    /**
+     * 
+     * @param string $hint
+     * @param string $highlight determines whether or not matched items are
+     *      highlighted in bold
+     * @param string $minLength The minimum number of characters before the 
+     *      search functionality triggers
+     */
+    public function configureSettings($hint = "false", $highlight = "false", $minLength = "3")
     {
         //TODO: Abstract out all of the hardcoded values to allow configuration
         //TODO: Create object for each search engine being inserted (loop through)
@@ -62,7 +74,7 @@ EOT;
             searchName = "Contacts";
             searchEngine = contactSearch;
             displayKey = 'name';
-            onSelect = function(obj, data) {window.location = "http://kelcstu06/~cst222/habitat/public/contact/" + data.value;};
+            onSelect = function(obj, data) {window.location = "http://kelcstu06/~cst230/habitat/public/contact/" + data.value;};
     
             $( controlName + " .typeahead").typeahead({
                 hint: true,
@@ -93,20 +105,34 @@ EOT;
     {
         $this->searchFor();
         $this->configureSettings();
-        
+        $engines = "";
         // TODO: Build array of search engines to be placed in the script
-        
+        foreach($this->bloodHoundEngines as $currEngine)
+        {
+            $engines .= $currEngine;
+        }
         $scriptBlock = <<<EOT
-        "<script type='text/javascript'>
+        <script type='text/javascript'>
             $(function()
             {
                 %s
                 
                 %s
-            });</script>"
+            });</script>
 EOT;
         
         
-        printf($scriptBlock, $this->bloodHoundEngines[0], $this->typeAheadConfig);
+        printf($scriptBlock, $engines, $this->typeAheadConfig);
+    }
+    /**
+     * 
+     * @param string $value The singular value which is referenced when the search item is clicked.
+     * @param string $name The display value that is shown when search items are
+     *      displayed. If multiple fields are to be displayed, they must be retrieved
+     *      as a single column of the query that retreives them.
+     */
+    public function configureDatumFormat($value, $name)
+    {
+        $this->datumFormatTemplate = sprintf('{value: result.%s, name: result.%s}', $value, $name);
     }
 }
