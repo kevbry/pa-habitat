@@ -34,6 +34,10 @@ foreach($family[2] as $hoursData)
 // hours for this family
 foreach($family[1] as $familyContact)
 {
+    if (!array_key_exists($familyContact->id, $aggregateHours))
+    {
+        $aggregateHours[$familyContact->id] = 0;
+    }
     if($familyContact->currently_active == true)
     {
         array_push($activeContacts, $familyContact);
@@ -78,8 +82,11 @@ $percentHours = number_format(($totalHours / $requiredHours) * 100, 2);
                 $contactType = $contact->primary ? "Primary" : "Secondary"; ?>
             <tr>
                 <td>{{$contact->first_name . ' ' . $contact->last_name}}</td>
-                <td>{{$contactType}}</td>
-                <td>{{Form::label('contact_total_hours', $aggregateHours[$contact->id], array('class'=>'col-sm-7'))}}</td>
+                <td>{{$contactType}}</td> 
+                <!-- Note: Below, we are using string concatenation to force a 0 to appear on the page.
+                 Without this trick, the system deposits the label into the value of the field, preventing
+                 us from reporting 0 values. REALLY ANNOYING. -->
+                <td>{{Form::label('contact_total_hours', " " . $aggregateHours[$contact->id], array('class'=>'col-sm-7'))}}</td>
                 <td><a href="{{$rootPageURL[0] . "contact/" . $contact->id}}">View Details</a></td>
             </tr>
         @endforeach    
@@ -106,7 +113,7 @@ $percentHours = number_format(($totalHours / $requiredHours) * 100, 2);
             <tr>
                 <td>{{$contact->first_name . ' ' . $contact->last_name}}</td>
                 <td>{{$contactType}}</td>
-                <td>{{Form::label('contact_total_hours', $aggregateHours[$contact->id], array('class'=>'col-sm-7'))}}</td>
+                <td>{{Form::label('contact_total_hours', " " . $aggregateHours[$contact->id], array('class'=>'col-sm-7'))}}</td>
                 <td><a href="{{$rootPageURL[0] . "contact/" . $contact->id}}">View Details</a></td>
             </tr>
         @endforeach    
