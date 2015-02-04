@@ -34,6 +34,7 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\DonorRepository',
             'App\Repositories\EloquentDonorRepository'
         );
+<<<<<<< HEAD
         $this->app->bind(
             'App\Repositories\VolunteerHoursRepository',
             'App\Repositories\EloquentVolunteerHoursRepository'
@@ -46,5 +47,8 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\FamilyRepository',
             'App\Repositories\EloquentFamilyRepository'
         );
+=======
+        
+>>>>>>> R3S9-AddProjectInfo
     }
 }

@@ -35,12 +35,15 @@ All Projects
                   }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
                     @endif
             </th>
+<th>Address</th><th>Project Coordinator</th><th></th>
         </tr>
     </thead>
     @foreach($projects as $project)
     <tr>
-        <td>{{$project->name}}</td>
-          <td><a href="project/{{$project->id}}">View Details</a></td>
+        <td>{{$project->project_name}}</td>
+        <td>{{$project->street_number . ', ' . $project->city . ', ' . $project->province}}</td>
+        <td>{{$project->project_coordinator}}</td>
+        <td><a href="project/{{$project->id}}">View Details</a></td>
     </tr>
     @endforeach
 </table>
