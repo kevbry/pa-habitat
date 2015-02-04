@@ -6,7 +6,7 @@ Add Volunteer Hours for Project {{$id}}
 
 @section('content')
 
-<h1>Volunteer Hours for {{$project->name}}</h1>
+<h1>Volunteer Hours for {{$project->project_name}}</h1>
 {{ Form::open(array('route'=>'storehours','class'=>'form-horizontal')) }}
 <table class="table">
     <thead>

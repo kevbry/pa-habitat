@@ -14,26 +14,6 @@ All Projects
     <thead>
         <tr>
             <th>Name
-            @if ($sortby == 'n' && $order == 'd')
-                 <a href='{{action(
-                           'ProjectController@index',
-                            array(
-                               'sortby' => 'n',
-                                'order' => 'a'
-                           )
-                       )
-                  }}'  ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
-                    @else 
-                  
-                 <a href='{{action(
-                           'ProjectController@index',
-                            array(
-                               'sortby' => 'n',
-                                'order' => 'd'
-                           )
-                       )
-                  }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-                    @endif
             </th>
 <th>Address</th><th>Project Coordinator</th><th></th>
         </tr>

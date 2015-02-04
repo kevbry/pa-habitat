@@ -27,7 +27,7 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
                      Paid
                  @endif
                 </td>
-                <td>{{$volunteerhour->project->name}}</td>
+                <td>{{$volunteerhour->project->project_name}}</td>
                 <td>
                 @if(isset($volunteerhour->family->name))
                 {{$volunteerhour->family->name}}

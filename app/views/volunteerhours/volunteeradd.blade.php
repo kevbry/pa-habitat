@@ -31,7 +31,7 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
                 <select name="project_id[]" class="form-control">
                     @if(!empty($projects))
                         @foreach($projects as $project)
-                            <option value="{{$project->id}}">{{$project->name}}</option>
+                            <option value="{{$project->id}}">{{$project->project_name}}</option>
                         @endforeach
                     @endif
                 </select>

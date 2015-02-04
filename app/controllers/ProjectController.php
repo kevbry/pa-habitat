@@ -12,7 +12,7 @@ class ProjectController extends \BaseController {
         {
             $this->projectRepo = $projectRepo;
 			$this->projectContactRepo = $projectContactRepo;
-        {
+        }
             
 
 	/**
@@ -23,16 +23,12 @@ class ProjectController extends \BaseController {
 	public function index()
 	{
             // Retrieve all contacts from the database
-        if ($sortby && $order) {
 
-            $projectList = $this->projectRepo->orderBy($sortby, $order);
-        } else {
             $projectList = $this->projectRepo->getAllProjects();
-        }
 
             
         // Return that to the list view
-        return View::make('project.index', compact('sortby', 'order'))->with('projects', $projectList);
+        return View::make('project.index')->with('projects', $projectList);
 	}
 
 
@@ -99,6 +95,20 @@ class ProjectController extends \BaseController {
             $redirectVariable = Redirect::action('ProjectController@show',array($id));
             // Redirect to view the newly created contact
             return $redirectVariable;
+	}
+        
+        	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+            $project = $this->projectRepo->getProject($id);
+            
+            return View::make('project.show')
+                    ->withProject($project);
 	}
 
 
