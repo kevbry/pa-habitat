@@ -13,6 +13,6 @@ namespace App\Repositories;
 interface ProjectContactRepository {
 
     public function getProjectContact($id);
-    public function getAllContactsByProject();
+    public function getAllContactsByProject($id);
     public function saveProjectContact($projectContact);
 }

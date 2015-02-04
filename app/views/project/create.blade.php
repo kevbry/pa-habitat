@@ -15,6 +15,12 @@ Create a Project
         {{ Form::text('project_name',null,array('class'=>'form-control')) }}
         </div>
     </div>
+    <div class="form-group">
+        {{ Form::label('build_number', 'Build number: ',array('class'=>'col-sm-3')) }}
+        <div class="col-sm-7">
+        {{ Form::text('project_name',null,array('class'=>'form-control')) }}
+        </div>
+    </div>
 </section>
 </section>
 <section class="row">
