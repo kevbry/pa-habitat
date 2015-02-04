@@ -11,6 +11,9 @@
 |
 */
 
+// NOTE TO FUTURE SELVES: FIX THIS TO BE MORE SECURE.
+
+
 Route::get('/', function()
 {
 	return View::make('hello');
