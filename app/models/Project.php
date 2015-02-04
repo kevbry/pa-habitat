@@ -13,12 +13,12 @@ class Project extends \Eloquent
 	 * The attributes that are mass-assignment
 	 *
 	 * @fillable array with column names we wish to be able to assign to.
+         *  ADD family_id to fillable array
 	 */
-
-        protected $fillable = array('family_id',
+        protected $fillable = array('project_name',
+                                    'family_id',
                                     'blueprint_id',
                                     'build_number',            
-                                    'project_name',
                                     'street_number',
                                     'postal_code',
                                     'city',

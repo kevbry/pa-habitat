@@ -24,16 +24,16 @@ class CreateAddProjectInfo extends Migration {
             //Schema::dropIfExists('Project');
             Schema::table('Project', function(Blueprint $table)
             {
-                $table->integer('family_id')->unsigned();
+                $table->integer('family_id')->unsigned()->nullable();
                 $table->foreign('family_id')->references('id')->on('Family');
-                $table->integer('blueprint_id')->unsigned();
+                $table->integer('blueprint_id')->unsigned()->nullable();
                 $table->string('build_number');
                 $table->foreign('blueprint_id')->references('id')->on('Blueprint');
-                $table->string('project_name');
+                $table->renameColumn('name','project_name');
                 $table->string('street_number');
                 $table->string('postal_code');
                 $table->string('city');
-                $table->string('province');
+                $table->string('province')->nullable();
                 $table->date('start_date');
                 $table->date('end_date')->nullable();
                 $table->string('comments')->nullable();
