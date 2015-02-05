@@ -75,7 +75,7 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
         </tr>   
     </tbody>
 </table>
-<p> <a href="#" id="addhours" class="btn btn-primary btn-lg">Add Row</a> </p>
+<a href="#" id="addhours" class="btn btn-primary btn-lg">Add Row</a>
 {{Form::submit('Save All',array('class'=>'btn btn-primary btn-lg'))}}
 {{Form::hidden('pageType','volunteer')}}
 {{Form::close()}}
