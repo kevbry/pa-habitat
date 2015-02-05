@@ -43,5 +43,10 @@ Add Volunteer Hours for Project {{$id}}
 {{Form::hidden('pageType','project')}}
 {{Form::close()}}
  {{ HTML::linkAction('ProjectController@show','Back To Project', array($project->id), array('class'=>'btn btn-primary btn-lg')) }}
-<?php echo $volunteerhours->links(); ?>
+<?php 
+if (!empty($volunteerhours))
+{
+    echo $volunteerhours->links();
+}
+ ?>
 @stop
