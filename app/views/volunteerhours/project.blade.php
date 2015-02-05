@@ -1,12 +1,13 @@
 @extends('master')
 
 @section('title')
-Add Volunteer Hours for Project {{$id}}
+Volunteer Hours for Project {{$id}}
 @stop
 
 @section('content')
 
 <h1>Volunteer Hours for {{$project->project_name}}</h1>
+{{ HTML::linkRoute('projHoursAdd', 'Add Hours', array($project->id), array('class' => 'btn btn-primary')) }}
 {{ Form::open(array('route'=>'storehours','class'=>'form-horizontal')) }}
 <table class="table">
     <thead>
