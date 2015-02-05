@@ -43,6 +43,11 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
 {{Form::hidden('pageType','volunteer')}}
 {{Form::close()}}
  {{ HTML::linkAction('ContactController@show','Back To Volunteer', array($volunteer->id), array('class'=>'btn btn-primary btn-lg')) }}
-<?php echo $volunteerhours->links(); ?>
+<?php 
+if (!empty($volunteerhours))
+{
+    echo $volunteerhours->links();
+}
+?>
 
 @stop
