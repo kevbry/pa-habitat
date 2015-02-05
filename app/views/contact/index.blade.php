@@ -14,7 +14,6 @@ Index of all contacts
     <thead>
          <tr>
             <th>Name
-                
                 @if ($sortby == 'l' && $order == 'd')
                  <a href='{{action(
                            'ContactController@index',

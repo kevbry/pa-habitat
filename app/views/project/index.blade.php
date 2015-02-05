@@ -14,14 +14,76 @@ All Projects
     <thead>
         <tr>
             <th>Name
+                @if ($sortby == 'n' && $order == 'd')
+                 <a href='{{action(
+                           'ProjectController@index',
+                            array(
+                               'sortby' => 'n',
+                                'order' => 'a'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+                    @else 
+                  
+                 <a href='{{action(
+                           'ProjectController@index',
+                            array(
+                               'sortby' => 'n',
+                                'order' => 'd'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+                @endif
             </th>
-<th>Address</th><th>Project Coordinator</th><th></th>
+<th>Street Address
+                @if ($sortby == 's' && $order == 'd')
+                 <a href='{{action(
+                           'ProjectController@index',
+                            array(
+                               'sortby' => 's',
+                                'order' => 'a'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+                    @else 
+                  
+                 <a href='{{action(
+                           'ProjectController@index',
+                            array(
+                               'sortby' => 's',
+                                'order' => 'd'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+                @endif</th>
+            <th>City
+                @if ($sortby == 'c' && $order == 'd')
+                 <a href='{{action(
+                           'ProjectController@index',
+                            array(
+                               'sortby' => 'c',
+                                'order' => 'a'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+                    @else 
+                  
+                 <a href='{{action(
+                           'ProjectController@index',
+                            array(
+                               'sortby' => 'c',
+                                'order' => 'd'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+                @endif</th><th>Project Coordinator</th><th></th>
         </tr>
     </thead>
     @foreach($projects as $project)
     <tr>
         <td>{{$project->project_name}}</td>
-        <td>{{$project->street_number . ', ' . $project->city . ', ' . $project->province}}</td>
+        <td>{{$project->street_number}}</td>
+        <td>{{$project->city}}</td>
         <td>{{$project->project_coordinator}}</td>
         <td><a href="project/{{$project->id}}">View Details</a></td>
     </tr>

@@ -29,7 +29,13 @@ class EloquentProjectRepository implements ProjectRepository
 
         switch ($sortby) {
             case 'n':
-                $sortby = 'name';
+                $sortby = 'project_name';
+                break;
+            case 's':
+                $sortby = 'street_number';
+                break;
+            case 'c':
+                $sortby = 'city';
                 break;
         }
             

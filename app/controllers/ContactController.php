@@ -29,17 +29,15 @@ class ContactController extends \BaseController {
             // Retrieve  contacts from the database
             
             $sortby = Input::get('sortby');
-        $order = Input::get('order');
+            $order = Input::get('order');
 
-        if ($sortby && $order) {
+            if ($sortby && $order) {
 
-           $contactList = $this->contactRepo->orderBy($sortby, $order);
-        } else {
-            $contactList = $this->contactRepo->getAllContacts();
-        }
+               $contactList = $this->contactRepo->orderBy($sortby, $order);
+            } else {
+                $contactList = $this->contactRepo->getAllContacts();
+            }
            
-            
-            
             // Return that to the list view
             return View::make('contact.index',compact('sortby','order'))->with('contacts', $contactList);
 	}

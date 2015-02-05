@@ -22,12 +22,18 @@ class ProjectController extends \BaseController {
 	 */
 	public function index()
 	{
-            // Retrieve all contacts from the database
+            $sortby = Input::get('sortby');
+            $order = Input::get('order');
+            // Retrieve all projects from the database
 
-            $projectList = $this->projectRepo->getAllProjects();
+            if ($sortby && $order) {
+               $projectList = $this->projectRepo->orderBy($sortby, $order);
+            } else {
+                $projectList = $this->projectRepo->getAllProjects();
+            }
 
             // Return that to the list view
-            return View::make('project.index')->with('projects', $projectList);
+            return View::make('project.index',compact('sortby','order'))->with('projects', $projectList);
 	}
 
 
