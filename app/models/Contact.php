@@ -28,7 +28,7 @@ class Contact extends \Eloquent
                                     'country', 
                                     'comments');
         
-          public function volunteer()
+        public function volunteer()
         {
             return $this->hasOne('Volunteer','id', 'id');
         }

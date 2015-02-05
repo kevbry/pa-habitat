@@ -26,11 +26,20 @@ class ContactController extends \BaseController {
 	 */
 	public function index()
 	{
-            // Retrieve all contacts from the database
-            $contactList = $this->contactRepo->getAllContacts();
+            // Retrieve  contacts from the database
             
+            $sortby = Input::get('sortby');
+            $order = Input::get('order');
+
+            if ($sortby && $order) {
+
+               $contactList = $this->contactRepo->orderBy($sortby, $order);
+            } else {
+                $contactList = $this->contactRepo->getAllContacts();
+            }
+           
             // Return that to the list view
-            return View::make('contact.index')->with('contacts', $contactList);
+            return View::make('contact.index',compact('sortby','order'))->with('contacts', $contactList);
 	}
 
 	/**
