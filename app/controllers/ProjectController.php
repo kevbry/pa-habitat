@@ -26,9 +26,8 @@ class ProjectController extends \BaseController {
 
             $projectList = $this->projectRepo->getAllProjects();
 
-            
-        // Return that to the list view
-        return View::make('project.index')->with('projects', $projectList);
+            // Return that to the list view
+            return View::make('project.index')->with('projects', $projectList);
 	}
 
 
@@ -91,10 +90,9 @@ class ProjectController extends \BaseController {
             $id = $projectID;
 //
 //           
-            //assign a redirect variable
-            $redirectVariable = Redirect::action('ProjectController@show',array($id));
+
             // Redirect to view the newly created contact
-            return $redirectVariable;
+            return Redirect::action('ProjectController@show',array($id));
 	}
         
         	/**
@@ -110,10 +108,6 @@ class ProjectController extends \BaseController {
             return View::make('project.show')
                     ->withProject($project);
 	}
-
-
-
-
 
     /**
      * Show the form for editing the specified resource.
