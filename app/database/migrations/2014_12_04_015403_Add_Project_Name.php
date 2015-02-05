@@ -25,10 +25,10 @@ class AddProjectName extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('Project', function($table)
-                {
-                    $table->dropColumn('name');
-                });
+            Schema::table('Project', function($table)
+            {
+                $table->dropColumn('name');
+            });
 	}
 
 }

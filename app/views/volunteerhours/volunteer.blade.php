@@ -1,13 +1,14 @@
 @extends('master')
 
 @section('title')
-Add Volunteer Hours for Project {{$id}}
+Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}
 @stop
 
 @section('content')
 
-<h1>Volunteer Hours for {{$project->project_name}}</h1>
+<h1>Volunteer Hours for {{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</h1>
 {{ Form::open(array('route'=>'storehours','class'=>'form-horizontal')) }}
+
 <table class="table">
     <thead>
         <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project</th><th>Family</th></tr>
@@ -26,7 +27,7 @@ Add Volunteer Hours for Project {{$id}}
                      Paid
                  @endif
                 </td>
-                <td>{{$volunteerhour->project->name}}</td>
+                <td>{{$volunteerhour->project->project_name}}</td>
                 <td>
                 @if(isset($volunteerhour->family->name))
                 {{$volunteerhour->family->name}}
@@ -37,16 +38,16 @@ Add Volunteer Hours for Project {{$id}}
             </tr>
             @endforeach
         @endif
-       
     </tbody>
 </table>
-{{Form::hidden('pageType','project')}}
+{{Form::hidden('pageType','volunteer')}}
 {{Form::close()}}
- {{ HTML::linkAction('ProjectController@show','Back To Project', array($project->id), array('class'=>'btn btn-primary btn-lg')) }}
+ {{ HTML::linkAction('ContactController@show','Back To Volunteer', array($volunteer->id), array('class'=>'btn btn-primary btn-lg')) }}
 <?php 
 if (!empty($volunteerhours))
 {
     echo $volunteerhours->links();
 }
- ?>
+?>
+
 @stop

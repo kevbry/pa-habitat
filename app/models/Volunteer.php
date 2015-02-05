@@ -22,6 +22,12 @@ class Volunteer extends \Eloquent
         return $this->belongsTo('Contact','id', 'id');
     }
     
+    public function volunteerHours()
+    {
+        return $this->hasMany('VolunteerHours');
+        
+    }
+    
     public function availability()
     {
         return $this->hasMany('Availability', 'volunteer_id');

@@ -12,16 +12,87 @@ Index of all contacts
 </nav>
 <table class="table table-hover">
     <thead>
-        <tr><th>Name</th><th>Phone</th><th>Email</th><th></th></tr>
+         <tr>
+            <th>Name
+                @if ($sortby == 'l' && $order == 'd')
+                 <a href='{{action(
+                           'ContactController@index',
+                            array(
+                               'sortby' => 'l',
+                                'order' => 'a'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+                    @else 
+                  
+                 <a href='{{action(
+                           'ContactController@index',
+                            array(
+                               'sortby' => 'l',
+                                'order' => 'd'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+                    @endif
+                    
+            </th>
+            
+            <th>Phone
+            @if ($sortby == 'h' && $order == 'd')
+                 <a href='{{action(
+                           'ContactController@index',
+                            array(
+                               'sortby' => 'h',
+                                'order' => 'a'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+                    @else 
+                  
+                 <a href='{{action(
+                           'ContactController@index',
+                            array(
+                               'sortby' => 'h',
+                                'order' => 'd'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+                    @endif</th>
+            
+            <th>Email
+            @if ($sortby == 'e' && $order == 'd')
+                 <a href='{{action(
+                           'ContactController@index',
+                            array(
+                               'sortby' => 'e',
+                                'order' => 'a'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
+                    @else 
+                  
+                 <a href='{{action(
+                           'ContactController@index',
+                            array(
+                               'sortby' => 'e',
+                                'order' => 'd'
+                           )
+                       )
+                  }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+                    @endif</th>
+            <th></th>
+        </tr>
     </thead>
-    @foreach($contacts as $contact)
-    <tr>
-        <td>{{$contact->first_name . ' ' . $contact->last_name}}</td>
-        <td>{{$contact->home_phone}}</td>
-        <td>{{$contact->email_address}}</td>
-        <td><a href="contact/{{$contact->id}}">View Details</a></td>
-    </tr>
-    @endforeach
+    @if (!empty($contacts))
+        @foreach($contacts as $contact)
+        <tr>
+            <td>{{$contact->first_name . ' ' . $contact->last_name}}</td>
+            <td>{{$contact->home_phone}}</td>
+            <td>{{$contact->email_address}}</td>
+            <td><a href="contact/{{$contact->id}}">View Details</a></td>
+        </tr>
+        @endforeach
+    @endif
 </table>
 <?php echo $contacts->links(); ?>
 @stop
