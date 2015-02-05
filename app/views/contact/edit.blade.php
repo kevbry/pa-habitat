@@ -119,7 +119,19 @@ Edit Contact
         {{Form::checkbox('is_volunteer',true)}}
         </div>
     </div>
-@endif
+    <div class="form-group">
+        {{Form::label('active_status', 'Is Volunteer Active: ',array('class'=>'col-sm-6'))}}
+        <div class="col-sm-6">
+        {{Form::input('checkbox', 'active_status',null)}}
+        </div>
+    </div>
+    <div class="form-group">
+        {{Form::label('last_attended_safety_meeting_date', 'Last Attended Safety Meeting: ',array('class'=>'col-sm-6'))}}
+        <div class="col-sm-6">
+        {{Form::input('date', 'last_attended_safety_meeting_date',null,array('class'=>'form-control'))}}
+        </div>
+    </div>
+@else
     <div class="form-group">
         {{Form::label('active_status', 'Is Volunteer Active: ',array('class'=>'col-sm-6'))}}
         <div class="col-sm-6">
@@ -132,6 +144,7 @@ Edit Contact
         {{Form::input('date', 'last_attended_safety_meeting_date',$volunteerSafetyDate,array('class'=>'form-control'))}}
         </div>
     </div>
+@endif
  </section>
 
 {{ Form::close() }}
