@@ -11,6 +11,8 @@
         {{ HTML::script('assets/js/dist/typeahead.bundle.js');}}
         {{ HTML::script('assets/js/dist/bloodhound.js');}}
         
+        
+        
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>

@@ -1,5 +1,11 @@
 <?php
 
+// TODO - Dynamic URLs
+// TODO - Stack multiple engines on one search
+// TODO - Remove calls from Build, put on page
+// TODO - Make having an id not break things
+
+
 /**
  * PHP wrapper class for coding a twitter/typeahead search box.  This class
  * takes the necessary parameters from the programmer and builds the javascript
@@ -14,32 +20,39 @@ class HabitatSearchBox
     private $placeholderText;
     private $bloodHoundEngines = array();
     private $typeAheadConfig;
-    private $datumFormatTemplate;
+    private $datumFormatTemplate = '{value: result.id, name: result.id}';
+    private $onClick = 'function(obj, data) {window.location = "http://kelcstu06/~cst222/habitat/public/contact/" + data.value;}';
     
-    
-    function __construct($searchName, $placeholderText="") 
+    /**
+     * 
+     * @param String $searchName        unique identifier for the searchbox
+     * @param String $placeholderText   text to display in the search field
+     */
+    function __construct($searchName, $placeholderText="Search...") 
     {
         $this->searchName = $searchName;
         $this->placeholderText = $placeholderText;
-        array_push(HabitatSearchBox::$searchBoxes, $this);
+        
+        // Store the searchbox in an array of all created searchboxes
+        HabitatSearchBox::$searchBoxes[$this->searchName] = $this;
     }
     
 
     /**
-     * Purpose: Builds code for creating the Bloodhound Suggestion Engine
+     * Purpose: Create a new engine to grab results from the database
      * @param type $engineName
      * @param type $dataURL
-     * @param type $dataFormat
+     * @param type $resultsLimit
      */
     public function configureEngine($engineName = 'contactSearch', 
-            $dataURL = 'http://kelcstu06/~cst230/habitat/public/search/searchContacts')
+            $dataURL = 'http://kelcstu06/~cst222/habitat/public/search/searchContacts',
+            $resultsLimit = '10')
     {
-        //TODO: Separate out the hard-coded stuff for flexibility
         $this->bloodHoundEngines[$engineName] = <<<EOT
             var %s = new Bloodhound({
-                datumTokenizer: function(data) { return Bloodhound.tokenizers.whitespace(data.value)},
+                datumTokenizer: function(data) { return Bloodhound.tokenizers.whitespace(data.value) },
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
-                limit: 10,
+                limit: %s,
                 remote: {
                     url: "%s",
                     filter: function(list)
@@ -53,7 +66,7 @@ class HabitatSearchBox
 EOT;
         // Add code to array of data sources
         $this->bloodHoundEngines[$engineName] = sprintf($this->bloodHoundEngines[$engineName], 
-                $engineName, $dataURL, $this->datumFormatTemplate, $engineName);
+                $engineName, $resultsLimit, $dataURL, $this->datumFormatTemplate, $engineName);
         
     }
     
@@ -65,30 +78,56 @@ EOT;
      * @param string $minLength The minimum number of characters before the 
      *      search functionality triggers
      */
-    public function configureSettings($hint = "false", $highlight = "false", $minLength = "3")
+    public function configureSettings($hint = "true", $highlight = "true", $minLength = "3")
     {
         //TODO: Abstract out all of the hardcoded values to allow configuration
         //TODO: Create object for each search engine being inserted (loop through)
         $this->typeAheadConfig = <<<EOT
-            controlName = '';
-            searchName = "Contacts";
-            searchEngine = contactSearch;
-            displayKey = 'name';
-            onSelect = function(obj, data) {window.location = "http://kelcstu06/~cst230/habitat/public/contact/" + data.value;};
-    
-            $( controlName + " .typeahead").typeahead({
-                hint: true,
-                highlight: true,
-                minLength: 1
+            $( "%s" + " .typeahead").typeahead({
+                hint: %s,
+                highlight: %s,
+                minLength: %s
             },
-            {
-                name: searchName,
-                displayKey: displayKey,
-                source: searchEngine.ttAdapter(),
-                templates: {header: '<h4>' + searchName +'</h4>'}
-            }).on('typeahead:selected', onSelect);        
+                %s
+            ).on('typeahead:selected', %s);        
 EOT;
+
+        $this->typeAheadConfig = sprintf($this->typeAheadConfig, 
+                '', 
+                $hint, 
+                $highlight, 
+                $minLength, 
+                $this->bindEnginesToSearch(), 
+                $this->onClick);
+
     }
+    
+    
+    
+    private function bindEnginesToSearch()
+    {
+        $engineCode = "";
+        
+        $engineConfigTemplate = <<<EOT
+        {
+            name: 'Contacts',
+            displayKey: 'name',
+            source: %s.ttAdapter(),
+            templates: {header: '<h4>' + '%s' +'</h4>'}
+        }
+EOT;
+
+        foreach ($this->bloodHoundEngines as $engineName => $engine) 
+        {
+            $engineCode .= sprintf($engineConfigTemplate, $engineName, $engineName);
+            
+            //$enghineCode .= ',';
+        }
+        
+
+        return $engineCode;
+    }
+    
     
     /**
      * Purpose: Display the search control on the page
@@ -103,8 +142,11 @@ EOT;
      */
     public function build()
     {
-        $this->searchFor();
+        $this->configureDatumFormat('id', 'first_name');
+        $this->configureEngine();
+        
         $this->configureSettings();
+        
         $engines = "";
         // TODO: Build array of search engines to be placed in the script
         foreach($this->bloodHoundEngines as $currEngine)
