@@ -8,7 +8,9 @@ namespace App\Repositories;
  */
 interface VolunteerHoursRepository {
     public function getHoursForProject($id);
+    public function getHoursForFamily($family_id);
     public function getAllHours();
     public function saveVolunteerHours($volunteerHours);
     public function getHoursForVolunteer($volunteerId);
+    public function orderBy($sortby, $order);
 }

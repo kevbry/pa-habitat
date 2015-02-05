@@ -5,7 +5,7 @@
  *
  * @author cst222
  */
-class ContactUnitTest  extends TestCase
+class ContactUnitTest extends TestCase
 {
     protected $mockedContactRepo;
     protected $mockedVolunteerRepo;
@@ -20,6 +20,7 @@ class ContactUnitTest  extends TestCase
     
     protected $contactInput;
     protected $volunteerInput;
+    protected $invalidDataException;
     
     /**
      * Set up function for the tests.  Creates dummy objects to use for Testing.
@@ -124,7 +125,7 @@ class ContactUnitTest  extends TestCase
         $this->assertTrue($this->client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('label:contains("First Name:")'));
     }
-    
+
     /**
      * Test helper method that creates a contact object and passes it to the
      * repository
@@ -176,7 +177,7 @@ class ContactUnitTest  extends TestCase
         // Assert
         $this->assertRedirectedToRoute('contact.show');
     }
-    
+  
     /**
      * Test clean up
      */

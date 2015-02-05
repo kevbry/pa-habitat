@@ -46,6 +46,26 @@ class VolunteerHoursController extends \BaseController {
                     'projects' => $projects, 'volunteerhours' => $volunteerHours,
                     'families' => $families));
     }
+    
+    public function createForProject($projectId) {
+        $volunteers = $this->volunteerRepo->getAllVolunteers();
+        $project = $this->projectRepo->getProject($projectId);
+        $families = $this->familyRepo->getAllFamilies();
+        return View::make('volunteerhours.projectadd', array('id' => $projectId, 'volunteers' => $volunteers,
+                    'project' => $project, 
+                    'families' => $families));
+    }
+    
+    public function createForContact($contactId) {
+        $volunteer = $this->volunteerRepo->getVolunteer($contactId);
+        $projects = $this->projectRepo->getAllProjects();
+        $families = $this->familyRepo->getAllFamilies();
+       
+        return View::make('volunteerhours.volunteeradd', array('id' => $contactId, 'volunteer' => $volunteer,
+                    'projects' => $projects, 
+                    'families' => $families));
+    }
+
     public function indexForEditContact($contactId) {
         $volunteer = $this->volunteerRepo->getVolunteer($contactId);
         $projects = $this->projectRepo->getAllProjects();

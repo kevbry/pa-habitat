@@ -28,4 +28,10 @@ class EloquentCompanyRepository  implements CompanyRepository
     {       
         $company->save();
     }
+    
+    
+      public function orderBy($sortby,$order)
+      {
+          
+      }
 }

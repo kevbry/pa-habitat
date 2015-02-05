@@ -11,7 +11,7 @@ class EloquentProjectRepository implements ProjectRepository
     
     public function getAllProjects()
     {
-        return \Project::orderBy('name','asc')->paginate(20);        
+        return \Project::orderBy('project_name','asc')->paginate(20);        
     }
     
     /**
@@ -21,5 +21,24 @@ class EloquentProjectRepository implements ProjectRepository
     public function saveProject($project)
     {
         $project->save();
+    }
+    
+    public function orderBy($sortby, $order) {
+        
+        $order = ($order == 'a' ? 'asc' : 'desc');
+
+        switch ($sortby) {
+            case 'n':
+                $sortby = 'project_name';
+                break;
+            case 's':
+                $sortby = 'street_number';
+                break;
+            case 'c':
+                $sortby = 'city';
+                break;
+        }
+            
+        return \Project::orderBy($sortby, $order)->paginate(20);
     }
 }

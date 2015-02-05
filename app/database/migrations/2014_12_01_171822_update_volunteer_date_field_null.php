@@ -28,7 +28,7 @@ class UpdateVolunteerDateFieldNull extends Migration {
 //                    $table->date('last_attended_safety_meeting_date')->nullable();
 //                });
             
-            DB::statement('ALTER TABLE `habitat_Volunteer` MODIFY `last_attended_safety_meeting_date` DATE NULL;');
+           DB::statement('ALTER TABLE `habitat_Volunteer` MODIFY `last_attended_safety_meeting_date` DATE NULL;');
 	}
 
 	/**

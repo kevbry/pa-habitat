@@ -10,6 +10,7 @@ class FamilyUnitTest extends TestCase
     
     protected $mockedFamilyRepo;
     protected $mockedFamilyContactRepo;
+    protected $mockedVolunteerHoursRepo;
     protected $mockedFamilyController;
     
     protected $testController;
@@ -26,6 +27,7 @@ class FamilyUnitTest extends TestCase
         
         //Create dummy Family information
         $this->familyInput = [
+            'id' => '50',
             'name' => 'Johnson',
             'status' => 'pending',
             'comments' => 'next on the list for a house.'
@@ -69,7 +71,13 @@ class FamilyUnitTest extends TestCase
         $this->mockedFamilyContactRepo = Mockery::mock('app\repositories\FamilyContactRepository');
         $this->app->instance('app\repositories\FamilyContactRepository', $this->mockedFamilyContactRepo);
         
-        $this->testController = new FamliyController($this->mockedFamilyRepo, $this->mockedFamilyContactRepo);
+        $this->mockedVolunteerHoursRepo = Mockery::mock('app\repositories\VolunteerHoursRepository');
+        $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
+        
+        $this->mockedFamilyController = Mockery::mock('app\controllers\FamilyController');
+        $this->app->instance('app\controllers\FamilyController', $this->mockedFamilyController);
+        
+        $this->testController = new FamilyController($this->mockedFamilyRepo, $this->mockedFamilyContactRepo, $this->mockedVolunteerHoursRepo);
         
     }
     
@@ -79,16 +87,17 @@ class FamilyUnitTest extends TestCase
     public function testStoreFamilySuccess()
     {
         //Assemble
-        $this->mockedFamilyController->shouldReceive('storeFamilyWith')->once()->with($this->familyInput);
+        //$this->mockedFamilyController->shouldReceive('createFamilyWith')->once()->with($this->familyInput);
         $this->mockedFamilyRepo->shouldReceive('saveFamily')->once()->with(Mockery::type('Family'));
         
-        Redirect::shouldReceive('action')->once()->with('FamilyController@show');
+        //Redirect::shouldReceive('action')->once()->with('FamilyController@show')->with($this->familyInput);
         
         //Act
         $response = $this->route("POST", "family.store", $this->familyInput);
         
         //Assert
-        $this->assertTrue("name", $response);
+        $this->assertTrue($response->isRedirect());
+        $this->assertRedirectedToAction('FamilyController@show');
     }
     
     /*
@@ -99,22 +108,24 @@ class FamilyUnitTest extends TestCase
     {
         //Assemble
         $numberOfContacts = count($this->familyInput['contacts']);
-        $this->mockedFamilyController->shouldReceive('storeFamilyContactWith')->times($numberOfContacts)->with($this->familyContactInput[0]);
+        $this->mockedFamilyController->shouldReceive('createFamilyContactWith')->times($numberOfContacts)->with($this->familyContactInput[0]);
         $this->mockedFamilyContactRepo->shouldReceive('saveFamilyContact')->times($numberOfContacts)->with(Mockery::type('FamilyContact'));
+        $this->mockedFamilyRepo->shouldReceive('saveFamily')->once()->with(Mockery::type('Family'));
         
-        Redirect::shouldReceive('action')->once()->with('FamilyController@show');
+        //Redirect::shouldReceive('action')->once()->with('FamilyController@show');
         
         //Act
         $response = $this->route("POST", "family.store", $this->familyInput);
         
         //Assert
-        $this->assertTrue("primary", $response);
+        $this->assertTrue($response->isRedirect());
+        $this->assertRedirectedToAction('FamilyController@show');
     }
     
     /*
      * Test that the system can gracefully handle not successfully creating a family     * 
      */
-    public function testStoreFamilyFails()
+    public function OFF_testStoreFamilyFails()
     {
         //TODO: Make a test that will fail when a family is created
     }
@@ -123,7 +134,7 @@ class FamilyUnitTest extends TestCase
      * Test that the system can gracefully handle not successfully passing Family
      * info to FamilyContact
      */
-    public function testStoreFamilyContactFails()
+    public function OFF_testStoreFamilyContactFails()
     {
         //TODO: Make a test that will fail with a family is created
     }
@@ -150,39 +161,39 @@ class FamilyUnitTest extends TestCase
         
         $this->assertContains('Create a Family', $response->getContent());
         $this->assertTrue($this->client->getResponse()->isOK());
-        $this->assertCount(1, $crawler->filter('label:contains("Family name")'));
-        $this->assertCount(2, $crawler->filter('label:contains("Primary contact")'));
+        $this->assertCount(1, $crawler->filter('label:contains("Family Name")'));
+        $this->assertCount(2, $crawler->filter('label:contains("Primary Contact")'));
     }
     
     /*
      * Test helper method that creates a family object and passes it to the repository
      */
-    public function testStoreFamilyWith()
+    public function testCreateFamilyWith()
     {
         //Assemble
         $this->mockedFamilyRepo->shouldReceive('saveFamily')->once()->with(Mockery::type('Family'));
         
         //Act
-        $this->testController->storeFamilyWith($this->familyInput);
+        $this->testController->createFamilyWith($this->familyInput);
     }
     
     /*
      * Test helper method that creates FamilyContact info
      */
-    public function testStoreFamilyContactWith()
+    public function testCreateFamilyContactWith()
     {
         //Assemble
         $this->mockedFamilyContactRepo->shouldReceive('saveFamilyContact')->once()
                 ->with(Mockery::type('FamilyContact'));
         
         //Act
-        $this->testController->storeFamilyContactWith($this->familyContactInput[0]);
+        $this->testController->createFamilyContactWith($this->familyContactInput[0]);
     }   
     
     /*
      * Test that the helper method passes values into the repository methods
      */
-    public function testStoreFamilyWithReceivesFamilyInfo()
+    public function testCreateFamilyWithReceivesFamilyInfo()
     {
         //Assemble
         $familyInput = $this->familyInput;
@@ -193,7 +204,7 @@ class FamilyUnitTest extends TestCase
                         function($passedInFamilyInfo) use($familyInput)
                 {
                  $this->assertNull($passedInFamilyInfo['id']);
-                 $this->assertEquals($familyInput['family_name'], $passedInFamilyInfo['family_name']);
+                 $this->assertEquals($familyInput['name'], $passedInFamilyInfo['name']);
                  
                  return true;
                  
@@ -201,13 +212,13 @@ class FamilyUnitTest extends TestCase
                 ));
                 
         //Act
-        $this->testController->storeFamilyWith($this->contactInput);
+        $this->testController->createFamilyWith($this->familyInput);
     }
     
     /*
      * Test that the helper method passes values into the repository methods
      */
-    public function testStoreFamilyContactWithReceivesFamilyContactInfo()
+    public function testCreateFamilyContactWithReceivesFamilyContactInfo()
     {
         //Assemble
         $familyContactInput = $this->familyContactInput[0];
@@ -217,30 +228,31 @@ class FamilyUnitTest extends TestCase
                 ->with(Mockery::on(
                         function($passedInFamilyContactInfo) use($familyContactInput)
                 {
-                    $this->assertNotNull($passedInContactInfo['family_id']);
-                    $this->assertEquals($familyContactInput['primary'], $passedInContactInfo['primary']);
+                    $this->assertNotNull($passedInFamilyContactInfo['family_id']);
+                    $this->assertEquals($familyContactInput['primary'], $passedInFamilyContactInfo['primary']);
                     
                     return true;
                 }
                 ));
                 
         //Act
-        $this->testController->storeFamilyContactWith($this->familyContactInput[0]); 
+        $this->testController->CreateFamilyContactWith($this->familyContactInput[0]); 
     }
     
     /*
-     * Purpose: Test that the store method redirects to the show page
+     * Purpose: Test that the show method displays the appropriate family details
      */
-    public function OFF_testStoreRedirect()
+    public function OFF_testShow()
     {
         //Assemble
-        $this->mockedFamilyRepo->shouldReceive('saveFamily')->once()->with($this->testFamily);
+        // Taken care of in SetUp()
         
         //Act
-        $this->call('GET', "family/store");
+        // Call action to show, passing in the family information
         
         //Assert
-        $this->assertRedirectedToRoute('family.show');
+        // Test that the view created successfully and contains some information
+        // that was passed in.
     }
     
     /*

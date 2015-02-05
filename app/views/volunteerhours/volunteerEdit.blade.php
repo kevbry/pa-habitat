@@ -8,8 +8,7 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
 
 <h1>Editing Volunteer Hours for {{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</h1>
 {{ Form::open(array('route'=> array('updatehours'),'class'=>'form-horizontal')) }}
-
- {{ HTML::linkAction('ContactController@show','Back To Volunteer', array($volunteer->id), array('class'=>'btn btn-primary btn-lg')) }}
+{{Form::submit('Save All',array('class'=>'btn btn-primary','id'=>'submitEdit'))}}
 <br />
 
 @if(count($volunteerhours) > 9)
@@ -63,9 +62,9 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
                             @if(!empty($projects))
                                 @foreach($projects as $project)
                                     @if($project->id == $volunteerhour->project_id)
-                                        <option value="{{$project->id}}" selected='selected'>{{$project->name}}</option>
+                                        <option value="{{$project->id}}" selected='selected'>{{$project->project_name}}</option>
                                     @else
-                                        <option value="{{$project->id}}">{{$project->name}}</option>
+                                        <option value="{{$project->id}}">{{$project->project_name}}</option>
                                     @endif
                                 @endforeach
                             @endif
@@ -94,7 +93,7 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
 </table>
 <br />
 </div>
-{{Form::submit('Save All',array('class'=>'btn btn-primary btn-lg','id'=>'submitEdit'))}}
+{{ HTML::linkAction('ContactController@show','Back To Volunteer', array($volunteer->id)) }}
 {{Form::hidden('pageType','volunteer')}}
 {{Form::close()}}
 @stop

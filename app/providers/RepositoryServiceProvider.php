@@ -27,6 +27,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\EloquentProjectRepository'
         );
         $this->app->bind(
+             'App\Repositories\ProjectContactRepository',
+             'App\Repositories\EloquentProjectContactRepository'
+        );
+        $this->app->bind(
             'App\Repositories\DonorRepository',
             'App\Repositories\EloquentDonorRepository'
         );
@@ -38,9 +42,9 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\FamilyContactRepository',
             'App\Repositories\EloquentFamilyContactRepository'
         );
-		$this->app->bind(
-		    'App\Repositories\FamilyRepository',
+        $this->app->bind(
+            'App\Repositories\FamilyRepository',
             'App\Repositories\EloquentFamilyRepository'
-		);
+        );
     }
 }
