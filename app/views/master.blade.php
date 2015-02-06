@@ -9,7 +9,6 @@
         {{ HTML::script('assets/js/bootstrap.min.js'); }}
 
         {{ HTML::script('assets/js/dist/typeahead.bundle.js');}}
-        {{ HTML::script('assets/js/dist/bloodhound.js');}}
         
         
         
@@ -46,7 +45,7 @@
                                 <li>{{ HTML::linkAction('ProjectController@create','Add a Project') }}</li>
                             </ul>
                         </li>
-                        <li class=""><?php $masterSearch = new HabitatSearchBox("master", "Search..."); $masterSearch->show(); ?></li>
+                        <li class="nav-search"><?php $masterSearch = new HabitatSearchBox("master", "Search..."); $masterSearch->show(); ?></li>
                     </ul>
                 </div>
             </div>

@@ -45,7 +45,7 @@ class HabitatSearchBox
      * @param type $resultsLimit
      */
     public function configureEngine($engineName = 'contactSearch', 
-            $dataURL = 'http://kelcstu06/~cst222/habitat/public/search/searchContacts',
+            $dataURL = 'http://kelcstu06/~cst222/habitat/public/search/searchContacts?contacts=%QUERY%',
             $resultsLimit = '10')
     {
         $this->bloodHoundEngines[$engineName] = <<<EOT
@@ -78,7 +78,7 @@ EOT;
      * @param string $minLength The minimum number of characters before the 
      *      search functionality triggers
      */
-    public function configureSettings($hint = "true", $highlight = "true", $minLength = "3")
+    public function configureSettings($hint = "true", $highlight = "true", $minLength = "1")
     {
         //TODO: Abstract out all of the hardcoded values to allow configuration
         //TODO: Create object for each search engine being inserted (loop through)
@@ -134,7 +134,7 @@ EOT;
      */
     public function show()
     {
-        echo "<input id='$this->searchName' class='typeahead' type='text' placeholder='$this->placeholderText'>";
+        echo "<input id='$this->searchName' class='form-control typeahead' type='text' placeholder='$this->placeholderText'>";
     }
     
     /**
@@ -142,7 +142,7 @@ EOT;
      */
     public function build()
     {
-        $this->configureDatumFormat('id', 'first_name');
+        $this->configureDatumFormat('id', 'full_name');
         $this->configureEngine();
         
         $this->configureSettings();

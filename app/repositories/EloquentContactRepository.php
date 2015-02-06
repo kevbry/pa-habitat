@@ -23,11 +23,14 @@ class EloquentContactRepository implements ContactRepository
         $contact->save();
     }
     
-    public function getContactSearchInfo(/*$filter*/)
+    public function getContactSearchInfo($filter)
     {
+        $searchTerm = "%" . $filter . "%";
+        
         return \Contact::query()
-                ->select('id', 'first_name', 'last_name')
-                /*->where('first_name', 'LIKE', "'" . $filter . "'")*/
+                ->selectRaw("id, CONCAT(first_name, ' ', last_name) AS full_name")
+                ->where('first_name', 'LIKE', $searchTerm)
+                ->orWhere('last_name', 'LIKE', $searchTerm)
                 ->get();
     }
 }

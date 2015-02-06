@@ -19,9 +19,9 @@ class SearchAPIController extends \BaseController
     {
         $this->contactRepo = $contactRepo;
     }
-    public function searchContacts(/*$filter*/)
-    {
-        return $this->contactRepo->getContactSearchInfo(/*$filter*/);
+    public function searchContacts()
+    {   
+        return $this->contactRepo->getContactSearchInfo(Input::get('contacts'));
     }
     
     public function show()
