@@ -2,16 +2,21 @@
 
 use App\Repositories\ProjectRepository;
 use App\Repositories\ProjectContactRepository;
+use App\Repositories\ProjectInspectionRepository;
 
 class ProjectController extends \BaseController {
         public $projectRepo;
         public $projectContactRepo;
+        public $projectInspectionRepo;
 
 
-        public function __construct(ProjectRepository $projectRepo, ProjectContactRepository $projectContactRepo )
+        public function __construct(ProjectRepository $projectRepo, 
+                ProjectContactRepository $projectContactRepo,
+                ProjectInspectionRepository $projectInspectionRepo)
         {
             $this->projectRepo = $projectRepo;
-			$this->projectContactRepo = $projectContactRepo;
+            $this->projectContactRepo = $projectContactRepo;
+            $this->projectInspectionRepo = $projectInspectionRepo;
         }
             
 
@@ -111,8 +116,10 @@ class ProjectController extends \BaseController {
 	{
             $project = $this->projectRepo->getProject($id);
             
-            return View::make('project.show')
-                    ->withProject($project);
+            $projectInspections = $this->projectInspectionRepo->getInspectionsForProject($id);
+            
+            return View::make('project.show', array('project' => $project,
+                'projectInspections' => $projectInspections));
 	}
 
     /**
