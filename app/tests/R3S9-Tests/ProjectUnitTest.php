@@ -115,7 +115,6 @@ class ProjectUnitTest extends TestCase {
         $response = $this->action('GET', 'ProjectController@create');
         $crawler = $this->client->request('GET', 'create');
         
-        
         $this->assertContains('Create a Project', $response->getContent());
         $this->assertTrue($this->client->getResponse()->isOk());
         
