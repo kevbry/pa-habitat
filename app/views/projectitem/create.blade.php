@@ -30,7 +30,7 @@ Add Items for Project {{$project->project_name}}
             <td>{{Form::text('serial_number[]',null,array('class'=>'form-control'));}}</td>
             <td>{{Form::text('vendor[]',null,array('class'=>'form-control'));}}</td>
             <td>{{Form::textarea('comments[]',null,array('class'=>'form-control','rows'=>'3'));}}</td>
-            <td>{{Form::hidden('project_id',$project->id)}}
+            <td>{{Form::hidden('project_id[]',$project->id)}}
                 <a href="#" class="remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
         </tr>   
     </tbody>
