@@ -36,7 +36,7 @@ class EloquentVolunteerHoursRepository implements VolunteerHoursRepository {
     
     public function getHoursForVolunteerNonPaginated($volunteerId) {
 
-        return \VolunteerHours::whereRaw('volunteer_id =' . $volunteerId)->orderBy('date_of_contribution', 'asc')->paginate(15);
+        return \VolunteerHours::whereRaw('volunteer_id =' . $volunteerId)->orderBy('date_of_contribution', 'asc')->get();
     }
 
     public function orderBy($sortby, $order) {
