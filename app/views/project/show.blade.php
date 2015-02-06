@@ -129,7 +129,7 @@ Project Details
                 </tr>
             </thead>
             <tbody>
-                  @if (isset($projectItems))
+                  @if (!empty($project))
                     @foreach($projectItems as $projectItem)
 
                    <tr>

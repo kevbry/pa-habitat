@@ -13,7 +13,7 @@ class ProjectItemTest extends TestCase
         parent::setUp();
         $this->projectItemInput = [];
 
-        // Set up the Volunteer Hours Mocked Repository
+        // Set up the Project Item Mocked Repository
         $this->mockedProjectItemRepo = Mockery::mock('app\repositories\ProjectItemRepository');
         $this->app->instance('app\repositories\ProjectItemRepository', $this->mockedProjectItemRepo);
         
