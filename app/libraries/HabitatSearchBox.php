@@ -21,7 +21,7 @@ class HabitatSearchBox
     private $bloodHoundEngines = array();
     private $typeAheadConfig;
     private $datumFormatTemplate = '{value: result.id, name: result.id}';
-    private $onClick = 'function(obj, data) {window.location = "http://kelcstu06/~cst222/habitat/public/contact/" + data.value;}';
+    private $onClick = 'function(obj, data) {window.location = "http://kelcstu06/~cst210/habitat/public/contact/" + data.value;}';
     
     /**
      * 
@@ -45,7 +45,7 @@ class HabitatSearchBox
      * @param type $resultsLimit
      */
     public function configureEngine($engineName = 'contactSearch', 
-            $dataURL = 'http://kelcstu06/~cst222/habitat/public/search/searchContacts?contacts=%QUERY%',
+            $dataURL = 'http://kelcstu06/~cst210/habitat/public/search/searchContacts?contacts=%QUERY%',
             $resultsLimit = '10')
     {
         $this->bloodHoundEngines[$engineName] = <<<EOT

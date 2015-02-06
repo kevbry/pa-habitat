@@ -45,6 +45,8 @@
                                 <li>{{ HTML::linkAction('ProjectController@create','Add a Project') }}</li>
                             </ul>
                         </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
                         <li class="nav-search"><?php $masterSearch = new HabitatSearchBox("master", "Search..."); $masterSearch->show(); ?></li>
                     </ul>
                 </div>
