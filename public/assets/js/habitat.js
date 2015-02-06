@@ -1,13 +1,13 @@
 $(document).ready(function(){
     $('#addhours').click(function(e){
         e.preventDefault();
-        var hourRow = $('.hourrow:last-of-type');
+        var hourRow = $('.formrow:last-of-type');
         hourRow.clone().insertAfter(hourRow);
         
         $('body').on('click','.remove',function(e){
             e.preventDefault();
-            var row = $(this).closest('.hourrow');
-            var allRows = $('.hourrow');
+            var row = $(this).closest('.formrow');
+            var allRows = $('.formrow');
             if (allRows.size() > 1)
             {
                 row.remove();
@@ -17,8 +17,8 @@ $(document).ready(function(){
     
     $('.remove').click(function(e){
         e.preventDefault();
-        var row = $(this).closest('.hourrow');
-        var allRows = $('.hourrow');
+        var row = $(this).closest('.formrow');
+        var allRows = $('.formrow');
         if (allRows.size() > 1)
         {
             row.remove();
@@ -32,11 +32,11 @@ $(document).ready(function(){
     
     $('.removeEdit').click(function(e){
         e.preventDefault();
-        var row = $(this).closest('.hourrow');
+        var row = $(this).closest('.formrow');
         row.remove();
     });
      
-    if($('.hourrow').length === 0)
+    if($('.formrow').length === 0)
     {
         $('#submitEdit').remove();
     }

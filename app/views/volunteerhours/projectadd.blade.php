@@ -15,7 +15,7 @@ Add Volunteer Hours for Project {{$id}}
         <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project</th><th>Family</th></tr>
     </thead>
     <tbody>
-        <tr class="hourrow">
+        <tr class="formrow">
             <td>
                 <select name="volunteer_id[]" class="form-control">
             @if (!empty($volunteers))
@@ -50,5 +50,5 @@ Add Volunteer Hours for Project {{$id}}
 
 {{Form::hidden('pageType','project')}}
 {{Form::close()}}
- {{ HTML::linkAction('ProjectController@show','Back To Project', array($project->id), array('class'=>'btn btn-primary btn-lg')) }}
+ {{ HTML::linkAction('ProjectController@show','Back To Project', array($project->id)) }}
 @stop

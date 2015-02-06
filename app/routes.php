@@ -36,6 +36,6 @@ Route::get('volunteerhours/volunteerEdit/{volunteer}',array('as'=>'volHoursEditR
 Route::post('volunteerhours/volunteerEdit/',array('as'=>'updatehours','uses'=>'VolunteerHoursController@updatehours'));
 
 //Project Item routes
-Route::get('project/{project}/items','ProjectItemController@index');
+Route::get('project/{project}/items',array('as'=>'viewItems','uses'=>'ProjectItemController@index'));
 Route::get('project/{project}/items/create',array('as'=>'projItemsAdd','uses'=>'ProjectItemController@create'));
 Route::post('project/{project}/items/create',array('as'=>'storeItems','uses'=>'ProjectItemController@store'));

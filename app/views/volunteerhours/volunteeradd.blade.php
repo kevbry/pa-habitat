@@ -15,7 +15,7 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
         <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project</th><th>Family</th></tr>
     </thead>
     <tbody>
-        <tr class="hourrow">
+        <tr class="formrow">
             <td>
                 <select name="volunteer_id[]" class="form-control">
             

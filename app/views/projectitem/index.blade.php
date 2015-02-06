@@ -11,7 +11,7 @@ Items for Project {{$project->project_name}}
 {{ Form::open(array('route'=>'storeItems','class'=>'form-horizontal')) }}
 <table class="table">
     <thead>
-        <tr><th>Item Type</th><th>Manufacturer</th><th>Model</th><th>Serial Number</th><th>Vendor</th><th>Comments</th></tr>
+        <tr><th>Item Type</th><th>Manufacturer</th><th>Model</th><th>Serial Number</th><th>Vendor</th><th>Additional Information</th></tr>
     </thead>
     <tbody>
         @if (!empty($projectItems)) 

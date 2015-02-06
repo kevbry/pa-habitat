@@ -11,14 +11,14 @@ class ProjectItemTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->$projectItemInput = [];
+        $this->projectItemInput = [];
 
         // Set up the Volunteer Hours Mocked Repository
-        $this->$mockedProjectItemRepo = Mockery::mock('app\repositories\ProjectItemRepository');
-        $this->app->instance('app\repositories\ProjectItemRepository', $this->$mockedProjectItemRepo);
+        $this->mockedProjectItemRepo = Mockery::mock('app\repositories\ProjectItemRepository');
+        $this->app->instance('app\repositories\ProjectItemRepository', $this->mockedProjectItemRepo);
         
-        $this->$mockedProjectItemController = Mockery::mock('app\controllers\ProjectItemController');
-        $this->app->instance('app\controllers\ProjectItemController', $this->$mockedProjectItemController);
+        $this->mockedProjectItemController = Mockery::mock('app\controllers\ProjectItemController');
+        $this->app->instance('app\controllers\ProjectItemController', $this->mockedProjectItemController);
         
     }
         
@@ -63,8 +63,9 @@ class ProjectItemTest extends TestCase
     
     public function testIndex()
     {
-        $this->mockedProjectItemController
-                ->shouldReceive('getItemsForProject')->once()->with(1);
+        $this->mockedProjectItemRepo
+            ->shouldReceive('getItemsForProject')->once()->with(1);
+
         
         $this->app->instance('app\repositories\ProjectItemRepository', $this->mockedProjectItemRepo);
         
@@ -76,11 +77,14 @@ class ProjectItemTest extends TestCase
     
     public function testCreate()
     {
-       //Call the method
+       $this->mockedProjectItemRepo
+            ->shouldReceive('getItemsForProject')->once()->with(1);
+
+        //Call the method
         $response = $this->call('GET', 'project/1/items');
         
         //Make assertions
-        $this->assertContains('Project Items for', $response->getContent());
+        $this->assertContains('Items for', $response->getContent());
         $this->assertTrue($this->client->getResponse()->isOk());
     }
     
