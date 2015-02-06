@@ -13,8 +13,7 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
 
 @if(count($volunteerhours) > 9)
 
-        <!--<div style="max-height:500px;overflow:scroll;overflow-x:hidden;">-->
-        <div>
+        <div style="max-height:500px;overflow:scroll;overflow-x:hidden;">
 
 @else
 
