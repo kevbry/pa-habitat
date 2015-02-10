@@ -43,7 +43,7 @@ Volunteer Hours for Project {{$id}}
 </table>
 {{Form::hidden('pageType','project')}}
 {{Form::close()}}
- {{ HTML::linkAction('ProjectController@show','Back To Project', array($project->id), array('class'=>'btn btn-primary btn-lg')) }}
+ {{ HTML::linkAction('ProjectController@show','Back To Project', array($project->id) )}}
 <?php 
 if (!empty($volunteerhours))
 {

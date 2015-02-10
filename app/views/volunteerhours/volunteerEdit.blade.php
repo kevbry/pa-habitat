@@ -35,7 +35,7 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
                     {{Form::hidden('vol_id', $volunteer->id)}}
                     {{Form::hidden('volunteer_id[]', $volunteer->id)}}
                 </tr>
-                <tr class="hourrow">
+                <tr class="formrow">
                     <td>
                         <!--<select name="volunteer_id[]" class="form-control" readonly='readonly'>
                             <option value="{{$volunteer->id}}">{{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name}}</option>
