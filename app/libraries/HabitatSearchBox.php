@@ -1,9 +1,8 @@
 <?php
-
-// TODO - Dynamic URLs
+// TODO - Dynamic URLs                                                  -- Done
 // TODO - Stack multiple engines on one search
-// TODO - Remove calls from Build, put on page
-// TODO - Make having an id not break things
+// TODO - Remove calls from Build, put on page                          -- Done
+// TODO - Make having an id not break things                            -- Done?
 
 
 /**
@@ -15,23 +14,26 @@
  */
 class HabitatSearchBox 
 {
+    const VIEW_DETAILS_ON_CLICK = 'function(obj, data) {window.location = "%s" + data.value;}';
+    
     private static $searchBoxes = array();
     private $searchName;
     private $placeholderText;
     private $bloodHoundEngines = array();
     private $typeAheadConfig;
     private $datumFormatTemplate = '{value: result.id, name: result.id}';
-    private $onClick = 'function(obj, data) {window.location = "http://kelcstu06/~cst210/habitat/public/contact/" + data.value;}';
+    private $pageURL = '';
     
     /**
      * 
      * @param String $searchName        unique identifier for the searchbox
      * @param String $placeholderText   text to display in the search field
      */
-    function __construct($searchName, $placeholderText="Search...") 
+    function __construct($pageURL, $searchName, $placeholderText="Search...") 
     {
         $this->searchName = $searchName;
         $this->placeholderText = $placeholderText;
+        $this->pageURL = $pageURL;
         
         // Store the searchbox in an array of all created searchboxes
         HabitatSearchBox::$searchBoxes[$this->searchName] = $this;
@@ -41,14 +43,16 @@ class HabitatSearchBox
     /**
      * Purpose: Create a new engine to grab results from the database
      * @param type $engineName
-     * @param type $dataURL
+     * @param type $apiURL
      * @param type $resultsLimit
      */
-    public function configureEngine($engineName = 'contactSearch', 
-            $dataURL = 'http://kelcstu06/~cst210/habitat/public/search/searchContacts?contacts=%QUERY%',
+    public function configureEngine($engineName, $apiURL, $displayName='Results',
             $resultsLimit = '10')
     {
-        $this->bloodHoundEngines[$engineName] = <<<EOT
+        
+        $dataURL = $this->pageURL . $apiURL;
+        
+        $this->bloodHoundEngines[$engineName]['engine'] = <<<EOT
             var %s = new Bloodhound({
                 datumTokenizer: function(data) { return Bloodhound.tokenizers.whitespace(data.value) },
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -65,9 +69,15 @@ class HabitatSearchBox
             %s.initialize();
 EOT;
         // Add code to array of data sources
-        $this->bloodHoundEngines[$engineName] = sprintf($this->bloodHoundEngines[$engineName], 
+        $this->bloodHoundEngines[$engineName]['display_name'] = $displayName;
+        $this->bloodHoundEngines[$engineName]['engine'] = sprintf($this->bloodHoundEngines[$engineName]['engine'], 
                 $engineName, $resultsLimit, $dataURL, $this->datumFormatTemplate, $engineName);
         
+    }
+    
+    public function configureOnClickEvent($function)
+    {
+        $this->onClick = $function;
     }
     
     /**
@@ -102,15 +112,14 @@ EOT;
 
     }
     
-    
-    
+
     private function bindEnginesToSearch()
     {
         $engineCode = "";
         
         $engineConfigTemplate = <<<EOT
         {
-            name: 'Contacts',
+            name: '%s',
             displayKey: 'name',
             source: %s.ttAdapter(),
             templates: {header: '<h4>' + '%s' +'</h4>'}
@@ -119,11 +128,10 @@ EOT;
 
         foreach ($this->bloodHoundEngines as $engineName => $engine) 
         {
-            $engineCode .= sprintf($engineConfigTemplate, $engineName, $engineName);
+            $engineCode .= sprintf($engineConfigTemplate, $engine['display_name'], $engineName, $engine['display_name']);
             
             //$enghineCode .= ',';
         }
-        
 
         return $engineCode;
     }
@@ -142,16 +150,11 @@ EOT;
      */
     public function build()
     {
-        $this->configureDatumFormat('id', 'full_name');
-        $this->configureEngine();
-        
-        $this->configureSettings();
-        
         $engines = "";
         // TODO: Build array of search engines to be placed in the script
         foreach($this->bloodHoundEngines as $currEngine)
         {
-            $engines .= $currEngine;
+            $engines .= $currEngine['engine'];
         }
         $scriptBlock = <<<EOT
         <script type='text/javascript'>

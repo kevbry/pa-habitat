@@ -1,3 +1,25 @@
+<?php $PAGE_ROOT_URL = explode(Request::path(), Request::url())[0];
+
+// Create the master search box located in the nav bar
+$masterSearch = new HabitatSearchBox($PAGE_ROOT_URL, "master", "Search..."); 
+
+// Configure the search box
+
+// Function for setting up the on click method (what happens when a result is selected)
+$masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_CLICK, $PAGE_ROOT_URL . 'contact/'));
+
+// Function for setting up how the results are formatted.  First is the attribute to use as the value, second is what to display
+$masterSearch->configureDatumFormat('id', 'full_name');
+
+// Function for Setting up the selection engine that fetches and formats results from the database
+$masterSearch->configureEngine('contactSearch', "/search/searchContacts?contacts=%QUERY%", 'Contacts');
+
+// Function for setting up the searchbox settings
+$masterSearch->configureSettings();
+
+
+
+?> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -47,7 +69,7 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="nav-search"><?php $masterSearch = new HabitatSearchBox("master", "Search..."); $masterSearch->show(); ?></li>
+                        <li class="nav-search"><?php $masterSearch->show(); ?></li>
                     </ul>
                 </div>
             </div>
