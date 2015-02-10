@@ -9,6 +9,7 @@ Inspections for Project {{$project->project_name}}
 <h1>Inspections for {{$project->project_name}}</h1>
 {{ HTML::linkRoute('projInspectionsAdd', 'Add Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
 {{ Form::open(array('route'=>'storeInspections','class'=>'form-horizontal')) }}
+
 <table class="table">
     <thead>
         <tr><th>Date</th><th>Type</th><th>Mandatory</th><th>Pass/Fail</th><th>Comments</th></tr>
@@ -19,8 +20,20 @@ Inspections for Project {{$project->project_name}}
             <tr>
                 <td>{{$projectInspection->date}}</td>
                 <td>{{$projectInspection->type}}</td>
-                <td>{{$projectInspection->mandatory}}</td>
-                <td>{{$projectInspection->pass}}</td>
+                <td>
+                @if($projectInspection->mandatory == 0)
+                    Non-Mandatory
+                @else
+                    Mandatory
+                @endif
+                </td>
+                <td>
+                @if($projectInspection->pass == 0)
+                    FAIL
+                @else
+                    PASS
+                @endif
+                </td>
                 <td>{{$projectInspection->comments}}</td>
                 <td></td>
             </tr>

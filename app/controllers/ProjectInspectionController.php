@@ -31,8 +31,9 @@ class ProjectInspectionController extends \BaseController {
 
     public function store() {
         $projectInspection = array();
-        for ($i = 0; $i < count(Input::get('project_id')); $i++) {
-            $projectInspection['project_id'] = Input::get('project_id')[$i];
+        for ($i = 0; $i < count(Input::get('type')); $i++) 
+        {
+            $projectInspection['project_id'] = Input::get('project_id');
             $projectInspection['mandatory'] = Input::get('mandatory')[$i];
             $projectInspection['date'] = Input::get('date')[$i];
             $projectInspection['type'] = Input::get('type')[$i];
