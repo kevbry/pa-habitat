@@ -1,8 +1,11 @@
 $(document).ready(function(){
     $('#addhours').click(function(e){
         e.preventDefault();
-        var hourRow = $('.formrow:last-of-type');
-        hourRow.clone().insertAfter(hourRow);
+        var existingRow = $('.formrow:last-of-type');
+        
+        var template = document.getElementById('rowtemplate').innerHTML;
+        console.log(template);
+        var newRow = existingRow.after(template);
         
         $('body').on('click','.remove',function(e){
             e.preventDefault();

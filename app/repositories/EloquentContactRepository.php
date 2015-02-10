@@ -14,6 +14,11 @@ class EloquentContactRepository implements ContactRepository
         return \Contact::orderBy('last_name','asc')->paginate(20);        
     }
     
+    public function getAllContactsForSeed()
+    {
+        return \Contact::lists('id');      
+    }
+    
     /**
      * Purpose: Save contact information to the database
      * @param Contact $contact A contact object to save to the database

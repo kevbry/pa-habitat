@@ -52,7 +52,7 @@
 @yield('content')
     </main>
     <footer class="container">
-        <p>Copyright 2014</p>
+        <p>Copyright {{date("Y")}}</p>
     </footer>
 {{ HTML::script('assets/js/jquery-1.11.1.min.js'); }}
 {{ HTML::script('assets/js/bootstrap.min.js'); }}
