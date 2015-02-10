@@ -6,52 +6,97 @@ Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volunteer
 
 @section('content')
 
-<h1>Volunteer Hours for {{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</h1>
-{{ HTML::linkRoute('volHoursAdd', 'Add Hours', array($volunteer->id), array('class' => 'btn btn-primary'))}}
-{{ HTML::linkAction('VolunteerHoursController@indexForEditContact','Edit Hours', array($volunteer->id), array('class'=>'btn btn-primary'))}}
-{{ Form::open(array('route'=>'storehours','class'=>'form-horizontal'))}}
+<p>Volunteer Hours for <strong>{{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</strong></p>
+<p>Total Hours <strong>{{$totalHours}}</strong></p>
 
-<table class="table">
-    <thead>
-        <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project</th><th>Family</th></tr>
-    </thead>
-    <tbody>
-        @if (!empty($volunteerhours)) 
-            @foreach($volunteerhours as $volunteerhour)
-            <tr>
-                <td>{{$volunteerhour->volunteer->contact->first_name . ' ' . $volunteerhour->volunteer->contact->last_name}}</td>
-                <td>{{$volunteerhour->hours}}</td>
-                <td>{{$volunteerhour->date_of_contribution}}</td>
-                <td>
-                @if($volunteerhour->paid_hours == 0)
-                    Volunteer
+            <?php
+            $currentProject = $volunteerhours[0]->project_id;
+            $currentProjectHours = 0;
+            
+            ?>
+    <section class="col-md-7">
+    <h4>Project Name: {{$volunteerhours[0]->project->project_name}}</h4>
+    <table class="table">
+        
+        <thead>
+            <tr><th>Date</th><th>Hours</th><th>Hour type</th><th>Family</th></tr>
+        </thead>
+
+            <tbody>
+            @if (!empty($volunteerhours)) 
+                @foreach($volunteerhours as $volunteerhour)
+                @if ($volunteerhour->project_id == $currentProject)
+                <tr>
+                    <td>{{$volunteerhour->date_of_contribution}}</td>
+                    <td>{{$volunteerhour->hours}}</td>
+                    <td>
+                    @if($volunteerhour->paid_hours == 0)
+                        Volunteer
+                    @else
+                        Paid
+                    @endif
+                    </td>
+                    <td>
+                    @if(isset($volunteerhour->family->name))
+                    {{$volunteerhour->family->name}}
+                    @else
+                    --
+                    @endif</td>
+                    <td></td>
+                </tr>
+                <?php
+                    $currentProjectHours += $volunteerhour->hours;
+                ?>
                 @else
-                    Paid
+                <p>Project Hours <strong>{{$currentProjectHours}}</strong></p>
+            </tbody>
+    </table>
+    </section>
+    <?php
+    $currentProject = $volunteerhour->project_id;
+    $currentProjectHours = 0;
+    ?>
+
+    <section class="col-md-7">
+    <h4>Project Name: {{$volunteerhour->project->project_name}}</h4>
+    <table class="table">
+        
+        <thead>
+            <tr><th>Date</th><th>Hours</th><th>Hour type</th><th>Family</th></tr>
+        </thead>
+
+            <tbody>
+                <tr>
+                    <td>{{$volunteerhour->date_of_contribution}}</td>
+                    <td>{{$volunteerhour->hours}}</td>
+                    <td>
+                    @if($volunteerhour->paid_hours == 0)
+                        Volunteer
+                    @else
+                        Paid
+                    @endif
+                    </td>
+                    <td>
+                    @if(isset($volunteerhour->family->name))
+                    {{$volunteerhour->family->name}}
+                    @else
+                    --
+                    @endif</td>
+                    <td></td>
+                </tr>
+                <?php
+                    $currentProjectHours += $volunteerhour->hours;
+                ?>
                 @endif
-                </td>
-                <td>{{$volunteerhour->project->project_name}}</td>
-                <td>
-                @if(isset($volunteerhour->family->name))
-                {{$volunteerhour->family->name}}
-                @else
-                --
-                @endif</td>
-                <td></td>
-            </tr>
-            @endforeach
-        @endif
-    </tbody>
-</table>
-
-
-{{Form::hidden('pageType','volunteer')}}
-{{Form::close()}}
+                
+                @endforeach
+            @endif
+            <p>Project Hours <strong>{{$currentProjectHours}}</strong></p>
+        </tbody>
+    </table>
+    </section>
+<section class="col-md-7">
  {{ HTML::linkAction('ContactController@show','Back To Volunteer', array($volunteer->id)) }}
-<?php 
-if (!empty($volunteerhours))
-{
-    echo $volunteerhours->links();
-}
-?>
+</section>
 
 @stop
