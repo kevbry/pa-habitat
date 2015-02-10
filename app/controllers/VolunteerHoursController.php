@@ -69,7 +69,7 @@ class VolunteerHoursController extends \BaseController {
     public function indexForEditContact($contactId) {
         $volunteer = $this->volunteerRepo->getVolunteer($contactId);
         $projects = $this->projectRepo->getAllProjects();
-        $volunteerHours = $this->volunteerHrsRepo->getHoursForVolunteer($contactId);
+        $volunteerHours = $this->volunteerHrsRepo->getHoursForVolunteerNonPaginated($contactId);
        
         $families = $this->familyRepo->getAllFamilies();
        
@@ -155,7 +155,7 @@ $type=Input::get('pageType');
             }
         }
         
-        $hourArray = $this->volunteerHrsRepo->getHoursForVolunteer($id);
+        $hourArray = $this->volunteerHrsRepo->getHoursForVolunteerNonPaginated($id);
 
         foreach($hourArray as $hourEntry)
         {
