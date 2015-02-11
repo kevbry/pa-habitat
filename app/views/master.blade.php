@@ -10,10 +10,10 @@ $masterSearch = new HabitatSearchBox($PAGE_ROOT_URL, "master", "Search...");
 $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_CLICK, $PAGE_ROOT_URL . 'contact/'));
 
 // Function for setting up how the results are formatted.  First is the attribute to use as the value, second is what to display
-$masterSearch->configureDatumFormat('id', 'full_name');
+$masterSearch->configureDatumFormat('id', 'name');
 
 // Function for Setting up the selection engine that fetches and formats results from the database
-$masterSearch->configureEngine('contactSearch', "/search/searchVolunteers?volunteers=%QUERY%", 'Volunteers');
+$masterSearch->configureEngine('contactSearch', "search/searchProjects?projects=%QUERY%", 'Projects');
 
 // Function for setting up the searchbox settings
 $masterSearch->configureSettings();
