@@ -12,5 +12,6 @@ interface VolunteerHoursRepository {
     public function getAllHours();
     public function saveVolunteerHours($volunteerHours);
     public function getHoursForVolunteer($volunteerId);
+    public function getHoursForVolunteerNonPaginated($volunteerId);
     public function orderBy($sortby, $order);
 }

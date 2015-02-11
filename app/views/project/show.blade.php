@@ -115,5 +115,35 @@ Project Details
     </div>
 
 </section>
+ 
+<section class="col-md-5">   
+        <div class="form-group row">
+        {{ Form::label('items', 'Project Items:') }}
+        
+        <!-- Items Table to go here -->
+        <table class="table table-hover scrollable">
+            <thead>
+                <tr>
+                    <th>Item Type</th>
+                    <th>Manufacturer</th>
+                </tr>
+            </thead>
+            <tbody>
+                  @if (!empty($project))
+                    @foreach($projectItems as $projectItem)
 
+                   <tr>
+                       <td>{{$projectItem->item_type}}</td>
+                       <td>{{$projectItem->manufacturer}}</td>
+                   </tr>
+
+                   @endforeach
+                @endif
+            </tbody>
+        </table>
+         {{ HTML::linkRoute('viewItems', 'View Item Details', array($project->id), array('class' => 'btn btn-primary')) }}
+         {{ HTML::linkRoute('projItemsAdd', 'Add Items', array($project->id), array('class' => 'btn btn-primary')) }}
+    </div>
+    
+</section>
 @stop            

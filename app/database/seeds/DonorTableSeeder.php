@@ -1,5 +1,5 @@
 <?php
-
+use App\Repositories\EloquentContactRepository;
 class DonorTableSeeder extends Seeder 
 {
     
@@ -9,10 +9,26 @@ class DonorTableSeeder extends Seeder
      */
     public function run()
     {
+        $contactRepo = new EloquentContactRepository();
+        $contacts = $contactRepo->getAllContactsForSeed();
+        
         DB::table('Donor')->delete();
         
-        $contactid = DB::table('Contact')->where('first_name', 'Todd')->pluck('id');
-         Donor::create(array('id' => $contactid ));
+        $currContact = 0;
+        
+        foreach ($contacts as $contact) 
+            {
+                $contact = $contacts[$currContact];
+                if ($contact % 3 == 0)
+                {
+                    echo "Adding Donor for Contact ID: " . 
+                            $contact . ".\n";
+                    Donor::create(array(
+                            'id' => $contact
+                    ));
+                }
+                $currContact++;
+            }
     }
 
 }

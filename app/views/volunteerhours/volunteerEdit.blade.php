@@ -11,10 +11,9 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
 {{Form::submit('Save All',array('class'=>'btn btn-primary','id'=>'submitEdit'))}}
 <br />
 
-@if(count($volunteerhours) > 9)
+@if(count($volunteerhours) > 8)
 
-        <!--<div style="max-height:500px;overflow:scroll;overflow-x:hidden;">-->
-        <div>
+        <div style="max-height:460px;overflow:scroll;overflow-x:hidden;">
 
 @else
 
@@ -36,7 +35,7 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
                     {{Form::hidden('vol_id', $volunteer->id)}}
                     {{Form::hidden('volunteer_id[]', $volunteer->id)}}
                 </tr>
-                <tr class="hourrow">
+                <tr class="formrow">
                     <td>
                         <!--<select name="volunteer_id[]" class="form-control" readonly='readonly'>
                             <option value="{{$volunteer->id}}">{{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name}}</option>
@@ -91,7 +90,6 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
             @endif
         </tbody>
 </table>
-<br />
 </div>
 {{ HTML::linkAction('ContactController@show','Back To Volunteer', array($volunteer->id)) }}
 {{Form::hidden('pageType','volunteer')}}
