@@ -11,7 +11,7 @@ Edit Contact
 <h2></h2>
 {{ Form::open(array('method'=>'PUT','route'=>array('contact.update', $contact->id), 'class'=>'form-horizontal', 'id'=>'form')) }}
 <section class="generalInfo col-md-7">
-
+<h3>Contact Details</h3>
 <div class="form-group">
     {{ Form::label('first_name', 'First Name: ',array('class'=>'col-sm-3')) }}
     <div class="col-sm-7">
@@ -112,6 +112,7 @@ Edit Contact
     }
  ?>
 <section class='volunteerFields col-md-5 row'>
+    <h3>Volunteer Details</h3>
 @if (!$volunteer)
     <div class="form-group">
         {{Form::label('is_volunteer', 'Is a Volunteer:',array('class'=>'col-sm-6'))}}
