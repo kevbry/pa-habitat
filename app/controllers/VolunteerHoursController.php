@@ -226,4 +226,27 @@ $type=Input::get('pageType');
                     'projects' => $projects, 'volunteerhours' => $volunteerHours,
                     'families' => $families, 'totalHours' => $totalHours));
     }
+    
+    public function viewHoursReportForProject($id)
+    {
+        $project = $this->projectRepo->getProject($id);
+        $volunteers = $this->volunteerRepo->getAllVolunteers();
+        $volunteerHours = $this->volunteerHrsRepo->getHoursForProjectSortedByVolunteer($id);
+        
+        $totalHours = 0;
+        if(!empty($volunteerHours) && count($volunteerHours) != 0)
+        {
+            foreach($volunteerHours as $hour)
+            {
+                $totalHours += $hour->hours;
+            }
+        }
+       
+        $families = $this->familyRepo->getAllFamilies();
+       
+        return View::make('report.project', array('id' => $id, 'project' => $project,
+                    'volunteers' => $volunteers, 'volunteerhours' => $volunteerHours,
+                    'families' => $families, 'totalHours' => $totalHours));
+
+    }
 }

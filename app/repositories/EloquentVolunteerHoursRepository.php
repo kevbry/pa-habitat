@@ -72,5 +72,10 @@ class EloquentVolunteerHoursRepository implements VolunteerHoursRepository {
     {
         return \VolunteerHours::whereRaw('volunteer_id =' . $volunteerId)->orderBy('project_id', 'asc')->get();
     }
+    
+    public function getHoursForProjectSortedByVolunteer($projectId)
+    {
+        return \VolunteerHours::whereRaw('project_id =' . $projectId)->orderBy('volunteer_id', 'asc')->get();
+    }
 
 }
