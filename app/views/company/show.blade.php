@@ -13,7 +13,8 @@ Company Details
     </thead>
     <tr>
         <td>{{$company->mainContact->first_name}} {{$company->mainContact->last_name}}</td>
-        <td>{{ HTML::linkAction('ContactController@show', 'View Details', $company->mainContact->id) }}</td>
+        <td>{{ HTML::linkAction('ContactController@show', 'View Details', $company->mainContact->id)}} / 
+            {{ HTML::linkAction('ContactController@edit','Edit Details', $company->mainContact->id)}}</td>
     </tr>
 </table>
 @stop            
