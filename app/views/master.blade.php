@@ -3,7 +3,7 @@
 // Create the master search box located in the nav bar
 $masterSearch = new HabitatSearchBox($PAGE_ROOT_URL, "master", "Search..."); 
 
-var_dump(Request::url());
+//var_dump(Request::url());
 // Configure the search box
 
 // Function for setting up the on click method (what happens when a result is selected)
