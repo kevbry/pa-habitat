@@ -8,6 +8,14 @@ class CreateProjectInspectionTable extends Migration {
 	/**
 	 * Run the migrations.
 	 * Creates the ProjectInspection table, with all associated fields.
+         *  id: The primary key (Surrogate ID)
+         *  project_id: Foreign key from the Project table - ties an inspection
+         *      to a specific project.
+         *  mandatory: Whether the inspection is considered mandatory or not.
+         *  date: The date the inspection was completed.
+         *  type: The type of the inspection
+         *  pass: Whether the inspection passed or failed.
+         *  comments: Additional comments associated with this inspection.
 	 * @return void
 	 */
 	public function up()

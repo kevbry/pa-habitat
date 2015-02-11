@@ -8,7 +8,6 @@ Project Details
 <h1>Project details</h1>
 {{ HTML::linkRoute('projHoursRoute', 'View Hours', array($project->id), array('class' => 'btn btn-primary')) }}
 {{ HTML::linkRoute('projHoursAdd', 'Add Hours', array($project->id), array('class' => 'btn btn-primary')) }}
-{{ HTML::linkRoute('projInspectionsView', 'View Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
 
 <h2>{{ $project->project_name }}</h2>
 
@@ -117,4 +116,39 @@ Project Details
 
 </section>
 
+ <section class="col-md-5">   
+        <div class="form-group row">
+        {{ Form::label('inspections', 'Project Inspections:') }}
+        
+        <table class="table table-hover scrollable">
+            <thead>
+                <tr>
+                    <th>Inspection Type</th>
+                    <th>Pass/Fail</th>
+                </tr>
+            </thead>
+            <tbody>
+                  @if (!empty($project))
+                    @foreach($projectInspections as $projectInspection)
+
+                   <tr>
+                       <td>{{$projectInspection->type}}</td>
+                       <td>
+                        @if($projectInspection->pass == 0)
+                            FAIL
+                        @else
+                            PASS
+                        @endif
+                       </td>
+                   </tr>
+
+                   @endforeach
+                @endif
+            </tbody>
+        </table>
+         {{ HTML::linkRoute('projInspectionsView', 'View Inspection Details', array($project->id), array('class' => 'btn btn-primary')) }}
+         {{ HTML::linkRoute('projInspectionsAdd', 'Add Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
+    </div>
+    
+</section>
 @stop            

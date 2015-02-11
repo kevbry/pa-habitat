@@ -21,6 +21,9 @@ Inspections for Project {{$project->project_name}}
                 <td>{{$projectInspection->date}}</td>
                 <td>{{$projectInspection->type}}</td>
                 <td>
+                <!-- Changes the true/false value from the database into either 
+                Non-Mandatory (False), or
+                Mandatory (True)-->
                 @if($projectInspection->mandatory == 0)
                     Non-Mandatory
                 @else
@@ -28,6 +31,9 @@ Inspections for Project {{$project->project_name}}
                 @endif
                 </td>
                 <td>
+                <!-- Changes the true/false value from the database into either 
+                FAIL (False), or
+                PASS (True)-->
                 @if($projectInspection->pass == 0)
                     FAIL
                 @else

@@ -2,7 +2,9 @@
 
 use App\Repositories\ProjectInspectionRepository;
 use App\Repositories\ProjectRepository;
-
+/**
+ * Specifies a controller for the ProjectInspection class and functionality.
+ */
 class ProjectInspectionController extends \BaseController {
 
     public $projectRepo;
@@ -13,7 +15,9 @@ class ProjectInspectionController extends \BaseController {
         $this->projectRepo = $projectRepo;
         $this->projectInspectionRepo = $projectInspectionRepo;
     }
-
+    /**
+     * Displays a list of all project inspections.
+     */
     public function index($projectId) 
     {
         $project = $this->projectRepo->getProject($projectId);
@@ -22,13 +26,19 @@ class ProjectInspectionController extends \BaseController {
         return View::make('projectinspection.index', array('project' => $project, 'projectInspections' => $projectInspections));
     }
     
+    /**
+     * Displays a page that allows for the creation of project inspections.
+     */
     public function create($projectId) 
     {
         $project = $this->projectRepo->getProject($projectId);
         return View::make('projectinspection.create', array('id' => $projectId, 
             'project' => $project));
     }
-
+    
+    /**
+     * Stores project inspections in the database.
+     */
     public function store() {
         $projectInspection = array();
         for ($i = 0; $i < count(Input::get('type')); $i++) 
@@ -50,6 +60,9 @@ class ProjectInspectionController extends \BaseController {
 
     }
 
+    /*
+     * Stores a specific inspection with a specific project.
+     */
     public function storeInspectionWith($projectInspection) {
 
         $inspection = new ProjectInspection($projectInspection);
