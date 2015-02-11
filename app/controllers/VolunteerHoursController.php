@@ -212,10 +212,12 @@ $type=Input::get('pageType');
         $volunteerHours = $this->volunteerHrsRepo->getHoursForVolunteerSortedByProject($id);
         
         $totalHours = 0;
-        
-        foreach($volunteerHours as $hour)
+        if(!empty($volunteerHours))
         {
-            $totalHours += $hour->hours;
+            foreach($volunteerHours as $hour)
+            {
+                $totalHours += $hour->hours;
+            }
         }
        
         $families = $this->familyRepo->getAllFamilies();

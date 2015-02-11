@@ -62,3 +62,13 @@ footer p {
 .pagination {
     display: block;
 }
+.hours {
+    float: right;
+}
+.name {
+    float: left;
+}
+.project {
+    border-bottom: 2px solid grey;
+    margin-bottom:30px;
+}

@@ -5,17 +5,22 @@ Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volunteer
 @stop
 
 @section('content')
-
-<p>Volunteer Hours for <strong>{{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</strong></p>
-<p>Total Hours <strong>{{$totalHours}}</strong></p>
-
+<section class="col-md-12">
+<h3 class="name">Volunteer Hours for <strong>{{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</strong></h3>
+<h3 class="hours">Total Hours <strong>{{$totalHours}}</strong></h3>
+</section>
             <?php
-            $currentProject = $volunteerhours[0]->project_id;
+            if(!empty($volunteerhours))
+            {
+                $currentProject = $volunteerhours[0]->project_id;
+            }
             $currentProjectHours = 0;
             
             ?>
-    <section class="col-md-7">
-    <h4>Project Name: {{$volunteerhours[0]->project->project_name}}</h4>
+    <section class="col-md-7 project">
+        @if(!empty($volunteerhours))
+        <h4 class="name">Project Name: <strong>{{$volunteerhours[0]->project->project_name}}</strong></h4>
+        @endif
     <table class="table">
         
         <thead>
@@ -48,7 +53,7 @@ Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volunteer
                     $currentProjectHours += $volunteerhour->hours;
                 ?>
                 @else
-                <p>Project Hours <strong>{{$currentProjectHours}}</strong></p>
+                <h4 class="hours">Total Project Hours <strong>{{$currentProjectHours}}</strong></h4>
             </tbody>
     </table>
     </section>
@@ -56,9 +61,9 @@ Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volunteer
     $currentProject = $volunteerhour->project_id;
     $currentProjectHours = 0;
     ?>
-
-    <section class="col-md-7">
-    <h4>Project Name: {{$volunteerhour->project->project_name}}</h4>
+    
+    <section class="col-md-7 project">
+        <h4 class="name">Project Name: <strong>{{$volunteerhour->project->project_name}}</strong></h4>
     <table class="table">
         
         <thead>
@@ -91,7 +96,7 @@ Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volunteer
                 
                 @endforeach
             @endif
-            <p>Project Hours <strong>{{$currentProjectHours}}</strong></p>
+            <h4 class="hours">Total Project Hours <strong>{{$currentProjectHours}}</strong></h4>
         </tbody>
     </table>
     </section>

@@ -153,6 +153,8 @@ Contact Details
          {{ HTML::linkRoute('volHoursRoute', 'View Hours Details', array($contact->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('volHoursAdd', 'Add Hours', array($contact->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('volHoursEditRoute', 'Edit Hours', array($contact->id), array('class'=>'btn btn-primary')) }}
+         <br /> <br />
+         {{ HTML::linkRoute('volunteerReport', 'Generate Hours Report', array($contact->id), array('class'=>'btn btn-primary')) }}
     </div>
      
     <div class="form-group">
