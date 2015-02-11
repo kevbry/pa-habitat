@@ -67,5 +67,15 @@ class EloquentVolunteerHoursRepository implements VolunteerHoursRepository {
 
         return \Volunteer::join('Contact', 'Volunteer.id', '=', 'Contact.id')->join('Contact', 'Volunteer.id', '=', 'Contact.id')->orderBy($sortby, $order)->paginate(20);
     }
+    
+    public function getHoursForVolunteerSortedByProject($volunteerId)
+    {
+        return \VolunteerHours::whereRaw('volunteer_id =' . $volunteerId)->orderBy('project_id', 'asc')->get();
+    }
+    
+    public function getHoursForProjectSortedByVolunteer($projectId)
+    {
+        return \VolunteerHours::whereRaw('project_id =' . $projectId)->orderBy('volunteer_id', 'asc')->get();
+    }
 
 }
