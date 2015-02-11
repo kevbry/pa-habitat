@@ -5,8 +5,9 @@ class SearchApiControllerUnitTest extends TestCase {
     protected $mockedContactRepo;
     protected $mockedVolunteerRepo;
     protected $mockedProjectRepo;
-//    protected $mockedCompanyRepo;
+    protected $mockedCompanyRepo;
 //    protected $mockedDonorRepo;
+    protected $mockedFamilyRepo;
     protected $mockedSearchController;
 
     /**
@@ -18,9 +19,9 @@ class SearchApiControllerUnitTest extends TestCase {
         $this->mockedContactRepo = Mockery::mock('app\repositories\ContactRepository');
         $this->app->instance('app\repositories\ContactRepository', $this->mockedContactRepo);
 
-//        $this->mockedCompanyRepo = Mockery::mock('app\repositories\CompanyRepository');
-//        $this->app->instance('app\respositories\CompanyRepository', $this->mockedCompanyRepo);
-//
+        $this->mockedCompanyRepo = Mockery::mock('app\repositories\CompanyRepository');
+        $this->app->instance('app\respositories\CompanyRepository', $this->mockedCompanyRepo);
+
         $this->mockedVolunteerRepo = Mockery::mock('app\repositories\VolunteerRepository');
         $this->app->instance('app\repositories\VolunteerRepository', $this->mockedVolunteerRepo);
 //
@@ -32,8 +33,11 @@ class SearchApiControllerUnitTest extends TestCase {
 
         // $this->testController = new ContactController($this->mockedContactRepo, $this->mockedVolunteerRepo, $this->mockedCompanyRepo, $this->mockedDonorRepo);
 
-        $this->mockedProjectRepo = Mockery::mock('app\repositories\ProjecttRepository');
+        $this->mockedProjectRepo = Mockery::mock('app\repositories\ProjectRepository');
         $this->app->instance('app\repositories\ProjectRepository', $this->mockedProjectRepoRepo);
+        
+         $this->mockedFamilyRepo = Mockery::mock('app\repositories\FamilyRepository');
+        $this->app->instance('app\repositories\FamilyRepository', $this->mockedFamilyRepo);
 
         $this->testController = new SearchAPIController($this->mockedContactRepo);
     }
@@ -83,6 +87,23 @@ class SearchApiControllerUnitTest extends TestCase {
 
         // Act 
         $response = $this->route("POST", "search.project", "");
+
+
+        // Assert
+        $this->assertTrue("", $response);
+    }
+
+    /*
+     * Testing the system can search for a Project and returns a JSON array of matches
+     */
+
+    public function testsearchCompany() {
+        // Assemble
+        $this->mockedSearchAPIController->shouldReceive('searchCompany')->once()->with("");
+        $this->mockedCompanyRepo->shouldReceive('getCompanySearchInfo')->once()->with("");
+
+        // Act 
+        $response = $this->route("POST", "search.company", "");
 
 
         // Assert
