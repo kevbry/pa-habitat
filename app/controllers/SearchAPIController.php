@@ -24,12 +24,13 @@ class SearchAPIController extends \BaseController
     private $familyRepo;
     
     function __construct(ContactRepository $contactRepo, VolunteerRepository $volunteerRepo,
-                        ProjectRepository $projectRepo, CompanyRepository $companyRepo, )
+                        ProjectRepository $projectRepo, CompanyRepository $companyRepo, FamilyRepository $familyRepo )
     {
         $this->contactRepo = $contactRepo;
         $this->volunteerRepo= $volunteerRepo;
         $this->projectRepo= $projectRepo;
         $this->companyRepo= $companyRepo;
+        $this->familyRepo=$familyRepo;
     }
     
     public function searchContacts()
@@ -50,6 +51,11 @@ class SearchAPIController extends \BaseController
      public function searchCompanies()
     {   
         return $this->companyRepo->getCompanySearchInfo(Input::get('companies'));
+    }
+    
+         public function searchFamily()
+    {   
+        return $this->familyRepo->getFamilySearchInfo(Input::get('families'));
     }
     
     public function show()
