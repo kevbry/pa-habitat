@@ -1,9 +1,39 @@
+<?php $PAGE_ROOT_URL = explode(Request::path(), Request::url())[0];
+
+// Create the master search box located in the nav bar
+$masterSearch = new HabitatSearchBox($PAGE_ROOT_URL, "master", "Search..."); 
+
+// Configure the search box
+
+// Function for setting up the on click method (what happens when a result is selected)
+$masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_CLICK, $PAGE_ROOT_URL . 'contact/'));
+
+// Function for setting up how the results are formatted.  First is the attribute to use as the value, second is what to display
+$masterSearch->configureDatumFormat('id', 'full_name');
+
+// Function for Setting up the selection engine that fetches and formats results from the database
+$masterSearch->configureEngine('contactSearch', "/search/searchContacts?contacts=%QUERY%", 'Contacts');
+
+// Function for setting up the searchbox settings
+$masterSearch->configureSettings();
+
+
+
+?> 
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>@yield('title') | Habitat For Humanity</title>
         {{ HTML::style('assets/css/style.css'); }}
+        
+        {{ HTML::script('assets/js/jquery-1.11.1.min.js'); }}
+        {{ HTML::script('assets/js/bootstrap.min.js'); }}
+        {{ HTML::script('assets/js/habitat.js'); }}
+        {{ HTML::script('assets/js/dist/typeahead.bundle.js');}}
+        
+        
+        
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
@@ -27,6 +57,7 @@
                                 <li>{{ HTML::linkAction('DonorController@index','Just Donors') }}</li>
                                 <li>{{ HTML::linkAction('CompanyController@index','Companies') }}</li>
                                 <li>{{ HTML::linkAction('ContactController@create','Add a Contact') }}</li>
+                                
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -44,6 +75,9 @@
                             </ul>
                         </li>
                     </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="nav-search"><?php $masterSearch->show(); ?></li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -54,8 +88,6 @@
     <footer class="container">
         <p>Copyright {{date("Y")}}</p>
     </footer>
-{{ HTML::script('assets/js/jquery-1.11.1.min.js'); }}
-{{ HTML::script('assets/js/bootstrap.min.js'); }}
-{{ HTML::script('assets/js/habitat.js');}}
+    <?php $masterSearch->build(); ?>
     </body>
 </html>

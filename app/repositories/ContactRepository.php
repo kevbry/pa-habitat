@@ -13,4 +13,5 @@ interface ContactRepository
     public function getAllContactsForSeed();
     public function saveContact($contact);
     public function orderBy($sortby,$order);
+    public function getContactSearchInfo($filter);
 }

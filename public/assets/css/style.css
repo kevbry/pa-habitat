@@ -72,3 +72,41 @@ footer p {
     border-bottom: 2px solid grey;
     margin-bottom:30px;
 }
+.nav-search {
+    padding-top: 7px;
+    position: relative;
+    float: right;
+}
+
+.tt-dropdown-menu {
+    margin-top: 6px;
+    padding: 2px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    width: 100%;
+}
+
+.tt-suggestion {
+  padding: 3px 20px;
+}
+
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: rgba(0, 86, 150, 1);
+  cursor: pointer;
+  border-radius: 8px;
+
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+
+.tt-dropdown-menu h4{
+  margin: 0 20px 5px 20px;
+  padding: 3px 0;
+  border-bottom: 1px solid #ccc;
+}

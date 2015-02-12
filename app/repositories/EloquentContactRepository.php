@@ -47,4 +47,14 @@ class EloquentContactRepository implements ContactRepository
             
         return \Contact::orderBy($sortby, $order)->paginate(20);
     }
+    public function getContactSearchInfo($filter)
+    {
+        $searchTerm = "%" . $filter . "%";
+        
+        return \Contact::query()
+                ->selectRaw("id, CONCAT(first_name, ' ', last_name) AS full_name")
+                ->where('first_name', 'LIKE', $searchTerm)
+                ->orWhere('last_name', 'LIKE', $searchTerm)
+                ->get();
+    }
 }
