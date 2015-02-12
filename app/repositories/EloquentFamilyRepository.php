@@ -28,7 +28,7 @@ class EloquentFamilyRepository implements FamilyRepository
         $searchTerm = "%" . $filter . "%";
         
         return \Family::query()
-                ->select("id", "name")
+                ->selectRaw("id, name, 'family' AS type")
                 ->where('name', 'LIKE', $searchTerm) 
                 ->get();
     }

@@ -3,17 +3,21 @@
 // Create the master search box located in the nav bar
 $masterSearch = new HabitatSearchBox($PAGE_ROOT_URL, "master", "Search..."); 
 
-//var_dump(Request::url());
+
 // Configure the search box
 
 // Function for setting up the on click method (what happens when a result is selected)
-$masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_CLICK, $PAGE_ROOT_URL . 'contact/'));
+$masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_CLICK, $PAGE_ROOT_URL));
 
 // Function for setting up how the results are formatted.  First is the attribute to use as the value, second is what to display
 $masterSearch->configureDatumFormat('id', 'name');
 
 // Function for Setting up the selection engine that fetches and formats results from the database
-$masterSearch->configureEngine('contactSearch', "search/searchFamilies?families=%QUERY%", 'Families');
+$masterSearch->configureEngine('contactSearch', "search/searchContacts?contacts=%QUERY%", 'Contacts');
+$masterSearch->configureEngine('volunteerSearch', "search/searchVolunteers?volunteers=%QUERY%", 'Volunteers');
+$masterSearch->configureEngine('projectSearch', "search/searchProjects?projects=%QUERY%", 'Projects');
+$masterSearch->configureEngine('familySearch', "search/searchFamilies?families=%QUERY%", 'Families');
+$masterSearch->configureEngine('companySearch', "search/searchCompanies?companies=%QUERY%", 'Companies');
 
 // Function for setting up the searchbox settings
 $masterSearch->configureSettings();
@@ -30,7 +34,7 @@ $masterSearch->configureSettings();
         
         {{ HTML::script('assets/js/jquery-1.11.1.min.js'); }}
         {{ HTML::script('assets/js/bootstrap.min.js'); }}
-{{ HTML::script('assets/js/master.js');}}
+        {{ HTML::script('assets/js/master.js');}}
         {{ HTML::script('assets/js/dist/typeahead.bundle.js');}}
         
         

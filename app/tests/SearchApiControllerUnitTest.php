@@ -6,9 +6,9 @@ class SearchApiControllerUnitTest extends TestCase {
     protected $mockedVolunteerRepo;
     protected $mockedProjectRepo;
     protected $mockedCompanyRepo;
-//    protected $mockedDonorRepo;
     protected $mockedFamilyRepo;
     protected $mockedSearchController;
+    protected $testController;
 
     /**
      * Set up function for the tests.  Creates dummy objects to use for Testing.
@@ -17,8 +17,8 @@ class SearchApiControllerUnitTest extends TestCase {
         parent::setUp();
 
         
-        $this->mockedSearchController = Mockery::mock('app\controllers\SearchApiController');
-        $this->app->instance('app\controllers\SearchApiController', $this->mockedSearchController);
+        $this->mockedSearchController = Mockery::mock('app\controllers\SearchAPIController');
+        $this->app->instance('app\controllers\SearchAPIController', $this->mockedSearchController);
         
         $this->mockedContactRepo = Mockery::mock('app\repositories\ContactRepository');
         $this->app->instance('app\repositories\ContactRepository', $this->mockedContactRepo);
@@ -28,14 +28,9 @@ class SearchApiControllerUnitTest extends TestCase {
 
         $this->mockedVolunteerRepo = Mockery::mock('app\repositories\VolunteerRepository');
         $this->app->instance('app\repositories\VolunteerRepository', $this->mockedVolunteerRepo);
-//
-//        $this->mockedDonorRepo = Mockery::mock('app\repositories\DonorRepository');
-//        $this->app->instance('app\repositories\DonorRepository', $this->mockedDonorRepo);
-
+        
         $this->mockedContactController = Mockery::mock('app\controllers\SearchApiController');
         $this->app->instance('app\controllers\SearchApiController', $this->mockedSearchController);
-
-        // $this->testController = new ContactController($this->mockedContactRepo, $this->mockedVolunteerRepo, $this->mockedCompanyRepo, $this->mockedDonorRepo);
 
         $this->mockedProjectRepo = Mockery::mock('app\repositories\ProjectRepository');
         $this->app->instance('app\repositories\ProjectRepository', $this->mockedProjectRepo);
@@ -54,14 +49,15 @@ class SearchApiControllerUnitTest extends TestCase {
     public function testsearchContacts() {
         // Assemble
         $this->mockedSearchController->shouldReceive('searchContacts')->once()->with("Greg");
-        $this->mockedContactRepo->shouldReceive('getContactSearchInfo')->once()->with("Greg");
+        $this->mockedContactRepo->shouldReceive('getContactSearchInfo')->once("Greg");
+
 
         // Act 
-         $response = $this->route("GET", "search.searchContacts", "Greg");
-        //$response= $this->testController->searchContacts("Greg");
+        $response = $this->call("GET", 'search/searchContacts', array("contacts" => "Greg"));
 
         // Assert
-        $this->assertEquals(1,$response);
+        $this->assertEquals("Greg Smith", $response->getContent());
+        
         
         
     }

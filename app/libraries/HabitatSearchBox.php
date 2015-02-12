@@ -14,14 +14,14 @@
  */
 class HabitatSearchBox 
 {
-    const VIEW_DETAILS_ON_CLICK = 'function(obj, data) {window.location = "%s" + data.value;}';
+    const VIEW_DETAILS_ON_CLICK = 'function(obj, data) {window.location = "%s" + data.type + "/" + data.value;}';
     
     private static $searchBoxes = array();
     private $searchName;
     private $placeholderText;
     private $bloodHoundEngines = array();
     private $typeAheadConfig;
-    private $datumFormatTemplate = '{value: result.id, name: result.id}';
+    private $datumFormatTemplate = '{value: result.id, name: result.id, type: result.type}';
     private $pageURL = '';
     
     /**
@@ -88,7 +88,7 @@ EOT;
      * @param string $minLength The minimum number of characters before the 
      *      search functionality triggers
      */
-    public function configureSettings($hint = "true", $highlight = "true", $minLength = "1")
+    public function configureSettings($hint = "true", $highlight = "true", $minLength = "3")
     {
         //TODO: Abstract out all of the hardcoded values to allow configuration
         //TODO: Create object for each search engine being inserted (loop through)
@@ -122,15 +122,23 @@ EOT;
             name: '%s',
             displayKey: 'name',
             source: %s.ttAdapter(),
-            templates: {header: '<h4>' + '%s' +'</h4>'}
+            templates: {
+                empty: "<p class='error'>No matches found</p>",
+                header: '<h4>' + '%s' +'</h4>'
+                }
         }
 EOT;
 
+        $count = 0;
+        
         foreach ($this->bloodHoundEngines as $engineName => $engine) 
         {
             $engineCode .= sprintf($engineConfigTemplate, $engine['display_name'], $engineName, $engine['display_name']);
             
-            //$enghineCode .= ',';
+            if (++$count < count($this->bloodHoundEngines))
+            {
+                $engineCode .= ',';
+            }
         }
 
         return $engineCode;
@@ -178,6 +186,6 @@ EOT;
      */
     public function configureDatumFormat($value, $name)
     {
-        $this->datumFormatTemplate = sprintf('{value: result.%s, name: result.%s}', $value, $name);
+        $this->datumFormatTemplate = sprintf('{value: result.%s, name: result.%s, type: result.type}', $value, $name);
     }
 }

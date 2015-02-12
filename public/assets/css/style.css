@@ -72,6 +72,16 @@ footer p {
     border-bottom: 2px solid grey;
     margin-bottom:30px;
 }
+
+.navbar-right{
+    margin-right: 5%;
+}
+
+span.twitter-typeahead{
+    width: 140%;
+}
+
+
 .nav-search {
     padding-top: 7px;
     position: relative;
@@ -103,6 +113,12 @@ footer p {
 
 .tt-suggestion p {
   margin: 0;
+}
+
+.tt-dropdown-menu p.error{
+  margin: 0 20px 5px 20px;
+  padding: 3px 0;
+  color: red;
 }
 
 .tt-dropdown-menu h4{

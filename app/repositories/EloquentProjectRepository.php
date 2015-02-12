@@ -28,7 +28,7 @@ class EloquentProjectRepository implements ProjectRepository
          $searchTerm = "%" . $filter . "%";
         
         return \Project::query()
-                ->select("id","project_name")
+                ->selectRaw("id, project_name AS name, 'project' AS type")
                 ->where('project_name', 'LIKE', $searchTerm)
                 ->get();
     }

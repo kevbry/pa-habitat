@@ -52,7 +52,7 @@ class EloquentContactRepository implements ContactRepository
         $searchTerm = "%" . $filter . "%";
         
         return \Contact::query()
-                ->selectRaw("id, CONCAT(first_name, ' ', last_name) AS full_name")
+                ->selectRaw("id, CONCAT(first_name, ' ', last_name) AS name, 'contact' AS type")
                 ->where('first_name', 'LIKE', $searchTerm)
                 ->orWhere('last_name', 'LIKE', $searchTerm)
                 ->get();

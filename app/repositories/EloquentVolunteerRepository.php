@@ -23,11 +23,11 @@ class EloquentVolunteerRepository implements VolunteerRepository {
 
       
         return \DB::table("Volunteer")
-                        ->join('Contact', 'Contact.id', '=', 'Volunteer.id')
-                        ->where('first_name', 'LIKE', $searchTerm)
-                        ->orWhere('last_name', 'LIKE', $searchTerm)
-                        ->selectRaw("habitat_Volunteer.id, CONCAT(first_name, ' ', last_name) AS full_name")
-                        ->get();
+                ->selectRaw("habitat_Volunteer.id, CONCAT(first_name, ' ', last_name) AS name, 'contact' AS type")
+                ->join('Contact', 'Contact.id', '=', 'Volunteer.id')
+                ->where('first_name', 'LIKE', $searchTerm)
+                ->orWhere('last_name', 'LIKE', $searchTerm)
+                ->get();
  
     }
 
