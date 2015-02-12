@@ -137,7 +137,15 @@ Project Details
                        <td>{{$projectItem->item_type}}</td>
                        <td>{{$projectItem->manufacturer}}</td>
                    </tr>
-
+                   @endforeach
+                @endif
+            </tbody>
+        </table>
+         {{ HTML::linkRoute('viewItems', 'View Item Details', array($project->id), array('class' => 'btn btn-primary')) }}
+         {{ HTML::linkRoute('projItemsAdd', 'Add Items', array($project->id), array('class' => 'btn btn-primary')) }}
+    </div> 
+</section>
+ 
  <section class="col-md-5">   
         <div class="form-group row">
         {{ Form::label('inspections', 'Project Inspections:') }}
@@ -170,15 +178,6 @@ Project Details
         </table>
          {{ HTML::linkRoute('projInspectionsView', 'View Inspection Details', array($project->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('projInspectionsAdd', 'Add Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
-    </div>
-    
-</section>
-                   @endforeach
-                @endif
-            </tbody>
-        </table>
-         {{ HTML::linkRoute('viewItems', 'View Item Details', array($project->id), array('class' => 'btn btn-primary')) }}
-         {{ HTML::linkRoute('projItemsAdd', 'Add Items', array($project->id), array('class' => 'btn btn-primary')) }}
     </div>
     
 </section>

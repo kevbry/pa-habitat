@@ -13,8 +13,8 @@ class ProjectController extends \BaseController {
 
         public function __construct(ProjectRepository $projectRepo, 
                 ProjectContactRepository $projectContactRepo,
-                ProjectInspectionRepository $projectInspectionRepo
-				ProjectItemRepository $projectItemRepo)
+                ProjectInspectionRepository $projectInspectionRepo,
+                ProjectItemRepository $projectItemRepo)
         {
             $this->projectRepo = $projectRepo;
             $this->projectContactRepo = $projectContactRepo;
