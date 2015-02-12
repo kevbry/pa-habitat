@@ -21,6 +21,57 @@ footer p {
     margin: 20px 0;
 }
 
+.scrollable {
+    width: 100%;
+}
+
+.scrollable thead, .scrollable tbody, .scrollable tr, .scrollable td, .scrollable th {
+    display: block;
+}
+
+.scrollable tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.scrollable thead th {
+    height: 40px;
+}
+
+.scrollable tbody {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.scrollable thead {
+    
+}
+
+.scrollable tbody td, .scrollable thead th, .scrollable tfoot td {
+    width: 33%;
+    float: left;
+}
+
+#addhours{
+    float:left;
+    margin-right:20px;
+}
+
+.pagination {
+    display: block;
+}
+.hours {
+    float: right;
+}
+.name {
+    float: left;
+}
+.project {
+    border-bottom: 2px solid grey;
+    margin-bottom:30px;
+}
 .nav-search {
     padding-top: 7px;
     position: relative;
