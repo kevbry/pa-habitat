@@ -11,4 +11,5 @@ interface ProjectRepository
     public function getProject($id);
     public function getAllProjects();
     public function saveProject($project);
+    public function getProjectSearchInfo($filter);
 }

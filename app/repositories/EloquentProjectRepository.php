@@ -22,4 +22,14 @@ class EloquentProjectRepository implements ProjectRepository
     {
         $project->save();
     }
+    
+    public function getProjectSearchInfo($filter)
+    {
+         $searchTerm = "%" . $filter . "%";
+        
+        return \Project::query()
+                ->select("id","name")
+                ->where('name', 'LIKE', $searchTerm)
+                ->get();
+    }
 }
