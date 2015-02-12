@@ -23,4 +23,13 @@ class EloquentFamilyRepository implements FamilyRepository
         $family->save();
     }
     
+    public function getFamilySearchInfo($filter)
+    {
+        $searchTerm = "%" . $filter . "%";
+        
+        return \Family::query()
+                ->select("id", "name")
+                ->where('name', 'LIKE', $searchTerm) 
+                ->get();
+    }
 }

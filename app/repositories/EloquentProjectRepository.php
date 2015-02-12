@@ -23,6 +23,17 @@ class EloquentProjectRepository implements ProjectRepository
         $project->save();
     }
     
+    public function getProjectSearchInfo($filter)
+    {
+         $searchTerm = "%" . $filter . "%";
+        
+        return \Project::query()
+                ->select("id","project_name")
+                ->where('project_name', 'LIKE', $searchTerm)
+                ->get();
+    }
+    
+    
     public function orderBy($sortby, $order) {
         
         $order = ($order == 'a' ? 'asc' : 'desc');
