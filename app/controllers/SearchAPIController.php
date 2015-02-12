@@ -2,6 +2,8 @@
 use App\Repositories\ContactRepository;
 use App\Repositories\VolunteerRepository;
 use App\Repositories\ProjectRepository;
+use App\Repositories\CompanyRepository;
+use App\Repositories\FamilyRepository;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,12 +20,16 @@ class SearchAPIController extends \BaseController
     private $contactRepo;
     private $volunteerRepo;
     private $projectRepo;
+    private $companyRepo;
+    private $familyRepo;
     
-    function __construct(ContactRepository $contactRepo, VolunteerRepository $volunteerRepo, ProjectRepository $projectRepo)
+    function __construct(ContactRepository $contactRepo, VolunteerRepository $volunteerRepo,
+                        ProjectRepository $projectRepo, CompanyRepository $companyRepo, )
     {
         $this->contactRepo = $contactRepo;
         $this->volunteerRepo= $volunteerRepo;
         $this->projectRepo= $projectRepo;
+        $this->companyRepo= $companyRepo;
     }
     
     public function searchContacts()
@@ -39,6 +45,11 @@ class SearchAPIController extends \BaseController
        public function searchProjects()
     {   
         return $this->projectRepo->getProjectSearchInfo(Input::get('projects'));
+    }
+    
+     public function searchCompanies()
+    {   
+        return $this->companyRepo->getCompanySearchInfo(Input::get('companies'));
     }
     
     public function show()

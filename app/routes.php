@@ -26,3 +26,4 @@ Route::resource('volunteer', 'VolunteerController');
 Route::resource('search/searchContacts', 'SearchAPIController@searchContacts');
 Route::resource('search/searchVolunteers', 'SearchAPIController@searchVolunteers');
 Route::resource('search/searchProjects', 'SearchAPIController@searchProjects');
+Route::resource('search/searchCompanies', 'SearchAPIController@searchCompanies');
