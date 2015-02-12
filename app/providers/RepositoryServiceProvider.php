@@ -47,6 +47,8 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\EloquentFamilyRepository'
         );
         $this->app->bind(
+            'App\Repositories\ProjectInspectionRepository',
+            'App\Repositories\EloquentProjectInspectionRepository'
             'App\Repositories\ProjectItemRepository',
             'App\Repositories\EloquentProjectItemRepository'
         );
