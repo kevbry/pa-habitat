@@ -49,6 +49,58 @@ class ProjectItemController extends \BaseController {
         return Redirect::action('ProjectItemController@index', $projectItem['project_id']);
 
     }
+    
+    public function edit($projectId) {
+        $project = $this->projectRepo->getProject($projectId);
+        $projectItems = $this->projectItemRepo->getItemsForProject($projectId);
+
+        return View::make('projectitem.edit', array('project' => $project, 'projectItems' => $projectItems));
+    }
+    
+    public function update() {
+        $projectItem = array();
+        for ($i = 0; $i < count(Input::get('project_id')); $i++) {
+            $projectItem['project_id'] = Input::get('project_id')[$i];
+            $projectItem['item_type'] = Input::get('item_type')[$i];
+            $projectItem['manufacturer'] = Input::get('manufacturer')[$i];
+            $projectItem['model'] = Input::get('model')[$i];
+            $projectItem['serial_number'] = Input::get('serial_number')[$i];
+            $projectItem['vendor'] = Input::get('vendor')[$i];
+            $projectItem['comments'] = Input::get('comments')[$i];
+
+            if (empty($projectItem)) {
+                throw new Exception('No Project Item info inserted.');
+            }
+            $this->updateItemWith($projectItem);
+        }
+        
+
+        return Redirect::action('ProjectItemController@index', $projectItem['project_id']);
+    }
+    
+    public function updateItemWith($projectItem) {
+        $counter = 0;
+        $fieldNames = array(
+            'id',
+            'project_id', 
+            'item_type',
+            'manufacturer',
+            'model',
+            'serial_number', 
+            'vendor',
+            'comments'
+        );
+        $fieldUpdateValues = array();
+        foreach($projectItem as $fieldValue)
+        {
+            if($counter != 0)
+            {
+                $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
+            }
+            $counter++; 
+        }
+        $affectedRows = ProjectItem::where('id','=',$projectItem['id'])->update($fieldUpdateValues);
+    }
 
     public function storeItemWith($projectItem) {
 
