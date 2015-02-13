@@ -66,7 +66,7 @@ class ProjectController extends \BaseController {
             //Retrieve Project information from user
             
             $projectInput['build_number'] = Input::get('build_number');
-            $projectInput['project_name'] = Input::get('project_name');
+            $projectInput['name'] = Input::get('name');
             $projectInput['street_number'] = Input::get('street_number');
             $projectInput['postal_code'] = Input::get('postal_code');
             $projectInput['city'] = Input::get('city');
@@ -92,7 +92,7 @@ class ProjectController extends \BaseController {
             $projectID = $this->createProjectWith($projectInput);
             
             // Store values from the contact form
-//            $projectValues = Input::only('project_name');
+//            $projectValues = Input::only('name');
 //            
             // Create a new contact object to store in the database
             //$project = new Project($projectValues);

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Add Inspections for Project {{$project->project_name}}
+Add Inspections for Project {{$project->name}}
 @stop
 
 @section('content')
@@ -16,7 +16,7 @@ Add Inspections for Project {{$project->project_name}}
                 <a href="#" class="remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
         </tr>
 </script>
-<h1>Inspections for {{$project->project_name}}</h1>
+<h1>Inspections for {{$project->name}}</h1>
 {{ Form::open(array('route'=>'storeInspections','class'=>'form-horizontal')) }}
 <a href="#" id="addhours" class="btn btn-primary btn-lg">Add Row</a>
 {{Form::submit('Save All',array('class'=>'btn btn-primary btn-lg'))}}

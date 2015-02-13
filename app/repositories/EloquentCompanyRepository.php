@@ -21,7 +21,7 @@ class EloquentCompanyRepository  implements CompanyRepository
     
     public function  getAllCompanies()
     {
-        return \Company::orderBy('company_name','asc')->paginate(20);        
+        return \Company::orderBy('name','asc')->paginate(20);        
     }
     
     public function saveCompany($company)

@@ -6,7 +6,7 @@ Company Details
 
 @section('content')
 <h1>Company details</h1>
-<h2>{{ $company->company_name }}</h2>
+<h2>{{ $company->name }}</h2>
 <table class="table table-hover">
     <thead>
         <tr><th>Main Contact</th><th></th></tr>

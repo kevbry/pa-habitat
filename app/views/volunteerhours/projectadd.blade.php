@@ -21,7 +21,7 @@ Add Volunteer Hours for Project {{$id}}
             <td>{{Form::select('paid_hours[]', array('0' => 'Volunteer', '1' => 'Paid'), '', array('min'=>0,'class'=>'form-control'));}}</td>
             <td>
                 <select name="project_id[]" class="form-control">
-                    <option value="{{$project->id}}">{{$project->project_name}}</option>
+                    <option value="{{$project->id}}">{{$project->name}}</option>
                 </select>
             </td>
             <td>
@@ -37,7 +37,7 @@ Add Volunteer Hours for Project {{$id}}
             <td><a href="#" class="remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
         </tr>       
 </script>
-<h1>Volunteer Hours for {{$project->project_name}}</h1>
+<h1>Volunteer Hours for {{$project->name}}</h1>
 {{ Form::open(array('route'=>'storehours','class'=>'form-horizontal')) }}
 <a href="#" id="addhours" class="btn btn-primary btn-lg">Add Row</a>
 {{Form::submit('Save All',array('class'=>'btn btn-primary btn-lg'))}}
@@ -61,7 +61,7 @@ Add Volunteer Hours for Project {{$id}}
             <td>{{Form::select('paid_hours[]', array('0' => 'Volunteer', '1' => 'Paid'), '', array('min'=>0,'class'=>'form-control'));}}</td>
             <td>
                 <select name="project_id[]" class="form-control">
-                    <option value="{{$project->id}}">{{$project->project_name}}</option>
+                    <option value="{{$project->id}}">{{$project->name}}</option>
                 </select>
             </td>
             <td>

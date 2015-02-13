@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Add Items for Project {{$project->project_name}}
+Add Items for Project {{$project->name}}
 @stop
 
 @section('content')
@@ -26,7 +26,7 @@ Add Items for Project {{$project->project_name}}
         </tr>  
 </script>
 
-<h1>Items for {{$project->project_name}}</h1>
+<h1>Items for {{$project->name}}</h1>
 {{ Form::open(array('route'=>'storeItems','class'=>'form-horizontal')) }}
 <a href="#" id="addhours" class="btn btn-primary btn-lg">Add Row</a>
 {{Form::submit('Save All',array('class'=>'btn btn-primary btn-lg'))}}

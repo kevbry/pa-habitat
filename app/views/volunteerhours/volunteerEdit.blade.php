@@ -61,9 +61,9 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
                             @if(!empty($projects))
                                 @foreach($projects as $project)
                                     @if($project->id == $volunteerhour->project_id)
-                                        <option value="{{$project->id}}" selected='selected'>{{$project->project_name}}</option>
+                                        <option value="{{$project->id}}" selected='selected'>{{$project->name}}</option>
                                     @else
-                                        <option value="{{$project->id}}">{{$project->project_name}}</option>
+                                        <option value="{{$project->id}}">{{$project->name}}</option>
                                     @endif
                                 @endforeach
                             @endif
