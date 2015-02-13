@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 /**
@@ -6,9 +7,13 @@ namespace App\Repositories;
  *
  * @author cst222, cst210
  */
-interface DonorRepository 
-{
+interface DonorRepository {
+
     public function getDonor($id);
+
     public function getAllDonors();
+
     public function saveDonor($donor);
+
+    public function orderBy($sort, $order);
 }

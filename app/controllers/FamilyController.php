@@ -30,10 +30,20 @@ class FamilyController extends \BaseController
     public function index()
     {
         // Retrieve all families from the database
-        $familyList = $this->familyRepo->getAllFamilies();
+ 
+         $sortby = Input::get('sortby');
+            $order = Input::get('order');
 
-        // Return that to the list view
-        return View::make('family.index')->with('families', $familyList);
+            if ($sortby && $order) {
+
+               $familyList = $this->familyRepo->orderBy($sortby, $order);
+            } else {
+                $familyList = $this->familyRepo->getAllFamilies();
+            }
+           
+            // Return that to the list view
+            return View::make('family.index',compact('sortby','order'))->with('families', $familyList);
+       
     }
     
     /**
