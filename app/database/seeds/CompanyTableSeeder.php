@@ -20,16 +20,16 @@ class CompanyTableSeeder extends Seeder
         $contactRepo = new EloquentContactRepository();
         $contacts = $contactRepo->getAllContactsForSeed();
         DB::table('Company')->delete();
-
         $companyJson = File::get(storage_path() . "/jsondata/company.json");
 		$companies = json_decode($companyJson);
 		foreach ($companies as $company) 
                     {
                         $contact = array_rand($contacts);
-                        echo "Adding Company: " . $company->company_name . ".\n";
+                        echo "Adding Company: " . $company->company_name . 
+                                " with contact ID: $contacts[$contact].\n";
 			Company::create(array(
-				'company_name' => $company->company_name, 
-                                'contact_id' => $contact
+				'name' => $company->company_name, 
+                                'contact_id' => $contacts[$contact]
 			));
                     }
     }

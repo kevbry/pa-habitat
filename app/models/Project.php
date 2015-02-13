@@ -15,7 +15,7 @@ class Project extends \Eloquent
 	 * @fillable array with column names we wish to be able to assign to.
          *  ADD family_id to fillable array
 	 */
-        protected $fillable = array('project_name',
+        protected $fillable = array('name',
                                     'family_id',
                                     'blueprint_id',
                                     'build_number',            

@@ -10,7 +10,7 @@ Project Details
 {{ HTML::linkRoute('projHoursAdd', 'Add Hours', array($project->id), array('class' => 'btn btn-primary')) }}
 {{ HTML::linkRoute('projectReport', 'Generate Hours Report', array($project->id), array('class' => 'btn btn-primary')) }}
 
-<h2>{{ $project->project_name }}</h2>
+<h2>{{ $project->name }}</h2>
 
  {{ Form::open(array('class'=>'form-horizontal')) }}
 <section class="generalInfo col-md-7">

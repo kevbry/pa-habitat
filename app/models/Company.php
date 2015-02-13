@@ -13,7 +13,7 @@ class Company extends \Eloquent
     *
     * @fillable array with column names we wish to be able to assign to.
     */
-    protected $fillable = array('company_name','contact_id');
+    protected $fillable = array('name','contact_id');
     
     
     public function mainContact()
