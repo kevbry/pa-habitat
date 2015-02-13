@@ -11,7 +11,7 @@ Volunteer Hours for Project {{$id}}
 {{ Form::open(array('route'=>'storehours','class'=>'form-horizontal')) }}
 <table class="table">
     <thead>
-        <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project</th><th>Family</th></tr>
+        <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project name</th><th>Family</th></tr>
     </thead>
     <tbody>
         @if (!empty($volunteerhours)) 
@@ -27,7 +27,7 @@ Volunteer Hours for Project {{$id}}
                      Paid
                  @endif
                 </td>
-                <td>{{$volunteerhour->project->name}}</td>
+                <td>{{$volunteerhour->project->project_name}}</td>
                 <td>
                 @if(isset($volunteerhour->family->name))
                 {{$volunteerhour->family->name}}
