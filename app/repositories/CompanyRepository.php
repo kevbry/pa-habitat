@@ -14,5 +14,5 @@ interface CompanyRepository
     public function getAllCompanies();
     public function saveCompany($company);  
     public function getCompanySearchInfo($filter);
-      public function orderBy($sortby,$order);
+    public function orderBy($sortby,$order);
 }

@@ -46,7 +46,7 @@ Route::get('projecthours/report/{volunteer}', array('as'=>'projectReport', 'uses
 
 //Search routes
 Route::get('search/searchContacts', 'SearchAPIController@searchContacts');
-Route::resource('search/searchVolunteers', 'SearchAPIController@searchVolunteers');
-Route::resource('search/searchProjects', 'SearchAPIController@searchProjects');
-Route::resource('search/searchCompanies', 'SearchAPIController@searchCompanies');
-Route::resource('search/searchFamilies', 'SearchAPIController@searchFamilies');
+Route::get('search/searchVolunteers', 'SearchAPIController@searchVolunteers');
+Route::get('search/searchProjects', 'SearchAPIController@searchProjects');
+Route::get('search/searchCompanies', 'SearchAPIController@searchCompanies');
+Route::get('search/searchFamilies', 'SearchAPIController@searchFamilies');

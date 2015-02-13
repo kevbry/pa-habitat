@@ -1,5 +1,7 @@
 <?php
 
+
+
 class SearchApiControllerUnitTest extends TestCase {
 
     protected $mockedContactRepo;
@@ -9,6 +11,8 @@ class SearchApiControllerUnitTest extends TestCase {
     protected $mockedFamilyRepo;
     protected $mockedSearchController;
     protected $testController;
+    
+    protected $testRepo;
 
     /**
      * Set up function for the tests.  Creates dummy objects to use for Testing.
@@ -17,14 +21,14 @@ class SearchApiControllerUnitTest extends TestCase {
         parent::setUp();
 
         
-        $this->mockedSearchController = Mockery::mock('app\controllers\SearchAPIController');
-        $this->app->instance('app\controllers\SearchAPIController', $this->mockedSearchController);
+//        $this->mockedSearchController = Mockery::mock('app\controllers\SearchAPIController');
+//        $this->app->instance('app\controllers\SearchAPIController', $this->mockedSearchController);
         
         $this->mockedContactRepo = Mockery::mock('app\repositories\ContactRepository');
         $this->app->instance('app\repositories\ContactRepository', $this->mockedContactRepo);
 
         $this->mockedCompanyRepo = Mockery::mock('app\repositories\CompanyRepository');
-        $this->app->instance('app\respositories\CompanyRepository', $this->mockedCompanyRepo);
+        $this->app->instance('app\repositories\CompanyRepository', $this->mockedCompanyRepo);
 
         $this->mockedVolunteerRepo = Mockery::mock('app\repositories\VolunteerRepository');
         $this->app->instance('app\repositories\VolunteerRepository', $this->mockedVolunteerRepo);
@@ -40,77 +44,177 @@ class SearchApiControllerUnitTest extends TestCase {
 
         $this->testController = new SearchAPIController($this->mockedContactRepo , $this->mockedVolunteerRepo,
                                     $this->mockedProjectRepo , $this->mockedCompanyRepo, $this->mockedFamilyRepo);
+
     }
 
     /**
      * 
      * Testing the system can search for a contact and returns a JSON array of matches
      */
-    public function testsearchContacts() {
+    public function testsearchContactsReturnsResults() {
         // Assemble
-        $this->mockedSearchController->shouldReceive('searchContacts')->once()->with("Greg");
-        $this->mockedContactRepo->shouldReceive('getContactSearchInfo')->once("Greg");
+        $searchParam = "Bri";
 
-
+        $searchResults = "Brielle Hayden";
+        
+        //$this->mockedSearchController->shouldReceive('searchContacts')->once()->with("Greg");
+        $this->mockedContactRepo
+                ->shouldReceive('getContactSearchInfo')
+                ->once()
+                ->with(Mockery::on(
+                        function($filter) use($searchParam)
+                {
+                    $this->assertEquals($searchParam, $filter);
+                    
+                    return true;
+                    
+                }))
+                ->andReturn("Brielle Hayden");
+        
         // Act 
-        $response = $this->call("GET", 'search/searchContacts', array("contacts" => "Greg"));
+        //$response = $this->route("POST", 'search.searchContacts', array("contacts" => "Greg"));
+        $response = $this->action("GET", 'SearchAPIController@searchContacts', array("contacts" => "Bri"));
 
-        // Assert
-        $this->assertEquals("Greg Smith", $response->getContent());
+
         
-        
-        
-    }
+        // Assert    
+        $this->assertResponseStatus(200);
+        $this->assertEquals($searchResults, $response->original);
+
+        }
 
     /**
      * 
      * Testing the system can search for a Volunteer and returns a JSON array of matches
      */
-    public function testsearchVolunteer() {
+    public function testsearchVolunteerReturnsResults() {
         // Assemble
-        $this->mockedSearchController->shouldReceive('searchVolunteer')->once()->with("");
-        $this->mockedVolunteerRepo->shouldReceive('getVolunteerSearchInfo')->once()->with("");
+        $searchParam = "Bri";
 
+        $searchResults = "Brielle Hayden";
+        
+        //$this->mockedSearchController->shouldReceive('searchContacts')->once()->with("Greg");
+        $this->mockedVolunteerRepo
+                ->shouldReceive('getVolunteerSearchInfo')
+                ->once()
+                ->with(Mockery::on(
+                        function($filter) use($searchParam)
+                {
+                    $this->assertEquals($searchParam, $filter);
+                    
+                    return true;
+                    
+                }))
+                ->andReturn("Brielle Hayden");
+        
         // Act 
-        $response = $this->route("POST", "search.searchVolunteers", "");
+        $response = $this->action("GET", 'SearchAPIController@searchVolunteers', array("volunteers" => "Bri"));
 
 
-        // Assert
-        $this->assertTrue("", $response);
+        
+        // Assert    
+        $this->assertResponseStatus(200);
+        $this->assertEquals($searchResults, $response->original);
     }
 
     /*
      * Testing the system can search for a Project and returns a JSON array of matches
      */
 
-    public function testsearchProject() {
+    public function testsearchProjectReturnsResults() {
         // Assemble
-        $this->mockedSearchController->shouldReceive('searchProject')->once()->with("");
-        $this->mockedProjectRepo->shouldReceive('getProjectSearchInfo')->once()->with("");
+        $searchParam = "Bri";
 
+        $searchResults = "Brielle Hayden";
+        
+        //$this->mockedSearchController->shouldReceive('searchContacts')->once()->with("Greg");
+        $this->mockedProjectRepo
+                ->shouldReceive('getProjectSearchInfo')
+                ->once()
+                ->with(Mockery::on(
+                        function($filter) use($searchParam)
+                {
+                    $this->assertEquals($searchParam, $filter);
+                    
+                    return true;
+                    
+                }))
+                ->andReturn("Brielle Hayden");
+        
         // Act 
-        $response = $this->route("POST", "search.searchProjects", "");
+        $response = $this->action("GET", 'SearchAPIController@searchProjects', array("projects" => "Bri"));
 
 
-        // Assert
-        $this->assertTrue("", $response);
+        
+        // Assert    
+        $this->assertResponseStatus(200);
+        $this->assertEquals($searchResults, $response->original);
     }
 
     /*
      * Testing the system can search for a Project and returns a JSON array of matches
      */
 
-    public function testsearchCompany() {
+    public function testsearchCompanyReturnsResults() {
         // Assemble
-        $this->mockedSearchController->shouldReceive('searchCompany')->once()->with("");
-        $this->mockedCompanyRepo->shouldReceive('getCompanySearchInfo')->once()->with("");
+        $searchParam = "Bri";
 
+        $searchResults = "Brielle Hayden";
+
+        $this->mockedCompanyRepo
+                ->shouldReceive('getCompanySearchInfo')
+                ->once()
+                ->with(Mockery::on(
+                        function($filter) use($searchParam)
+                {
+                    $this->assertEquals($searchParam, $filter);
+                    
+                    return true;
+                    
+                }))
+                ->andReturn("Brielle Hayden");
+        
         // Act 
-        $response = $this->route("POST", "search.searchCompanies", "");
+        $response = $this->action("GET", 'SearchAPIController@searchCompanies', array("companies" => "Bri"));
 
 
-        // Assert
-        $this->assertTrue("", $response);
+        // Assert    
+        $this->assertResponseStatus(200);
+        $this->assertEquals($searchResults, $response->original);
     }
 
+   public function testsearchFamilyReturnsResults() {
+        // Assemble
+        $searchParam = "Smi";
+
+        $searchResults = "Smiths";
+
+        $this->mockedFamilyRepo
+                ->shouldReceive('getFamilySearchInfo')
+                ->once()
+                ->with(Mockery::on(
+                        function($filter) use($searchParam)
+                {
+                    $this->assertEquals($searchParam, $filter);
+                    
+                    return true;
+                    
+                }))
+                ->andReturn($searchResults);
+        
+        // Act 
+        $response = $this->action("GET", 'SearchAPIController@searchFamilies', array("families" => $searchParam));
+
+
+        // Assert    
+        $this->assertResponseStatus(200);
+        $this->assertEquals($searchResults, $response->original);
+    }    
+    
+    
+    public function tearDown() {
+        parent::tearDown();
+        Mockery::close();
+    }
+    
 }

@@ -23,6 +23,7 @@ class HabitatSearchBox
     private $typeAheadConfig;
     private $datumFormatTemplate = '{value: result.id, name: result.id, type: result.type}';
     private $pageURL = '';
+    private $onClick;
     
     /**
      * 
@@ -73,11 +74,15 @@ EOT;
         $this->bloodHoundEngines[$engineName]['engine'] = sprintf($this->bloodHoundEngines[$engineName]['engine'], 
                 $engineName, $resultsLimit, $dataURL, $this->datumFormatTemplate, $engineName);
         
+        
+        return $this;
     }
     
     public function configureOnClickEvent($function)
     {
         $this->onClick = $function;
+        
+        return $this;
     }
     
     /**
@@ -109,6 +114,8 @@ EOT;
                 $minLength, 
                 $this->bindEnginesToSearch(), 
                 $this->onClick);
+        
+        return $this;
 
     }
     
@@ -151,6 +158,8 @@ EOT;
     public function show()
     {
         echo "<input id='$this->searchName' class='form-control typeahead' type='text' placeholder='$this->placeholderText'>";
+        
+        return true;
     }
     
     /**
@@ -176,7 +185,11 @@ EOT;
         
         
         printf($scriptBlock, $engines, $this->typeAheadConfig);
+        
+        return true;
     }
+    
+    
     /**
      * 
      * @param string $value The singular value which is referenced when the search item is clicked.
@@ -187,5 +200,7 @@ EOT;
     public function configureDatumFormat($value, $name)
     {
         $this->datumFormatTemplate = sprintf('{value: result.%s, name: result.%s, type: result.type}', $value, $name);
+        
+        return $this;
     }
 }
