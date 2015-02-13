@@ -1,12 +1,12 @@
 @extends('master')
 
 @section('title')
-Inspections for Project {{$project->project_name}}
+Inspections for Project {{$project->name}}
 @stop
 
 @section('content')
 
-<h1>Inspections for {{$project->project_name}}</h1>
+<h1>Inspections for {{$project->name}}</h1>
 {{ HTML::linkRoute('projInspectionsAdd', 'Add Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
 {{ Form::open(array('route'=>'storeInspections','class'=>'form-horizontal')) }}
 
