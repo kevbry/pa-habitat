@@ -36,7 +36,7 @@ class EloquentCompanyRepository  implements CompanyRepository
 
         switch ($sort) {
             case 'n':
-                $sortby = 'company_name';
+                $sortby = 'name';
                 break;
         }
 
