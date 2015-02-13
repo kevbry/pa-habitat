@@ -23,11 +23,11 @@ class EloquentProjectRepository implements ProjectRepository
         $project->save();
     }
     
-    public function orderBy($sortby, $order) {
+    public function orderBy($sort, $order) {
         
         $order = ($order == 'a' ? 'asc' : 'desc');
 
-        switch ($sortby) {
+        switch ($sort) {
             case 'n':
                 $sortby = 'project_name';
                 break;
