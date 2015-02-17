@@ -77,16 +77,16 @@ Create a Project
     
     </div>
         <div class="form-group">
-        {{ Form::label('designer', 'Blueprint Designer: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('blueprint_designer', 'Blueprint Designer: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('designer',null,array('class'=>'form-control')) }}
+        {{ Form::text('blueprint_designer',null,array('class'=>'form-control')) }}
         </div>
     </div>
     </div>
         <div class="form-group">
-        {{ Form::label('plan_number', 'Blueprint Plan Number: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('blueprint_plan_number', 'Blueprint Plan Number: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('plan_number',null,array('class'=>'form-control')) }}
+        {{ Form::text('blueprint_plan_number',null,array('class'=>'form-control')) }}
         </div>
     </div>
     <div class="form-group">
