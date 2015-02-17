@@ -11,21 +11,21 @@ Edit Project
 
 <h2>Editing Details for {{ $project->name }}</h2>
 
- {{ Form::open(array('class'=>'form-horizontal')) }}
+{{ Form::open(array('method'=>'PUT','route'=>array('project.update', $project->id), 'class'=>'form-horizontal', 'id'=>'form')) }}
 <section class="generalInfo col-md-7">
     <div class="form-group">
     </div>
     <div class="form-group">
         {{ Form::label('build_number', 'Build Number: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('build_number',$project->build_number,array('class'=>'form-control')) }}
+        {{ Form::text('build_number',$project->build_number,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
     </div>
         <div class="form-group">
         {{ Form::label('family', 'Family: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('family',null,array('class'=>'form-control')) }}
+        {{ Form::text('family',null,array('class'=>'form-control', 'readonly'=>'readonly')) }}
         </div>
     </div>
         
@@ -113,6 +113,8 @@ Edit Project
         {{ Form::textarea('comments',$project->comments,array('class'=>'form-control')) }}
         </div>
     </div>
+    {{HTML::linkAction('ProjectController@show', "Discard Changes", array($project->id), array('class'=>'btn btn-primary btn-lg')) }}
+    {{Form::submit('Save Changes',array('class'=>'btn btn-primary btn-lg', 'onclick'=>'confirmExit(false); return false;'))}}
 
 </section>
  
