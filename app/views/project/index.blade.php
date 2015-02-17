@@ -85,7 +85,7 @@ All Projects
         <td>{{$project->street_number}}</td>
         <td>{{$project->city}}</td>
         <td>{{$project->project_coordinator}}</td>
-        <td><a href="project/{{$project->id}}">View Details</a></td>
+        <td><a href="project/{{$project->id}}">View Details</a> / <a href="project/{{$project->id}}/edit">Edit Details</a></td>
     </tr>
     @endforeach
 </table>

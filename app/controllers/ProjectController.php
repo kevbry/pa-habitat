@@ -128,15 +128,19 @@ class ProjectController extends \BaseController {
             
 	}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id) {
-        //
-    }
+  	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+            $project = $this->projectRepo->getProject($id); 
+            return View::make('project.edit')
+                    ->withProject($project);
+	}
+
 
     /**
      * Update the specified resource in storage.
