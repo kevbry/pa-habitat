@@ -8,6 +8,7 @@ Items for Project {{$project->project_name}}
 
 <h1>Items for {{$project->project_name}}</h1>
 {{ HTML::linkRoute('projItemsAdd', 'Add Items', array($project->id), array('class' => 'btn btn-primary')) }}
+{{ HTML::linkRoute('editFormForItems', 'Edit Items', array($project->id), array('class' => 'btn btn-primary')) }}
 {{ Form::open(array('route'=>'storeItems','class'=>'form-horizontal')) }}
 <table class="table">
     <thead>
