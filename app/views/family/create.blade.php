@@ -15,6 +15,22 @@ Create a Family
         {{ Form::text('family_name',null,array('class'=>'form-control')) }}
         </div>
     </div>
+    <?php
+        $primary_contact_1_search = new HabitatSearchBox(Session::get('page_url'), "primary_1", "Add Family Member..."); 
+
+        $primary_contact_1_search->configureOnClickEvent(sprintf(HabitatSearchBox::SELECT_ID_ON_CLICK, Session::get('page_url')))
+            ->configureDatumFormat('id', 'name')
+            ->configureEngine('volunteerSearch1', "search/searchVolunteers?volunteers=%QUERY%", 'Volunteers')
+            ->configureSettings()
+            ->build();
+    ?>
+    <div class="form-group">
+        {{Form::label('primary_contact_1', 'Primary Contact 1: ', array('class'=>'col-sm-4'))}}
+        <div class="col-sm-6">
+            <?php $primary_contact_1_search->show(); ?>
+        </div>
+    </div>
+    
     <div class="form-group">
         {{Form::label('primary_contact_1', 'Primary Contact 1: ', array('class'=>'col-sm-4'))}}
         <div class="col-sm-6">

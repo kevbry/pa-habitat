@@ -15,9 +15,25 @@
 class HabitatSearchBox 
 {
     const VIEW_DETAILS_ON_CLICK = 'function(obj, data) {window.location = "%s" + data.type + "/" + data.value;}';
+    const SELECT_ID_ON_CLICK = <<<EOT
+            
+    function(obj, data)
+        {
+            if ($('#primary_1_val').length == 0)
+            {
+                $("'" + obj.currentTarget.className + "'").append("<input id='primary_1_val' type='hidden'");
+            }
+            else
+            {
+                console.log("Modify Existing");
+            }
+        }
+            
+EOT;
     
-    private static $searchBoxes = array();
-    private $searchName;
+    public static $searchBoxes = array();
+    
+    private $searchID;
     private $placeholderText;
     private $bloodHoundEngines = array();
     private $typeAheadConfig;
@@ -32,12 +48,12 @@ class HabitatSearchBox
      */
     function __construct($pageURL, $searchName, $placeholderText="Search...") 
     {
-        $this->searchName = $searchName;
+        $this->searchID = $searchName;
         $this->placeholderText = $placeholderText;
         $this->pageURL = $pageURL;
         
         // Store the searchbox in an array of all created searchboxes
-        HabitatSearchBox::$searchBoxes[$this->searchName] = $this;
+        //HabitatSearchBox::$searchBoxes[$this->searchName] = $this;
     }
     
 
@@ -55,7 +71,7 @@ class HabitatSearchBox
         
         $this->bloodHoundEngines[$engineName]['engine'] = <<<EOT
             var %s = new Bloodhound({
-                datumTokenizer: function(data) { return Bloodhound.tokenizers.whitespace(data.value) },
+                datumTokenizer: function(data) { return Bloodhound.tokenizers.whitespace(data.value); },
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 limit: %s,
                 remote: {
@@ -68,6 +84,8 @@ class HabitatSearchBox
             });
                 
             %s.initialize();
+                
+
 EOT;
         // Add code to array of data sources
         $this->bloodHoundEngines[$engineName]['display_name'] = $displayName;
@@ -98,17 +116,19 @@ EOT;
         //TODO: Abstract out all of the hardcoded values to allow configuration
         //TODO: Create object for each search engine being inserted (loop through)
         $this->typeAheadConfig = <<<EOT
-            $( "%s" + " .typeahead").typeahead({
+$( "#%s" + " .typeahead").typeahead({
                 hint: %s,
                 highlight: %s,
                 minLength: %s
             },
                 %s
-            ).on('typeahead:selected', %s);        
+            ).on('typeahead:selected', %s);
+
+
 EOT;
 
         $this->typeAheadConfig = sprintf($this->typeAheadConfig, 
-                '', 
+                $this->searchID, 
                 $hint, 
                 $highlight, 
                 $minLength, 
@@ -157,7 +177,7 @@ EOT;
      */
     public function show()
     {
-        echo "<input id='$this->searchName' class='form-control typeahead' type='text' placeholder='$this->placeholderText'>";
+        echo "<div id='$this->searchID'><input class='form-control typeahead' type='text' placeholder='$this->placeholderText'></div>";
         
         return true;
     }
@@ -168,27 +188,23 @@ EOT;
     public function build()
     {
         $engines = "";
-        // TODO: Build array of search engines to be placed in the script
+
         foreach($this->bloodHoundEngines as $currEngine)
         {
             $engines .= $currEngine['engine'];
         }
         $scriptBlock = <<<EOT
-        <script type='text/javascript'>
-            $(function()
-            {
                 %s
                 
                 %s
-            });</script>
 EOT;
         
-        
-        printf($scriptBlock, $engines, $this->typeAheadConfig);
-        
+        $code = sprintf($scriptBlock, $engines, $this->typeAheadConfig);
+
+        array_push(HabitatSearchBox::$searchBoxes, $code);
+
         return true;
     }
-    
     
     /**
      * 
@@ -202,5 +218,22 @@ EOT;
         $this->datumFormatTemplate = sprintf('{value: result.%s, name: result.%s, type: result.type}', $value, $name);
         
         return $this;
+    }
+    
+    
+    
+    public static function buildAll()
+    {
+        $script =  "<script type='text/javascript'>$(function(){";
+       
+       foreach (HabitatSearchBox::$searchBoxes as $searchBox) 
+       {
+           $script .= $searchBox;
+       }
+
+       $script .= " });</script>";
+       
+       //file_put_contents('~/wide_open/text_large.txt', $script);
+       print($script);
     }
 }

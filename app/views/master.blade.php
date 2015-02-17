@@ -1,7 +1,11 @@
-<?php $PAGE_ROOT_URL = explode(Request::path(), Request::url())[0];
+<?php 
+
+$PAGE_ROOT_URL = explode(Request::path(), Request::url())[0];
 
 // Create the master search box located in the nav bar
-$masterSearch = new HabitatSearchBox($PAGE_ROOT_URL, "master", "Search..."); 
+$masterSearch = new HabitatSearchBox($PAGE_ROOT_URL, "master_search", "Search..."); 
+
+Session::put('page_url', $PAGE_ROOT_URL);
 
 /*
  *  Configure the search box
@@ -17,7 +21,8 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
     ->configureEngine('projectSearch', "search/searchProjects?projects=%QUERY%", 'Projects')
     ->configureEngine('familySearch', "search/searchFamilies?families=%QUERY%", 'Families')
     ->configureEngine('companySearch', "search/searchCompanies?companies=%QUERY%", 'Companies')
-    ->configureSettings();
+    ->configureSettings()
+    ->build();
 
 ?> 
 <!DOCTYPE html>
@@ -88,6 +93,6 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
     <footer class="container">
         <p>Copyright {{date("Y")}}</p>
     </footer>
-    <?php $masterSearch->build(); ?>
+    <?php HabitatSearchBox::buildAll(); ?>
     </body>
 </html>
