@@ -28,12 +28,14 @@ class DatabaseSeeder extends Seeder
                 $this->command->info('Contact table seeded!');
                 $this->call('CompanyTableSeeder');
                 $this->command->info('Company table seeded!');
-                $this->call('ProjectTableSeeder');
-                $this->command->info('Project table seeded!');
                 $this->call('VolunteerTableSeeder');
                 $this->command->info('Volunteer table seeded!');
                 $this->call('DonorTableSeeder');
                 $this->command->info('Donor table seeded!');
+                $this->call('FamilyTableSeeder');
+                $this->command->info('Family table seeded!');
+                $this->call('ProjectTableSeeder');
+                $this->command->info('Project table seeded!');
                 
                 DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 	}
