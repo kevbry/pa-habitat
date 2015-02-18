@@ -113,8 +113,11 @@ class ContactController extends \BaseController {
             // Add the contact as a company if specified
             if ($companyStatus)
             {
+                //Convert web form keys/values to match database keys/values
+                $companyData = Input::only('company_name');
+                $companyName['name'] = $companyData['company_name'];
                 // Store values from the company portion of contact form
-                $companyInfo = Input::only('company_name');
+                $companyInfo = $companyName;
                 
                 // Assign the contact's id
                 $companyInfo['contact_id'] = $id;

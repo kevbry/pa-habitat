@@ -11,5 +11,5 @@ interface VolunteerRepository
     public function getVolunteer($id);
     public function getAllVolunteers();
     public function saveVolunteer($volunteer);
-    public function orderBy($sortby, $order);
+    public function orderBy($sort, $order);
 }
