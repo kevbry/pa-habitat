@@ -1,12 +1,12 @@
 @extends('master')
 
 @section('title')
-Edit volunteer Hours for Project {{$id}}
+Edit volunteer Hours for Project {{$project->id}}
 @stop
 
 @section('content')
 
-<h1>Editing Volunteer Hours for {{$project->project_name}}</h1>
+<h1>Editing Project Hours for {{$project->name}}</h1>
 {{ Form::open(array('route'=> array('updateProjectHours'),'class'=>'form-horizontal')) }}
 {{Form::submit('Save All',array('class'=>'btn btn-primary','id'=>'submitEdit'))}}
 <br />
@@ -28,14 +28,15 @@ Edit volunteer Hours for Project {{$id}}
         @endif
     </thead>
         <tbody>
+                {{Form::hidden('proj_id', $project->id)}}
             @if (!empty($volunteerhours)) 
                 @foreach($volunteerhours as $volunteerhour)
-                <tr>
-                    {{Form::hidden('vol_id', $volunteer->id)}}
-                    {{Form::hidden('volunteer_id[]', $volunteer->id)}}
-                </tr>
                 <tr class="formrow">
                     <td>
+                        @foreach($volunteers as $volunteer)
+                            {{Form::hidden('volunteer_id[]', $volunteer->id)}}
+                        @endforeach
+                                                        
                         <select name="volunteer_id[]" class="form-control">
                             @if (!empty($volunteers))
                                 @foreach($volunteers as $volunteer)
@@ -53,7 +54,7 @@ Edit volunteer Hours for Project {{$id}}
                             {{Form::select('paid_hours[]', array('0' => 'Volunteer', '1' => 'Paid'),'1', array('min'=>0,'class'=>'form-control'));}}
                         @endif
                     </td>
-                        <td>{{$volunteerhour->project->project_name}}</td>
+                        <td>{{$volunteerhour->project->name}}</td>
                     <td>
                         <select name="family_id[]" class="form-control">
                             <option value="0" selected>--</option>
@@ -76,7 +77,7 @@ Edit volunteer Hours for Project {{$id}}
         </tbody>
 </table>
 </div>
-{{ HTML::linkAction('ContactController@show','Back To Volunteer', array($volunteer->id)) }}
-{{Form::hidden('pageType','volunteer')}}
+{{ HTML::linkAction('ProjectController@show','Back To Project', array($project->id))}}
+{{Form::hidden('pageType','project')}}
 {{Form::close()}}
 @stop
