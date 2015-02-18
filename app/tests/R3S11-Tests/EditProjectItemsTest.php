@@ -61,14 +61,15 @@ class EditProjectItemsTest extends TestCase
                 ->andThrow(new Exception());
     }
     
-     public function testIndexForVolunteer()
+     public function testIndexForProject()
     {
         $this->mockedProjectItemsRepo
-                ->shouldReceive('getItemsForProject')->once()->with(1);
+                ->shouldReceive('getItemsForProject')->once()->with(7);
         
-        $this->app->instance('app\repositories\ProjectItemRepository', $this->mockedProjectItemRepo);
+        $this->app->instance('app\repositories\ProjectItemRepository', $this->mockedProjectItemsRepo);
         
-        $this->call('GET','/project/1/items');
+        $this->call('GET','project/7/items');
+        //$response = $this->route("GET", "viewItems", 1);
         
         $this->assertResponseOk();
         
