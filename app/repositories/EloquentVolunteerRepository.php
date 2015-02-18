@@ -20,11 +20,11 @@ class EloquentVolunteerRepository implements VolunteerRepository {
         $volunteer->save();
     }
 
-    public function orderBy($sortby, $order) {
+    public function orderBy($sort, $order) {
         
         $order = ($order == 'a' ? 'asc' : 'desc');
 
-        switch ($sortby) {
+        switch ($sort) {
             case 'l':
                 $sortby = 'last_name';
                 break;

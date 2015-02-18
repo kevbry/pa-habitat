@@ -22,8 +22,6 @@ class VolunteerHoursTest extends TestCase
         $this->app->instance('app\controllers\VolunteerHoursController', $this->mockedVolunteerHoursController);
         
     }
-    
-    
         
     /**
      * Test that the controller can sucessfully add hours to the database
@@ -72,9 +70,6 @@ class VolunteerHoursTest extends TestCase
         $this->call('GET','volunteerhours/volunteer/1');
         
         $this->assertResponseOk();
-        
     }
     
 }
-
-

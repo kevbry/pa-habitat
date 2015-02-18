@@ -66,7 +66,7 @@ class ProjectController extends \BaseController {
             //Retrieve Project information from user
             
             $projectInput['build_number'] = Input::get('build_number');
-            $projectInput['project_name'] = Input::get('project_name');
+            $projectInput['name'] = Input::get('name');
             $projectInput['street_number'] = Input::get('street_number');
             $projectInput['postal_code'] = Input::get('postal_code');
             $projectInput['city'] = Input::get('city');
@@ -77,22 +77,20 @@ class ProjectController extends \BaseController {
             $projectInput['building_permit_date'] = Input::get('building_permit_date');
             $projectInput['building_permit_number'] = Input::get('building_permit_number');
             $projectInput['mortgage_date'] = Input::get('mortgage_date');
+            $projectInput['blueprint_plan_number'] = Input::get('blueprint_plan_number');
+            $projectInput['blueprint_designer'] = Input::get('blueprint_designer');
              
             if(Input::get('family_id') > 0)
             {
                 $projectInput['family_id'] = Input::get('family_id');
             }
             
-            if(Input::get('blueprint_id') > 0)
-            {
-                $projectInput['blueprint_id'] = Input::get('blueprint_id');
-            }
             
             //Assign returned value of a project id created to a variable.
             $projectID = $this->createProjectWith($projectInput);
             
             // Store values from the contact form
-//            $projectValues = Input::only('project_name');
+//            $projectValues = Input::only('name');
 //            
             // Create a new contact object to store in the database
             //$project = new Project($projectValues);

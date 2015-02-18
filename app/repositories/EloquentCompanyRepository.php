@@ -21,7 +21,7 @@ class EloquentCompanyRepository  implements CompanyRepository
     
     public function  getAllCompanies()
     {
-        return \Company::orderBy('company_name','asc')->paginate(20);        
+        return \Company::orderBy('name','asc')->paginate(20);        
     }
     
     public function saveCompany($company)
@@ -30,8 +30,16 @@ class EloquentCompanyRepository  implements CompanyRepository
     }
     
     
-      public function orderBy($sortby,$order)
+      public function orderBy($sort,$order)
       {
-          
+            $order = ($order == 'a' ? 'asc' : 'desc');
+
+        switch ($sort) {
+            case 'n':
+                $sortby = 'name';
+                break;
+        }
+
+        return \Company::orderBy($sortby, $order)->paginate(20);
       }
 }

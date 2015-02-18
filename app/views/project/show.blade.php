@@ -10,7 +10,7 @@ Project Details
 {{ HTML::linkRoute('projHoursAdd', 'Add Hours', array($project->id), array('class' => 'btn btn-primary')) }}
 {{ HTML::linkRoute('projectReport', 'Generate Hours Report', array($project->id), array('class' => 'btn btn-primary')) }}
 
-<h2>{{ $project->project_name }}</h2>
+<h2>{{ $project->name }}</h2>
 
  {{ Form::open(array('class'=>'form-horizontal')) }}
 <section class="generalInfo col-md-7">
@@ -78,14 +78,14 @@ Project Details
     
     </div>
         <div class="form-group">
-        {{ Form::label('designer', 'Blueprint Designer: ',array('class'=>'col-sm-3')) }}
-        <div class="col-sm-7">
+        {{ Form::label('blueprint_designer', 'Blueprint Designer: ',array('class'=>'col-sm-3')) }}
+        <div class="col-sm-7">        {{ Form::text('blueprint_designer',$project->blueprint_designer,array('class'=>'form-control')) }}
         {{ Form::text('designer',$project->designer,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
     </div>
         <div class="form-group">
-        {{ Form::label('plan_number', 'Blueprint Plan Number: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('blueprint_plan_number', 'Blueprint Plan Number: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::text('plan_number',$project->plan_number,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
@@ -143,6 +143,7 @@ Project Details
         </table>
          {{ HTML::linkRoute('viewItems', 'View Item Details', array($project->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('projItemsAdd', 'Add Items', array($project->id), array('class' => 'btn btn-primary')) }}
+         {{ HTML::linkRoute('editFormForItems', 'Edit Items', array($project->id), array('class' => 'btn btn-primary')) }}
     </div> 
 </section>
  
