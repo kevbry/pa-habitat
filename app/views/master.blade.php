@@ -3,7 +3,7 @@
 $PAGE_ROOT_URL = explode(Request::path(), Request::url())[0];
 
 // Create the master search box located in the nav bar
-$masterSearch = new HabitatSearchBox($PAGE_ROOT_URL, "master_search", "Search..."); 
+$masterSearch = new HabitatSearchBox($PAGE_ROOT_URL, "master-search", "Search..."); 
 
 Session::put('page_url', $PAGE_ROOT_URL);
 

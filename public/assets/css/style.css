@@ -78,9 +78,12 @@ footer p {
 }
 
 span.twitter-typeahead{
-    width: 140%;
+    width: 100%;
 }
 
+#master-search {
+    width: 140%;
+}
 
 .nav-search {
     padding-top: 7px;

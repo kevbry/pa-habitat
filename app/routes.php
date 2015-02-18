@@ -50,3 +50,5 @@ Route::get('search/searchVolunteers', 'SearchAPIController@searchVolunteers');
 Route::get('search/searchProjects', 'SearchAPIController@searchProjects');
 Route::get('search/searchCompanies', 'SearchAPIController@searchCompanies');
 Route::get('search/searchFamilies', 'SearchAPIController@searchFamilies');
+
+

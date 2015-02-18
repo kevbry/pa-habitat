@@ -1,9 +1,4 @@
 <?php
-// TODO - Dynamic URLs                                                  -- Done
-// TODO - Stack multiple engines on one search
-// TODO - Remove calls from Build, put on page                          -- Done
-// TODO - Make having an id not break things                            -- Done?
-
 
 /**
  * PHP wrapper class for coding a twitter/typeahead search box.  This class
@@ -19,13 +14,22 @@ class HabitatSearchBox
             
     function(obj, data)
         {
-            if ($('#primary_1_val').length == 0)
+            postKey = "%s";
+            
+            inputID = postKey + "_val";
+            
+            if ($('#' + inputID).length == 0)
             {
-                $("'" + obj.currentTarget.className + "'").append("<input id='primary_1_val' type='hidden'");
+                $('<input>')
+                    .attr('id', inputID)
+                    .attr('type','hidden')
+                    .attr('name', postKey)
+                    .attr('value', data.value)
+                    .appendTo('form');
             }
             else
             {
-                console.log("Modify Existing");
+                $('#' + inputID).attr('value', data.value);
             }
         }
             
