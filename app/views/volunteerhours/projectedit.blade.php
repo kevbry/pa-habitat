@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-Edit volunteer Hours for Project {{$project->id}}
+Edit Volunteer Hours for Project {{$project->id}}
 @stop
 
 @section('content')
@@ -22,13 +22,13 @@ Edit volunteer Hours for Project {{$project->id}}
 <table class="table">
     <thead style="position: inherit">
         @if (count($volunteerhours) == 0)
-            <tr><h3>No hours found for {{$project->project_name}}</h3></tr>
+            <tr><h3>No hours found for {{$project->name}}</h3></tr>
         @else
-            <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project name</th><th>Family</th></tr>
+        <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project name<span id="namehelp" title="help">        ?</span></th><th>Family</th></tr>
         @endif
     </thead>
         <tbody>
-                {{Form::hidden('proj_id', $project->id)}}
+            {{Form::hidden('proj_id', $project->id)}}
             @if (!empty($volunteerhours)) 
                 @foreach($volunteerhours as $volunteerhour)
                 <tr class="formrow">
@@ -54,7 +54,19 @@ Edit volunteer Hours for Project {{$project->id}}
                             {{Form::select('paid_hours[]', array('0' => 'Volunteer', '1' => 'Paid'),'1', array('min'=>0,'class'=>'form-control'));}}
                         @endif
                     </td>
-                        <td>{{$volunteerhour->project->name}}</td>
+                    <td>
+                        <select name="project_id[]" class="form-control">
+                            @if(!empty($projects))
+                                @foreach($projects as $projectName)
+                                    @if($projectName->id == $volunteerhour->project_id)
+                                        <option value="{{$projectName->id}}" selected='selected'>{{$projectName->name}}</option>
+                                    @else
+                                        <option value="{{$projectName->id}}">{{$projectName->name}}</option>
+                                    @endif
+                                @endforeach
+                            @endif
+                        </select>
+                    </td>
                     <td>
                         <select name="family_id[]" class="form-control">
                             <option value="0" selected>--</option>

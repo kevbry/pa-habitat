@@ -253,20 +253,22 @@ $type=Input::get('pageType');
         $volunteers = $this->volunteerRepo->getAllVolunteers();
         $project = $this->projectRepo->getProject($projectId);
         $volunteerHours = $this->volunteerHrsRepo->getHoursForProject($projectId);
+        $projects = $this->projectRepo->getAllProjectsNonPaginated();
         //MAKE NON-PAGINATEd, REMEMBER TO REMOVE LINKS AT BOTTOM OF THE VIEW.
        
         $families = $this->familyRepo->getAllFamilies();
        
         return View::make('volunteerhours.projectedit', array('id' => $projectId, 'volunteers' => $volunteers,
-                    'project' => $project, 'volunteerhours' => $volunteerHours,
+                    'project' => $project, 'projects' => $projects, 'volunteerhours' => $volunteerHours,
                     'families' => $families));
     }
-     public function updateProjectHours()
+    
+       public function updateProjectHours()
     {
         $infoArray = array();
         $hoursInfo = array();
         for ($i = 0; $i < count(Input::get('row_id')); $i++) {
-            $hoursInfo['id'] = Input::get('row_id')[$i];
+            $hoursInfo['name'] = Input::get('volunteer_name')[$i];
             $hoursInfo['volunteer_id'] = Input::get('volunteer_id')[$i];
             $hoursInfo['hours'] = Input::get('hours')[$i];
             $hoursInfo['date_of_contribution'] = Input::get('date_of_contribution')[$i];
@@ -284,49 +286,19 @@ $type=Input::get('pageType');
                 throw new Exception('No Hours info inserted.');
             }
             $infoArray[$i] = $hoursInfo;
-        }
-        $volID = Input::get('vol_id');
-        $id = $volID;
-        
-        if(!empty($infoArray))
-        {
-            for($i = 0; $i < count($infoArray); $i++)
-            {
-                $this->updateHoursWith($infoArray[$i]);
-            }
-        }
-        
-        $hourArray = $this->volunteerHrsRepo->getHoursForVolunteerNonPaginated($id);
-
-        foreach($hourArray as $hourEntry)
-        {
-            $bFound = false;
-            if(!empty($infoArray))
-            {
-                foreach($infoArray as $formEntry)
-                {
-                    if( strval($hourEntry['id']) == $formEntry['id'] )
-                    {
-                        $bFound = true;
-                    }
-                }
-            }
             
-            if(!$bFound)
-            {
-                $affectedRows = VolunteerHours::where('id','=',$hourEntry['id'])->delete();
-            }
-
+            $this->updateHoursWith($hoursInfo);
         }
 
-        return Redirect::action('VolunteerHoursController@indexForContact', $id);
+        return Redirect::action('VolunteerHoursController@indexForProject', $projID);
         
     }
+    
     public function projectUpdateHoursWith($hoursInfo)
     {
         $counter = 0;
         $fieldNames = array(
-            'id',
+            'name',
             'volunteer_id',
             'hours',
             'date_of_contribution',
