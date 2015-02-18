@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 /**
@@ -6,23 +7,43 @@ namespace App\Repositories;
  *
  * @author cst220
  */
-class EloquentFamilyRepository implements FamilyRepository
-{
-    public function getFamily($id)
-    {
+class EloquentFamilyRepository implements FamilyRepository {
+
+    public function getFamily($id) {
         return \Family::find($id);
     }
-    
-    public function getAllFamilies()
-    {
+
+    public function getAllFamilies() {
         return \Family::paginate(20);
     }
     
-    public function saveFamily($family)
+    public function getAllFamiliesForSeed()
     {
+        return \Family::lists('id');      
+    }
+
+    public function saveFamily($family) {
         $family->save();
     }
     
+
+    public function orderBy($sort, $order) 
+	{
+
+        $order = ($order == 'a' ? 'asc' : 'desc');
+
+        switch ($sort) {
+            case 'f':
+                $sortby = 'name';
+                break;
+            case 's':
+                $sortby = 'status';
+                break;
+        }
+
+        return \Family::orderBy($sortby, $order)->paginate(20);
+    }
+
     public function getFamilySearchInfo($filter)
     {
         $searchTerm = "%" . $filter . "%";
@@ -32,4 +53,5 @@ class EloquentFamilyRepository implements FamilyRepository
                 ->where('name', 'LIKE', $searchTerm) 
                 ->get();
     }
+
 }

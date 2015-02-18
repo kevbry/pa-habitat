@@ -9,4 +9,5 @@ namespace App\Repositories;
 interface ProjectItemRepository {
     public function getItemsForProject($id);
     public function saveProjectItem($projectItem);
+    public function getItemsForProjectNonPaginated($id);
 }

@@ -7,8 +7,8 @@ namespace App\Repositories;
  *
  * @author cst222
  */
-interface VolunteerRepository {
-
+interface VolunteerRepository 
+{
     public function getVolunteer($id);
 
     public function getAllVolunteers();

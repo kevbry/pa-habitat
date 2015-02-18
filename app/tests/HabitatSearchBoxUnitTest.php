@@ -48,8 +48,9 @@ class HabitatSearchBoxUnitTest extends TestCase
         $this->assertNotNull($setFunction);
         
         
+
     }
-    
+    /*
     public function testConfigureSettings()
     {
         $hint = "true";
@@ -80,7 +81,7 @@ class HabitatSearchBoxUnitTest extends TestCase
         $success = $this->testSearchBox->show();
         $this->assertTrue($success);
     }
-    
+    */
     public function testBuild()
     {
         $this->testConfigureEngine();

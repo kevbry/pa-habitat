@@ -81,7 +81,7 @@ All Projects
     </thead>
     @foreach($projects as $project)
     <tr>
-        <td>{{$project->project_name}}</td>
+        <td>{{$project->name}}</td>
         <td>{{$project->street_number}}</td>
         <td>{{$project->city}}</td>
         <td>{{$project->project_coordinator}}</td>
