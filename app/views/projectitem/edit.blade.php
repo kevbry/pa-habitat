@@ -6,7 +6,7 @@ Edit Items for Project {{$project->project_name}}
 
 @section('content')
 
-<h1>Edit Items for {{$project->project_name}}</h1>
+<h1>Edit Items for {{$project->name}}</h1>
 {{ Form::open(array('route'=>'updateFormItems','class'=>'form-horizontal')) }}
 {{ Form::submit('Save Changes', array('class'=>'btn btn-primary')) }}
 <table class="table">

@@ -143,6 +143,7 @@ Project Details
         </table>
          {{ HTML::linkRoute('viewItems', 'View Item Details', array($project->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('projItemsAdd', 'Add Items', array($project->id), array('class' => 'btn btn-primary')) }}
+         {{ HTML::linkRoute('editFormForItems', 'Edit Items', array($project->id), array('class' => 'btn btn-primary')) }}
     </div> 
 </section>
  
@@ -178,7 +179,6 @@ Project Details
         </table>
          {{ HTML::linkRoute('projInspectionsView', 'View Inspection Details', array($project->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('projInspectionsAdd', 'Add Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
-         {{ HTML::linkRoute('editFormForItems', 'Edit Items', array($project->id), array('class' => 'btn btn-primary')) }}
     </div>
     
 </section>

@@ -139,14 +139,13 @@ class ContactUnitTest extends TestCase
         $this->testController->storeContactWith($this->contactInput);
     }
     
-    /**
+    /*
      * Test that the helper method passes values into the repository methods
      */
     public function testStoreContactWithReceivesContactInfo()
     {
         // Assemble
         $contactInput = $this->contactInput;
-        
         $this->mockedContactRepo->shouldReceive('saveContact')
                 ->once()
                 ->with(Mockery::on(
@@ -163,13 +162,14 @@ class ContactUnitTest extends TestCase
         $this->testController->storeContactWith($this->contactInput);
     }
     
-    /**
-     * Purpose: Test that the store method redirects to the show page
+    
+     /* Purpose: Test that the store method redirects to the show page
      */
     public function OFF_testStoreRedirect()
     {
 
         $this->mockedContactRepo->shouldReceive('saveContact')->once()->with($this->testContact);
+        $this->mockedContactRepo->shouldReceive('getAllContacts')->once();
 
         // Act    
         $this->call("GET", "contact/store");
@@ -178,7 +178,7 @@ class ContactUnitTest extends TestCase
         $this->assertRedirectedToRoute('contact.show');
     }
   
-    /**
+    /*
      * Test clean up
      */
     public function tearDown()
