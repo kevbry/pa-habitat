@@ -140,23 +140,79 @@ class ProjectController extends \BaseController {
 	}
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id) {
-        
-        
-        
-        
-        
-        
-    }
+        /**
+         * Update the specified resource in storage.
+         *
+         * @param  int  $id
+         * @return Response
+         */
+        public function update($id) 
+        {
+            // Store values from the contact form
+            $projectInfo = Input::only(
+                        'build_number',
+                        'family',
+                        'street_number',
+                        'city', 
+                        'province', 
+                        'postal_code', 
+                        'start_date', 
+                        'end_date', 
+                        'designer', 
+                        'plan_number', 
+                        'building_permit_number',
+                        'building_permit_date',
+                        'mortgage_date',
+                        'comments');
+            // Array of field names
+            $fieldNames = array(
+                        'build_number',
+                        'family',
+                        'street_number',
+                        'city', 
+                        'province', 
+                        'postal_code', 
+                        'start_date', 
+                        'end_date', 
+                        'designer', 
+                        'plan_number', 
+                        'building_permit_number',
+                        'building_permit_date',
+                        'mortgage_date',
+                        'comments');
 
+            //Used to count the field number based on the number of time through
+            //the for each loop
+            $counter = 0;
+            //Creating an associate array for the update
+            $fieldUpdateValues = array();
 
-        
+            //added key value pairs to the array
+            foreach($projectInfo as $fieldValue)
+            {
+                $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
+                $counter++;
+            }
+
+            //updating the record in the contact table for the contact with the id passed in
+
+            $affectedRows = Project::where('id','=',$id)->update($fieldUpdateValues);
+
+            //var_dump($affectedRows);
+            //use affected rows to dertirming if it was a success or not
+            if($affectedRows > 0)
+            {
+                // Redirect to view the updated contact info
+                $redirectVariable = Redirect::action('ProjectController@show', $id);
+            }
+            else
+            {
+                //Redirect back to the edit page with an error message
+                $redirectVariable = Redirect::action('ProjectController@edit', $id)->withErrors(['Error', 'The Message']);
+            }
+            // return to redirect
+            return $redirectVariable;
+         }
         /**
          * 
          * @param type $data

@@ -5,17 +5,11 @@ Project Details
 @stop
 
 @section('content')
-<h1>Project details</h1>
-{{ HTML::linkRoute('projHoursRoute', 'View Hours', array($project->id), array('class' => 'btn btn-primary')) }}
-{{ HTML::linkRoute('projHoursAdd', 'Add Hours', array($project->id), array('class' => 'btn btn-primary')) }}
-{{ HTML::linkRoute('projectReport', 'Generate Hours Report', array($project->id), array('class' => 'btn btn-primary')) }}
+<h1>{{ $project->name }}<a href="{{$project->id}}/edit" class="btn btn-primary">Edit Details</a></h1>
 
-<h2>{{ $project->name }}</h2>
-
- {{ Form::open(array('class'=>'form-horizontal')) }}
+{{ Form::open(array('class'=>'form-horizontal')) }}
 <section class="generalInfo col-md-7">
-    <div class="form-group">
-    </div>
+    <h3>Project Details</h3>
     <div class="form-group">
         {{ Form::label('build_number', 'Build Number: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
@@ -54,15 +48,6 @@ Project Details
         {{ Form::text('postal_code',$project->postal_code,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
-        
-    </div>
-        <div class="form-group">
-        {{ Form::label('role', 'Project Coordinator: ',array('class'=>'col-sm-3')) }}
-        <div class="col-sm-7">
-        {{ Form::text('role',$project->role,array('class'=>'form-control','readonly'=>'readonly')) }}
-        </div>
-    </div>
-
     <div class="form-group">
         {{ Form::label('start_date', 'Start Date: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
@@ -114,11 +99,19 @@ Project Details
         {{ Form::textarea('comments',$project->comments,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
-
 </section>
- 
-<section class="col-md-5">   
-        <div class="form-group row">
+
+<section class="col-md-5"> 
+    <div class="form-group">
+        <h3>Additional Details</h3>
+        {{ Form::label('role', 'Project Coordinator: ') }}
+        {{ Form::text('role',$project->role,array('class'=>'form-control','readonly'=>'readonly')) }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('family', 'Family: ') }}
+        {{ Form::text('family',null,array('class'=>'form-control','readonly'=>'readonly')) }}
+    </div>
+    <div class="form-group row">
         {{ Form::label('items', 'Project Items:') }}
         
         <!-- Items Table to go here -->
@@ -180,5 +173,8 @@ Project Details
          {{ HTML::linkRoute('projInspectionsAdd', 'Add Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
     </div>
     
+    {{ HTML::linkRoute('projHoursRoute', 'View Hours', array($project->id), array('class' => 'btn btn-primary')) }}
+    {{ HTML::linkRoute('projHoursAdd', 'Add Hours', array($project->id), array('class' => 'btn btn-primary')) }}
+    {{ HTML::linkRoute('projectReport', 'Generate Hours Report', array($project->id), array('class' => 'btn btn-primary')) }}
 </section>
 @stop            
