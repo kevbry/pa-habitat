@@ -232,8 +232,10 @@ class ContactController extends \BaseController {
                         'postal_code', 
                         'country', 
                         'comments');
+            
             $volunteerPassed = Input::has('is_volunteer');
             $volunteerInfo = [];
+            
             if($volunteerPassed)
             {
                 $volunteerInfo['active_status'] = Input::has('active_status') ? 1 : 0;

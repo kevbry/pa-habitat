@@ -17,7 +17,6 @@ class Project extends \Eloquent
 	 */
         protected $fillable = array('name',
                                     'family_id',
-                                    'blueprint_id',
                                     'build_number',            
                                     'street_number',
                                     'postal_code',
@@ -28,7 +27,9 @@ class Project extends \Eloquent
                                     'comments',
                                     'building_permit_number',
                                     'building_permit_date',
-                                    'mortgage_date');
+                                    'mortgage_date',
+                                    'blueprint_plan_number',
+                                    'blueprint_designer');
         
         /**
          * 
@@ -48,11 +49,4 @@ class Project extends \Eloquent
             return $this->belongsTo('Family', 'family_id', 'id');
         }
         
-        /**
-         * @return type Response
-         */
-        public function blueprint()       
-        {
-            return $this->hasOne('Blueprint','id', 'blueprint_id');
-        }
 }
