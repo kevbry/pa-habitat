@@ -46,6 +46,8 @@ Route::post('project/{project}/inspections/create', array('as'=>'storeInspection
 Route::get('project/{project}/items',array('as'=>'viewItems','uses'=>'ProjectItemController@index'));
 Route::get('project/{project}/items/create',array('as'=>'projItemsAdd','uses'=>'ProjectItemController@create'));
 Route::post('project/{project}/items/create',array('as'=>'storeItems','uses'=>'ProjectItemController@store'));
+Route::get('project/{project}/items/edit',array('as'=>'editFormForItems','uses'=>'ProjectItemController@edit'));
+Route::post('project/{project}/items/edit',array('as'=>'updateFormItems','uses'=>'ProjectItemController@update'));
 
 //Report routes
 Route::get('volunteerhours/report/{volunteer}', array('as'=>'volunteerReport', 'uses'=>'VolunteerHoursController@viewHoursReport'));
@@ -53,4 +55,10 @@ Route::get('projecthours/report/{volunteer}', array('as'=>'projectReport', 'uses
 
 
 //Search routes
-Route::resource('search/searchContacts', 'SearchAPIController@searchContacts');
+Route::get('search/searchContacts', 'SearchAPIController@searchContacts');
+Route::get('search/searchVolunteers', 'SearchAPIController@searchVolunteers');
+Route::get('search/searchProjects', 'SearchAPIController@searchProjects');
+Route::get('search/searchCompanies', 'SearchAPIController@searchCompanies');
+Route::get('search/searchFamilies', 'SearchAPIController@searchFamilies');
+
+

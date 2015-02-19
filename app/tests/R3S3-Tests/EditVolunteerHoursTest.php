@@ -1,6 +1,6 @@
 <?php
  
-class VolunteerHoursTest extends TestCase 
+class EditVolunteerHoursTest extends TestCase 
 {
     protected $mockedVolunteerHoursRepo;
     protected $mockedVolunteerHoursController;
@@ -21,10 +21,10 @@ class VolunteerHoursTest extends TestCase
         $this->mockedVolunteerHoursController = Mockery::mock('app\controllers\VolunteerHoursController');
         $this->app->instance('app\controllers\VolunteerHoursController', $this->mockedVolunteerHoursController);
         
-    }
+    }    
         
     /**
-     * Test that the controller can sucessfully add hours to the database
+     * Test that the controller can successfully edit hours in the database
      */
     public function testStoreSingleEntrySuccess()
     {
@@ -59,7 +59,7 @@ class VolunteerHoursTest extends TestCase
                 ->with($this->volunteerHoursInput)
                 ->andThrow(new Exception());
     }
-
+    
      public function testIndexForVolunteer()
     {
         $this->mockedVolunteerHoursRepo
@@ -67,9 +67,15 @@ class VolunteerHoursTest extends TestCase
         
         $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
         
-        $this->call('GET','volunteerhours/volunteer/1');
+        $this->call('GET','volunteerhours/volunteerEdit/1');
         
         $this->assertResponseOk();
+        
     }
     
+    
+
+    
 }
+
+

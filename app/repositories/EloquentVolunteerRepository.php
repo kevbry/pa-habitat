@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Repositories;
 
 class EloquentVolunteerRepository implements VolunteerRepository {
@@ -11,6 +10,11 @@ class EloquentVolunteerRepository implements VolunteerRepository {
     public function getAllVolunteers() {
         return \Volunteer::join('Contact', 'Volunteer.id', '=', 'Contact.id')->orderBy('first_name', 'asc')->paginate(20);
     }
+    
+    public function getAllVolunteersForSeed()
+    {
+        return \Volunteer::lists('id');      
+    }
 
     /**
      * Purpose: Save contact information to the database
@@ -18,6 +22,19 @@ class EloquentVolunteerRepository implements VolunteerRepository {
      */
     public function saveVolunteer($volunteer) {
         $volunteer->save();
+    }
+    
+    public function getVolunteerSearchInfo($filter) {
+        $searchTerm = "%" . $filter . "%";
+
+      
+        return \DB::table("Volunteer")
+                ->selectRaw("habitat_Volunteer.id, CONCAT(first_name, ' ', last_name) AS name, 'contact' AS type")
+                ->join('Contact', 'Contact.id', '=', 'Volunteer.id')
+                ->where('first_name', 'LIKE', $searchTerm)
+                ->orWhere('last_name', 'LIKE', $searchTerm)
+                ->get();
+ 
     }
 
     public function orderBy($sort, $order) {

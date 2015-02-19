@@ -93,7 +93,11 @@ class VolunteerHoursController extends \BaseController {
             if (Input::get('family_id')[$i] != 0) {
                 $hoursInfo['family_id'] = Input::get('family_id')[$i];
             }
-
+            else
+            {
+                $hoursInfo['family_id'] = null;
+            }
+            
             if (empty($hoursInfo)) {
                 throw new Exception('No Hours info inserted.');
             }
