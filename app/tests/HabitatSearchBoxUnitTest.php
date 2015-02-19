@@ -19,7 +19,6 @@ class HabitatSearchBoxUnitTest extends TestCase
     {
         parent::setUp();
         $this->testSearchBox = new HabitatSearchBox("testsearch", "Search...");
-        
     }
     
     public function testSearchFor()
@@ -46,7 +45,7 @@ class HabitatSearchBoxUnitTest extends TestCase
         $success = $this->testSearchBox->show();
         $this->assertTrue($success);
     }
-}
+
     public function testConfigureEngine()
     {
         $engineName = "contactSearch";
@@ -55,7 +54,7 @@ class HabitatSearchBoxUnitTest extends TestCase
         $success = $this->testSearchBox->configureEngine($engineName, $dataURL);
         $this->assertTrue($success);
     }
-    
+    /*
     public function testConfigureSettings()
     {
         $hint = "true";
@@ -71,7 +70,7 @@ class HabitatSearchBoxUnitTest extends TestCase
         $success = $this->testSearchBox->show();
         $this->assertTrue($success);
     }
-    
+    */
     public function testBuild()
     {
         $success = $this->testSearchBox->build();

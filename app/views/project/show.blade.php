@@ -26,7 +26,7 @@ Project Details
         <div class="form-group">
         {{ Form::label('family', 'Family: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('family',null,array('class'=>'form-control')) }}
+        {{ Form::text('family',$project->family_id,array('class'=>'form-control')) }}
         </div>
     </div>
         
@@ -143,6 +143,7 @@ Project Details
         </table>
          {{ HTML::linkRoute('viewItems', 'View Item Details', array($project->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('projItemsAdd', 'Add Items', array($project->id), array('class' => 'btn btn-primary')) }}
+         {{ HTML::linkRoute('editFormForItems', 'Edit Items', array($project->id), array('class' => 'btn btn-primary')) }}
     </div> 
 </section>
  

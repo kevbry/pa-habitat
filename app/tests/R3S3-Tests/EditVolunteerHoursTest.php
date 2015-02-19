@@ -21,25 +21,10 @@ class EditVolunteerHoursTest extends TestCase
         $this->mockedVolunteerHoursController = Mockery::mock('app\controllers\VolunteerHoursController');
         $this->app->instance('app\controllers\VolunteerHoursController', $this->mockedVolunteerHoursController);
         
-    }
-    
-    /**
-     * Test that the controller creates and displays the view for adding hours
-     */
-//    public function testCreate()
-//    {
-//        $response = $this->action('GET', 'VolunteerHoursController@indexForProject');
-//        $crawler = $this->client->request('GET', 'indexForProject');
-//        
-//        
-//        $this->assertContains('Volunteer Hours for',$response->getContent());
-//        $this->assertTrue($this->client->getResponse()->isOk());
-//        $this->assertCount(1, $crawler->filter('th:contains("Hours")'));
-//    }
-    
+    }    
         
     /**
-     * Test that the controller can sucessfully add hours to the database
+     * Test that the controller can successfully edit hours in the database
      */
     public function testStoreSingleEntrySuccess()
     {
