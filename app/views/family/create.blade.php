@@ -26,31 +26,31 @@ Create a Family
 
         $primary_contact_1_search->configureOnClickEvent(sprintf(HabitatSearchBox::SELECT_ID_ON_CLICK, 'primary_contact_1'))
             ->configureDatumFormat('id', 'name')
-            ->configureEngine('volunteerSearch1', "search/searchVolunteers?volunteers=%QUERY%", 'Volunteers')
+            ->configureEngine('volunteerSearch1', HabitatSearchBox::SEARCH_VOLUNTEER_URL, 'Volunteers')
             ->configureSettings()
             ->build();
         
         $primary_contact_2_search->configureOnClickEvent(sprintf(HabitatSearchBox::SELECT_ID_ON_CLICK, 'primary_contact_2'))
             ->configureDatumFormat('id', 'name')
-            ->configureEngine('volunteerSearch2', "search/searchVolunteers?volunteers=%QUERY%", 'Volunteers')
+            ->configureEngine('volunteerSearch2', HabitatSearchBox::SEARCH_VOLUNTEER_URL, 'Volunteers')
             ->configureSettings()
             ->build();
         
         $secondary_contact_1_search->configureOnClickEvent(sprintf(HabitatSearchBox::SELECT_ID_ON_CLICK, 'secondary_contact_1'))
             ->configureDatumFormat('id', 'name')
-            ->configureEngine('volunteerSearch3', "search/searchVolunteers?volunteers=%QUERY%", 'Volunteers')
+            ->configureEngine('volunteerSearch3', HabitatSearchBox::SEARCH_VOLUNTEER_URL, 'Volunteers')
             ->configureSettings()
             ->build();
         
         $secondary_contact_2_search->configureOnClickEvent(sprintf(HabitatSearchBox::SELECT_ID_ON_CLICK, 'secondary_contact_2'))
             ->configureDatumFormat('id', 'name')
-            ->configureEngine('volunteerSearch4', "search/searchVolunteers?volunteers=%QUERY%", 'Volunteers')
+            ->configureEngine('volunteerSearch4', HabitatSearchBox::SEARCH_VOLUNTEER_URL, 'Volunteers')
             ->configureSettings()
             ->build();
         
         $secondary_contact_3_search->configureOnClickEvent(sprintf(HabitatSearchBox::SELECT_ID_ON_CLICK, 'secondary_contact_3'))
             ->configureDatumFormat('id', 'name')
-            ->configureEngine('volunteerSearch5', "search/searchVolunteers?volunteers=%QUERY%", 'Volunteers')
+            ->configureEngine('volunteerSearch5', HabitatSearchBox::SEARCH_VOLUNTEER_URL, 'Volunteers')
             ->configureSettings()
             ->build();        
     ?>

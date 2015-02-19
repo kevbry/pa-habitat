@@ -16,11 +16,11 @@ Session::put('page_url', $PAGE_ROOT_URL);
  */
 $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_CLICK, $PAGE_ROOT_URL))
     ->configureDatumFormat('id', 'name')
-    ->configureEngine('contactSearch', "search/searchContacts?contacts=%QUERY%", 'Contacts')
-    ->configureEngine('volunteerSearch', "search/searchVolunteers?volunteers=%QUERY%", 'Volunteers')
-    ->configureEngine('projectSearch', "search/searchProjects?projects=%QUERY%", 'Projects')
-    ->configureEngine('familySearch', "search/searchFamilies?families=%QUERY%", 'Families')
-    ->configureEngine('companySearch', "search/searchCompanies?companies=%QUERY%", 'Companies')
+    ->configureEngine('contactSearch', HabitatSearchBox::SEARCH_CONTACT_URL, 'Contacts')
+    ->configureEngine('volunteerSearch', HabitatSearchBox::SEARCH_VOLUNTEER_URL, 'Volunteers')
+    ->configureEngine('projectSearch', HabitatSearchBox::SEARCH_PROJECT_URL, 'Projects')
+    ->configureEngine('familySearch', HabitatSearchBox::SEARCH_FAMILY_URL, 'Families')
+    ->configureEngine('companySearch', HabitatSearchBox::SEARCH_COMPANY_URL, 'Companies')
     ->configureSettings()
     ->build();
 
@@ -36,8 +36,6 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
         {{ HTML::script('assets/js/bootstrap.min.js'); }}
         {{ HTML::script('assets/js/master.js');}}
         {{ HTML::script('assets/js/dist/typeahead.bundle.js');}}
-        
-        
         
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>

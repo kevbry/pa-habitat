@@ -9,7 +9,28 @@
  */
 class HabitatSearchBox 
 {
+    
+    // Links to the search contoller methods that fetch information from the db
+    const SEARCH_CONTACT_URL = "search/searchContacts?contacts=%QUERY%";
+    const SEARCH_VOLUNTEER_URL = "search/searchVolunteers?volunteers=%QUERY%";
+    const SEARCH_PROJECT_URL = "search/searchProjects?projects=%QUERY%";
+    const SEARCH_FAMILY_URL = "search/searchFamilies?families=%QUERY%";
+    const SEARCH_COMPANY_URL = "search/searchCompanies?companies=%QUERY%";
+    
+    // Javascript function templates for different onClick behaviour of a search box
+    
+    /**
+     * Description: redirects to a details page for the item selected
+     * 
+     * @param %s -> Base site url
+     */
     const VIEW_DETAILS_ON_CLICK = 'function(obj, data) {window.location = "%s" + data.type + "/" + data.value;}';
+    
+    /**
+     * Description: Selects an object's value and adds it as a form control to be passed to the server
+     * 
+     * @param %s -> the key name for the value to pass across
+     */
     const SELECT_ID_ON_CLICK = <<<EOT
             
     function(obj, data)
@@ -32,11 +53,13 @@ class HabitatSearchBox
                 $('#' + inputID).attr('value', data.value);
             }
         }
-            
+
 EOT;
     
+    // Container array for all search boxes
     public static $searchBoxes = array();
     
+    // Class properties
     private $searchID;
     private $placeholderText;
     private $bloodHoundEngines = array();
@@ -46,7 +69,7 @@ EOT;
     private $onClick;
     
     /**
-     * 
+     * @param String $pageURL           root page url
      * @param String $searchName        unique identifier for the searchbox
      * @param String $placeholderText   text to display in the search field
      */
@@ -55,22 +78,20 @@ EOT;
         $this->searchID = $searchName;
         $this->placeholderText = $placeholderText;
         $this->pageURL = $pageURL;
-        
-        // Store the searchbox in an array of all created searchboxes
-        //HabitatSearchBox::$searchBoxes[$this->searchName] = $this;
+
     }
     
 
     /**
      * Purpose: Create a new engine to grab results from the database
-     * @param type $engineName
-     * @param type $apiURL
-     * @param type $resultsLimit
+     * @param string $engineName        unique identifier for a single selection engine
+     * @param string $apiURL            link to the remote information
+     * @param string $resultsLimit      maximum number of results to return
      */
     public function configureEngine($engineName, $apiURL, $displayName='Results',
             $resultsLimit = '10')
     {
-        
+        // Build the link to the remote information
         $dataURL = $this->pageURL . $apiURL;
         
         $this->bloodHoundEngines[$engineName]['engine'] = <<<EOT
@@ -88,7 +109,6 @@ EOT;
             });
                 
             %s.initialize();
-                
 
 EOT;
         // Add code to array of data sources
@@ -96,7 +116,7 @@ EOT;
         $this->bloodHoundEngines[$engineName]['engine'] = sprintf($this->bloodHoundEngines[$engineName]['engine'], 
                 $engineName, $resultsLimit, $dataURL, $this->datumFormatTemplate, $engineName);
         
-        
+        // Return this object for function chaining
         return $this;
     }
     
@@ -104,6 +124,7 @@ EOT;
     {
         $this->onClick = $function;
         
+        // Return this object for function chaining
         return $this;
     }
     
@@ -139,6 +160,7 @@ EOT;
                 $this->bindEnginesToSearch(), 
                 $this->onClick);
         
+        // Return this object for function chaining
         return $this;
 
     }
@@ -221,6 +243,7 @@ EOT;
     {
         $this->datumFormatTemplate = sprintf('{value: result.%s, name: result.%s, type: result.type}', $value, $name);
         
+        // Return this object for function chaining
         return $this;
     }
     
@@ -237,7 +260,9 @@ EOT;
 
        $script .= " });</script>";
        
-       //file_put_contents('~/wide_open/text_large.txt', $script);
+       // This would build the script to a javascript file. (unable to do so in this dev environment)
+       //file_put_contents($fileName, $script);
+       
        print($script);
     }
 }
