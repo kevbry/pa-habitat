@@ -150,22 +150,29 @@ class ProjectController extends \BaseController {
         {
             // Store values from the contact form
             $projectInfo = Input::only(
+                        'updated_at',
+                        'family',
                         'build_number',
-                        'family_id',
                         'street_number',
-                        'city', 
-                        'province', 
                         'postal_code', 
+                        'city', 
+                        'province',
                         'start_date', 
                         'end_date', 
-                        'designer', 
-                        'plan_number', 
+                        'comments',
                         'building_permit_number',
                         'building_permit_date',
                         'mortgage_date',
-                        'comments');
+                        'blueprint_plan_number',
+                        'designer'
+                         
+                        
+                        
+                        
+                        );
             // Array of field names
             $fieldNames = array(
+                        'updated_at',
                         'build_number',
                         'family_id',
                         'street_number',
@@ -175,7 +182,7 @@ class ProjectController extends \BaseController {
                         'start_date', 
                         'end_date', 
                         'designer', 
-                        'plan_number', 
+                        'blueprint_plan_number', 
                         'building_permit_number',
                         'building_permit_date',
                         'mortgage_date',
@@ -195,7 +202,8 @@ class ProjectController extends \BaseController {
             }
 
             //updating the record in the contact table for the contact with the id passed in
-
+            var_dump($id);
+            var_dump($fieldUpdateValues);
             $affectedRows = Project::where('id','=',$id)->update($fieldUpdateValues);
 
             //var_dump($affectedRows);

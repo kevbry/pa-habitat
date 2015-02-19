@@ -16,14 +16,6 @@ Project Details
         {{ Form::text('build_number',$project->build_number,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
-    </div>
-        <div class="form-group">
-        {{ Form::label('family', 'Family: ',array('class'=>'col-sm-3')) }}
-        <div class="col-sm-7">
-        {{ Form::text('family',$project->family_id,array('class'=>'form-control','readonly'=>'readonly')) }}
-        </div>
-    </div>
-        
     <div class="form-group">
         {{ Form::label('street_number', 'Street number: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
@@ -109,7 +101,7 @@ Project Details
     </div>
     <div class="form-group">
         {{ Form::label('family', 'Family: ') }}
-        {{ Form::text('family',null,array('class'=>'form-control','readonly'=>'readonly')) }}
+        {{ Form::text('family',$project->family_id,array('class'=>'form-control','readonly'=>'readonly')) }}
     </div>
     <div class="form-group row">
         {{ Form::label('items', 'Project Items:') }}

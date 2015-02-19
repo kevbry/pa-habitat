@@ -19,6 +19,8 @@ Edit Project
         </div>
     </div>
 </div>
+{{ Form::hidden('updated_at', date('Y-m-d H:i:s')) }}
+
 <div class="form-group">
     {{ Form::label('street_number', 'Street number: ',array('class'=>'col-sm-3')) }}
     <div class="col-sm-7">
@@ -66,9 +68,9 @@ Edit Project
 </div>
 </div>
 <div class="form-group">
-    {{ Form::label('plan_number', 'Blueprint Plan Number: ',array('class'=>'col-sm-3')) }}
+    {{ Form::label('blueprint_plan_number', 'Blueprint Plan Number: ',array('class'=>'col-sm-3')) }}
     <div class="col-sm-7">
-        {{ Form::text('plan_number',$project->plan_number,array('class'=>'form-control')) }}
+        {{ Form::text('blueprint_plan_number',$project->plan_number,array('class'=>'form-control')) }}
     </div>
 </div>
 <div class="form-group">
