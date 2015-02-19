@@ -28,6 +28,18 @@ class EloquentCompanyRepository  implements CompanyRepository
     {       
         $company->save();
     }
+    public function getCompanySearchInfo($filter)
+    {
+        $searchTerm = "%" . $filter . "%";
+        
+        return \Company::query()
+                ->select('')
+                ->selectRaw("habitat_Company.id, company_name AS name, 'company' AS type")
+                ->where('company_name', 'LIKE', $searchTerm)
+                //->orWhere('first_name','LIKE',$searchTerm)
+                //->join('Contact', 'Contact.id', '=', 'Company.id')
+                ->get();
+    }
     
     
       public function orderBy($sort,$order)

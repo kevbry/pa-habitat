@@ -77,16 +77,14 @@ class ProjectController extends \BaseController {
             $projectInput['building_permit_date'] = Input::get('building_permit_date');
             $projectInput['building_permit_number'] = Input::get('building_permit_number');
             $projectInput['mortgage_date'] = Input::get('mortgage_date');
+            $projectInput['blueprint_plan_number'] = Input::get('blueprint_plan_number');
+            $projectInput['blueprint_designer'] = Input::get('blueprint_designer');
              
             if(Input::get('family_id') > 0)
             {
                 $projectInput['family_id'] = Input::get('family_id');
             }
             
-            if(Input::get('blueprint_id') > 0)
-            {
-                $projectInput['blueprint_id'] = Input::get('blueprint_id');
-            }
             
             //Assign returned value of a project id created to a variable.
             $projectID = $this->createProjectWith($projectInput);

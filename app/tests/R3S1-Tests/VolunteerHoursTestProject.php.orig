@@ -1,6 +1,6 @@
 <?php
  
-class EditVolunteerHoursTest extends TestCase 
+class VolunteerHoursTest extends TestCase 
 {
     protected $mockedVolunteerHoursRepo;
     protected $mockedVolunteerHoursController;
@@ -22,20 +22,6 @@ class EditVolunteerHoursTest extends TestCase
         $this->app->instance('app\controllers\VolunteerHoursController', $this->mockedVolunteerHoursController);
         
     }
-    
-    /**
-     * Test that the controller creates and displays the view for adding hours
-     */
-//    public function testCreate()
-//    {
-//        $response = $this->action('GET', 'VolunteerHoursController@indexForProject');
-//        $crawler = $this->client->request('GET', 'indexForProject');
-//        
-//        
-//        $this->assertContains('Volunteer Hours for',$response->getContent());
-//        $this->assertTrue($this->client->getResponse()->isOk());
-//        $this->assertCount(1, $crawler->filter('th:contains("Hours")'));
-//    }
     
         
     /**
@@ -75,19 +61,18 @@ class EditVolunteerHoursTest extends TestCase
                 ->andThrow(new Exception());
     }
     
-     public function testIndexForVolunteer()
+    public function testIndexForProject()
     {
         $this->mockedVolunteerHoursRepo
-                ->shouldReceive('getHoursForVolunteer')->once()->with(1);
+                ->shouldReceive('getHoursForProject')->once()->with(1);
         
         $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
         
-        $this->call('GET','volunteerhours/volunteerEdit/1');
+        $this->call('GET','volunteerhours/project/1');
         
         $this->assertResponseOk();
         
-    }
-    
+    } 
     
 
     

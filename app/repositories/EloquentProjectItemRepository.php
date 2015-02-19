@@ -14,5 +14,9 @@ class EloquentProjectItemRepository implements ProjectItemRepository {
     public function saveProjectItem($projectItem) {
         $projectItem->save();
     }
+    
+    public function getItemsForProjectNonPaginated($id) {
+        return \ProjectItem::whereRaw('project_id =' . $id)->orderBy('item_type', 'asc')->get();
+    }
 
 }

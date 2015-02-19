@@ -70,7 +70,7 @@ Project Hours for {{$project->project_name}}
     <section class="col-md-7 project">
         <h4 class="name">Volunteer Name: 
             <strong>{{$volunteerhour->volunteer->contact->first_name 
-                        . ' ' . $volunteerhours[0]->volunteer->contact->last_name}}</strong></h4>
+                        . ' ' . $volunteerhour->volunteer->contact->last_name}}</strong></h4>
     <table class="table">
         <thead>
             <tr><th>Date</th><th>Hours</th><th>Hour type</th><th>Family</th></tr>

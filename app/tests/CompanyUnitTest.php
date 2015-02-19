@@ -93,6 +93,7 @@ class CompanyUnitTest extends ContactUnitTest
         $this->assertCount(1, $crawler->filter('td:contains("Company")'));
     }
     
+    
     public function tearDown()
     {
         parent::tearDown();

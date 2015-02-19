@@ -26,7 +26,7 @@ Project Details
         <div class="form-group">
         {{ Form::label('family', 'Family: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('family',null,array('class'=>'form-control')) }}
+        {{ Form::text('family',$project->family_id,array('class'=>'form-control')) }}
         </div>
     </div>
         
@@ -78,16 +78,16 @@ Project Details
     
     </div>
         <div class="form-group">
-        {{ Form::label('designer', 'Blueprint Designer: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('blueprint_designer', 'Blueprint Designer: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('designer',$project->designer,array('class'=>'form-control')) }}
+        {{ Form::text('blueprint_designer',$project->blueprint_designer,array('class'=>'form-control')) }}
         </div>
     </div>
     </div>
         <div class="form-group">
-        {{ Form::label('plan_number', 'Blueprint Plan Number: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('blueprint_plan_number', 'Blueprint Plan Number: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('plan_number',$project->plan_number,array('class'=>'form-control')) }}
+        {{ Form::text('blueprint_plan_number',$project->blueprint_plan_number,array('class'=>'form-control')) }}
         </div>
     </div>
     <div class="form-group">
@@ -143,6 +143,7 @@ Project Details
         </table>
          {{ HTML::linkRoute('viewItems', 'View Item Details', array($project->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('projItemsAdd', 'Add Items', array($project->id), array('class' => 'btn btn-primary')) }}
+         {{ HTML::linkRoute('editFormForItems', 'Edit Items', array($project->id), array('class' => 'btn btn-primary')) }}
     </div> 
 </section>
  

@@ -18,44 +18,39 @@ class HabitatSearchBoxUnitTest extends TestCase
     public function setUp() 
     {
         parent::setUp();
-        $this->testSearchBox = new HabitatSearchBox("testsearch", "Search...");
+        $this->testSearchBox = new HabitatSearchBox("http://kelcstu06/~cst222/public/", "testsearch", "Test Search...");
         
     }
     
-    public function testSearchFor()
-    {
-        $engineName = "contactSearch";
-        $dataURL = 'http://kelcstu06/~cst230/habitat/public/search/searchContacts';
-        $dataFormat = 'value: contact.id, name: contact.first_name + " " + contact.last_name}';
-        $success = $this->testSearchBox->searchFor($engineName, $dataURL, $dataFormat);
-        $this->assertTrue($success);
-    }
     
-    public function testConfigureSettings()
-    {
-        $hint = "true";
-        $highlight = "true";
-        $minLength = "3";
-        
-        $success = $this->testSearchBox->configureSettings($hint, $highlight, $minLength);
-        $this->assertTrue($success);
-    }
-    
-    public function testShow()
-    {
-        $success = $this->testSearchBox->show();
-        $this->assertTrue($success);
-    }
-}
     public function testConfigureEngine()
     {
-        $engineName = "contactSearch";
-        $dataURL = 'http://kelcstu06/~cst230/habitat/public/search/searchContacts';
-        $dataFormat = 'value: contact.id, name: contact.first_name + " " + contact.last_name}';
-        $success = $this->testSearchBox->configureEngine($engineName, $dataURL);
-        $this->assertTrue($success);
+        $testEngineName = 'TestSearch';
+        $testapiURL = 'http://kelcstu06/~cst230/habitat/public/search/searchTestSearch?searchFor=';
+        $testDisplayName = 'TestResults';
+        $testResultLimit = '5';
+        
+        $numEngines = $this->testSearchBox->configureEngine($testEngineName, $testapiURL, $testDisplayName, $testResultLimit);
+        
+        // Assert
+        $this->assertNotNull($numEngines);
     }
     
+    
+    public function testConfigureOnClickEvent()
+    {
+        $testFunction = 'function(obj, data) {window.location = "%s" + data.type + "/" + data.value;}';
+        
+        
+        $setFunction = $this->testSearchBox->configureOnClickEvent($testFunction);
+        
+        
+        $this->assertNotNull($setFunction);
+        
+        
+
+    }
+    /*
     public function testConfigureSettings()
     {
         $hint = "true";
@@ -63,17 +58,37 @@ class HabitatSearchBoxUnitTest extends TestCase
         $minLength = "3";
         
         $success = $this->testSearchBox->configureSettings($hint, $highlight, $minLength);
-        $this->assertTrue($success);
+        
+        
+        $this->assertNotNull($success);
     }
+
+    public function testConfigureDatumFormat()
+    {
+        
+        $testValue = 'id';
+        $testName = 'name';
+        
+        $format = $this->testSearchBox->configureDatumFormat($testName, $testValue);
+        
+        $this->assertNotNull($format);
+        
+    }
+    
     
     public function testShow()
     {
         $success = $this->testSearchBox->show();
         $this->assertTrue($success);
     }
-    
+    */
     public function testBuild()
     {
+        $this->testConfigureEngine();
+        $this->testConfigureOnClickEvent();
+        $this->testConfigureDatumFormat();
+        $this->testConfigureSettings();
+        
         $success = $this->testSearchBox->build();
         $this->assertTrue($success);
     }

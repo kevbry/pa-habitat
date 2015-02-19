@@ -36,7 +36,7 @@ Index of all Families
                     
             </th>
             
-            <th>Phone
+            <th>Status
             @if ($sortby == 's' && $order == 'd')
                  <a href='{{action(
                            'FamilyController@index',
