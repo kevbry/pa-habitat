@@ -32,6 +32,7 @@ Edit Volunteer Hours for Project {{$project->id}}
             @if (!empty($volunteerhours)) 
                 @foreach($volunteerhours as $volunteerhour)
                 <tr class="formrow">
+                     {{Form::hidden('row_id[]', $volunteerhour->id)}}
                     <td>
                         @foreach($volunteers as $volunteer)
                             {{Form::hidden('volunteer_id[]', $volunteer->id)}}
@@ -40,7 +41,11 @@ Edit Volunteer Hours for Project {{$project->id}}
                         <select name="volunteer_id[]" class="form-control">
                             @if (!empty($volunteers))
                                 @foreach($volunteers as $volunteer)
-                                    <option value="{{$volunteer->id}}">{{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name}}</option>
+                                     @if($volunteer->id == $volunteerhour->volunteer_id)
+                                     <option selected="selected" value="{{$volunteer->id}}">{{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name}}</option>
+                                    @else
+                                        <option value="{{$volunteer->id}}">{{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name}}</option>
+                                    @endif
                                 @endforeach
                             @endif
                         </select>

@@ -263,16 +263,17 @@ $type=Input::get('pageType');
                     'families' => $families));
     }
     
-       public function updateProjectHours()
+    public function updateProjectHours()
     {
         $infoArray = array();
         $hoursInfo = array();
+        $projectId = Input::get('proj_id');
         for ($i = 0; $i < count(Input::get('row_id')); $i++) {
-            $hoursInfo['name'] = Input::get('volunteer_name')[$i];
+            $hoursInfo['id']= Input::get('row_id')[$i];
+            $hoursInfo['project_id'] = Input::get('project_id')[$i];
             $hoursInfo['volunteer_id'] = Input::get('volunteer_id')[$i];
             $hoursInfo['hours'] = Input::get('hours')[$i];
             $hoursInfo['date_of_contribution'] = Input::get('date_of_contribution')[$i];
-            $hoursInfo['project_id'] = Input::get('project_id')[$i];
             $hoursInfo['paid_hours'] = Input::get('paid_hours')[$i];
             if (Input::get('family_id')[$i] != 0) {
                 $hoursInfo['family_id'] = Input::get('family_id')[$i];
@@ -286,11 +287,12 @@ $type=Input::get('pageType');
                 throw new Exception('No Hours info inserted.');
             }
             $infoArray[$i] = $hoursInfo;
-            
-            $this->updateHoursWith($hoursInfo);
+            var_dump($hoursInfo);
+            $this->projectUpdateHoursWith($hoursInfo);
         }
-
-        return Redirect::action('VolunteerHoursController@indexForProject', $projID);
+        
+       
+        return Redirect::action('VolunteerHoursController@indexForProject', $projectId);
         
     }
     
@@ -298,11 +300,11 @@ $type=Input::get('pageType');
     {
         $counter = 0;
         $fieldNames = array(
-            'name',
+            'id',
+            'project_id',
             'volunteer_id',
             'hours',
             'date_of_contribution',
-            'project_id',
             'paid_hours',
             'family_id'
         );
