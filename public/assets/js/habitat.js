@@ -45,4 +45,11 @@ $(document).ready(function(){
     {
         $('#submitEdit').remove();
     }
+    
+    $('.hint').hover(function(e){
+        $(e.currentTarget).children('.hiddenHint').css("display", "block");
+    }
+    , function(e){
+        $(e.currentTarget).children('.hiddenHint').css("display", "none");
+    });
 });

@@ -24,7 +24,9 @@ Edit Volunteer Hours for Project {{$project->id}}
         @if (count($volunteerhours) == 0)
             <tr><h3>No hours found for {{$project->name}}</h3></tr>
         @else
-        <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project name<span id="namehelp" title="help">        ?</span></th><th>Family</th></tr>
+        <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th>
+            <th>Project name <span class="hint">?<div class="hiddenHint">Changing this field will move the hour row into another project's hours</div></span></th>
+            <th>Family</th></tr>
         @endif
     </thead>
         <tbody>
@@ -34,10 +36,10 @@ Edit Volunteer Hours for Project {{$project->id}}
                 <tr class="formrow">
                      {{Form::hidden('row_id[]', $volunteerhour->id)}}
                     <td>
-                        @foreach($volunteers as $volunteer)
+                        <!--@foreach($volunteers as $volunteer)
                             {{Form::hidden('volunteer_id[]', $volunteer->id)}}
                         @endforeach
-                                                        
+                                     -->                   
                         <select name="volunteer_id[]" class="form-control">
                             @if (!empty($volunteers))
                                 @foreach($volunteers as $volunteer)

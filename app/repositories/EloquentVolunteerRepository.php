@@ -11,7 +11,9 @@ class EloquentVolunteerRepository implements VolunteerRepository {
     public function getAllVolunteers() {
         return \Volunteer::join('Contact', 'Volunteer.id', '=', 'Contact.id')->orderBy('first_name', 'asc')->paginate(20);
     }
-
+    public function getAllVolunteersNonPaginated() {
+        return \Volunteer::join('Contact', 'Volunteer.id', '=', 'Contact.id')->orderBy('first_name', 'asc')->get();
+    }
     /**
      * Purpose: Save contact information to the database
      * @param Contact $contact A contact object to save to the database

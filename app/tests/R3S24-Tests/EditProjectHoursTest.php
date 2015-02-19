@@ -68,11 +68,11 @@ class EditProjectHoursTest extends TestCase
      public function testIndexForProject()
     {
         $this->mockedVolunteerHoursRepo
-                ->shouldReceive('getHoursForVolunteer')->once()->with(1);
+                ->shouldReceive('getHoursForProject')->once()->with(56);
         
         $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
         
-        $this->call('GET','volunteerhours/projectEdit/1');
+        $this->call('GET','volunteerhours/edit/project/56');
         
         $this->assertResponseOk();
         

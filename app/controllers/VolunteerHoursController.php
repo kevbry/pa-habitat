@@ -250,7 +250,7 @@ $type=Input::get('pageType');
 
     }
     public function indexForEditProject($projectId) {
-        $volunteers = $this->volunteerRepo->getAllVolunteers();
+        $volunteers = $this->volunteerRepo->getAllVolunteersNonPaginated();
         $project = $this->projectRepo->getProject($projectId);
         $volunteerHours = $this->volunteerHrsRepo->getHoursForProject($projectId);
         $projects = $this->projectRepo->getAllProjectsNonPaginated();
@@ -287,10 +287,31 @@ $type=Input::get('pageType');
                 throw new Exception('No Hours info inserted.');
             }
             $infoArray[$i] = $hoursInfo;
-            var_dump($hoursInfo);
+
             $this->projectUpdateHoursWith($hoursInfo);
         }
-        
+        $hourArray = $this->volunteerHrsRepo->getHoursForProjectNonPaginated($projectId);
+
+        foreach($hourArray as $hourEntry)
+        {
+            $bFound = false;
+            if(!empty($infoArray))
+            {
+                foreach($infoArray as $formEntry)
+                {
+                    if( strval($hourEntry['id']) == $formEntry['id'] )
+                    {
+                        $bFound = true;
+                    }
+                }
+            }
+            
+            if(!$bFound)
+            {
+                $affectedRows = VolunteerHours::where('id','=',$hourEntry['id'])->delete();
+            }
+
+        }
        
         return Redirect::action('VolunteerHoursController@indexForProject', $projectId);
         
