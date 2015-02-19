@@ -16,4 +16,6 @@ interface FamilyRepository {
     public function saveFamily($family);
 
     public function orderBy($sort, $order);
+    public function getFamilySearchInfo($filter);
+    
 }

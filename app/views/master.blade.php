@@ -1,23 +1,28 @@
-<?php $PAGE_ROOT_URL = explode(Request::path(), Request::url())[0];
+<?php 
+
+$PAGE_ROOT_URL = explode(Request::path(), Request::url())[0];
 
 // Create the master search box located in the nav bar
-$masterSearch = new HabitatSearchBox($PAGE_ROOT_URL, "master", "Search..."); 
+$masterSearch = new HabitatSearchBox($PAGE_ROOT_URL, "master-search", "Search..."); 
 
-// Configure the search box
+Session::put('page_url', $PAGE_ROOT_URL);
 
-// Function for setting up the on click method (what happens when a result is selected)
-$masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_CLICK, $PAGE_ROOT_URL . 'contact/'));
-
-// Function for setting up how the results are formatted.  First is the attribute to use as the value, second is what to display
-$masterSearch->configureDatumFormat('id', 'full_name');
-
-// Function for Setting up the selection engine that fetches and formats results from the database
-$masterSearch->configureEngine('contactSearch', "/search/searchContacts?contacts=%QUERY%", 'Contacts');
-
-// Function for setting up the searchbox settings
-$masterSearch->configureSettings();
-
-
+/*
+ *  Configure the search box
+ *      Set up how the results are formatted.  First is the attribute to use as the value, second is what to display
+ *      Set up the on click method (what happens when a result is selected)
+ *      Set up the selection engine(s) that fetches and formats results from the database
+ *      Set up the searchbox settings
+ */
+$masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_CLICK, $PAGE_ROOT_URL))
+    ->configureDatumFormat('id', 'name')
+    ->configureEngine('contactSearch', HabitatSearchBox::SEARCH_CONTACT_URL, 'Contacts')
+    ->configureEngine('volunteerSearch', HabitatSearchBox::SEARCH_VOLUNTEER_URL, 'Volunteers')
+    ->configureEngine('projectSearch', HabitatSearchBox::SEARCH_PROJECT_URL, 'Projects')
+    ->configureEngine('familySearch', HabitatSearchBox::SEARCH_FAMILY_URL, 'Families')
+    ->configureEngine('companySearch', HabitatSearchBox::SEARCH_COMPANY_URL, 'Companies')
+    ->configureSettings()
+    ->build();
 
 ?> 
 <!DOCTYPE html>
@@ -29,10 +34,8 @@ $masterSearch->configureSettings();
         
         {{ HTML::script('assets/js/jquery-1.11.1.min.js'); }}
         {{ HTML::script('assets/js/bootstrap.min.js'); }}
-        {{ HTML::script('assets/js/habitat.js'); }}
+        {{ HTML::script('assets/js/master.js');}}
         {{ HTML::script('assets/js/dist/typeahead.bundle.js');}}
-        
-        
         
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
@@ -88,6 +91,6 @@ $masterSearch->configureSettings();
     <footer class="container">
         <p>Copyright {{date("Y")}}</p>
     </footer>
-    <?php $masterSearch->build(); ?>
+    <?php HabitatSearchBox::buildAll(); ?>
     </body>
 </html>
