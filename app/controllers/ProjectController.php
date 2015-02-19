@@ -151,7 +151,7 @@ class ProjectController extends \BaseController {
             // Store values from the contact form
             $projectInfo = Input::only(
                         'build_number',
-                        'family',
+                        'family_id',
                         'street_number',
                         'city', 
                         'province', 
@@ -167,7 +167,7 @@ class ProjectController extends \BaseController {
             // Array of field names
             $fieldNames = array(
                         'build_number',
-                        'family',
+                        'family_id',
                         'street_number',
                         'city', 
                         'province', 
