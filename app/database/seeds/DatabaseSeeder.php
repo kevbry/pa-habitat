@@ -36,6 +36,8 @@ class DatabaseSeeder extends Seeder
                 $this->command->info('Family table seeded!');
                 $this->call('ProjectTableSeeder');
                 $this->command->info('Project table seeded!');
+                $this->call('VolunteerHoursTableSeeder');
+                $this->command->info('VolunteerHours table seeded!');
                 
                 DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 	}
