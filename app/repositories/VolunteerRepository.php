@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 /**
@@ -9,6 +10,11 @@ namespace App\Repositories;
 interface VolunteerRepository 
 {
     public function getVolunteer($id);
+
     public function getAllVolunteers();
+
     public function saveVolunteer($volunteer);
+
+    public function getVolunteerSearchInfo($filter);
+    public function orderBy($sortby, $order);
 }

@@ -14,6 +14,11 @@ class EloquentContactRepository implements ContactRepository
         return \Contact::orderBy('last_name','asc')->paginate(20);        
     }
     
+    public function getAllContactsForSeed()
+    {
+        return \Contact::lists('id');      
+    }
+    
     /**
      * Purpose: Save contact information to the database
      * @param Contact $contact A contact object to save to the database
@@ -21,5 +26,38 @@ class EloquentContactRepository implements ContactRepository
     public function saveContact($contact)
     {
         $contact->save();
+    }
+    
+    
+    public function orderBy($sort, $order) {
+        
+        $order = ($order == 'a' ? 'asc' : 'desc');
+
+        switch ($sort) {
+            case 'l':
+                $sortby = 'last_name';
+                break;
+            case 'h':
+                $sortby = 'home_phone';
+                break;
+            case 'e':
+                $sortby = 'email_address';
+                break;
+        }
+            
+        return \Contact::orderBy($sortby, $order)->paginate(20);
+    }
+    
+    
+    
+    public function getContactSearchInfo($filter)
+    {
+        $searchTerm = "%" . $filter . "%";
+        
+        return \Contact::query()
+                ->selectRaw("id, CONCAT(first_name, ' ', last_name) AS name, 'contact' AS type")
+                ->where('first_name', 'LIKE', $searchTerm)
+                ->orWhere('last_name', 'LIKE', $searchTerm)
+                ->get();
     }
 }

@@ -5,7 +5,7 @@
  *
  * @author cst222
  */
-class ContactUnitTest  extends TestCase
+class ContactUnitTest extends TestCase
 {
     protected $mockedContactRepo;
     protected $mockedVolunteerRepo;
@@ -20,6 +20,7 @@ class ContactUnitTest  extends TestCase
     
     protected $contactInput;
     protected $volunteerInput;
+    protected $invalidDataException;
     
     /**
      * Set up function for the tests.  Creates dummy objects to use for Testing.
@@ -125,7 +126,7 @@ class ContactUnitTest  extends TestCase
         $this->assertTrue($this->client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('label:contains("First Name:")'));
     }
-    
+
     /**
      * Test helper method that creates a contact object and passes it to the
      * repository
@@ -139,14 +140,13 @@ class ContactUnitTest  extends TestCase
         $this->testController->storeContactWith($this->contactInput);
     }
     
-    /**
+    /*
      * Test that the helper method passes values into the repository methods
      */
     public function testStoreContactWithReceivesContactInfo()
     {
         // Assemble
         $contactInput = $this->contactInput;
-        
         $this->mockedContactRepo->shouldReceive('saveContact')
                 ->once()
                 ->with(Mockery::on(
@@ -163,13 +163,14 @@ class ContactUnitTest  extends TestCase
         $this->testController->storeContactWith($this->contactInput);
     }
     
-    /**
-     * Purpose: Test that the store method redirects to the show page
+    
+     /* Purpose: Test that the store method redirects to the show page
      */
     public function OFF_testStoreRedirect()
     {
 
         $this->mockedContactRepo->shouldReceive('saveContact')->once()->with($this->testContact);
+        $this->mockedContactRepo->shouldReceive('getAllContacts')->once();
 
         // Act    
         $this->call("GET", "contact/store");
@@ -177,8 +178,8 @@ class ContactUnitTest  extends TestCase
         // Assert
         $this->assertRedirectedToRoute('contact.show');
     }
-    
-    /**
+  
+    /*
      * Test clean up
      */
     public function tearDown()

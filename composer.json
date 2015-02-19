@@ -6,7 +6,9 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"phpunit/phpunit": " 4.0.*",
-		"mockery/mockery": "0.9.*"
+		"mockery/mockery": "0.9.*",
+		"barryvdh/laravel-debugbar": "~1.8",
+                "twitter/typeahead.js": "dev-master"
 	},
         "require-dev":
         {
@@ -22,7 +24,8 @@
 			"app/database/seeds",
 			"app/tests",
                         "app/repositories",
-                        "app/providers"
+                        "app/providers",
+                        "app/libraries"
 		]
 	},
 	"scripts": {

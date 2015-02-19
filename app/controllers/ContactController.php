@@ -26,11 +26,20 @@ class ContactController extends \BaseController {
 	 */
 	public function index()
 	{
-            // Retrieve all contacts from the database
-            $contactList = $this->contactRepo->getAllContacts();
+            // Retrieve  contacts from the database
             
+            $sortby = Input::get('sortby');
+            $order = Input::get('order');
+
+            if ($sortby && $order) {
+
+               $contactList = $this->contactRepo->orderBy($sortby, $order);
+            } else {
+                $contactList = $this->contactRepo->getAllContacts();
+            }
+           
             // Return that to the list view
-            return View::make('contact.index')->with('contacts', $contactList);
+            return View::make('contact.index',compact('sortby','order'))->with('contacts', $contactList);
 	}
 
 	/**
@@ -104,8 +113,11 @@ class ContactController extends \BaseController {
             // Add the contact as a company if specified
             if ($companyStatus)
             {
+                //Convert web form keys/values to match database keys/values
+                $companyData = Input::only('company_name');
+                $companyName['name'] = $companyData['company_name'];
                 // Store values from the company portion of contact form
-                $companyInfo = Input::only('company_name');
+                $companyInfo = $companyName;
                 
                 // Assign the contact's id
                 $companyInfo['contact_id'] = $id;
@@ -176,7 +188,11 @@ class ContactController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-
+            $contact = $this->contactRepo->getContact($id);
+            $volunteer = $this->volunteerRepo->getVolunteer($id);
+            return View::make('contact.edit')
+                    ->withContact($contact)
+                    ->withVolunteer($volunteer);
 	}
 
 
@@ -188,7 +204,83 @@ class ContactController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+            // Store values from the contact form
+            $contactInfo = Input::only(
+                        'first_name',
+                        'last_name',
+                        'email_address',
+                        'home_phone', 
+                        'cell_phone', 
+                        'work_phone', 
+                        'street_address', 
+                        'city', 
+                        'province', 
+                        'postal_code', 
+                        'country', 
+                        'comments');
+            // Array of field names
+            $fieldNames = array(
+                        'first_name',
+                        'last_name',
+                        'email_address',
+                        'home_phone', 
+                        'cell_phone', 
+                        'work_phone', 
+                        'street_address', 
+                        'city', 
+                        'province', 
+                        'postal_code', 
+                        'country', 
+                        'comments');
+            $volunteerPassed = Input::has('is_volunteer');
+            $volunteerInfo = [];
+            if($volunteerPassed)
+            {
+                $volunteerInfo['active_status'] = Input::has('active_status') ? 1 : 0;
+                $volunteerInfo['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
+                // Assign the contact id
+                $volunteerInfo['id'] = $id;
+                
+                $this->storeVolunteerWith($volunteerInfo);         
+            }
+            else
+            {
+                $volunteerInfo['active_status'] = Input::has('active_status') ? 1 : 0;
+                $volunteerInfo['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
+                Volunteer::where('id','=',$id)->update($volunteerInfo);
+            }
+
+            //Used to count the field number based on the number of time through
+            //the for each loop
+            $counter = 0;
+            //Creating an associate array for the update
+            $fieldUpdateValues = array();
+
+            //added key value pairs to the array
+            foreach($contactInfo as $fieldValue)
+            {
+                $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
+                $counter++;
+            }
+            
+            //updating the record in the contact table for the contact with the id passed in
+            
+            $affectedRows = Contact::where('id','=',$id)->update($fieldUpdateValues);
+
+            //var_dump($affectedRows);
+            //use affected rows to dertirming if it was a success or not
+            if($affectedRows > 0)
+            {
+                // Redirect to view the updated contact info
+                $redirectVariable = Redirect::action('ContactController@show', $id);
+            }
+            else
+            {
+                //Redirect back to the edit page with an error message
+                $redirectVariable = Redirect::action('ContactController@edit', $id)->withErrors(['Error', 'The Message']);
+            }
+            // return to redirect
+            return $redirectVariable;
 	}
 
 	/**
@@ -199,6 +291,6 @@ class ContactController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		//boom
 	}
 }
