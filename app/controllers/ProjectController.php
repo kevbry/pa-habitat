@@ -169,18 +169,20 @@ class ProjectController extends \BaseController {
         {
             //getting values to update the project coordinator
             $projectCoordinatorInfo = [];
+            $projectCoordinatorInfo['project_id'] = $id;
             $projectCoordinatorInfo['contact_id'] = Input::only('project_coordinator');
             $projectCoordinatorInfo['role'] = "Project Coordinator";
+            $projectCoordinatorInfo['created_at'] = Input::only('updated_at');
             $projectCoordinatorInfo['updated_at'] = Input::only('updated_at');
             $hasEntry = ProjectContact::where('project_id','=',$id)->first();
-            
+            createProjectContactWith($projectCoordinatorInfo);
             var_dump($hasEntry);
-            if($hasEntry == null && $projectCoordinatorInfo['contact_id'] != null)
+            /*if($hasEntry == null && $projectCoordinatorInfo['contact_id'] != null)
             {
                 $projectCoordinatorInfo['project_id'] = $id;
                 $projectCoordinatorInfo['created_at'] = Input::only('updated_at');
                 var_dump($projectCoordinatorInfo);
-                ProjectContact::insert($projectCoordinatorInfo);
+                createProjectContactWith($projectCoordinatorInfo);
             }
             else if($hasEntry != null && $projectCoordinatorInfo['contact_id'] == null)
             {
@@ -189,7 +191,7 @@ class ProjectController extends \BaseController {
             else
             {
                 ProjectContact::where('project_id','=',$id)->update($projectCoordinatorInfo);
-            }
+            }*/
             
             
             
