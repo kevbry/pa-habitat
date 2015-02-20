@@ -4,22 +4,29 @@ use App\Repositories\ProjectRepository;
 use App\Repositories\ProjectContactRepository;
 use App\Repositories\ProjectInspectionRepository;
 use App\Repositories\ProjectItemRepository;
-
+use App\Repositories\VolunteerHoursRepository;
+use App\Repositories\VolunteerRepository;
 class ProjectController extends \BaseController {
         public $projectRepo;
         public $projectContactRepo;
         public $projectInspectionRepo;
         public $projectItemRepo;
+        public $volunteerHrsRepo;
+        public $volunteerRepo;
 
         public function __construct(ProjectRepository $projectRepo, 
                 ProjectContactRepository $projectContactRepo,
                 ProjectInspectionRepository $projectInspectionRepo,
-                ProjectItemRepository $projectItemRepo)
+                ProjectItemRepository $projectItemRepo,
+                VolunteerHoursRepository $volunteerHrsRepo,
+                VolunteerRepository $volunteerRepo)
         {
             $this->projectRepo = $projectRepo;
             $this->projectContactRepo = $projectContactRepo;
             $this->projectInspectionRepo = $projectInspectionRepo;
-            $this->projectItemRepo = $projectItemRepo;            
+            $this->projectItemRepo = $projectItemRepo; 
+            $this->volunteerHrsRepo = $volunteerHrsRepo;
+            $this->volunteerRepo = $volunteerRepo;
         }
             
 
@@ -119,10 +126,13 @@ class ProjectController extends \BaseController {
             
             $projectInspections = $this->projectInspectionRepo->getInspectionsForProject($id);
             $projectItems = $this->projectItemRepo->getItemsForProject($id);
+            $volunteerHours = $this->volunteerHrsRepo->getHoursForProject($id);
+            $volunteers = $this->volunteerRepo->getAllVolunteersNonPaginated();
             
             return View::make('project.show', array('project' => $project,
                 'projectInspections' => $projectInspections,
-                'projectItems' => $projectItems));
+                'projectItems' => $projectItems, 'volunteerhours' => $volunteerHours,
+                'volunteers' => $volunteers));
             
 	}
 

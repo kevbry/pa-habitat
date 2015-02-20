@@ -1,13 +1,13 @@
 @extends('master')
 
 @section('title')
-Project Hours for {{$project->project_name}}
+Project Hours for {{$project->name}}
 @stop
 
 @section('content')
 
 <section class="col-md-12">
-<h3 class="name">Project Hours for <strong>{{$project->project_name}}</strong></h3>
+<h3 class="name">Project Hours for <strong>{{$project->name}}</strong></h3>
 <h3 class="hours">Total Hours <strong>{{$totalHours}}</strong></h3>
 </section>
             <?php

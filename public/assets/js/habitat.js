@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    $('#namehelp').attr("title", "Changing this will move the hour row into another project's hours.");
+    
     $('#addhours').click(function(e){
         e.preventDefault();
         var existingRow = $('.formrow:last-of-type');
@@ -44,4 +46,10 @@ $(document).ready(function(){
         $('#submitEdit').remove();
     }
     
+    $('.hint').hover(function(e){
+        $(e.currentTarget).children('.hiddenHint').css("display", "block");
+    }
+    , function(e){
+        $(e.currentTarget).children('.hiddenHint').css("display", "none");
+    });
 });

@@ -21,7 +21,7 @@ Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volunteer
             ?>
     <section class="col-md-7 project">
         @if(!empty($volunteerhours) && count($volunteerhours) != 0)
-        <h4 class="name">Project Name: <strong>{{$volunteerhours[0]->project->project_name}}</strong></h4>
+        <h4 class="name">Project Name: <strong>{{$volunteerhours[0]->project->name}}</strong></h4>
         @endif
     <table class="table">
         
@@ -67,7 +67,7 @@ Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volunteer
     ?>
     
     <section class="col-md-7 project">
-        <h4 class="name">Project Name: <strong>{{$volunteerhour->project->project_name}}</strong></h4>
+        <h4 class="name">Project Name: <strong>{{$volunteerhour->project->name}}</strong></h4>
     <table class="table">
         
         <thead>

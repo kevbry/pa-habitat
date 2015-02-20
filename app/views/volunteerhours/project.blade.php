@@ -8,10 +8,11 @@ Volunteer Hours for Project {{$id}}
 
 <h1>Volunteer Hours for {{$project->name}}</h1>
 {{ HTML::linkRoute('projHoursAdd', 'Add Hours', array($project->id), array('class' => 'btn btn-primary')) }}
+{{ HTML::linkAction('projHoursEdit','Edit Hours', array($project->id), array('class'=>'btn btn-primary'))}}
 {{ Form::open(array('route'=>'storehours','class'=>'form-horizontal')) }}
 <table class="table">
     <thead>
-        <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project</th><th>Family</th></tr>
+        <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project name</th><th>Family</th></tr>
     </thead>
     <tbody>
         @if (!empty($volunteerhours)) 

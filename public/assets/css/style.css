@@ -129,3 +129,26 @@ span.twitter-typeahead{
   padding: 3px 0;
   border-bottom: 1px solid #ccc;
 }
+.hint {
+    color: green;
+    font-weight: bold;
+    position:relative;
+}
+.hint:hover {
+    text-decoration: underline;
+    cursor: default;
+}
+.hiddenHint {
+    color: black;
+    font-weight: normal;
+    display: none;
+    position: absolute;
+    margin-top: 6px;
+    padding: 2px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    width: 250px;
+    z-index: 1000;
+}
