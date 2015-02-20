@@ -2,7 +2,7 @@
 
 class InspectionInfoTest extends TestCase
 {
-    protected $mockedProjectInspection;
+    protected $mockedProjectInspectionRepo;
     protected $mockedProjectInspectionController;
     protected $projectInspectionInput;
     
@@ -15,8 +15,8 @@ class InspectionInfoTest extends TestCase
         $this->projectInspectionInput = [];
         
         // Set up the Project Inspection Mocked Repository
-        $this->mockedProjectInspection = Mockery::mock('app\repositories\ProjectInspectionRepository');
-        $this->app->instance('app\repositories\ProjectInspectionRepository', $this->mockedProjectInspection);
+        $this->mockedProjectInspectionRepo = Mockery::mock('app\repositories\ProjectInspectionRepository');
+        $this->app->instance('app\repositories\ProjectInspectionRepository', $this->mockedProjectInspectionRepo);
         
         $this->mockedProjectInspectionController = Mockery::mock('app\controllers\ProjectInspectionController');
         $this->app->instance('app\controllers\ProjectInspectionController', $this->mockedProjectInspectionController);       
@@ -29,7 +29,7 @@ class InspectionInfoTest extends TestCase
     {
         $this->projectInspectionInput = [
             'id' => '839',
-            'project_id' => 1, 
+            'project_id' => 1,
             'mandatory' => 1,
             'date' => '12-02-2015',
             'type' => 'Electrical',
@@ -48,6 +48,7 @@ class InspectionInfoTest extends TestCase
         $this->assertRedirectedToAction('ProjectInspectionController@index', 1);
     }
     
+    //TODO: Finish this test so it properly tests for failing to store a single entry
     public function testStoreSingleEntryFailure()
     {
         $this->projectInspectionInput = [];
@@ -58,14 +59,16 @@ class InspectionInfoTest extends TestCase
                 ->once()
                 ->with($this->projectInspectionInput)
                 ->andThrow(new Exception());
+        
+        
+        // This test does not appear to be finished.
+        $this->markTestIncomplete('This test has not been properly implemented yet');
     }
     
     public function testIndex()
     {
         $this->mockedProjectInspectionController
                 ->shouldReceive('getInspectionsForProject')->once()->with(1);
-        
-        $this->app->instance('app\repositories\ProjectInspectionRepository', $this->mockedProjectInspectionRepo);
         
         $this->call('GET','/project/1/inspections');
         
@@ -82,6 +85,13 @@ class InspectionInfoTest extends TestCase
         $this->assertContains('Project Inspections for', $response->getContent());
         $this->assertTrue($this->client->getResponse()->isOk());
         $this->assertCount(1, $crawler->filter('label:contains("Type:")'));
+    }
+    
+    
+    public function tearDown() 
+    {
+        parent::tearDown();
+        Mockery::close();
     }
 }
 

@@ -22,7 +22,6 @@ class VolunteerHoursTest extends TestCase
         $this->app->instance('app\controllers\VolunteerHoursController', $this->mockedVolunteerHoursController);
         
     }
-    
         
     /**
      * Test that the controller can sucessfully add hours to the database
@@ -60,30 +59,17 @@ class VolunteerHoursTest extends TestCase
                 ->with($this->volunteerHoursInput)
                 ->andThrow(new Exception());
     }
-    
-    public function testIndexForProject()
+
+     public function testIndexForVolunteer()
     {
         $this->mockedVolunteerHoursRepo
-                ->shouldReceive('getHoursForProject')->once()->with(1);
+                ->shouldReceive('getHoursForVolunteer')->once()->with(2);
         
         $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
         
-        $this->call('GET','volunteerhours/project/1');
+        $this->call('GET','volunteerhours/volunteer/2');
         
         $this->assertResponseOk();
-        
-    } 
-    
-
-    /*
-     * Test clean up
-     */
-    public function tearDown()
-    {
-        parent::tearDown();
-        Mockery::close();
-    }     
+    }
     
 }
-
-

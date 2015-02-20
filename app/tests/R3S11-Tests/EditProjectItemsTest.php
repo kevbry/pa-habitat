@@ -49,6 +49,7 @@ class EditProjectItemsTest extends TestCase
         $this->assertRedirectedToAction('ProjectItemController@index',1);
     }
     
+    //TODO: Finish this test so it properly tests for failing to store a single entry
     public function testStoreSingleEntryFailure()
     {
         $this->projectItemInput = [];
@@ -59,6 +60,9 @@ class EditProjectItemsTest extends TestCase
                 ->once()
                 ->with($this->projectItemInput)
                 ->andThrow(new Exception());
+        
+        // This test does not appear to be finished.
+        $this->markTestIncomplete('This test has not been properly implemented yet');
     }
     
      public function testIndexForProject()
@@ -75,6 +79,15 @@ class EditProjectItemsTest extends TestCase
         
     }
     
+    
+    /*
+     * Test clean up
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+        Mockery::close();
+    }    
     
 
     
