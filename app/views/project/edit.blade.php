@@ -109,6 +109,7 @@ Edit Project
             {{ Form::text('project_coordinator',$projectContact,array('class'=>'form-control')) }}
         @else
             {{ Form::text('project_coordinator',null,array('class'=>'form-control')) }}
+        @endif
     </div>
     <div class="form-group">
         {{ Form::label('family', 'Family: ') }}

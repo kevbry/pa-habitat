@@ -120,10 +120,10 @@ class ProjectController extends \BaseController {
             $projectItems = $this->projectItemRepo->getItemsForProject($id);
             if(($projectContact = $this->projectContactRepo->getProjectContact($id)) != null)
             {
-                return View::make('project.show', array('project' => $project, 
-                'projectContact' => $projectContact,
+                return View::make('project.show', array('project' => $project,
                 'projectInspections' => $projectInspections,
-                'projectItems' => $projectItems));
+                'projectItems' => $projectItems))
+                        ->withProjectContact($projectContact);
             }
             else
             {

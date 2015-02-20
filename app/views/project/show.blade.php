@@ -100,7 +100,7 @@ Project Details
         @if (!empty($projectContact))
             {{ Form::text('role',$projectContact,array('class'=>'form-control','readonly'=>'readonly')) }}
         @else
-            {{ Form::text('role',null,array('class'=>'form-control','readonly'=>'readonly')) }}
+            {{ Form::text('role','Not Specified',array('class'=>'form-control','readonly'=>'readonly')) }}
         @endif
     </div>
     <div class="form-group">
