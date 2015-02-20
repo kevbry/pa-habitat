@@ -13,6 +13,15 @@ class EloquentProjectRepository implements ProjectRepository
     {
         return \Project::orderBy('name','asc')->paginate(20);        
     }
+        public function getAllProjectsNonPaginated()
+    {
+        return \Project::orderBy('name','asc')->get();        
+    }
+    
+    public function getAllProjectsForSeed()
+    {
+        return \Project::lists('id');      
+    }
     
     /**
      * Purpose: Save project information to the database

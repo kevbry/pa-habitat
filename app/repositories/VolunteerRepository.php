@@ -13,6 +13,7 @@ interface VolunteerRepository
 
     public function getAllVolunteers();
 
+    public function getAllVolunteersNonPaginated();
     public function saveVolunteer($volunteer);
 
     public function getVolunteerSearchInfo($filter);

@@ -34,8 +34,8 @@ class EloquentCompanyRepository  implements CompanyRepository
         
         return \Company::query()
                 ->select('')
-                ->selectRaw("habitat_Company.id, company_name AS name, 'company' AS type")
-                ->where('company_name', 'LIKE', $searchTerm)
+                ->selectRaw("habitat_Company.id, name, 'company' AS type")
+                ->where('name', 'LIKE', $searchTerm)
                 //->orWhere('first_name','LIKE',$searchTerm)
                 //->join('Contact', 'Contact.id', '=', 'Company.id')
                 ->get();
