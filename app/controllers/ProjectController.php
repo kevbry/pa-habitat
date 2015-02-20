@@ -170,12 +170,15 @@ class ProjectController extends \BaseController {
             //getting values to update the project coordinator
             $projectCoordinatorInfo = [];
             $projectCoordinatorInfo['project_id'] = $id;
-            $projectCoordinatorInfo['contact_id'] = Input::only('project_coordinator');
-            $projectCoordinatorInfo['role'] = "Project Coordinator";
+            $projectCoordinatorInfo['contact_id'] = (int)Input::only('project_coordinator');
+            $projectCoordinatorInfo['role'] = "'Project Coordinator'";
             $projectCoordinatorInfo['created_at'] = Input::only('updated_at');
             $projectCoordinatorInfo['updated_at'] = Input::only('updated_at');
             $hasEntry = ProjectContact::where('project_id','=',$id)->first();
-            createProjectContactWith($projectCoordinatorInfo);
+            
+            $projectContact = new ProjectContact($projectCoordinatorInfo);
+            
+            $this->projectContactRepo->saveProjectContact($projectContact);
             var_dump($hasEntry);
             /*if($hasEntry == null && $projectCoordinatorInfo['contact_id'] != null)
             {
