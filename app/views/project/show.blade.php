@@ -80,8 +80,8 @@ Project Details
     </div>
         <div class="form-group">
         {{ Form::label('blueprint_designer', 'Blueprint Designer: ',array('class'=>'col-sm-3')) }}
-        <div class="col-sm-7">        {{ Form::text('blueprint_designer',$project->blueprint_designer,array('class'=>'form-control')) }}
-        {{ Form::text('designer',$project->designer,array('class'=>'form-control','readonly'=>'readonly')) }}
+        <div class="col-sm-7">        
+        {{ Form::text('blueprint_designer',$project->blueprint_designer,array('class'=>'form-control', 'readonly'=>'readonly')) }}
         </div>
     </div>
     </div>
