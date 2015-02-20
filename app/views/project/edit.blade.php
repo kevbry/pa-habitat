@@ -22,7 +22,7 @@ Edit Project
 {{ Form::hidden('updated_at', date('Y-m-d H:i:s')) }}
 
 <div class="form-group">
-    {{ Form::label('street_number', 'Street number: ',array('class'=>'col-sm-3')) }}
+    {{ Form::label('street_number', 'Street Address: ',array('class'=>'col-sm-3')) }}
     <div class="col-sm-7">
         {{ Form::text('street_number',$project->street_number,array('class'=>'form-control')) }}
     </div>
@@ -63,7 +63,7 @@ Edit Project
 <div class="form-group">
     {{ Form::label('designer', 'Blueprint Designer: ',array('class'=>'col-sm-3')) }}
     <div class="col-sm-7">
-        {{ Form::text('designer',$project->designer,array('class'=>'form-control')) }}
+        {{ Form::text('blueprint_designer',$project->designer,array('class'=>'form-control')) }}
     </div>
 </div>
 </div>
@@ -104,12 +104,12 @@ Edit Project
 <section class="col-md-5"> 
     <div class="form-group">
         <h3>Additional Details</h3>
-        {{ Form::label('role', 'Project Coordinator: ') }}
-        {{ Form::text('role',$project->role,array('class'=>'form-control')) }}
+        {{ Form::label('project_coordinator', 'Project Coordinator: ') }}
+        {{ Form::text('project_coordinator',$project->role,array('class'=>'form-control')) }}
     </div>
     <div class="form-group">
         {{ Form::label('family', 'Family: ') }}
-        {{ Form::text('family',null,array('class'=>'form-control')) }}
+        {{ Form::text('family',$project->family_id,array('class'=>'form-control')) }}
     </div>
 </section>
 @stop            

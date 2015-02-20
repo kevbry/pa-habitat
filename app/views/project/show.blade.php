@@ -17,7 +17,7 @@ Project Details
         </div>
     </div>
     <div class="form-group">
-        {{ Form::label('street_number', 'Street number: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('street_number', 'Street Address: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::text('street_number',$project->street_number,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>

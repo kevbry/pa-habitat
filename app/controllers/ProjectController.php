@@ -148,7 +148,15 @@ class ProjectController extends \BaseController {
          */
         public function update($id) 
         {
-            // Store values from the contact form
+            //getting values to update the project coordinator
+            $projectCoordinatorInfo = [];
+            $projectCoordinatorInfo['contact_id'] = Input::only('project_coordinator');
+            $projectCoordinatorInfo['role'] = "Project Coordinator";
+            $projectCoordinatorInfo['updated_at'] = Input::only('updated_at');
+            ProjectContact::where('id','=',$id)->update($projectCoordinatorInfo);
+            
+            
+            // Store values from the project form
             $projectInfo = Input::only(
                         'updated_at',
                         'family',
@@ -164,36 +172,33 @@ class ProjectController extends \BaseController {
                         'building_permit_date',
                         'mortgage_date',
                         'blueprint_plan_number',
-                        'designer'
-                         
-                        
-                        
-                        
-                        );
+                        'blueprint_designer');
             // Array of field names
             $fieldNames = array(
                         'updated_at',
-                        'build_number',
                         'family_id',
+                        'build_number',
                         'street_number',
-                        'city', 
-                        'province', 
                         'postal_code', 
+                        'city', 
+                        'province',
                         'start_date', 
                         'end_date', 
-                        'designer', 
-                        'blueprint_plan_number', 
+                        'comments',
                         'building_permit_number',
                         'building_permit_date',
                         'mortgage_date',
-                        'comments');
+                        'blueprint_plan_number',
+                        'blueprint_designer');
+            
 
+            
             //Used to count the field number based on the number of time through
             //the for each loop
             $counter = 0;
             //Creating an associate array for the update
             $fieldUpdateValues = array();
-
+            
             //added key value pairs to the array
             foreach($projectInfo as $fieldValue)
             {
@@ -205,7 +210,7 @@ class ProjectController extends \BaseController {
             var_dump($id);
             var_dump($fieldUpdateValues);
             $affectedRows = Project::where('id','=',$id)->update($fieldUpdateValues);
-
+            //$affectedRows = 0;
             //var_dump($affectedRows);
             //use affected rows to dertirming if it was a success or not
             if($affectedRows > 0)
