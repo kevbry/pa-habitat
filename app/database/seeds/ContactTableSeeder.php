@@ -37,10 +37,10 @@ class ContactTableSeeder extends Seeder
                                 'cell_phone' => $contact->cell_phone, 
                                 'work_phone' => $contact->work_phone, 
                                 'street_address' => $contact->street_address, 
-                                'city' => $contact->city, 
-                                'province' => $contact->province, 
+                                'city' => "Prince Albert", 
+                                'province' => "SK", 
                                 'postal_code' => $contact->postal_code, 
-                                'country' => $contact->country, 
+                                'country' => "Canada", 
                                 'comments' => $contact->comments
 			));
 		}
