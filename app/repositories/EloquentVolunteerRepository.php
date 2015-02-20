@@ -11,6 +11,11 @@ class EloquentVolunteerRepository implements VolunteerRepository {
     public function getAllVolunteers() {
         return \Volunteer::join('Contact', 'Volunteer.id', '=', 'Contact.id')->orderBy('first_name', 'asc')->paginate(20);
     }
+    
+    public function getAllVolunteersForSeed() {
+        return \Volunteer::lists('id'); 
+    }
+
     public function getAllVolunteersNonPaginated() {
         return \Volunteer::join('Contact', 'Volunteer.id', '=', 'Contact.id')->orderBy('first_name', 'asc')->get();
     }

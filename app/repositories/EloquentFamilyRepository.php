@@ -16,6 +16,11 @@ class EloquentFamilyRepository implements FamilyRepository {
     public function getAllFamilies() {
         return \Family::paginate(20);
     }
+    
+    public function getAllFamiliesForSeed()
+    {
+        return \Family::lists('id');      
+    }
 
     public function saveFamily($family) {
         $family->save();
