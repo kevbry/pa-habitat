@@ -116,14 +116,23 @@ class ProjectController extends \BaseController {
 	public function show($id)
 	{
             $project = $this->projectRepo->getProject($id);
-            $projectContact = $this->projectContactRepo->getProjectContact($id);
             $projectInspections = $this->projectInspectionRepo->getInspectionsForProject($id);
             $projectItems = $this->projectItemRepo->getItemsForProject($id);
-            
-            return View::make('project.show', array('project' => $project, 
+            if(($projectContact = $this->projectContactRepo->getProjectContact($id)) != null)
+            {
+                return View::make('project.show', array('project' => $project, 
                 'projectContact' => $projectContact,
                 'projectInspections' => $projectInspections,
                 'projectItems' => $projectItems));
+            }
+            else
+            {
+                return View::make('project.show', array('project' => $project,
+                'projectInspections' => $projectInspections,
+                'projectItems' => $projectItems));
+            }
+                
+
             
 	}
 
@@ -136,10 +145,17 @@ class ProjectController extends \BaseController {
 	public function edit($id)
 	{
             $project = $this->projectRepo->getProject($id);
-            $projectContact = $this->projectContactRepo->getProjectContact($id);
-            return View::make('project.edit')
-                    ->withProject($project)
-                    ->withProjectContact($projectContact);
+            if(($projectContact = $this->projectContactRepo->getProjectContact($id)) != null)
+            {
+                return View::make('project.edit')
+                        ->withProject($project)
+                        ->withProjectContact($projectContact);
+            }
+            else
+            {
+                return View::make('project.edit')
+                        ->withProject($project);
+            }
 	}
 
 

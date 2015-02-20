@@ -97,7 +97,11 @@ Project Details
     <div class="form-group">
         <h3>Additional Details</h3>
         {{ Form::label('role', 'Project Coordinator: ') }}
-        {{ Form::text('role',$project->role,array('class'=>'form-control','readonly'=>'readonly')) }}
+        @if (!empty($projectContact))
+            {{ Form::text('role',$projectContact->contactID,array('class'=>'form-control','readonly'=>'readonly')) }}
+        @else
+            {{ Form::text('role',null,array('class'=>'form-control','readonly'=>'readonly')) }}
+        @endif
     </div>
     <div class="form-group">
         {{ Form::label('family', 'Family: ') }}
