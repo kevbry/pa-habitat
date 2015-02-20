@@ -12,5 +12,6 @@ interface ProjectRepository
     public function getAllProjects();
     public function getAllProjectsNonPaginated();
     public function saveProject($project);
+    public function getProjectSearchInfo($filter);
     public function orderBy($sortby,$order);
 }

@@ -51,4 +51,12 @@ Route::post('project/{project}/items/edit',array('as'=>'updateFormItems','uses'=
 //Report routes
 Route::get('volunteerhours/report/{volunteer}', array('as'=>'volunteerReport', 'uses'=>'VolunteerHoursController@viewHoursReport'));
 Route::get('projecthours/report/{volunteer}', array('as'=>'projectReport', 'uses'=>'VolunteerHoursController@viewHoursReportForProject'));
-Route::resource('search/searchContacts', 'SearchAPIController@searchContacts');
+
+//Search routes
+Route::get('search/searchContacts', 'SearchAPIController@searchContacts');
+Route::get('search/searchVolunteers', 'SearchAPIController@searchVolunteers');
+Route::get('search/searchProjects', 'SearchAPIController@searchProjects');
+Route::get('search/searchCompanies', 'SearchAPIController@searchCompanies');
+Route::get('search/searchFamilies', 'SearchAPIController@searchFamilies');
+
+

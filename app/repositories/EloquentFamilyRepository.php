@@ -25,8 +25,10 @@ class EloquentFamilyRepository implements FamilyRepository {
     public function saveFamily($family) {
         $family->save();
     }
+    
 
-    public function orderBy($sort, $order) {
+    public function orderBy($sort, $order) 
+	{
 
         $order = ($order == 'a' ? 'asc' : 'desc');
 
@@ -40,6 +42,16 @@ class EloquentFamilyRepository implements FamilyRepository {
         }
 
         return \Family::orderBy($sortby, $order)->paginate(20);
+    }
+
+    public function getFamilySearchInfo($filter)
+    {
+        $searchTerm = "%" . $filter . "%";
+        
+        return \Family::query()
+                ->selectRaw("id, name, 'family' AS type")
+                ->where('name', 'LIKE', $searchTerm) 
+                ->get();
     }
 
 }
