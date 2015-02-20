@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Repositories;
 
 class EloquentVolunteerRepository implements VolunteerRepository {
@@ -23,6 +22,19 @@ class EloquentVolunteerRepository implements VolunteerRepository {
      */
     public function saveVolunteer($volunteer) {
         $volunteer->save();
+    }
+    
+    public function getVolunteerSearchInfo($filter) {
+        $searchTerm = "%" . $filter . "%";
+
+      
+        return \DB::table("Volunteer")
+                ->selectRaw("habitat_Volunteer.id, CONCAT(first_name, ' ', last_name) AS name, 'contact' AS type")
+                ->join('Contact', 'Contact.id', '=', 'Volunteer.id')
+                ->where('first_name', 'LIKE', $searchTerm)
+                ->orWhere('last_name', 'LIKE', $searchTerm)
+                ->get();
+ 
     }
 
     public function orderBy($sort, $order) {
