@@ -98,7 +98,7 @@ Project Details
         <h3>Additional Details</h3>
         {{ Form::label('role', 'Project Coordinator: ') }}
         @if (!empty($projectContact))
-            {{ Form::text('role',$projectContact->contactID,array('class'=>'form-control','readonly'=>'readonly')) }}
+            {{ Form::text('role',$projectContact,array('class'=>'form-control','readonly'=>'readonly')) }}
         @else
             {{ Form::text('role',null,array('class'=>'form-control','readonly'=>'readonly')) }}
         @endif
