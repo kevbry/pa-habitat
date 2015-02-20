@@ -6,11 +6,6 @@ Project Details
 
 @section('content')
 <h1>Project details</h1>
-{{ HTML::linkRoute('projHoursRoute', 'View Hours', array($project->id), array('class' => 'btn btn-primary')) }}
-{{ HTML::linkRoute('projHoursAdd', 'Add Hours', array($project->id), array('class' => 'btn btn-primary')) }}
-{{ HTML::linkAction('projHoursEdit','Edit Hours', array($project->id), array('class'=>'btn btn-primary'))}}
-{{ HTML::linkRoute('projectReport', 'Generate Hours Report', array($project->id), array('class' => 'btn btn-primary')) }}
-
 <h2>{{ $project->name }}</h2>
 
  {{ Form::open(array('class'=>'form-horizontal')) }}
@@ -180,6 +175,57 @@ Project Details
         </table>
          {{ HTML::linkRoute('projInspectionsView', 'View Inspection Details', array($project->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('projInspectionsAdd', 'Add Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
+    </div>
+         <div class="form-group row">
+        {{ Form::label('hours', 'Project Hours:') }}
+        
+        <!-- Hours Table to go here -->
+        <table class="table table-hover scrollable">
+            <thead>
+                <tr>
+                    <th>Volunteer Name</th>
+                    <th>Date</th>
+                    <th>Hours</th>
+                </tr>
+            </thead>
+            <tfoot>
+            <td></td>
+            <td>Total:</td>
+            
+            <td>   
+                @if (isset($volunteerhours))
+               <?php $totalHours=0;?>
+                    @foreach($volunteerhours as $hour)
+
+               <?php $totalHours=$totalHours+$hour->hours;?>
+
+                   @endforeach
+                   {{$totalHours}}
+                @endif </td>
+            </tfoot>
+            <tbody>
+                  @if (isset($volunteers))
+                    @foreach($volunteerhours as $hour)
+
+                   <tr>
+                       @foreach($volunteers as $volunteer)
+                       @if($volunteer->id === $hour->volunteer_id)
+                            <td>{{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name}}</td>
+                       @endif
+                       @endforeach
+                       <td>{{$hour->date_of_contribution}}</td>
+                       <td>{{$hour->hours}}</td>
+                   </tr>
+
+                   @endforeach
+                @endif
+            </tbody>
+        </table>
+        {{ HTML::linkRoute('projHoursRoute', 'View Hours', array($project->id), array('class' => 'btn btn-primary')) }}
+        {{ HTML::linkRoute('projHoursAdd', 'Add Hours', array($project->id), array('class' => 'btn btn-primary')) }}
+        {{ HTML::linkAction('projHoursEdit','Edit Hours', array($project->id), array('class'=>'btn btn-primary'))}}
+        <br /><br />
+        {{ HTML::linkRoute('projectReport', 'Generate Hours Report', array($project->id), array('class' => 'btn btn-primary')) }}
     </div>
     
 </section>
