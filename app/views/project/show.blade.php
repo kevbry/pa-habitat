@@ -6,10 +6,6 @@ Project Details
 
 @section('content')
 <h1>Project details</h1>
-{{ HTML::linkRoute('projHoursRoute', 'View Hours', array($project->id), array('class' => 'btn btn-primary')) }}
-{{ HTML::linkRoute('projHoursAdd', 'Add Hours', array($project->id), array('class' => 'btn btn-primary')) }}
-{{ HTML::linkRoute('projectReport', 'Generate Hours Report', array($project->id), array('class' => 'btn btn-primary')) }}
-
 <h2>{{ $project->name }}</h2>
 
  {{ Form::open(array('class'=>'form-horizontal')) }}
@@ -19,39 +15,44 @@ Project Details
     <div class="form-group">
         {{ Form::label('build_number', 'Build Number: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('build_number',$project->build_number,array('class'=>'form-control')) }}
+        {{ Form::text('build_number',$project->build_number,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
     </div>
         <div class="form-group">
         {{ Form::label('family', 'Family: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('family',$project->family_id,array('class'=>'form-control')) }}
+        @if(isset($family))
+            {{ Form::text('family',$family->name,array('class'=>'form-control','readonly'=>'readonly')) }}
+        @else
+            {{ Form::text('family',null,array('class'=>'form-control','readonly'=>'readonly')) }}
+        @endif
+
         </div>
     </div>
         
     <div class="form-group">
         {{ Form::label('street_number', 'Street number: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('street_number',$project->street_number,array('class'=>'form-control')) }}
+        {{ Form::text('street_number',$project->street_number,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
     <div class="form-group">
         {{ Form::label('city', 'City: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('city',$project->city,array('class'=>'form-control')) }}
+        {{ Form::text('city',$project->city,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
     <div class="form-group">
         {{ Form::label('province', 'Province: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('province',$project->province,array('class'=>'form-control')) }}
+        {{ Form::text('province',$project->province,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>    
     <div class="form-group">
         {{ Form::label('postal_code', 'Postal Code: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('postal_code',$project->postal_code,array('class'=>'form-control')) }}
+        {{ Form::text('postal_code',$project->postal_code,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
         
@@ -59,59 +60,59 @@ Project Details
         <div class="form-group">
         {{ Form::label('role', 'Project Coordinator: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('role',$project->role,array('class'=>'form-control')) }}
+        {{ Form::text('role',$project->role,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
 
     <div class="form-group">
-        {{ Form::label('start_date', 'Start Date: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('start_date', 'Start Date: ',array('class'=>'col-sm-3','readonly'=>'readonly')) }}
         <div class="col-sm-7">
-        {{ Form::input('date','start_date',$project->start_date,array('class'=>'form-control')) }}
+        {{ Form::input('date','start_date',$project->start_date,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
     <div class="form-group">
         {{ Form::label('end_date', 'End date: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::input('date','end_date',$project->end_date,array('class'=>'form-control')) }}
+        {{ Form::input('date','end_date',$project->end_date,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
     
     </div>
         <div class="form-group">
         {{ Form::label('blueprint_designer', 'Blueprint Designer: ',array('class'=>'col-sm-3')) }}
-        <div class="col-sm-7">
-        {{ Form::text('blueprint_designer',$project->blueprint_designer,array('class'=>'form-control')) }}
+        <div class="col-sm-7">        
+        {{ Form::text('blueprint_designer',$project->blueprint_designer,array('class'=>'form-control', 'readonly'=>'readonly')) }}
         </div>
     </div>
     </div>
         <div class="form-group">
         {{ Form::label('blueprint_plan_number', 'Blueprint Plan Number: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('blueprint_plan_number',$project->blueprint_plan_number,array('class'=>'form-control')) }}
+        {{ Form::text('plan_number',$project->plan_number,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
     <div class="form-group">
         {{ Form::label('building_permit_number', 'Building Permit Number: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('building_permit_number',$project->building_permit_number,array('class'=>'form-control')) }}
+        {{ Form::text('building_permit_number',$project->building_permit_number,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
     <div class="form-group">
         {{ Form::label('building_permit_date', 'Building Permit Date: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::input('date','building_permit_date',$project->building_permit_date,array('class'=>'form-control')) }}
+        {{ Form::input('date','building_permit_date',$project->building_permit_date,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
         <div class="form-group">
         {{ Form::label('mortgage_date', 'Mortgage Date: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::input('date','mortgage_date',$project->mortgage_date,array('class'=>'form-control')) }}
+        {{ Form::input('date','mortgage_date',$project->mortgage_date,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>      
     <div class="form-group">
         {{ Form::label('comments', 'Comments: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::textarea('comments',$project->comments,array('class'=>'form-control')) }}
+        {{ Form::textarea('comments',$project->comments,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
 
@@ -179,6 +180,57 @@ Project Details
         </table>
          {{ HTML::linkRoute('projInspectionsView', 'View Inspection Details', array($project->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('projInspectionsAdd', 'Add Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
+    </div>
+         <div class="form-group row">
+        {{ Form::label('hours', 'Project Hours:') }}
+        
+        <!-- Hours Table to go here -->
+        <table class="table table-hover scrollable">
+            <thead>
+                <tr>
+                    <th>Volunteer Name</th>
+                    <th>Date</th>
+                    <th>Hours</th>
+                </tr>
+            </thead>
+            <tfoot>
+            <td></td>
+            <td>Total:</td>
+            
+            <td>   
+                @if (isset($volunteerhours))
+               <?php $totalHours=0;?>
+                    @foreach($volunteerhours as $hour)
+
+               <?php $totalHours=$totalHours+$hour->hours;?>
+
+                   @endforeach
+                   {{$totalHours}}
+                @endif </td>
+            </tfoot>
+            <tbody>
+                  @if (isset($volunteers))
+                    @foreach($volunteerhours as $hour)
+
+                   <tr>
+                       @foreach($volunteers as $volunteer)
+                       @if($volunteer->id === $hour->volunteer_id)
+                            <td>{{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name}}</td>
+                       @endif
+                       @endforeach
+                       <td>{{$hour->date_of_contribution}}</td>
+                       <td>{{$hour->hours}}</td>
+                   </tr>
+
+                   @endforeach
+                @endif
+            </tbody>
+        </table>
+        {{ HTML::linkRoute('projHoursRoute', 'View Hours', array($project->id), array('class' => 'btn btn-primary')) }}
+        {{ HTML::linkRoute('projHoursAdd', 'Add Hours', array($project->id), array('class' => 'btn btn-primary')) }}
+        {{ HTML::linkAction('projHoursEdit','Edit Hours', array($project->id), array('class'=>'btn btn-primary'))}}
+        <br /><br />
+        {{ HTML::linkRoute('projectReport', 'Generate Hours Report', array($project->id), array('class' => 'btn btn-primary')) }}
     </div>
     
 </section>
