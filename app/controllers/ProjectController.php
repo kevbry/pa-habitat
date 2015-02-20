@@ -116,11 +116,12 @@ class ProjectController extends \BaseController {
 	public function show($id)
 	{
             $project = $this->projectRepo->getProject($id);
-            
+            $projectContact = $this->projectContactRepo->getProjectContact($id);
             $projectInspections = $this->projectInspectionRepo->getInspectionsForProject($id);
             $projectItems = $this->projectItemRepo->getItemsForProject($id);
             
-            return View::make('project.show', array('project' => $project,
+            return View::make('project.show', array('project' => $project, 
+                'projectContact' => $projectContact,
                 'projectInspections' => $projectInspections,
                 'projectItems' => $projectItems));
             
@@ -134,9 +135,11 @@ class ProjectController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-            $project = $this->projectRepo->getProject($id); 
+            $project = $this->projectRepo->getProject($id);
+            $projectContact = $this->projectContactRepo->getProjectContact($id);
             return View::make('project.edit')
-                    ->withProject($project);
+                    ->withProject($project)
+                    ->withProjectContact($projectContact);
 	}
 
 
@@ -153,7 +156,25 @@ class ProjectController extends \BaseController {
             $projectCoordinatorInfo['contact_id'] = Input::only('project_coordinator');
             $projectCoordinatorInfo['role'] = "Project Coordinator";
             $projectCoordinatorInfo['updated_at'] = Input::only('updated_at');
-            ProjectContact::where('id','=',$id)->update($projectCoordinatorInfo);
+            $hasEntry = ProjectContact::where('project_id','=',$id)->first();
+            
+            var_dump($hasEntry);
+            if($hasEntry == null && $projectCoordinatorInfo['contact_id'] != null)
+            {
+                $projectCoordinatorInfo['project_id'] = $id;
+                $projectCoordinatorInfo['created_at'] = Input::only('updated_at');
+                var_dump($projectCoordinatorInfo);
+                ProjectContact::insert($projectCoordinatorInfo);
+            }
+            else if($hasEntry != null && $projectCoordinatorInfo['contact_id'] == null)
+            {
+                ProjectContact::where('project_id','=',$id)->delete();
+            }
+            else
+            {
+                ProjectContact::where('project_id','=',$id)->update($projectCoordinatorInfo);
+            }
+            
             
             
             // Store values from the project form

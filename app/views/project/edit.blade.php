@@ -105,7 +105,7 @@ Edit Project
     <div class="form-group">
         <h3>Additional Details</h3>
         {{ Form::label('project_coordinator', 'Project Coordinator: ') }}
-        {{ Form::text('project_coordinator',$project->role,array('class'=>'form-control')) }}
+        {{ Form::text('project_coordinator',$projectContact->contact_id,array('class'=>'form-control')) }}
     </div>
     <div class="form-group">
         {{ Form::label('family', 'Family: ') }}
