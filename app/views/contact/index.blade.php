@@ -94,5 +94,5 @@ Index of all contacts
         @endforeach
     @endif
 </table>
-<?php echo $contacts->links(); ?>
+<?php echo $contacts->appends(array('sortby' => $sortby, 'order'=> $order ))->links(); ?>
 @stop

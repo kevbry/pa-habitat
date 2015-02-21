@@ -87,5 +87,5 @@ All Donors
     </tr>
     @endforeach
 </table>
-<?php echo $donors->links(); ?>
+<?php echo $donors->appends(array('sortby' => $sortby, 'order'=> $order ))->links(); ?>
 @stop

@@ -43,5 +43,5 @@ All Companies
     </tr>
     @endforeach
 </table>
-<?php echo $companies->links(); ?>
+<?php echo $companies->appends(array('sortby' => $sortby, 'order'=> $order ))->links(); ?>
 @stop

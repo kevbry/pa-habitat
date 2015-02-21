@@ -9,7 +9,7 @@ class EloquentDonorRepository implements DonorRepository {
     }
 
     public function getAllDonors() {
-        return \Donor::paginate(20);
+        return \Donor::join('Contact', 'Donor.id', '=', 'Contact.id')->orderBy('first_name', 'asc')->paginate(20);
     }
 
     public function saveDonor($donor) {
@@ -22,7 +22,7 @@ class EloquentDonorRepository implements DonorRepository {
 
         switch ($sort) {
             case 'l':
-                $sortby = 'last_name';
+                $sortby = 'first_name';
                 break;
             case 'h':
                 $sortby = 'home_phone';
