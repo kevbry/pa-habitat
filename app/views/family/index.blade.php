@@ -67,5 +67,5 @@ Index of all Families
     </tr>
     @endforeach
 </table>
-<?php echo $families->links(); ?>
+<?php echo $families->appends(array('sortby' => $sortby, 'order'=> $order ))->links(); ?>
 @stop

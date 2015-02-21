@@ -91,5 +91,5 @@ All Volunteers
     </tr>
     @endforeach
 </table>
-<?php echo $volunteers->links(); ?>
+<?php echo $volunteers->appends(array('sortby' => $sortby, 'order'=> $order ))->links(); ?>
 @stop
