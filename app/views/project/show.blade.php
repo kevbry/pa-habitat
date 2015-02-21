@@ -22,7 +22,12 @@ Project Details
         <div class="form-group">
         {{ Form::label('family', 'Family: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('family',$project->family_id,array('class'=>'form-control','readonly'=>'readonly')) }}
+        @if(isset($family))
+            {{ Form::text('family',$family->name,array('class'=>'form-control','readonly'=>'readonly')) }}
+        @else
+            {{ Form::text('family',null,array('class'=>'form-control','readonly'=>'readonly')) }}
+        @endif
+
         </div>
     </div>
         
@@ -75,8 +80,8 @@ Project Details
     </div>
         <div class="form-group">
         {{ Form::label('blueprint_designer', 'Blueprint Designer: ',array('class'=>'col-sm-3')) }}
-        <div class="col-sm-7">        {{ Form::text('blueprint_designer',$project->blueprint_designer,array('class'=>'form-control')) }}
-        {{ Form::text('designer',$project->designer,array('class'=>'form-control','readonly'=>'readonly')) }}
+        <div class="col-sm-7">        
+        {{ Form::text('blueprint_designer',$project->blueprint_designer,array('class'=>'form-control', 'readonly'=>'readonly')) }}
         </div>
     </div>
     </div>

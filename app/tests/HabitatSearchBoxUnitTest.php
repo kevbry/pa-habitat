@@ -50,7 +50,7 @@ class HabitatSearchBoxUnitTest extends TestCase
         
 
     }
-    /*
+
     public function testConfigureSettings()
     {
         $hint = "true";
@@ -81,7 +81,7 @@ class HabitatSearchBoxUnitTest extends TestCase
         $success = $this->testSearchBox->show();
         $this->assertTrue($success);
     }
-    */
+
     public function testBuild()
     {
         $this->testConfigureEngine();

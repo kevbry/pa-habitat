@@ -49,6 +49,7 @@ class ProjectItemTest extends TestCase
         $this->assertRedirectedToAction('ProjectItemController@index',1);
     }
     
+    //TODO: Finish this test so it properly tests for failing to store a single entry
     public function testStoreSingleEntryFailure()
     {
         $this->projectItemInput = [];
@@ -59,15 +60,15 @@ class ProjectItemTest extends TestCase
                 ->once()
                 ->with($this->projectItemInput)
                 ->andThrow(new Exception());
+        
+        // This test does not appear to be finished.
+        $this->markTestIncomplete('This test has not been properly implemented yet');
     }
     
     public function testIndex()
     {
         $this->mockedProjectItemRepo
             ->shouldReceive('getItemsForProject')->once()->with(1);
-
-        
-        $this->app->instance('app\repositories\ProjectItemRepository', $this->mockedProjectItemRepo);
         
         $this->call('GET','/project/1/items');
         
@@ -87,6 +88,15 @@ class ProjectItemTest extends TestCase
         $this->assertContains('Items for', $response->getContent());
         $this->assertTrue($this->client->getResponse()->isOk());
     }
+    
+    /*
+     * Test clean up
+     */
+    public function tearDown()
+    {
+        parent::tearDown();
+        Mockery::close();
+    }    
     
 }
 

@@ -19,6 +19,7 @@ Edit Volunteer Hours for Project {{$project->id}}
         <div>
 
 @endif
+
 <table class="table">
     <thead style="position: inherit">
         @if (count($volunteerhours) == 0)

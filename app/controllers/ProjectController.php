@@ -6,6 +6,7 @@ use App\Repositories\ProjectInspectionRepository;
 use App\Repositories\ProjectItemRepository;
 use App\Repositories\VolunteerHoursRepository;
 use App\Repositories\VolunteerRepository;
+use App\Repositories\FamilyRepository;
 class ProjectController extends \BaseController {
         public $projectRepo;
         public $projectContactRepo;
@@ -13,13 +14,15 @@ class ProjectController extends \BaseController {
         public $projectItemRepo;
         public $volunteerHrsRepo;
         public $volunteerRepo;
+        public $familyRepo;
 
         public function __construct(ProjectRepository $projectRepo, 
                 ProjectContactRepository $projectContactRepo,
                 ProjectInspectionRepository $projectInspectionRepo,
                 ProjectItemRepository $projectItemRepo,
                 VolunteerHoursRepository $volunteerHrsRepo,
-                VolunteerRepository $volunteerRepo)
+                VolunteerRepository $volunteerRepo,
+                FamilyRepository $familyRepo)
         {
             $this->projectRepo = $projectRepo;
             $this->projectContactRepo = $projectContactRepo;
@@ -27,6 +30,7 @@ class ProjectController extends \BaseController {
             $this->projectItemRepo = $projectItemRepo; 
             $this->volunteerHrsRepo = $volunteerHrsRepo;
             $this->volunteerRepo = $volunteerRepo;
+            $this->familyRepo = $familyRepo;
         }
             
 
@@ -128,11 +132,11 @@ class ProjectController extends \BaseController {
             $projectItems = $this->projectItemRepo->getItemsForProject($id);
             $volunteerHours = $this->volunteerHrsRepo->getHoursForProject($id);
             $volunteers = $this->volunteerRepo->getAllVolunteersNonPaginated();
-            
+            $family = $this->familyRepo->getFamily($project->family_id);
             return View::make('project.show', array('project' => $project,
                 'projectInspections' => $projectInspections,
                 'projectItems' => $projectItems, 'volunteerhours' => $volunteerHours,
-                'volunteers' => $volunteers));
+                'volunteers' => $volunteers, 'family' => $family));
             
 	}
 

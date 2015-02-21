@@ -17,6 +17,11 @@ class EloquentFamilyRepository implements FamilyRepository {
         return \Family::paginate(20);
     }
     
+    public function getAllFamiliesNonPaginated()
+    {
+        return \Family::orderBy('name','asc')->get();        
+    }
+    
     public function getAllFamiliesForSeed()
     {
         return \Family::lists('id');      

@@ -13,7 +13,8 @@ class EloquentProjectRepository implements ProjectRepository
     {
         return \Project::orderBy('name','asc')->paginate(20);        
     }
-        public function getAllProjectsNonPaginated()
+    
+    public function getAllProjectsNonPaginated()
     {
         return \Project::orderBy('name','asc')->get();        
     }
@@ -37,8 +38,8 @@ class EloquentProjectRepository implements ProjectRepository
          $searchTerm = "%" . $filter . "%";
         
         return \Project::query()
-                ->selectRaw("id, project_name AS name, 'project' AS type")
-                ->where('project_name', 'LIKE', $searchTerm)
+                ->selectRaw("id, name AS name, 'project' AS type")
+                ->where('name', 'LIKE', $searchTerm)
                 ->get();
     }
     

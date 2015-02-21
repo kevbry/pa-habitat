@@ -1,0 +1,802 @@
+[
+	{
+		"item_type": "Washer",
+		"manufacturer": "Ideal Roofing Company Ltd.",
+		"model": "TN969",
+		"serial_number": "VWFG464AZXG630ZVMZ",
+		"vendor": "Canadian Tire",
+		"comments": "auctor vitae, aliquet nec, imperdiet nec, leo. Morbi neque tellus, imperdiet non, vestibulum nec, euismod in, dolor."
+	},
+	{
+		"item_type": "Smoke / CO Detector",
+		"manufacturer": "Brooklin Concrete",
+		"model": "UU946",
+		"serial_number": "WFYZ681MUIV778OLVQ",
+		"vendor": "Wal-mart",
+		"comments": "eget tincidunt dui augue eu tellus. Phasellus elit pede, malesuada vel, venenatis vel,"
+	},
+	{
+		"item_type": "Pressure tank",
+		"manufacturer": "Brooklin Concrete",
+		"model": "AM691",
+		"serial_number": "SXIS420MZYX273ASUK",
+		"vendor": "Canadian Tire",
+		"comments": "ipsum. Phasellus vitae mauris sit amet lorem semper auctor. Mauris vel turpis. Aliquam adipiscing lobortis risus. In mi pede, nonummy ut, molestie in, tempus eu, ligula. Aenean euismod mauris"
+	},
+	{
+		"item_type": "Countertop",
+		"manufacturer": "Can-Save Supply",
+		"model": "ZL189",
+		"serial_number": "TXIA062JQPW353QPNU",
+		"vendor": "Co-Op",
+		"comments": "lectus, a sollicitudin orci sem eget massa. Suspendisse eleifend. Cras sed leo. Cras vehicula aliquet libero."
+	},
+	{
+		"item_type": "Stove",
+		"manufacturer": "Ideal Roofing Company Ltd.",
+		"model": "EG397",
+		"serial_number": "XZAY932KLEH957NFEE",
+		"vendor": "Home Depot",
+		"comments": "Phasellus fermentum convallis ligula. Donec luctus aliquet odio. Etiam ligula tortor, dictum eu, placerat eget, venenatis a, magna. Lorem ipsum dolor sit amet, consectetuer adipiscing"
+	},
+	{
+		"item_type": "Tap",
+		"manufacturer": "Dalmen Windows & Doors",
+		"model": "VI820",
+		"serial_number": "BPQC930FFOA664AYPK",
+		"vendor": "Co-Op",
+		"comments": "convallis in, cursus et, eros. Proin ultrices. Duis volutpat nunc sit amet metus. Aliquam erat volutpat. Nulla facilisis. Suspendisse commodo tincidunt nibh. Phasellus nulla. Integer vulputate, risus"
+	},
+	{
+		"item_type": "Sump Pump",
+		"manufacturer": "Kraftmaid Cabinetry Inc.",
+		"model": "VS325",
+		"serial_number": "CTDJ787OBKZ283NPKF",
+		"vendor": "Rona",
+		"comments": "senectus et netus et malesuada fames ac turpis egestas. Fusce aliquet magna"
+	},
+	{
+		"item_type": "Toilet",
+		"manufacturer": "Bonneville Windows & Doors",
+		"model": "GM653",
+		"serial_number": "GYTO559VPEJ358EUHI",
+		"vendor": "Leon's",
+		"comments": "Fusce mi lorem,"
+	},
+	{
+		"item_type": "Windows",
+		"manufacturer": "Brooklin Concrete",
+		"model": "DW838",
+		"serial_number": "CMSP943AMDI375UPCM",
+		"vendor": "Co-Op",
+		"comments": "aliquam eu, accumsan sed, facilisis vitae, orci. Phasellus dapibus quam quis diam. Pellentesque habitant morbi tristique senectus"
+	},
+	{
+		"item_type": "Doors",
+		"manufacturer": "Dalmen Windows & Doors",
+		"model": "XE091",
+		"serial_number": "CWQQ901PLZY868SRTO",
+		"vendor": "Beehive Flooring",
+		"comments": "Duis sit amet diam eu dolor egestas rhoncus. Proin nisl sem, consequat nec, mollis vitae, posuere at, velit. Cras lorem lorem, luctus ut, pellentesque eget, dictum"
+	},
+	{
+		"item_type": "Flooring",
+		"manufacturer": "Black & Decker",
+		"model": "TO093",
+		"serial_number": "VUJF174SDJJ718EKFI",
+		"vendor": "Home Hardware",
+		"comments": "gravida sit amet, dapibus id, blandit at, nisi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin vel nisl. Quisque fringilla euismod enim. Etiam gravida molestie"
+	},
+	{
+		"item_type": "Siding",
+		"manufacturer": "Can-Save Supply",
+		"model": "EI451",
+		"serial_number": "CWCX056ONOZ276OZDT",
+		"vendor": "Future Shop",
+		"comments": "nunc est, mollis non, cursus non, egestas a, dui. Cras pellentesque. Sed"
+	},
+	{
+		"item_type": "Doors",
+		"manufacturer": "Ideal Roofing Company Ltd.",
+		"model": "JZ824",
+		"serial_number": "YUIO362NNLU265CXSC",
+		"vendor": "Future Shop",
+		"comments": "per inceptos hymenaeos. Mauris ut quam vel sapien imperdiet ornare. In faucibus. Morbi vehicula. Pellentesque tincidunt"
+	},
+	{
+		"item_type": "Cabinets",
+		"manufacturer": "Black & Decker",
+		"model": "QB651",
+		"serial_number": "OYRH193FUSH660YYGW",
+		"vendor": "Canadian Tire",
+		"comments": "malesuada vel, convallis in, cursus et, eros. Proin ultrices. Duis volutpat nunc sit amet"
+	},
+	{
+		"item_type": "Refrigerator",
+		"manufacturer": "Canadian Stone Industries Inc.",
+		"model": "AZ901",
+		"serial_number": "ZYIY904ZPOS918IQVW",
+		"vendor": "Rona",
+		"comments": "lorem vitae odio sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec"
+	},
+	{
+		"item_type": "Doors",
+		"manufacturer": "Robert Bosch Inc.",
+		"model": "KL658",
+		"serial_number": "RBIC802KXKY560NCDC",
+		"vendor": "Home Hardware",
+		"comments": "Suspendisse aliquet, sem ut cursus luctus, ipsum leo elementum sem, vitae aliquam eros turpis non enim. Mauris quis turpis vitae"
+	},
+	{
+		"item_type": "Sump Pump",
+		"manufacturer": "Can-Save Supply",
+		"model": "EF084",
+		"serial_number": "SDRO041GLZX437DRKX",
+		"vendor": "Beehive Flooring",
+		"comments": "dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at,"
+	},
+	{
+		"item_type": "Sump Pump",
+		"manufacturer": "Black & Decker",
+		"model": "MR583",
+		"serial_number": "WOVK955ULDL142SNUR",
+		"vendor": "Home Hardware",
+		"comments": "Maecenas mi felis, adipiscing fringilla, porttitor vulputate, posuere vulputate, lacus. Cras interdum. Nunc sollicitudin commodo ipsum. Suspendisse non leo. Vivamus nibh dolor, nonummy ac, feugiat non, lobortis quis, pede."
+	},
+	{
+		"item_type": "Refrigerator",
+		"manufacturer": "Black & Decker",
+		"model": "BB228",
+		"serial_number": "IUSX127HBZM851DMMZ",
+		"vendor": "Co-Op",
+		"comments": "ipsum. Curabitur consequat, lectus sit amet luctus vulputate,"
+	},
+	{
+		"item_type": "Sump Pump",
+		"manufacturer": "Canadian Stone Industries Inc.",
+		"model": "LN213",
+		"serial_number": "ZXGM713MVEH657FUQT",
+		"vendor": "Rona",
+		"comments": "natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eget magna. Suspendisse"
+	},
+	{
+		"item_type": "Shingles",
+		"manufacturer": "Stewart Overhead Door",
+		"model": "NW329",
+		"serial_number": "KQAG362AVGY740CSDN",
+		"vendor": "Home Hardware",
+		"comments": "Aliquam vulputate ullamcorper magna. Sed eu eros. Nam consequat dolor vitae dolor. Donec fringilla. Donec feugiat metus sit amet ante. Vivamus non lorem vitae odio"
+	},
+	{
+		"item_type": "Stove",
+		"manufacturer": "Stewart Overhead Door",
+		"model": "LR304",
+		"serial_number": "VDVK527DNKD076YIVH",
+		"vendor": "Rona",
+		"comments": "faucibus. Morbi vehicula. Pellentesque tincidunt tempus risus. Donec egestas. Duis ac arcu. Nunc mauris. Morbi non sapien molestie"
+	},
+	{
+		"item_type": "Cabinets",
+		"manufacturer": "Dalmen Windows & Doors",
+		"model": "DC500",
+		"serial_number": "UNYX401KKLY829SGZY",
+		"vendor": "Best Buy",
+		"comments": "quis diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce aliquet"
+	},
+	{
+		"item_type": "Windows",
+		"manufacturer": "Dalmen Windows & Doors",
+		"model": "FW297",
+		"serial_number": "ZRXA449JRNF658DPJQ",
+		"vendor": "Beehive Flooring",
+		"comments": "tristique senectus et netus et malesuada fames ac turpis egestas. Fusce aliquet magna a neque. Nullam"
+	},
+	{
+		"item_type": "Doors",
+		"manufacturer": "Frigidaire",
+		"model": "KL706",
+		"serial_number": "AHPT294YUQA646VGXP",
+		"vendor": "Home Outfitters",
+		"comments": "iaculis quis, pede. Praesent eu dui. Cum sociis natoque penatibus et"
+	},
+	{
+		"item_type": "Dryer",
+		"manufacturer": "Kraftmaid Cabinetry Inc.",
+		"model": "AF040",
+		"serial_number": "GFYX589PETM278ZAUA",
+		"vendor": "Future Shop",
+		"comments": "Aenean eget magna."
+	},
+	{
+		"item_type": "Doors",
+		"manufacturer": "General Electric",
+		"model": "FZ314",
+		"serial_number": "NUUY256XKAS887YWBI",
+		"vendor": "Canadian Tire",
+		"comments": "ligula. Nullam enim. Sed"
+	},
+	{
+		"item_type": "Toilet",
+		"manufacturer": "Whirlpool",
+		"model": "OG629",
+		"serial_number": "TQHU949NOAD358EWQW",
+		"vendor": "Co-Op",
+		"comments": "posuere at, velit. Cras lorem lorem, luctus ut, pellentesque eget, dictum placerat, augue. Sed molestie. Sed id risus quis diam luctus lobortis. Class aptent taciti sociosqu"
+	},
+	{
+		"item_type": "Siding",
+		"manufacturer": "Canadian Stone Industries Inc.",
+		"model": "HD770",
+		"serial_number": "LNTF327PKMT987FFCJ",
+		"vendor": "Canadian Tire",
+		"comments": "Nulla facilisi. Sed neque. Sed eget lacus. Mauris non dui nec urna suscipit nonummy. Fusce fermentum fermentum arcu. Vestibulum ante ipsum primis in faucibus"
+	},
+	{
+		"item_type": "Refrigerator",
+		"manufacturer": "Black & Decker",
+		"model": "EL848",
+		"serial_number": "ASEH714KQRU162KGUP",
+		"vendor": "Leon's",
+		"comments": "congue. In scelerisque scelerisque dui. Suspendisse ac metus vitae velit egestas lacinia. Sed congue, elit sed consequat auctor, nunc nulla vulputate"
+	},
+	{
+		"item_type": "Furnace",
+		"manufacturer": "Maytag",
+		"model": "YU832",
+		"serial_number": "TGOG566GUVJ751ZTVL",
+		"vendor": "Leon's",
+		"comments": "dignissim lacus. Aliquam rutrum lorem ac"
+	},
+	{
+		"item_type": "Windows",
+		"manufacturer": "Frigidaire",
+		"model": "WJ914",
+		"serial_number": "SNJB411KWHA580ZQGC",
+		"vendor": "Future Shop",
+		"comments": "amet lorem semper auctor. Mauris vel turpis. Aliquam adipiscing lobortis risus. In mi pede, nonummy ut,"
+	},
+	{
+		"item_type": "Shingles",
+		"manufacturer": "Whirlpool",
+		"model": "AB098",
+		"serial_number": "NASE311PGSO854FSRR",
+		"vendor": "Rona",
+		"comments": "Nullam lobortis quam a felis ullamcorper viverra. Maecenas iaculis aliquet diam. Sed diam lorem, auctor quis, tristique ac, eleifend vitae, erat. Vivamus nisi. Mauris nulla. Integer urna."
+	},
+	{
+		"item_type": "Pressure tank",
+		"manufacturer": "Can-Save Supply",
+		"model": "QQ266",
+		"serial_number": "GLYV043WUYE826NKEL",
+		"vendor": "Beehive Flooring",
+		"comments": "Nullam feugiat placerat velit. Quisque varius. Nam porttitor scelerisque neque. Nullam nisl. Maecenas malesuada fringilla"
+	},
+	{
+		"item_type": "Toilet",
+		"manufacturer": "Zenith Wood Turners Inc.",
+		"model": "TT553",
+		"serial_number": "OFPB963XJLK086BITW",
+		"vendor": "Canadian Tire",
+		"comments": "turpis non enim. Mauris quis turpis vitae purus gravida"
+	},
+	{
+		"item_type": "Toilet",
+		"manufacturer": "Brooklin Concrete",
+		"model": "DR954",
+		"serial_number": "IZRA154RIGC886OKMK",
+		"vendor": "Home Depot",
+		"comments": "venenatis lacus. Etiam bibendum fermentum metus. Aenean"
+	},
+	{
+		"item_type": "Toilet",
+		"manufacturer": "Zenith Wood Turners Inc.",
+		"model": "AA853",
+		"serial_number": "TNFE808BSBM528SPRJ",
+		"vendor": "Home Depot",
+		"comments": "eu neque pellentesque massa lobortis ultrices. Vivamus rhoncus. Donec est. Nunc ullamcorper, velit in aliquet lobortis, nisi nibh lacinia orci, consectetuer euismod"
+	},
+	{
+		"item_type": "Sump Pump",
+		"manufacturer": "Whirlpool",
+		"model": "BO290",
+		"serial_number": "AHIP950XXDZ649CUNM",
+		"vendor": "Best Buy",
+		"comments": "vitae risus. Duis a mi fringilla mi lacinia mattis. Integer eu lacus. Quisque imperdiet, erat nonummy ultricies ornare, elit elit fermentum risus, at fringilla purus mauris"
+	},
+	{
+		"item_type": "Washer",
+		"manufacturer": "Maytag",
+		"model": "NZ554",
+		"serial_number": "KAKJ269VIUJ920IFTG",
+		"vendor": "Beehive Flooring",
+		"comments": "Donec consectetuer mauris id sapien. Cras dolor dolor, tempus non, lacinia at, iaculis quis, pede."
+	},
+	{
+		"item_type": "Dryer",
+		"manufacturer": "Zenith Wood Turners Inc.",
+		"model": "QA803",
+		"serial_number": "OBPO518WTQR555DOQD",
+		"vendor": "Wal-mart",
+		"comments": "eu neque pellentesque massa lobortis ultrices."
+	},
+	{
+		"item_type": "Tap",
+		"manufacturer": "Can-Save Supply",
+		"model": "QZ751",
+		"serial_number": "IEUH184LUQT896CUGU",
+		"vendor": "Leon's",
+		"comments": "amet diam eu dolor egestas rhoncus. Proin nisl sem, consequat nec, mollis vitae, posuere at, velit. Cras lorem lorem, luctus ut, pellentesque eget, dictum"
+	},
+	{
+		"item_type": "Flooring",
+		"manufacturer": "Black & Decker",
+		"model": "GF158",
+		"serial_number": "DEIW180BMGK093MSLM",
+		"vendor": "Leon's",
+		"comments": "Fusce fermentum fermentum arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus ornare. Fusce mollis. Duis sit amet diam eu"
+	},
+	{
+		"item_type": "Refrigerator",
+		"manufacturer": "General Electric",
+		"model": "NM323",
+		"serial_number": "PXUK102JVFE671BBYP",
+		"vendor": "Home Hardware",
+		"comments": "molestie dapibus ligula. Aliquam erat volutpat. Nulla dignissim. Maecenas"
+	},
+	{
+		"item_type": "Siding",
+		"manufacturer": "Can-Save Supply",
+		"model": "IV235",
+		"serial_number": "OZKA621NDNO219AUJB",
+		"vendor": "Home Depot",
+		"comments": "sollicitudin a, malesuada id, erat. Etiam vestibulum massa rutrum magna. Cras convallis convallis dolor. Quisque tincidunt pede ac urna. Ut tincidunt vehicula risus. Nulla"
+	},
+	{
+		"item_type": "Window Coverings",
+		"manufacturer": "Frigidaire",
+		"model": "IL587",
+		"serial_number": "LGRY660DXOB723WBWR",
+		"vendor": "Beehive Flooring",
+		"comments": "vitae mauris sit amet lorem semper auctor. Mauris vel turpis. Aliquam adipiscing lobortis risus. In mi pede,"
+	},
+	{
+		"item_type": "Sump Pump",
+		"manufacturer": "Can-Save Supply",
+		"model": "HB613",
+		"serial_number": "YIRY710WYIN809OUIL",
+		"vendor": "Home Hardware",
+		"comments": "Phasellus libero mauris, aliquam eu, accumsan sed, facilisis vitae, orci. Phasellus dapibus quam quis diam. Pellentesque"
+	},
+	{
+		"item_type": "Shingles",
+		"manufacturer": "Canadian Gypsum Co. (CGC Inc.)",
+		"model": "DN831",
+		"serial_number": "RXDW964EEVL309EFVI",
+		"vendor": "Home Hardware",
+		"comments": "dolor egestas rhoncus. Proin nisl sem,"
+	},
+	{
+		"item_type": "Tap",
+		"manufacturer": "Robert Bosch Inc.",
+		"model": "IG549",
+		"serial_number": "FLDP842EQMN281ITXU",
+		"vendor": "Wal-mart",
+		"comments": "sodales at, velit. Pellentesque ultricies dignissim lacus. Aliquam rutrum lorem ac risus. Morbi metus. Vivamus euismod urna. Nullam lobortis quam a"
+	},
+	{
+		"item_type": "Cabinets",
+		"manufacturer": "Kraftmaid Cabinetry Inc.",
+		"model": "MS565",
+		"serial_number": "STUS786YITQ467AOJD",
+		"vendor": "Best Buy",
+		"comments": "quis, tristique ac, eleifend vitae, erat. Vivamus nisi. Mauris nulla. Integer urna. Vivamus"
+	},
+	{
+		"item_type": "Tap",
+		"manufacturer": "Robert Bosch Inc.",
+		"model": "NH845",
+		"serial_number": "WQCA635VOSY205EOSE",
+		"vendor": "Future Shop",
+		"comments": "ligula consectetuer rhoncus. Nullam velit dui, semper et, lacinia vitae, sodales at, velit."
+	},
+	{
+		"item_type": "Siding",
+		"manufacturer": "Robert Bosch Inc.",
+		"model": "XE181",
+		"serial_number": "LWQR087XHKU486VNOO",
+		"vendor": "Home Hardware",
+		"comments": "in, tempus eu, ligula. Aenean euismod mauris eu elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non"
+	},
+	{
+		"item_type": "Shingles",
+		"manufacturer": "Kraftmaid Cabinetry Inc.",
+		"model": "SM085",
+		"serial_number": "VJEN145EPTH272CNAS",
+		"vendor": "Rona",
+		"comments": "posuere cubilia"
+	},
+	{
+		"item_type": "Smoke / CO Detector",
+		"manufacturer": "Ideal Roofing Company Ltd.",
+		"model": "KJ485",
+		"serial_number": "ZJUN485OYOX155NZEW",
+		"vendor": "Beehive Flooring",
+		"comments": "dictum mi, ac mattis velit justo nec ante. Maecenas mi felis, adipiscing fringilla, porttitor vulputate, posuere vulputate, lacus. Cras interdum. Nunc sollicitudin commodo ipsum. Suspendisse non leo. Vivamus nibh dolor,"
+	},
+	{
+		"item_type": "Dryer",
+		"manufacturer": "Steel Craft",
+		"model": "GA320",
+		"serial_number": "PSGD414WAUV408WFAT",
+		"vendor": "Home Outfitters",
+		"comments": "at, velit. Pellentesque"
+	},
+	{
+		"item_type": "Washer",
+		"manufacturer": "Can-Save Supply",
+		"model": "NT355",
+		"serial_number": "QHSX138AWCK333YWQG",
+		"vendor": "Home Depot",
+		"comments": "ut, pharetra sed, hendrerit a, arcu. Sed et libero. Proin mi. Aliquam gravida mauris ut mi. Duis risus odio, auctor vitae, aliquet nec, imperdiet nec, leo."
+	},
+	{
+		"item_type": "Window Coverings",
+		"manufacturer": "Black & Decker",
+		"model": "OI152",
+		"serial_number": "UZWS960RNGP962RNYD",
+		"vendor": "Canadian Tire",
+		"comments": "pharetra, felis eget varius ultrices, mauris ipsum porta elit, a feugiat tellus"
+	},
+	{
+		"item_type": "Windows",
+		"manufacturer": "Canadian Stone Industries Inc.",
+		"model": "JK023",
+		"serial_number": "MYNR489LWOO821AHIF",
+		"vendor": "Wal-mart",
+		"comments": "sed dui. Fusce aliquam, enim nec tempus scelerisque, lorem ipsum sodales purus, in molestie tortor nibh sit amet orci. Ut sagittis lobortis mauris. Suspendisse aliquet molestie tellus. Aenean egestas hendrerit"
+	},
+	{
+		"item_type": "Refrigerator",
+		"manufacturer": "Robert Bosch Inc.",
+		"model": "QB285",
+		"serial_number": "YMHZ590FWGY907HULU",
+		"vendor": "Leon's",
+		"comments": "cursus vestibulum. Mauris magna. Duis dignissim"
+	},
+	{
+		"item_type": "Water Heater",
+		"manufacturer": "Canadian Stone Industries Inc.",
+		"model": "DU709",
+		"serial_number": "UYRE154CYSP036JOFW",
+		"vendor": "Home Hardware",
+		"comments": "scelerisque dui. Suspendisse ac metus vitae velit egestas lacinia. Sed congue, elit sed consequat auctor, nunc nulla vulputate dui, nec tempus mauris erat eget ipsum. Suspendisse sagittis."
+	},
+	{
+		"item_type": "Toilet",
+		"manufacturer": "Steel Craft",
+		"model": "WH518",
+		"serial_number": "WHVI347YJRT028FKSR",
+		"vendor": "Home Depot",
+		"comments": "neque et nunc. Quisque ornare tortor at risus."
+	},
+	{
+		"item_type": "Doors",
+		"manufacturer": "Maytag",
+		"model": "YI789",
+		"serial_number": "ZDGV231NIUD286LYDJ",
+		"vendor": "Leon's",
+		"comments": "gravida sit amet, dapibus id, blandit at, nisi. Cum sociis natoque"
+	},
+	{
+		"item_type": "Tap",
+		"manufacturer": "Frigidaire",
+		"model": "SA062",
+		"serial_number": "APFW409FMCU962NCIF",
+		"vendor": "Co-Op",
+		"comments": "odio, auctor vitae, aliquet nec, imperdiet nec, leo. Morbi neque tellus, imperdiet non, vestibulum nec,"
+	},
+	{
+		"item_type": "Window Coverings",
+		"manufacturer": "Canadian Gypsum Co. (CGC Inc.)",
+		"model": "SM962",
+		"serial_number": "SSGC038IRHW814YQBF",
+		"vendor": "Best Buy",
+		"comments": "magnis dis parturient montes, nascetur ridiculus mus. Proin vel nisl. Quisque fringilla euismod enim."
+	},
+	{
+		"item_type": "Siding",
+		"manufacturer": "General Electric",
+		"model": "VU869",
+		"serial_number": "TUYJ609JSVA764VRDK",
+		"vendor": "Rona",
+		"comments": "bibendum fermentum metus. Aenean sed pede nec ante blandit"
+	},
+	{
+		"item_type": "Windows",
+		"manufacturer": "Ideal Roofing Company Ltd.",
+		"model": "LV952",
+		"serial_number": "TNKB230UFBF853OMIZ",
+		"vendor": "Wal-mart",
+		"comments": "non enim commodo hendrerit. Donec porttitor"
+	},
+	{
+		"item_type": "Toilet",
+		"manufacturer": "Canadian Stone Industries Inc.",
+		"model": "DG052",
+		"serial_number": "MRMT198YKMN511SHQC",
+		"vendor": "Beehive Flooring",
+		"comments": "ligula. Aenean euismod mauris eu elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non dui nec urna suscipit nonummy. Fusce"
+	},
+	{
+		"item_type": "Stove",
+		"manufacturer": "Stewart Overhead Door",
+		"model": "AW234",
+		"serial_number": "DKCY022SJCQ870ZCYT",
+		"vendor": "Wal-mart",
+		"comments": "ligula consectetuer rhoncus. Nullam velit dui, semper et, lacinia vitae,"
+	},
+	{
+		"item_type": "Pressure tank",
+		"manufacturer": "Can-Save Supply",
+		"model": "OU501",
+		"serial_number": "CEPW812UACX462PYER",
+		"vendor": "Leon's",
+		"comments": "gravida sagittis. Duis gravida. Praesent eu nulla at sem molestie sodales. Mauris blandit enim consequat purus. Maecenas libero est, congue a, aliquet vel, vulputate eu, odio. Phasellus"
+	},
+	{
+		"item_type": "Refrigerator",
+		"manufacturer": "Stewart Overhead Door",
+		"model": "JB785",
+		"serial_number": "QDGX166LGTL274IUWX",
+		"vendor": "Home Hardware",
+		"comments": "urna. Nunc quis arcu vel quam dignissim"
+	},
+	{
+		"item_type": "Siding",
+		"manufacturer": "Steel Craft",
+		"model": "GU647",
+		"serial_number": "XHKY801AEBR758LGEK",
+		"vendor": "Rona",
+		"comments": "dictum cursus. Nunc mauris elit, dictum eu, eleifend nec, malesuada ut,"
+	},
+	{
+		"item_type": "Cabinets",
+		"manufacturer": "Kraftmaid Cabinetry Inc.",
+		"model": "NR616",
+		"serial_number": "PZGR505TKFO510MAWG",
+		"vendor": "Home Depot",
+		"comments": "ornare. Fusce mollis. Duis"
+	},
+	{
+		"item_type": "Water Heater",
+		"manufacturer": "Stewart Overhead Door",
+		"model": "AV589",
+		"serial_number": "PJWW502PWCY910NWQY",
+		"vendor": "Best Buy",
+		"comments": "ut aliquam iaculis, lacus pede"
+	},
+	{
+		"item_type": "Windows",
+		"manufacturer": "Stewart Overhead Door",
+		"model": "ZL822",
+		"serial_number": "OUMJ174MHKK607OBXK",
+		"vendor": "Co-Op",
+		"comments": "Morbi non sapien molestie orci tincidunt adipiscing. Mauris molestie"
+	},
+	{
+		"item_type": "Water Heater",
+		"manufacturer": "Can-Save Supply",
+		"model": "QL058",
+		"serial_number": "IILH669KIOD294BWUG",
+		"vendor": "Canadian Tire",
+		"comments": "ac, fermentum vel, mauris. Integer sem elit, pharetra ut, pharetra"
+	},
+	{
+		"item_type": "Washer",
+		"manufacturer": "Sico Inc.",
+		"model": "OD269",
+		"serial_number": "YGBJ555HGOY636THSS",
+		"vendor": "Co-Op",
+		"comments": "volutpat"
+	},
+	{
+		"item_type": "Pressure tank",
+		"manufacturer": "Steel Craft",
+		"model": "TD620",
+		"serial_number": "QHMN618OBAX940YAUG",
+		"vendor": "Leon's",
+		"comments": "eget metus eu"
+	},
+	{
+		"item_type": "Tap",
+		"manufacturer": "Bonneville Windows & Doors",
+		"model": "BC934",
+		"serial_number": "GZIA556WNMF241OIAK",
+		"vendor": "Home Depot",
+		"comments": "odio, auctor vitae, aliquet nec, imperdiet nec, leo. Morbi neque tellus, imperdiet"
+	},
+	{
+		"item_type": "Tap",
+		"manufacturer": "General Electric",
+		"model": "IW892",
+		"serial_number": "NLCS535DWXC978ESBK",
+		"vendor": "Home Outfitters",
+		"comments": "Pellentesque tincidunt tempus risus. Donec egestas. Duis ac arcu. Nunc mauris. Morbi non sapien molestie orci tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare,"
+	},
+	{
+		"item_type": "Dryer",
+		"manufacturer": "Can-Save Supply",
+		"model": "IA250",
+		"serial_number": "HYIM386JJHA001ZQYM",
+		"vendor": "Home Outfitters",
+		"comments": "a neque. Nullam ut nisi a odio semper cursus. Integer mollis. Integer tincidunt aliquam arcu. Aliquam ultrices iaculis odio."
+	},
+	{
+		"item_type": "Flooring",
+		"manufacturer": "Robert Bosch Inc.",
+		"model": "GT895",
+		"serial_number": "AYDD255UXZO273HBUJ",
+		"vendor": "Rona",
+		"comments": "et ipsum cursus vestibulum. Mauris magna."
+	},
+	{
+		"item_type": "Washer",
+		"manufacturer": "Stewart Overhead Door",
+		"model": "ZP550",
+		"serial_number": "CABG958JNKV483IKHQ",
+		"vendor": "Rona",
+		"comments": "vel arcu eu odio tristique pharetra. Quisque ac libero nec ligula"
+	},
+	{
+		"item_type": "Furnace",
+		"manufacturer": "Brooklin Concrete",
+		"model": "DI411",
+		"serial_number": "RPGM729OFVI604OOKJ",
+		"vendor": "Wal-mart",
+		"comments": "lobortis. Class aptent taciti"
+	},
+	{
+		"item_type": "Refrigerator",
+		"manufacturer": "Ideal Roofing Company Ltd.",
+		"model": "JD738",
+		"serial_number": "OPWC084VKVS431EICQ",
+		"vendor": "Beehive Flooring",
+		"comments": "risus. Donec egestas. Aliquam nec enim. Nunc ut erat. Sed nunc est, mollis"
+	},
+	{
+		"item_type": "Toilet",
+		"manufacturer": "Dalmen Windows & Doors",
+		"model": "BN785",
+		"serial_number": "OSZI150UDFE247YLZI",
+		"vendor": "Beehive Flooring",
+		"comments": "Phasellus in felis."
+	},
+	{
+		"item_type": "Furnace",
+		"manufacturer": "Can-Save Supply",
+		"model": "OY160",
+		"serial_number": "LKOO762DNMB398FZLZ",
+		"vendor": "Rona",
+		"comments": "urna convallis erat, eget tincidunt dui augue eu tellus. Phasellus elit pede, malesuada vel, venenatis vel,"
+	},
+	{
+		"item_type": "Window Coverings",
+		"manufacturer": "Kraftmaid Cabinetry Inc.",
+		"model": "IF014",
+		"serial_number": "ZGLC362SADI872YYDA",
+		"vendor": "Future Shop",
+		"comments": "gravida non, sollicitudin a, malesuada id, erat. Etiam vestibulum"
+	},
+	{
+		"item_type": "Doors",
+		"manufacturer": "Kraftmaid Cabinetry Inc.",
+		"model": "RK863",
+		"serial_number": "MMBT004KZJO562CEQI",
+		"vendor": "Future Shop",
+		"comments": "varius et, euismod et, commodo at, libero. Morbi accumsan laoreet ipsum. Curabitur consequat, lectus sit amet luctus vulputate, nisi sem"
+	},
+	{
+		"item_type": "Smoke / CO Detector",
+		"manufacturer": "Stewart Overhead Door",
+		"model": "NX074",
+		"serial_number": "RJQW669XPRU117RAXW",
+		"vendor": "Future Shop",
+		"comments": "lacus pede sagittis augue, eu tempor erat neque non quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam fringilla cursus purus."
+	},
+	{
+		"item_type": "Heat Recovery Ventilation (HRV)",
+		"manufacturer": "Frigidaire",
+		"model": "OQ477",
+		"serial_number": "XQVM720NAVZ189ZLSZ",
+		"vendor": "Future Shop",
+		"comments": "eget, volutpat ornare, facilisis eget, ipsum. Donec sollicitudin adipiscing ligula. Aenean gravida nunc sed pede. Cum sociis natoque penatibus et magnis dis"
+	},
+	{
+		"item_type": "Dryer",
+		"manufacturer": "Stewart Overhead Door",
+		"model": "BD342",
+		"serial_number": "RGCZ756HYES005MCRB",
+		"vendor": "Beehive Flooring",
+		"comments": "facilisis. Suspendisse commodo tincidunt nibh. Phasellus nulla. Integer vulputate, risus a ultricies adipiscing, enim mi tempor lorem, eget"
+	},
+	{
+		"item_type": "Tap",
+		"manufacturer": "Can-Save Supply",
+		"model": "DU338",
+		"serial_number": "SBPZ358IENL564DZYW",
+		"vendor": "Wal-mart",
+		"comments": "facilisis, magna tellus faucibus leo, in lobortis tellus justo sit amet nulla. Donec non justo. Proin non massa non ante bibendum"
+	},
+	{
+		"item_type": "Windows",
+		"manufacturer": "Steel Craft",
+		"model": "UZ604",
+		"serial_number": "KETD478YHMB086PVCK",
+		"vendor": "Best Buy",
+		"comments": "quis accumsan convallis, ante lectus convallis est, vitae sodales nisi magna sed dui. Fusce aliquam, enim"
+	},
+	{
+		"item_type": "Flooring",
+		"manufacturer": "Ideal Roofing Company Ltd.",
+		"model": "ZN056",
+		"serial_number": "TBZR607ZFIC992FLEO",
+		"vendor": "Best Buy",
+		"comments": "consectetuer adipiscing elit. Curabitur sed tortor. Integer aliquam adipiscing lacus. Ut nec urna et arcu imperdiet ullamcorper. Duis"
+	},
+	{
+		"item_type": "Flooring",
+		"manufacturer": "Dalmen Windows & Doors",
+		"model": "TR080",
+		"serial_number": "FLOU872WKYA671BUFC",
+		"vendor": "Leon's",
+		"comments": "auctor odio a purus. Duis elementum, dui quis accumsan convallis, ante lectus convallis est, vitae sodales nisi magna sed dui. Fusce aliquam, enim nec tempus"
+	},
+	{
+		"item_type": "Shingles",
+		"manufacturer": "Frigidaire",
+		"model": "UH743",
+		"serial_number": "YNDC947MQCV090HVKW",
+		"vendor": "Beehive Flooring",
+		"comments": "fermentum metus. Aenean sed pede nec ante blandit viverra. Donec tempus, lorem fringilla"
+	},
+	{
+		"item_type": "Window Coverings",
+		"manufacturer": "Maytag",
+		"model": "LP913",
+		"serial_number": "TLUK983BYGO610JZCN",
+		"vendor": "Rona",
+		"comments": "urna justo faucibus lectus, a sollicitudin orci sem eget massa. Suspendisse eleifend. Cras sed leo. Cras vehicula aliquet"
+	},
+	{
+		"item_type": "Tap",
+		"manufacturer": "General Electric",
+		"model": "HF259",
+		"serial_number": "BMUB354IVBF468BRJZ",
+		"vendor": "Leon's",
+		"comments": "at augue id ante dictum cursus. Nunc mauris elit, dictum eu, eleifend nec, malesuada ut, sem. Nulla interdum. Curabitur dictum."
+	},
+	{
+		"item_type": "Siding",
+		"manufacturer": "Zenith Wood Turners Inc.",
+		"model": "GI813",
+		"serial_number": "GCOE548EVOU197XQCH",
+		"vendor": "Future Shop",
+		"comments": "nisi."
+	},
+	{
+		"item_type": "Smoke / CO Detector",
+		"manufacturer": "Can-Save Supply",
+		"model": "BS066",
+		"serial_number": "PHIH164FKRU569FMEN",
+		"vendor": "Home Depot",
+		"comments": "eu, ligula. Aenean euismod mauris eu elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non dui nec urna suscipit nonummy. Fusce fermentum fermentum arcu. Vestibulum ante ipsum primis"
+	},
+	{
+		"item_type": "Sump Pump",
+		"manufacturer": "Black & Decker",
+		"model": "RH530",
+		"serial_number": "MMDG071ZAWS321MBUK",
+		"vendor": "Co-Op",
+		"comments": "neque et nunc. Quisque ornare tortor at risus. Nunc ac sem ut dolor"
+	}
+]
