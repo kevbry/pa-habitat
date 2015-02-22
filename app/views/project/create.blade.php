@@ -56,9 +56,9 @@ Create a Project
         
     </div>
         <div class="form-group">
-        {{ Form::label('role', 'Project Coordinator: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('project_coordinator', 'Project Coordinator: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('role',null,array('class'=>'form-control')) }}
+        {{ Form::text('project_coordinator',null,array('class'=>'form-control')) }}
         </div>
     </div>
 
