@@ -14,20 +14,7 @@ Project Details
         <div class="col-sm-7">
         {{ Form::text('build_number',$project->build_number,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
-    </div>
-    </div>
-        <div class="form-group">
-        {{ Form::label('family', 'Family: ',array('class'=>'col-sm-3')) }}
-        <div class="col-sm-7">
-        @if(isset($family))
-            {{ Form::text('family',$family->name,array('class'=>'form-control','readonly'=>'readonly')) }}
-        @else
-            {{ Form::text('family',null,array('class'=>'form-control','readonly'=>'readonly')) }}
-        @endif
-
-        </div>
-    </div>
-        
+    </div>    
     <div class="form-group">
         {{ Form::label('street_number', 'Street Address: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
@@ -118,7 +105,11 @@ Project Details
     </div>
     <div class="form-group">
         {{ Form::label('family', 'Family: ') }}
-        {{ Form::text('family',$project->family_id,array('class'=>'form-control','readonly'=>'readonly')) }}
+        @if(isset($family))
+            {{ Form::text('family',$family->name,array('class'=>'form-control','readonly'=>'readonly')) }}
+        @else
+            {{ Form::text('family','Not Assigned',array('class'=>'form-control','readonly'=>'readonly')) }}
+        @endif
     </div>
 </section>
     

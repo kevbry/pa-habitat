@@ -87,14 +87,14 @@ Edit Project
 <div class="form-group">
     {{ Form::label('designer', 'Blueprint Designer: ',array('class'=>'col-sm-3')) }}
     <div class="col-sm-7">
-        {{ Form::text('blueprint_designer',$project->designer,array('class'=>'form-control')) }}
+        {{ Form::text('blueprint_designer',$project->blueprint_designer,array('class'=>'form-control')) }}
     </div>
 </div>
 </div>
 <div class="form-group">
     {{ Form::label('blueprint_plan_number', 'Blueprint Plan Number: ',array('class'=>'col-sm-3')) }}
     <div class="col-sm-7">
-        {{ Form::text('blueprint_plan_number',$project->plan_number,array('class'=>'form-control')) }}
+        {{ Form::text('blueprint_plan_number',$project->blueprint_plan_number,array('class'=>'form-control')) }}
     </div>
 </div>
 <div class="form-group">
@@ -133,7 +133,7 @@ Edit Project
         {{ Form::text('project_coordinator',$projectContact,array('class'=>'form-control')) }}
         @else
 
-        {{Form::text('project_coordinator',null,array('class'=>'form-control')) }}
+        {{Form::text('project_coordinator','Not Specified',array('class'=>'form-control','readonly'=>'readonly')) }}
         @endif
     </div>
     <div class="form-group">
