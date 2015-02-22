@@ -42,6 +42,9 @@ Route::get('project/{project}/inspections', array('as'=>'projInspectionsView', '
 Route::get('project/{project}/inspections/create', array('as'=>'projInspectionsAdd', 'uses'=>'ProjectInspectionController@create'));
 Route::post('project/{project}/inspections/create', array('as'=>'storeInspections', 'uses'=>'ProjectInspectionController@store'));
 
+Route::get('volunteerhours/edit/project/{project}',array('as'=>'projHoursEdit', 'uses'=>'VolunteerHoursController@indexForEditProject'));
+Route::post('volunteerhours/edit/project/',array('as'=>'updateProjectHours','uses'=>'VolunteerHoursController@updateProjectHours'));
+
 //Project Item routes
 Route::get('project/{project}/items',array('as'=>'viewItems','uses'=>'ProjectItemController@index'));
 Route::get('project/{project}/items/create',array('as'=>'projItemsAdd','uses'=>'ProjectItemController@create'));

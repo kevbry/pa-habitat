@@ -83,9 +83,9 @@ All Donors
         <td>{{$donor->contact->first_name . ' ' . $donor->contact->last_name}}</td>
         <td>{{$donor->contact->home_phone}}</td>
         <td>{{$donor->contact->email_address}}</td>
-        <td><a href="contact/{{$donor->id}}">View Details</a> / <a href="contact/{{$donor->id}}/edit">Edit Details</a></td>
+        <td><a href="contact/{{$donor->id}}">View Details</a> | <a href="contact/{{$donor->id}}/edit">Edit Details</a></td>
     </tr>
     @endforeach
 </table>
-<?php echo $donors->links(); ?>
+<?php echo $donors->appends(array('sortby' => $sortby, 'order'=> $order ))->links(); ?>
 @stop

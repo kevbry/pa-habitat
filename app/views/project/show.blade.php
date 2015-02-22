@@ -6,7 +6,6 @@ Project Details
 
 @section('content')
 <h1>{{ $project->name }}<a href="{{$project->id}}/edit" class="btn btn-primary">Edit Details</a></h1>
-
 {{ Form::open(array('class'=>'form-horizontal')) }}
 <section class="generalInfo col-md-7">
     <h3>Project Details</h3>
@@ -16,6 +15,19 @@ Project Details
         {{ Form::text('build_number',$project->build_number,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
+    </div>
+        <div class="form-group">
+        {{ Form::label('family', 'Family: ',array('class'=>'col-sm-3')) }}
+        <div class="col-sm-7">
+        @if(isset($family))
+            {{ Form::text('family',$family->name,array('class'=>'form-control','readonly'=>'readonly')) }}
+        @else
+            {{ Form::text('family',null,array('class'=>'form-control','readonly'=>'readonly')) }}
+        @endif
+
+        </div>
+    </div>
+        
     <div class="form-group">
         {{ Form::label('street_number', 'Street Address: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
@@ -41,13 +53,13 @@ Project Details
         </div>
     </div>
     <div class="form-group">
-        {{ Form::label('start_date', 'Start Date: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('start_date','Start Date: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::input('date','start_date',$project->start_date,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
     <div class="form-group">
-        {{ Form::label('end_date', 'End date: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('end_date','End date: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::input('date','end_date',$project->end_date,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
@@ -173,9 +185,57 @@ Project Details
          {{ HTML::linkRoute('projInspectionsView', 'View Inspection Details', array($project->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('projInspectionsAdd', 'Add Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
     </div>
+         <div class="form-group row">
+        {{ Form::label('hours', 'Project Hours:') }}
+        
+        <!-- Hours Table to go here -->
+        <table class="table table-hover scrollable">
+            <thead>
+                <tr>
+                    <th>Volunteer Name</th>
+                    <th>Date</th>
+                    <th>Hours</th>
+                </tr>
+            </thead>
+            <tfoot>
+            <td></td>
+            <td>Total:</td>
+            
+            <td>   
+                @if (isset($volunteerhours))
+               <?php $totalHours=0;?>
+                    @foreach($volunteerhours as $hour)
+
+               <?php $totalHours=$totalHours+$hour->hours;?>
+
+                   @endforeach
+                   {{$totalHours}}
+                @endif </td>
+            </tfoot>
+            <tbody>
+                  @if (isset($volunteers))
+                    @foreach($volunteerhours as $hour)
+
+                   <tr>
+                       @foreach($volunteers as $volunteer)
+                       @if($volunteer->id === $hour->volunteer_id)
+                            <td>{{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name}}</td>
+                       @endif
+                       @endforeach
+                       <td>{{$hour->date_of_contribution}}</td>
+                       <td>{{$hour->hours}}</td>
+                   </tr>
+
+                   @endforeach
+                @endif
+            </tbody>
+        </table>
+        {{ HTML::linkRoute('projHoursRoute', 'View Hours', array($project->id), array('class' => 'btn btn-primary')) }}
+        {{ HTML::linkRoute('projHoursAdd', 'Add Hours', array($project->id), array('class' => 'btn btn-primary')) }}
+        {{ HTML::linkAction('projHoursEdit','Edit Hours', array($project->id), array('class'=>'btn btn-primary'))}}
+        <br /><br />
+        {{ HTML::linkRoute('projectReport', 'Generate Hours Report', array($project->id), array('class' => 'btn btn-primary')) }}
+    </div>
     
-    {{ HTML::linkRoute('projHoursRoute', 'View Hours', array($project->id), array('class' => 'btn btn-primary')) }}
-    {{ HTML::linkRoute('projHoursAdd', 'Add Hours', array($project->id), array('class' => 'btn btn-primary')) }}
-    {{ HTML::linkRoute('projectReport', 'Generate Hours Report', array($project->id), array('class' => 'btn btn-primary')) }}
 </section>
 @stop            

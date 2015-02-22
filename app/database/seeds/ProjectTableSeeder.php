@@ -27,6 +27,7 @@ class ProjectTableSeeder extends Seeder
                                 'postal_code' => $project->postal_code,
                                 'city' => $project->city, 
                                 'province' => $project->province, 
+                                'start_date' => $project->start_date,
                                 'building_permit_number' => $project->building_permit_number,
                                 'building_permit_date' => $project->building_permit_date,
                                 'blueprint_plan_number' => $project->blueprint_plan_number,

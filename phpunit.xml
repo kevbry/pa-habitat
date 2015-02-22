@@ -13,6 +13,8 @@
     <testsuites>
         <testsuite name="Application Test Suite">
             <directory>./app/tests/</directory>
+            <exclude>./app/tests/broken_tests</exclude>
+            <exclude>./app/tests/legacy_tests</exclude>
         </testsuite>
     </testsuites>
 </phpunit>

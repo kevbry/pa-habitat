@@ -4,22 +4,33 @@ use App\Repositories\ProjectRepository;
 use App\Repositories\ProjectContactRepository;
 use App\Repositories\ProjectInspectionRepository;
 use App\Repositories\ProjectItemRepository;
-
+use App\Repositories\VolunteerHoursRepository;
+use App\Repositories\VolunteerRepository;
+use App\Repositories\FamilyRepository;
 class ProjectController extends \BaseController {
         public $projectRepo;
         public $projectContactRepo;
         public $projectInspectionRepo;
         public $projectItemRepo;
+        public $volunteerHrsRepo;
+        public $volunteerRepo;
+        public $familyRepo;
 
         public function __construct(ProjectRepository $projectRepo, 
                 ProjectContactRepository $projectContactRepo,
                 ProjectInspectionRepository $projectInspectionRepo,
-                ProjectItemRepository $projectItemRepo)
+                ProjectItemRepository $projectItemRepo,
+                VolunteerHoursRepository $volunteerHrsRepo,
+                VolunteerRepository $volunteerRepo,
+                FamilyRepository $familyRepo)
         {
             $this->projectRepo = $projectRepo;
             $this->projectContactRepo = $projectContactRepo;
             $this->projectInspectionRepo = $projectInspectionRepo;
-            $this->projectItemRepo = $projectItemRepo;            
+            $this->projectItemRepo = $projectItemRepo; 
+            $this->volunteerHrsRepo = $volunteerHrsRepo;
+            $this->volunteerRepo = $volunteerRepo;
+            $this->familyRepo = $familyRepo;
         }
             
 
@@ -118,22 +129,25 @@ class ProjectController extends \BaseController {
             $project = $this->projectRepo->getProject($id);
             $projectInspections = $this->projectInspectionRepo->getInspectionsForProject($id);
             $projectItems = $this->projectItemRepo->getItemsForProject($id);
-            
+            $volunteerHours = $this->volunteerHrsRepo->getHoursForProject($id);
+            $volunteers = $this->volunteerRepo->getAllVolunteersNonPaginated();
+            $family = $this->familyRepo->getFamily($project->family_id);
+
             if(($projectContact = $this->projectContactRepo->getProjectContact($id)) != null)
             {
                 return View::make('project.show', array('project' => $project,
                 'projectInspections' => $projectInspections,
-                'projectItems' => $projectItems))
+                'projectItems' => $projectItems, 'volunteerhours' => $volunteerHours,
+                'volunteers' => $volunteers, 'family' => $family))
                         ->withProjectContact($projectContact);
             }
             else
             {
                 return View::make('project.show', array('project' => $project,
                 'projectInspections' => $projectInspections,
-                'projectItems' => $projectItems));
-            }
-                
-
+                'projectItems' => $projectItems, 'volunteerhours' => $volunteerHours,
+                'volunteers' => $volunteers, 'family' => $family));
+			}
             
 	}
 

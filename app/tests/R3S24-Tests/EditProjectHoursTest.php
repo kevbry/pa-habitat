@@ -1,6 +1,11 @@
 <?php
- 
-class VolunteerHoursTest extends TestCase 
+
+/**
+ * Description of EditProjectHoursTest
+ *
+ * @author cst217
+ */
+class EditProjectHoursTest extends TestCase 
 {
     protected $mockedVolunteerHoursRepo;
     protected $mockedVolunteerHoursController;
@@ -22,7 +27,7 @@ class VolunteerHoursTest extends TestCase
         $this->app->instance('app\controllers\VolunteerHoursController', $this->mockedVolunteerHoursController);
         
     }
-        
+          
     /**
      * Test that the controller can sucessfully add hours to the database
      */
@@ -59,17 +64,17 @@ class VolunteerHoursTest extends TestCase
                 ->with($this->volunteerHoursInput)
                 ->andThrow(new Exception());
     }
-
-     public function testIndexForVolunteer()
+    
+     public function testIndexForProject()
     {
         $this->mockedVolunteerHoursRepo
-                ->shouldReceive('getHoursForVolunteer')->once()->with(1);
+                ->shouldReceive('getHoursForProject')->once()->with(56);
         
         $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
         
-        $this->call('GET','volunteerhours/volunteer/1');
+        $this->call('GET','volunteerhours/edit/project/56');
         
         $this->assertResponseOk();
-    }
-    
+        
+    }   
 }

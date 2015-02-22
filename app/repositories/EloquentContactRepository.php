@@ -11,7 +11,7 @@ class EloquentContactRepository implements ContactRepository
     
     public function getAllContacts()
     {
-        return \Contact::orderBy('last_name','asc')->paginate(20);        
+        return \Contact::orderBy('first_name','asc')->paginate(20);        
     }
     
     public function getAllContactsForSeed()
@@ -33,9 +33,10 @@ class EloquentContactRepository implements ContactRepository
         
         $order = ($order == 'a' ? 'asc' : 'desc');
 
+        
         switch ($sort) {
             case 'l':
-                $sortby = 'last_name';
+                $sortby = 'first_name';
                 break;
             case 'h':
                 $sortby = 'home_phone';

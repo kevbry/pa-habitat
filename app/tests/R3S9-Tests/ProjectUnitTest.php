@@ -4,6 +4,8 @@ class ProjectUnitTest extends TestCase {
     protected $mockedProjectRepo;
     protected $mockedProjectContactRepo;
     protected $mockedProjectController; 
+    protected $mockedProjectInspectionRepo;
+    protected $mockedProjectItemRepo;
     
     protected $testController;
       
@@ -49,6 +51,9 @@ class ProjectUnitTest extends TestCase {
         $this->projectInput['contact'] = $this->projectContactInput;
 
         
+        //ProjectItemRepository $projectItemRepo)
+        
+        
         //Instantiate mocked objects with dummy data
         $this->mockedProjectRepo = Mockery::mock('app\repositories\ProjectRepository');
         $this->app->instance('app\repositories\ProjectRepository', $this->mockedProjectRepo);
@@ -56,7 +61,19 @@ class ProjectUnitTest extends TestCase {
         $this->mockedProjectContactRepo = Mockery::mock('app\repositories\ProjectContactRepository');
         $this->app->instance('app\repositories\ProjectContactRepository', $this->mockedProjectContactRepo);
         
-        $this->testController = new ProjectController($this->mockedProjectRepo, $this->mockedProjectContactRepo);
+        $this->mockedProjectInspectionRepo = Mockery::mock('app\repositories\ProjectInspectionRepository');
+        $this->app->instance('app\repositories\ProjectInspectionRepository', $this->mockedProjectInspectionRepo);
+        
+        $this->mockedProjectItemRepo = Mockery::mock('app\repositories\ProjectItemRepository');
+        $this->app->instance('app\repositories\ProjectItemRepository', $this->mockedProjectItemRepo);
+        
+        $this->testController = new ProjectController
+                (
+                    $this->mockedProjectRepo, 
+                    $this->mockedProjectContactRepo,
+                    $this->mockedProjectInspectionRepo,
+                    $this->mockedProjectItemRepo
+                );
         
         $this->mockedProjectController = Mockery::mock('app\controllers\ProjectController');
         $this->app->instance('app\controllers\ProjectController', $this->mockedProjectController);      
@@ -145,4 +162,10 @@ class ProjectUnitTest extends TestCase {
         $this->assertContains('project', $response->getContent());
     }
 
+    public function tearDown() 
+    {
+        parent::tearDown();
+        Mockery::close();
+    }    
+    
 }

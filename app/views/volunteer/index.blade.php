@@ -87,9 +87,9 @@ All Volunteers
         <td>{{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name}}</td>
         <td>{{$volunteer->contact->home_phone}}</td>
         <td>{{$volunteer->contact->email_address}}</td>
-        <td><a href="contact/{{$volunteer->id}}">View Details</a> / <a href="contact/{{$volunteer->id}}/edit">Edit Details</a></td>
+        <td><a href="contact/{{$volunteer->id}}">View Details</a> | <a href="contact/{{$volunteer->id}}/edit">Edit Details</a></td>
     </tr>
     @endforeach
 </table>
-<?php echo $volunteers->links(); ?>
+<?php echo $volunteers->appends(array('sortby' => $sortby, 'order'=> $order ))->links(); ?>
 @stop

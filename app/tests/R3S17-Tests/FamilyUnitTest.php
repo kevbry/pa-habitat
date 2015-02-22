@@ -87,7 +87,7 @@ class FamilyUnitTest extends TestCase
     public function testStoreFamilySuccess()
     {
         //Assemble
-        //$this->mockedFamilyController->shouldReceive('createFamilyWith')->once()->with($this->familyInput);
+        $this->mockedFamilyController->shouldReceive('createFamilyWith')->once()->with($this->familyInput);
         $this->mockedFamilyRepo->shouldReceive('saveFamily')->once()->with(Mockery::type('Family'));
         
         //Redirect::shouldReceive('action')->once()->with('FamilyController@show')->with($this->familyInput);
@@ -260,6 +260,7 @@ class FamilyUnitTest extends TestCase
      */
     public function tearDown()
     {
+        parent::tearDown();
         Mockery::close();
     }
     

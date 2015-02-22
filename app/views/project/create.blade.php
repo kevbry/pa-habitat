@@ -9,6 +9,24 @@ Create a Project
 {{ Form::open(array('route'=>'project.store','class'=>'form-horizontal')) }}
 <section class="row">
 <section class="col-md-7">
+    <?php
+    $PAGE_URL = Session::get('page_url');
+        
+    $coordinator_search = new HabitatSearchBox($PAGE_URL, "coordinator_search", "Select Project Coordinator...");
+    $family_search = new HabitatSearchBox($PAGE_URL, "family_search", "Select Family...");
+    
+    $family_search->configureOnClickEvent(sprintf(HabitatSearchBox::SELECT_ID_ON_CLICK, 'family_id'))
+            ->configureDatumFormat('id', 'name')
+            ->configureEngine('familySearch', HabitatSearchBox::SEARCH_FAMILY_URL, 'Families')
+            ->configureSettings()
+            ->build();
+    
+    $coordinator_search->configureOnClickEvent(sprintf(HabitatSearchBox::SELECT_ID_ON_CLICK, 'role'))
+            ->configureDatumFormat('id', 'name')
+            ->configureEngine('coordinatorSearch', HabitatSearchBox::SEARCH_CONTACT_URL, 'Contacts')
+            ->configureSettings()
+            ->build();
+    ?>
         <div class="form-group">
             {{ Form::label('name', 'Project Name: ',array('class'=>'col-sm-3')) }}
             <div class="col-sm-7">
@@ -25,7 +43,7 @@ Create a Project
             <div class="form-group">
             {{ Form::label('family', 'Family: ',array('class'=>'col-sm-3')) }}
             <div class="col-sm-7">
-            {{ Form::text('family',null,array('class'=>'form-control')) }}
+            <?php $family_search->show(); ?>
             </div>
         </div>
         
@@ -58,7 +76,7 @@ Create a Project
         <div class="form-group">
         {{ Form::label('project_coordinator', 'Project Coordinator: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('project_coordinator',null,array('class'=>'form-control')) }}
+        <?php $coordinator_search->show(); ?>
         </div>
     </div>
 

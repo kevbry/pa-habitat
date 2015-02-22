@@ -5,22 +5,20 @@
  */
 class DonorUnitTest extends ContactUnitTest {
     
-    var $donorInfo;
-    var $mockedDonorRepo;
-    var $testDonor;
+    public $donorInput;
+    protected $mockedDonorRepo;
+    protected $testDonor;
     /**
      * Set up function for the tests.  Creates dummy objects to use for Testing.
      */
     public function setUp()
     {
-        $this->donorInfo['id'] = 555;
-        
-        $this->mockedDonorRepo = Mockery::mock('app\repositories\DonorRepository');
-        $this->app->instance('app\repositories\DonorRepository', $this->mockedDonorRepo);
-
-        $this->testDonor = new Donor($donorInfo);
-        
         parent::setUp();
+        
+        $this->donorInput = $this->contactInput;
+        
+        $this->donorInput['is_donor'] = true;
+
     }
     
     /**
@@ -29,13 +27,12 @@ class DonorUnitTest extends ContactUnitTest {
     public function testStoreDonorSuccess()
     {
         // Assemble
-        $isVolunteer = true;
-
-        //$this->mockedDonorRepo->shouldReceive('saveDonor')->once()->with($this->testDonor);
-        $this->mockedContactController->shouldReceive('storeDonorWith')->once()->with($this->donorInput);
         
-
-        parent::testStoreContactSuccess();
+        //$this->mockedContactController->shouldReceive('storeDonorWith')->once()->with($this->donorInput);
+        $this->mockedDonorRepo->shouldReceive('saveDonor')->once()->with(Mockery::type('Donor'));
+        
+        // Act 
+        parent::testStoreContactSuccess($this->donorInput);
     }
 
     public function testStoreDonorFails()
@@ -47,7 +44,7 @@ class DonorUnitTest extends ContactUnitTest {
     public function testStoreDonorWith()
     {
         // Assemble
-        //$this->mockedDonorRepo->shouldReceive('saveDonor')->once()->with(Mockery::type('Donor'));
+        $this->mockedDonorRepo->shouldReceive('saveDonor')->once()->with(Mockery::type('Donor'));
      
         // Act
         $this->testController->storeDonorWith($this->donorInput);       
@@ -60,20 +57,21 @@ class DonorUnitTest extends ContactUnitTest {
     {
         // Assemble
         $donorInput = $this->donorInput;
-        
-//        $this->mockedDonorRepo->shouldReceive('saveDonor')
-//                ->once()
-//                ->with(Mockery::on(
-//                        function($passedInDonorInfo) use($donorInput)
-//                {
-//                    $this->assertNull($passedInDonorInfo['id']);
-//                    
-//                    return true;
-//                }
-//                ));
+
+        $this->mockedDonorRepo->shouldReceive('saveDonor')
+                ->once()
+                ->with(Mockery::on(
+                        function($passedInDonorInfo) use($donorInput)
+                        {
+                            //$this->assertAttributeContains(true, 'is_donor', $passedInDonorInfo);
+                            $this->assertEquals($donorInput['is_donor'], $passedInDonorInfo['is_donor']);
+                            
+                            return true;
+                        }
+                        ));
       
         // Act
-        $this->testController->storeDonorWith($this->DonorInput);
+        $this->testController->storeDonorWith($this->donorInput);
     }
     
     /** 
