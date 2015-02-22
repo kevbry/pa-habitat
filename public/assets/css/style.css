@@ -22,7 +22,7 @@ footer p {
 }
 
 .scrollable {
-    width: 100%;
+    width: 100%; 
 }
 
 .scrollable thead, .scrollable tbody, .scrollable tr, .scrollable td, .scrollable th {

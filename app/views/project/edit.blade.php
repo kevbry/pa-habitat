@@ -1,14 +1,38 @@
+<?php
+$PAGE_ROOT_URL = explode(Request::path(), Request::url())[0];
+
+// Create the master search box located in the nav bar
+$familySearch = new HabitatSearchBox($PAGE_ROOT_URL, "family-search", "Search for a Family");
+
+Session::put('page_url', $PAGE_ROOT_URL);
+
+/*
+ *  Configure the search box
+ *      Set up how the results are formatted.  First is the attribute to use as the value, second is what to display
+ *      Set up the on click method (what happens when a result is selected)
+ *      Set up the selection engine(s) that fetches and formats results from the database
+ *      Set up the searchbox settings
+ */
+$familySearch->configureOnClickEvent(sprintf(HabitatSearchBox::SELECT_ID_ON_CLICK, 'family'))
+        ->configureDatumFormat('id', 'name')
+        ->configureEngine('findFamily', HabitatSearchBox::SEARCH_FAMILY_URL, 'Family')
+        ->configureSettings()
+        ->build();
+?> 
+
 @extends('master')
 
 @section('title')
 Edit Project
 @stop
 @if($errors->any())
+
+
 <h1>{{$errors->first()}}</h1>
 @endif
 @section('content')
 <h2>Editing Details for {{ $project->name }}</h2>
-
+ {{ HTML::script('assets/js/habitat.js');}}
 {{ Form::open(array('method'=>'PUT','route'=>array('project.update', $project->id), 'class'=>'form-horizontal', 'id'=>'form')) }}
 <section class="generalInfo col-md-7">
     <h3>Project Details</h3>
@@ -106,14 +130,29 @@ Edit Project
         <h3>Additional Details</h3>
         {{ Form::label('project_coordinator', 'Project Coordinator: ') }}
         @if (!empty($projectContact))
-            {{ Form::text('project_coordinator',$projectContact,array('class'=>'form-control')) }}
+        {{ Form::text('project_coordinator',$projectContact,array('class'=>'form-control')) }}
         @else
-            {{ Form::text('project_coordinator',null,array('class'=>'form-control')) }}
+
+        {{Form::text('project_coordinator',null,array('class'=>'form-control')) }}
         @endif
     </div>
     <div class="form-group">
+
         {{ Form::label('family', 'Family: ') }}
-        {{ Form::text('family',$project->family_id,array('class'=>'form-control')) }}
+        <div id="familySet">
+            {{ Form::text('family',$project->family_id,array('class'=>'form-control')) }}
+        </div>
+        <div id="editFamily">
+            <?php $familySearch->show() ?>
+        </div>
+        <div id="changeFamButton">
+            <a href="#" id="changeFam"  class="btn btn-primary changeFam">Change Family</a></h1>
+        </div>
+        
+        <div id="cancelFamChange">
+            <a href="#" id="cancelChange" class="btn btn-primary">Cancel</a></h1>
+        </div>
+        
     </div>
 </section>
 @stop            
