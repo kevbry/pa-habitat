@@ -7,25 +7,24 @@
  *
  * @author cst222
  */
-class HabitatSearchBox 
-{
-    
+class HabitatSearchBox {
+
     // Links to the search contoller methods that fetch information from the db
     const SEARCH_CONTACT_URL = "search/searchContacts?contacts=%QUERY%";
     const SEARCH_VOLUNTEER_URL = "search/searchVolunteers?volunteers=%QUERY%";
     const SEARCH_PROJECT_URL = "search/searchProjects?projects=%QUERY%";
     const SEARCH_FAMILY_URL = "search/searchFamilies?families=%QUERY%";
     const SEARCH_COMPANY_URL = "search/searchCompanies?companies=%QUERY%";
-    
+
     // Javascript function templates for different onClick behaviour of a search box
-    
+
     /**
      * Description: redirects to a details page for the item selected
      * 
      * @param %s -> Base site url
      */
     const VIEW_DETAILS_ON_CLICK = 'function(obj, data) {window.location = "%s" + data.type + "/" + data.value;}';
-    
+
     /**
      * Description: Selects an object's value and adds it as a form control to be passed to the server
      * 
@@ -55,10 +54,9 @@ class HabitatSearchBox
         }
 
 EOT;
-    
+
     // Container array for all search boxes
     public static $searchBoxes = array();
-    
     // Class properties
     private $searchID;
     private $placeholderText;
@@ -67,20 +65,17 @@ EOT;
     private $datumFormatTemplate = '{value: result.id, name: result.id, type: result.type}';
     private $pageURL = '';
     private $onClick;
-    
+
     /**
      * @param String $pageURL           root page url
      * @param String $searchName        unique identifier for the searchbox
      * @param String $placeholderText   text to display in the search field
      */
-    function __construct($pageURL, $searchName, $placeholderText="Search...") 
-    {
+    function __construct($pageURL, $searchName, $placeholderText = "Search...") {
         $this->searchID = $searchName;
         $this->placeholderText = $placeholderText;
         $this->pageURL = $pageURL;
-
     }
-    
 
     /**
      * Purpose: Create a new engine to grab results from the database
@@ -88,12 +83,10 @@ EOT;
      * @param string $apiURL            link to the remote information
      * @param string $resultsLimit      maximum number of results to return
      */
-    public function configureEngine($engineName, $apiURL, $displayName='Results',
-            $resultsLimit = '10')
-    {
+    public function configureEngine($engineName, $apiURL, $displayName = 'Results', $resultsLimit = '10') {
         // Build the link to the remote information
         $dataURL = $this->pageURL . $apiURL;
-        
+
         $this->bloodHoundEngines[$engineName]['engine'] = <<<EOT
             var %s = new Bloodhound({
                 datumTokenizer: function(data) { return Bloodhound.tokenizers.whitespace(data.value); },
@@ -113,21 +106,19 @@ EOT;
 EOT;
         // Add code to array of data sources
         $this->bloodHoundEngines[$engineName]['display_name'] = $displayName;
-        $this->bloodHoundEngines[$engineName]['engine'] = sprintf($this->bloodHoundEngines[$engineName]['engine'], 
-                $engineName, $resultsLimit, $dataURL, $this->datumFormatTemplate, $engineName);
-        
+        $this->bloodHoundEngines[$engineName]['engine'] = sprintf($this->bloodHoundEngines[$engineName]['engine'], $engineName, $resultsLimit, $dataURL, $this->datumFormatTemplate, $engineName);
+
         // Return this object for function chaining
         return $this;
     }
-    
-    public function configureOnClickEvent($function)
-    {
+
+    public function configureOnClickEvent($function) {
         $this->onClick = $function;
-        
+
         // Return this object for function chaining
         return $this;
     }
-    
+
     /**
      * 
      * @param string $hint
@@ -136,8 +127,7 @@ EOT;
      * @param string $minLength The minimum number of characters before the 
      *      search functionality triggers
      */
-    public function configureSettings($hint = "true", $highlight = "true", $minLength = "3")
-    {
+    public function configureSettings($hint = "true", $highlight = "true", $minLength = "3") {
         //TODO: Abstract out all of the hardcoded values to allow configuration
         //TODO: Create object for each search engine being inserted (loop through)
         $this->typeAheadConfig = <<<EOT
@@ -152,24 +142,15 @@ $( "#%s" + " .typeahead").typeahead({
 
 EOT;
 
-        $this->typeAheadConfig = sprintf($this->typeAheadConfig, 
-                $this->searchID, 
-                $hint, 
-                $highlight, 
-                $minLength, 
-                $this->bindEnginesToSearch(), 
-                $this->onClick);
-        
+        $this->typeAheadConfig = sprintf($this->typeAheadConfig, $this->searchID, $hint, $highlight, $minLength, $this->bindEnginesToSearch(), $this->onClick);
+
         // Return this object for function chaining
         return $this;
-
     }
-    
 
-    private function bindEnginesToSearch()
-    {
+    private function bindEnginesToSearch() {
         $engineCode = "";
-        
+
         $engineConfigTemplate = <<<EOT
         {
             name: '%s',
@@ -183,40 +164,37 @@ EOT;
 EOT;
 
         $count = 0;
-        
-        foreach ($this->bloodHoundEngines as $engineName => $engine) 
-        {
+
+        foreach ($this->bloodHoundEngines as $engineName => $engine) {
             $engineCode .= sprintf($engineConfigTemplate, $engine['display_name'], $engineName, $engine['display_name']);
-            
-            if (++$count < count($this->bloodHoundEngines))
-            {
+
+            if (++$count < count($this->bloodHoundEngines)) {
                 $engineCode .= ',';
             }
         }
 
         return $engineCode;
     }
-    
-    
+
     /**
      * Purpose: Display the search control on the page
      */
-    public function show()
-    {
-        echo "<div id='$this->searchID'><input class='form-control typeahead' type='text' placeholder='$this->placeholderText'></div>";
-        
+    public function show($required=false) {
+        if ($required) {
+            echo "<div id='$this->searchID'><input class='form-control typeahead' type='text' placeholder='$this->placeholderText' required></div>";
+        } else {
+            echo "<div id='$this->searchID'><input class='form-control typeahead' type='text' placeholder='$this->placeholderText'></div>";
+        }
         return true;
     }
-    
+
     /**
      * Purpose: 
      */
-    public function build()
-    {
+    public function build() {
         $engines = "";
 
-        foreach($this->bloodHoundEngines as $currEngine)
-        {
+        foreach ($this->bloodHoundEngines as $currEngine) {
             $engines .= $currEngine['engine'];
         }
         $scriptBlock = <<<EOT
@@ -224,14 +202,14 @@ EOT;
                 
                 %s
 EOT;
-        
+
         $code = sprintf($scriptBlock, $engines, $this->typeAheadConfig);
 
         array_push(HabitatSearchBox::$searchBoxes, $code);
 
         return true;
     }
-    
+
     /**
      * 
      * @param string $value The singular value which is referenced when the search item is clicked.
@@ -239,30 +217,26 @@ EOT;
      *      displayed. If multiple fields are to be displayed, they must be retrieved
      *      as a single column of the query that retreives them.
      */
-    public function configureDatumFormat($value, $name)
-    {
+    public function configureDatumFormat($value, $name) {
         $this->datumFormatTemplate = sprintf('{value: result.%s, name: result.%s, type: result.type}', $value, $name);
-        
+
         // Return this object for function chaining
         return $this;
     }
-    
-    
-    
-    public static function buildAll()
-    {
-        $script =  "<script type='text/javascript'>$(function(){";
-       
-       foreach (HabitatSearchBox::$searchBoxes as $searchBox) 
-       {
-           $script .= $searchBox;
-       }
 
-       $script .= " });</script>";
-       
-       // This would build the script to a javascript file. (unable to do so in this dev environment)
-       //file_put_contents($fileName, $script);
-       
-       print($script);
+    public static function buildAll() {
+        $script = "<script type='text/javascript'>$(function(){";
+
+        foreach (HabitatSearchBox::$searchBoxes as $searchBox) {
+            $script .= $searchBox;
+        }
+
+        $script .= " });</script>";
+
+        // This would build the script to a javascript file. (unable to do so in this dev environment)
+        //file_put_contents($fileName, $script);
+
+        print($script);
     }
+
 }
