@@ -59,7 +59,7 @@ class VolunteerHoursTest extends TestCase
                 ->with($this->volunteerHoursInput)
                 ->andThrow(new Exception());
     }
-
+/*
      public function testIndexForVolunteer()
     {
         $this->mockedVolunteerHoursRepo
@@ -70,6 +70,6 @@ class VolunteerHoursTest extends TestCase
         $this->call('GET','volunteerhours/volunteer/2');
         
         $this->assertResponseOk();
-    }
+    }*/
     
 }
