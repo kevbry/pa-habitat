@@ -1,4 +1,29 @@
 $(document).ready(function(){
+    
+    
+    document.getElementById('editFamily').style.display = 'none';
+    document.getElementById('changeFamButton').style.padding = '10px 0px 0px 0px';  
+
+   $('.changeFam').click(function(e) {
+
+       e.preventDefault();
+
+        document.getElementById('familySet').style.display = 'none';
+        document.getElementById('editFamily').style.display = 'block';
+        document.getElementById('changeFamButton').style.display = 'none'; 
+    });
+
+   $('.cancelChange').click(function(e) {
+
+        e.preventDefault();
+       document.getElementById('familySet').style.display = 'block';
+        document.getElementById('editFamily').style.display = 'none';
+        document.getElementById('changeFamButton').style.display = 'block'; 
+       
+    });
+    
+    
+    
     $('#namehelp').attr("title", "Changing this will move the hour row into another project's hours.");
     
     $('#addhours').click(function(e){
@@ -52,4 +77,8 @@ $(document).ready(function(){
     , function(e){
         $(e.currentTarget).children('.hiddenHint').css("display", "none");
     });
+    
+    
+    
+    
 });

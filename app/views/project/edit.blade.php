@@ -32,7 +32,7 @@ Edit Project
 @endif
 @section('content')
 <h2>Editing Details for {{ $project->name }}</h2>
- {{ HTML::script('assets/js/habitat.js');}}
+ {{ HTML::script('assets/js/master.js');}}
 {{ Form::open(array('method'=>'PUT','route'=>array('project.update', $project->id), 'class'=>'form-horizontal', 'id'=>'form')) }}
 <section class="generalInfo col-md-7">
     <h3>Project Details</h3>
@@ -140,18 +140,15 @@ Edit Project
 
         {{ Form::label('family', 'Family: ') }}
         <div id="familySet">
-            {{ Form::text('family',$project->family_id,array('class'=>'form-control')) }}
+            {{ Form::text('family',$family->name,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
         <div id="editFamily">
-            <?php $familySearch->show() ?>
+            <?php $familySearch->show(true) ?>
         </div>
         <div id="changeFamButton">
-            <a href="#" id="changeFam"  class="btn btn-primary changeFam">Change Family</a></h1>
+            <a href="#" class="btn btn-primary changeFam">Change Family</a>
         </div>
-        
-        <div id="cancelFamChange">
-            <a href="#" id="cancelChange" class="btn btn-primary">Cancel</a></h1>
-        </div>
+       
         
     </div>
 </section>
