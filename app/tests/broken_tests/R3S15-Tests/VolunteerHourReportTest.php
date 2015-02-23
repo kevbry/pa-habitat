@@ -25,11 +25,11 @@ class VolunteerHourReportTest extends TestCase
     public function testView()
     {
         $this->mockedVolunteerHoursRepo
-                ->shouldReceive('getHoursForVolunteerSortedByProject')->once()->with(11);
+                ->shouldReceive('getHoursForVolunteerSortedByProject')->once()->with(176);
         
         $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
         
-        $response = $this->call('GET','volunteerhours/report/11');
+        $response = $this->call('GET','volunteerhours/report/176');
        
         $this->assertResponseOk();
         $this->assertContains('Volunteer Hours for', $response->getContent());
