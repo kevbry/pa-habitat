@@ -89,5 +89,5 @@ All Projects
     </tr>
     @endforeach
 </table>
-<?php echo $projects->links(); ?>
+<?php echo $projects->appends(array('sortby' => $sortby, 'order'=> $order ))->links(); ?>
 @stop

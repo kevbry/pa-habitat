@@ -45,7 +45,7 @@ class EloquentVolunteerRepository implements VolunteerRepository {
 
         switch ($sort) {
             case 'l':
-                $sortby = 'last_name';
+                $sortby = 'first_name';
                 break;
             case 'h':
                 $sortby = 'home_phone';
