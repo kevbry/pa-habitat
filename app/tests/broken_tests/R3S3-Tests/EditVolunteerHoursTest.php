@@ -29,13 +29,13 @@ class EditVolunteerHoursTest extends TestCase
     public function testStoreSingleEntrySuccess()
     {
         $this->volunteerHoursInput = [
-            'id' => '555',
-            'volunteer_id' => 1, 
-            'project_id' => 1, 
-            'family_id' => 1,
-            'date_of_contribution' => '2015-01-22',
+            'id' => '603',
+            'volunteer_id' => 180, 
+            'project_id' => 178, 
+            'family_id' => 47,
+            'date_of_contribution' => '2015-05-04',
             'paid_hours' => 1, 
-            'hours' => 8
+            'hours' => 5
          ];
         // Assemble
         $this->mockedVolunteerHoursController->shouldReceive('storeHoursEntryWith')->once()->with($this->volunteerHoursInput);
@@ -58,19 +58,6 @@ class EditVolunteerHoursTest extends TestCase
                 ->once()
                 ->with($this->volunteerHoursInput)
                 ->andThrow(new Exception());
-    }
-    
-     public function testIndexForVolunteer()
-    {
-        $this->mockedVolunteerHoursRepo
-                ->shouldReceive('getHoursForVolunteer')->once()->with(1);
-        
-        $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
-        
-        $this->call('GET','volunteerhours/volunteerEdit/1');
-        
-        $this->assertResponseOk();
-        
     }
     
     
