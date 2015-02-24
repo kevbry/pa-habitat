@@ -1,27 +1,5 @@
 $(document).ready(function(){
-    
-    
-    document.getElementById('editFamily').style.visibility = 'hidden';
-    document.getElementById('changeFamButton').style.padding = '10px 0px 0px 0px';  
-
-   $('.changeFam').click(function(e) {
-
-       e.preventDefault();
-
-        document.getElementById('familySet').style.visibility = 'hidden';
-        document.getElementById('editFamily').style.visibility = 'visible';
-        document.getElementById('changeFamButton').style.visibility = 'hidden';
-    });
-
-//   $('.cancelChange').click(function(e) {
-//
-//        e.preventDefault();
-//       document.getElementById('familySet').style.visibility = 'visible';
-//        document.getElementById('editFamily').style.visibility = 'none';
-//        document.getElementById('changeFamButton').style.display = 'block'; 
-//       
-//    });
-    
+  
     
     
     $('#namehelp').attr("title", "Changing this will move the hour row into another project's hours.");

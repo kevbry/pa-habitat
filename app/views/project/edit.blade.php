@@ -32,7 +32,7 @@ Edit Project
 @endif
 @section('content')
 <h2>Editing Details for {{ $project->name }}</h2>
- {{ HTML::script('assets/js/master.js');}}
+
 {{ Form::open(array('method'=>'PUT','route'=>array('project.update', $project->id), 'class'=>'form-horizontal', 'id'=>'form')) }}
 <section class="generalInfo col-md-7">
     <h3>Project Details</h3>
@@ -152,4 +152,5 @@ Edit Project
         
     </div>
 </section>
+ {{ HTML::script('assets/js/EditProjStyle.js');}}
 @stop            
