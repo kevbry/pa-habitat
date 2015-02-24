@@ -1,6 +1,6 @@
 <?php
  
-class VolunteerHoursTest extends TestCase 
+class EditVolunteerHoursTest extends TestCase 
 {
     protected $mockedVolunteerHoursRepo;
     protected $mockedVolunteerHoursController;
@@ -21,21 +21,21 @@ class VolunteerHoursTest extends TestCase
         $this->mockedVolunteerHoursController = Mockery::mock('app\controllers\VolunteerHoursController');
         $this->app->instance('app\controllers\VolunteerHoursController', $this->mockedVolunteerHoursController);
         
-    }
+    }    
         
     /**
-     * Test that the controller can sucessfully add hours to the database
+     * Test that the controller can successfully edit hours in the database
      */
     public function testStoreSingleEntrySuccess()
     {
         $this->volunteerHoursInput = [
-            'id' => '555',
-            'volunteer_id' => 1, 
-            'project_id' => 1, 
-            'family_id' => 1,
-            'date_of_contribution' => '2015-01-22',
+            'id' => '603',
+            'volunteer_id' => 180, 
+            'project_id' => 178, 
+            'family_id' => 47,
+            'date_of_contribution' => '2015-05-04',
             'paid_hours' => 1, 
-            'hours' => 8
+            'hours' => 5
          ];
         // Assemble
         $this->mockedVolunteerHoursController->shouldReceive('storeHoursEntryWith')->once()->with($this->volunteerHoursInput);
@@ -59,17 +59,26 @@ class VolunteerHoursTest extends TestCase
                 ->with($this->volunteerHoursInput)
                 ->andThrow(new Exception());
     }
-
-     public function testIndexForVolunteer()
+    public function testIndexForVolunteer()
     {
         $this->mockedVolunteerHoursRepo
-                ->shouldReceive('getHoursForVolunteer')->once()->with(2);
+                ->shouldReceive('getHoursForVolunteer')->once()->with(118);
         
         $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
         
-        $this->call('GET','volunteerhours/volunteer/2');
+        $this->call('GET','volunteerhours/volunteer/118');
         
         $this->assertResponseOk();
     }
     
+    public function tearDown()
+    {
+        parent::tearDown();
+        Mockery::close();
+    }    
+    
+
+    
 }
+
+

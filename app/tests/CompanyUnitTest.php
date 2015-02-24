@@ -87,7 +87,8 @@ class CompanyUnitTest extends ContactUnitTest
     public function tearDown()
     {
         parent::tearDown();
-    }
+        Mockery::close();
+    }    
     
 
 }
