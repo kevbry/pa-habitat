@@ -7,8 +7,8 @@ Contact Details
 @section('content')
 
 {{ Form::open(array('class'=>'form-horizontal')) }}
-<h2>{{ $contact->first_name . " " . $contact->last_name . "'s Details" }} 
-    <a href="{{$contact->id}}/edit" class="btn btn-primary">Edit Details</a></h2>
+<h1>{{ $contact->first_name . " " . $contact->last_name . "'s Details" }}
+    <a href="{{$contact->id}}/edit" class="btn btn-primary">Edit Details</a></h1>
 <section class="generalInfo col-md-7">
 <h3>Contact Details</h3>
  <div class="form-group">

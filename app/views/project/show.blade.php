@@ -5,7 +5,8 @@ Project Details
 @stop
 
 @section('content')
-<h1>{{ $project->name }}<a href="{{$project->id}}/edit" class="btn btn-primary">Edit Details</a></h1>
+<h1>{{ $project->name }}
+    <a href="{{$project->id}}/edit"  class="btn btn-primary">Edit Details</a></h1>
 {{ Form::open(array('class'=>'form-horizontal')) }}
 <section class="generalInfo col-md-7">
     <h3>Project Details</h3>
