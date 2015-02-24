@@ -128,13 +128,13 @@ Edit Project
 <section class="col-md-5"> 
     <div class="form-group">
         <h3>Additional Details</h3>
-        {{ Form::label('project_coordinator', 'Project Coordinator: ') }}
+<!--        {{ Form::label('project_coordinator', 'Project Coordinator: ') }}
         @if (!empty($projectContact))
         {{ Form::text('project_coordinator',$projectContact,array('class'=>'form-control')) }}
         @else
 
         {{Form::text('project_coordinator','Not Specified',array('class'=>'form-control','readonly'=>'readonly')) }}
-        @endif
+        @endif-->
     </div>
     <div class="form-group">
 

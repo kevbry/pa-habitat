@@ -153,6 +153,15 @@ span.twitter-typeahead{
     z-index: 1000;
 }
 
-#editProj{
-  
+#spacing{
+    margin-bottom: 10px;
+    padding-left:0px;
+}
+
+#revSpace{
+    padding-left:0px;
+}
+
+#spacingSecond{
+    padding-left:15px;
 }

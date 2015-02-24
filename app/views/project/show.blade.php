@@ -93,18 +93,18 @@ Project Details
     </div>
 </section>
 
-<section class="col-md-5"> 
-    <div class="form-group">
-        <h3>Additional Details</h3>
-        {{ Form::label('project_coordinator', 'Project Coordinator: ') }}
+<section class="col-md-5"  id="revSpace"> 
+   
+        <h3 id="spacing">Additional Details</h3>
+<!--  <div class="form-group">       {{ Form::label('project_coordinator', 'Project Coordinator: ') }}
         
         @if (!empty($projectContact))
             {{ Form::text('project_coordinator',$projectContact,array('class'=>'form-control','readonly'=>'readonly')) }}
         @else
             {{ Form::text('project_coordinator','Not Specified',array('class'=>'form-control','readonly'=>'readonly')) }}
-        @endif
-    </div>
-    <div class="form-group">
+        @endif</div>-->
+    
+    <div class="form-group" id="spacingSecond">
         {{ Form::label('family', 'Family: ') }}
         @if(isset($family))
             {{ Form::text('family',$family->name,array('class'=>'form-control','readonly'=>'readonly')) }}
