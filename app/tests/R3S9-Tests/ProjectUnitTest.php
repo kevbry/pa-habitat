@@ -6,8 +6,6 @@ class ProjectUnitTest extends TestCase {
     protected $mockedProjectController; 
     protected $mockedProjectInspectionRepo;
     protected $mockedProjectItemRepo;
-    
-    protected $testController;
       
     protected $projectInput;
     protected $projectContactInput;
@@ -50,10 +48,7 @@ class ProjectUnitTest extends TestCase {
 
         $this->projectInput['contact'] = $this->projectContactInput;
 
-        
-        //ProjectItemRepository $projectItemRepo)
-        
-        
+ 
         //Instantiate mocked objects with dummy data
         $this->mockedProjectRepo = Mockery::mock('app\repositories\ProjectRepository');
         $this->app->instance('app\repositories\ProjectRepository', $this->mockedProjectRepo);
@@ -67,14 +62,6 @@ class ProjectUnitTest extends TestCase {
         $this->mockedProjectItemRepo = Mockery::mock('app\repositories\ProjectItemRepository');
         $this->app->instance('app\repositories\ProjectItemRepository', $this->mockedProjectItemRepo);
         
-        $this->testController = new ProjectController
-                (
-                    $this->mockedProjectRepo, 
-                    $this->mockedProjectContactRepo,
-                    $this->mockedProjectInspectionRepo,
-                    $this->mockedProjectItemRepo
-                );
-        
         $this->mockedProjectController = Mockery::mock('app\controllers\ProjectController');
         $this->app->instance('app\controllers\ProjectController', $this->mockedProjectController);      
     }
@@ -85,7 +72,7 @@ class ProjectUnitTest extends TestCase {
     public function testStoreProjectSuccess()
     {
         // Assemble
-        $this->mockedProjectController->shouldReceive('createProjectWith')->once()->with($this->projectInput);
+        //$this->mockedProjectController->shouldReceive('createProjectWith')->once()->with($this->projectInput);
         $this->mockedProjectRepo->shouldReceive('saveProject')->once()->with(Mockery::type('Project'));
         
         //Act
