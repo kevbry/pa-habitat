@@ -37,27 +37,7 @@ Index of all contacts
                     
             </th>
             
-            <th>Phone
-            @if ($sortby == 'h' && $order == 'd')
-                 <a href='{{action(
-                           'ContactController@index',
-                            array(
-                               'sortby' => 'h',
-                                'order' => 'a'
-                           )
-                       )
-                  }}'  ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
-                    @else 
-                  
-                 <a href='{{action(
-                           'ContactController@index',
-                            array(
-                               'sortby' => 'h',
-                                'order' => 'd'
-                           )
-                       )
-                  }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-                    @endif</th>
+            <th>Phone</th>
             
             <th>Email
             @if ($sortby == 'e' && $order == 'd')
@@ -87,7 +67,13 @@ Index of all contacts
         @foreach($contacts as $contact)
         <tr>
             <td>{{$contact->first_name . ' ' . $contact->last_name}}</td>
-            <td>{{$contact->home_phone}}</td>
+            <td>@if (!empty($contact->home_phone))
+                {{$contact->home_phone}}
+                @elseif (!empty($contact->cell_phone))
+                {{$contact->cell_phone}}
+                @else 
+                {{$contact->work_phone}}
+                @endif</td>
             <td>{{$contact->email_address}}</td>
             <td><a href="contact/{{$contact->id}}">View Details</a> | <a href="contact/{{$contact->id}}/edit">Edit Details</a></td>
         </tr>

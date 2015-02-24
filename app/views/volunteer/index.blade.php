@@ -36,27 +36,7 @@ All Volunteers
                     
             </th>
             
-            <th>Phone
-            @if ($sortby == 'h' && $order == 'd')
-                 <a href='{{action(
-                           'VolunteerController@index',
-                            array(
-                               'sortby' => 'h',
-                                'order' => 'a'
-                           )
-                       )
-                  }}'  ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
-                    @else 
-                  
-                 <a href='{{action(
-                           'VolunteerController@index',
-                            array(
-                               'sortby' => 'h',
-                                'order' => 'd'
-                           )
-                       )
-                  }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-                    @endif</th>
+            <th>Phone</th>
             
             <th>Email
             @if ($sortby == 'e' && $order == 'd')
@@ -85,7 +65,13 @@ All Volunteers
     @foreach($volunteers as $volunteer)
     <tr>
         <td>{{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name}}</td>
-        <td>{{$volunteer->contact->home_phone}}</td>
+        <td>@if (!empty($volunteer->contact->home_phone))
+                {{$volunteer->contact->home_phone}}
+                @elseif (!empty($volunteer->contact->cell_phone))
+                {{$volunteer->contact->cell_phone}}
+                @else 
+                {{$volunteer->contact->work_phone}}
+                @endif</td>
         <td>{{$volunteer->contact->email_address}}</td>
         <td><a href="contact/{{$volunteer->id}}">View Details</a> | <a href="contact/{{$volunteer->id}}/edit">Edit Details</a></td>
     </tr>

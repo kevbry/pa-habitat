@@ -38,9 +38,6 @@ class EloquentContactRepository implements ContactRepository
             case 'l':
                 $sortby = 'first_name';
                 break;
-            case 'h':
-                $sortby = 'home_phone';
-                break;
             case 'e':
                 $sortby = 'email_address';
                 break;
