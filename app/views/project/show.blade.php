@@ -5,34 +5,19 @@ Project Details
 @stop
 
 @section('content')
-<h1>Project details</h1>
-<h2>{{ $project->name }}</h2>
-
- {{ Form::open(array('class'=>'form-horizontal')) }}
+<h1>{{ $project->name }}
+    <a href="{{$project->id}}/edit"  class="btn btn-primary">Edit Details</a></h1>
+{{ Form::open(array('class'=>'form-horizontal')) }}
 <section class="generalInfo col-md-7">
-    <div class="form-group">
-    </div>
+    <h3>Project Details</h3>
     <div class="form-group">
         {{ Form::label('build_number', 'Build Number: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::text('build_number',$project->build_number,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
-    </div>
-    </div>
-        <div class="form-group">
-        {{ Form::label('family', 'Family: ',array('class'=>'col-sm-3')) }}
-        <div class="col-sm-7">
-        @if(isset($family))
-            {{ Form::text('family',$family->name,array('class'=>'form-control','readonly'=>'readonly')) }}
-        @else
-            {{ Form::text('family',null,array('class'=>'form-control','readonly'=>'readonly')) }}
-        @endif
-
-        </div>
-    </div>
-        
+    </div>    
     <div class="form-group">
-        {{ Form::label('street_number', 'Street number: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('street_number', 'Street Address: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::text('street_number',$project->street_number,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
@@ -55,23 +40,14 @@ Project Details
         {{ Form::text('postal_code',$project->postal_code,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
-        
-    </div>
-        <div class="form-group">
-        {{ Form::label('role', 'Project Coordinator: ',array('class'=>'col-sm-3')) }}
-        <div class="col-sm-7">
-        {{ Form::text('role',$project->role,array('class'=>'form-control','readonly'=>'readonly')) }}
-        </div>
-    </div>
-
     <div class="form-group">
-        {{ Form::label('start_date', 'Start Date: ',array('class'=>'col-sm-3','readonly'=>'readonly')) }}
+        {{ Form::label('start_date','Start Date: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::input('date','start_date',$project->start_date,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
     <div class="form-group">
-        {{ Form::label('end_date', 'End date: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('end_date','End date: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::input('date','end_date',$project->end_date,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
@@ -80,15 +56,15 @@ Project Details
     </div>
         <div class="form-group">
         {{ Form::label('blueprint_designer', 'Blueprint Designer: ',array('class'=>'col-sm-3')) }}
-        <div class="col-sm-7">        
-        {{ Form::text('blueprint_designer',$project->blueprint_designer,array('class'=>'form-control', 'readonly'=>'readonly')) }}
+        <div class="col-sm-7">
+        {{ Form::text('blueprint_designer',$project->blueprint_designer,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
     </div>
         <div class="form-group">
         {{ Form::label('blueprint_plan_number', 'Blueprint Plan Number: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('plan_number',$project->plan_number,array('class'=>'form-control','readonly'=>'readonly')) }}
+        {{ Form::text('blueprint_plan_number',$project->blueprint_plan_number,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
     <div class="form-group">
@@ -115,11 +91,31 @@ Project Details
         {{ Form::textarea('comments',$project->comments,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
     </div>
-
 </section>
- 
-<section class="col-md-5">   
-        <div class="form-group row">
+
+<section class="col-md-5"  id="revSpace"> 
+   
+        <h3 id="spacing">Additional Details</h3>
+<!--  <div class="form-group">       {{ Form::label('project_coordinator', 'Project Coordinator: ') }}
+        
+        @if (!empty($projectContact))
+            {{ Form::text('project_coordinator',$projectContact,array('class'=>'form-control','readonly'=>'readonly')) }}
+        @else
+            {{ Form::text('project_coordinator','Not Specified',array('class'=>'form-control','readonly'=>'readonly')) }}
+        @endif</div>-->
+    
+    <div class="form-group" id="spacingSecond">
+        {{ Form::label('family', 'Family: ') }}
+        @if(isset($family))
+            {{ Form::text('family',$family->name,array('class'=>'form-control','readonly'=>'readonly')) }}
+        @else
+            {{ Form::text('family','Not Assigned',array('class'=>'form-control','readonly'=>'readonly')) }}
+        @endif
+    </div>
+</section>
+    
+<section class="col-md-5"> 
+    <div class="form-group row">
         {{ Form::label('items', 'Project Items:') }}
         
         <!-- Items Table to go here -->

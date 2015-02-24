@@ -22,8 +22,6 @@ class ContactSortTest extends TestCase
         
     }
     
-
-
      public function testIndexForContact()
     {
          $this->mockedContactRepo->shouldReceive('getAllContacts');
@@ -38,6 +36,11 @@ class ContactSortTest extends TestCase
         
     }
     
+    public function tearDown()
+    {
+        parent::tearDown();
+        Mockery::close();
+    }    
 }
 
 

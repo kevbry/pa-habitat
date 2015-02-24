@@ -34,7 +34,6 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
         {{ HTML::script('assets/js/bootstrap.min.js'); }}
         {{ HTML::script('assets/js/master.js');}}
         {{ HTML::script('assets/js/dist/typeahead.bundle.js');}}
-
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>

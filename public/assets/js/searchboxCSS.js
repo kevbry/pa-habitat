@@ -15,7 +15,7 @@
         }
             ).on('typeahead:selected',             
     function(obj, data)
-        {
+    {
             if ($('#value').length == 0)
             {
                 console.log("Add New");
@@ -23,4 +23,5 @@
             else
             {
                 console.log("Modify Existing");
-        }});
+        	}
+	});

@@ -74,7 +74,7 @@ Create a Project
         
     </div>
         <div class="form-group">
-        {{ Form::label('role', 'Project Coordinator: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('project_coordinator', 'Project Coordinator: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         <?php $coordinator_search->show(); ?>
         </div>

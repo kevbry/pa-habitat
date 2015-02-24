@@ -4,7 +4,7 @@
  *
  * @author cst222
  */
-class EditContactTest extends TestCase
+class EditContactUnitTest extends TestCase
 {
     protected $mockedContactRepo;
     protected $mockedContactController;
@@ -89,53 +89,23 @@ class EditContactTest extends TestCase
         //Assert
         $this->assertRedirectedTo('contact/555/edit');
     }
-    /* TODO: Find out how to test "GET" form methods
-    public function testShowToEditRedirectSuccess()
+    public function testIndexForProject()
     {
-        //Assemble
-        $this->mockedContactController
-                ->shouldReceive('edit')
-                ->once()
-                ->with($this->contactInput['id']);
-        $this->mockedContactRepo->shouldReceive('getContact')
-                ->once()->with($this->contactInput['id']);
+       $this->mockedContactRepo
+               ->shouldReceive('getContact')->once()->with(1);
+              
+        $this->call('GET','contact/1/edit');
+        $crawler = $this->client->request('GET', 'contact/1/edit');
         
-        //Act
-        //$this->mockedContactController->edit($this->contactInput['id']);
-        //$this->call("GET", "contact/555/edit",$this->contactInput);
-        
-        //Assert
-        $this->assertRedirectedTo('contact/555/edit');
-    }
-    public function testShowToEditRedirectFailure()
-    {
-        //Assemble
-        $this->mockedContactController
-                ->shouldReceive('edit')
-                ->once()
-                ->with($this->contactInput['id']);
-        $this->mockedContactRepo->shouldReceive('getContact')
-                ->once()->with($this->contactInput['id']);
-               // ->andThrow($this->invalidDataException);
-        //Redirect::shouldReceive('action')->once()->with('ContactController@edit');
-        //Act
-        //$this->mockedContactController->edit($this->contactInput['id']);
-        //$this->route("PUT", "contact.edit",$this->contactInput['id']);
-        
-
-                
-        // Act    
-        //$this->call("GET", "contact/edit");
-        
-        // Assert
-        $this->assertRedirectedTo('contact/555/edit');
-    }*/
-
+        $this->assertResponseOk();
+        $this->assertCount(1, $crawler->filter('th:contains("Editing")'));
+    } 
     /**
      * Test clean up
      */
     public function tearDown()
     {
+        parent::tearDown();
         Mockery::close();
-    }
+    }    
 }

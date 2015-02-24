@@ -74,7 +74,8 @@ class EditVolunteerHoursTest extends TestCase
     public function tearDown()
     {
         parent::tearDown();
-    }
+        Mockery::close();
+    }    
     
 
     

@@ -96,5 +96,6 @@ class VolunteerUnitTest extends ContactUnitTest {
     public function tearDown()
     {
         parent::tearDown();
-    }
+        Mockery::close();
+    }    
 }

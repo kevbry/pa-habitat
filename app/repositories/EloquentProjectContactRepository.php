@@ -22,7 +22,8 @@ class EloquentProjectContactRepository implements ProjectContactRepository
      */
     public function getProjectContact($id)
     {
-        return \ProjectContact::find($id);
+        return \ProjectContact::select('contact_id')
+                ->where('project_id',$id)->get();
         
     }
     
