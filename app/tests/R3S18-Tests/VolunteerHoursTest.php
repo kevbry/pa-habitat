@@ -29,13 +29,13 @@ class VolunteerHoursTest extends TestCase
     public function testStoreSingleEntrySuccess()
     {
         $this->volunteerHoursInput = [
-            'id' => '555',
-            'volunteer_id' => 1, 
-            'project_id' => 1, 
-            'family_id' => 1,
-            'date_of_contribution' => '2015-01-22',
-            'paid_hours' => 1, 
-            'hours' => 8
+            'volunteer_id[]' => 118, 
+            'project_id[]' => 118, 
+            'family_id[]' => 1,
+            'date_of_contribution[]' => '2015-01-22',
+            'paid_hours[]' => 1, 
+            'hours[]' => 8,
+            'pageType' => 'volunteer'
          ];
         // Assemble
         $this->mockedVolunteerHoursController->shouldReceive('storeHoursEntryWith')->once()->with($this->volunteerHoursInput);
@@ -45,7 +45,7 @@ class VolunteerHoursTest extends TestCase
         $response = $this->route("POST", "storehours", $this->volunteerHoursInput);
 
         // Assert
-        $this->assertRedirectedToAction('VolunteerHoursController@indexForProject',1);
+        $this->assertRedirectedToAction('VolunteerHoursController@indexForContact',118);
     }
     
     public function testStoreSingleEntryFailure()
@@ -59,17 +59,21 @@ class VolunteerHoursTest extends TestCase
                 ->with($this->volunteerHoursInput)
                 ->andThrow(new Exception());
     }
-/*
+
      public function testIndexForVolunteer()
     {
         $this->mockedVolunteerHoursRepo
-                ->shouldReceive('getHoursForVolunteer')->once()->with(2);
+                ->shouldReceive('getHoursForVolunteer')->once()->with(118);
         
         $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
         
-        $this->call('GET','volunteerhours/volunteer/2');
+        $this->call('GET','volunteerhours/volunteer/118');
         
         $this->assertResponseOk();
-    }*/
+    }
     
+    public function tearDown()
+    {
+        parent::tearDown();
+    }
 }

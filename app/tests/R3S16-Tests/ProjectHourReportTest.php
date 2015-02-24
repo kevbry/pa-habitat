@@ -34,5 +34,8 @@ class ProjectHourReportTest extends TestCase
         $this->assertResponseOk();
         $this->assertContains('Project Hours for', $response->getContent());
     } 
-    
+    public function tearDown()
+    {
+        parent::tearDown();
+    }
 }

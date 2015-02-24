@@ -34,5 +34,8 @@ class VolunteerHourReportTest extends TestCase
         $this->assertResponseOk();
         $this->assertContains('Volunteer Hours for', $response->getContent());
     } 
-    
+    public function tearDown()
+    {
+        parent::tearDown();
+    }
 }

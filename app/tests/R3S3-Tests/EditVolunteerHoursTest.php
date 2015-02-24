@@ -59,7 +59,22 @@ class EditVolunteerHoursTest extends TestCase
                 ->with($this->volunteerHoursInput)
                 ->andThrow(new Exception());
     }
+    public function testIndexForVolunteer()
+    {
+        $this->mockedVolunteerHoursRepo
+                ->shouldReceive('getHoursForVolunteer')->once()->with(118);
+        
+        $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
+        
+        $this->call('GET','volunteerhours/volunteer/118');
+        
+        $this->assertResponseOk();
+    }
     
+    public function tearDown()
+    {
+        parent::tearDown();
+    }
     
 
     
