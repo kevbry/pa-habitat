@@ -39,7 +39,7 @@ class EditProjectItemsTest extends TestCase
             'comments' => 'Handles upsidedown'
          ];
         // Assemble
-        $this->mockedProjectItemsController->shouldReceive('storeItemWith')->once()->with($this->projectItemInput);
+        //$this->mockedProjectItemsController->shouldReceive('storeItemWith')->once()->with($this->projectItemInput);
         $this->mockedProjectItemsRepo->shouldReceive('saveProjectItem')->once()->with(Mockery::type('ProjectItem'));
 
         // Act 
@@ -68,11 +68,11 @@ class EditProjectItemsTest extends TestCase
      public function testIndexForProject()
     {
         $this->mockedProjectItemsRepo
-                ->shouldReceive('getItemsForProject')->once()->with(7);
+                ->shouldReceive('getItemsForProject')->once()->with(196);
         
         $this->app->instance('app\repositories\ProjectItemRepository', $this->mockedProjectItemsRepo);
         
-        $this->call('GET','project/7/items');
+        $this->call('GET','project/196/items');
         //$response = $this->route("GET", "viewItems", 1);
         
         $this->assertResponseOk();
