@@ -44,7 +44,7 @@ class HabitatSearchBox {
                     .attr('id', inputID)
                     .attr('type','hidden')
                     .attr('name', postKey)
-                    .attr('value', data.value)
+                    .attr('value', data.value) 
                     .appendTo('form');
             }
             else
@@ -179,12 +179,10 @@ EOT;
     /**
      * Purpose: Display the search control on the page
      */
-    public function show($required=false) {
-        if ($required) {
-            echo "<div id='$this->searchID'><input class='form-control typeahead' type='text' placeholder='$this->placeholderText' required></div>";
-        } else {
-            echo "<div id='$this->searchID'><input class='form-control typeahead' type='text' placeholder='$this->placeholderText'></div>";
-        }
+    public function show() {
+        
+        echo "<div id='$this->searchID'><input class='form-control typeahead' type='text' placeholder='$this->placeholderText' ></div>";
+
         return true;
     }
 

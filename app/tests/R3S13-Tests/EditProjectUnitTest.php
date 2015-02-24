@@ -21,6 +21,7 @@ class EditProjectUnitTest extends TestCase
         // Create dummy Project information
         $this->projectInput = [
             'id' => '14',
+            'name'=>'cool project',
             'created','2012-02-24 20:04:45',
             'updated_at'=> '2015-02-24 20:04:45',
             'family_id'=>'5',
@@ -84,13 +85,15 @@ class EditProjectUnitTest extends TestCase
         //Assert
         $this->assertRedirectedTo('project/555/edit');
     }
+    
+    
     public function testShowEditProject()
     {
        $this->mockedProjectRepo
-               ->shouldReceive('getProject')->once()->with(1);
+               ->shouldReceive('getProject')->once()->with(161);
               
-        $this->call('GET','project/1/edit');
-        $crawler = $this->client->request('GET', 'project/1/edit');
+        $this->call('GET','project/161/edit');
+        $crawler = $this->client->request('GET', 'project/161/edit');
         
         $this->assertResponseOk();
         $this->assertCount(1, $crawler->filter('th:contains("Editing")'));
@@ -100,6 +103,7 @@ class EditProjectUnitTest extends TestCase
      */
     public function tearDown()
     {
+         parent::tearDown();
         Mockery::close();
     }
 }

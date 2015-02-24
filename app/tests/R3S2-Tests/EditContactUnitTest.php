@@ -89,8 +89,11 @@ class EditContactUnitTest extends TestCase
         //Assert
         $this->assertRedirectedTo('contact/555/edit');
     }
-    public function testIndexForProject()
+    
+    
+    public function testIndexForContact()
     {
+        
        $this->mockedContactRepo
                ->shouldReceive('getContact')->once()->with(1);
               
@@ -100,6 +103,9 @@ class EditContactUnitTest extends TestCase
         $this->assertResponseOk();
         $this->assertCount(1, $crawler->filter('th:contains("Editing")'));
     } 
+    
+    
+    
     /**
      * Test clean up
      */
