@@ -23,14 +23,18 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
         ->configureSettings()
         ->build();
 ?> 
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<!--[if lt IE 7]> <html class="ie6" lang="en" itemscope itemtype="https://schema.org/Organization"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7" lang="en" itemscope itemtype="https://schema.org/Organization"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8" lang="en" itemscope itemtype="https://schema.org/Organization"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js " lang="en" itemscope itemtype="https://schema.org/Organization"> <!--<![endif]-->
     <head>
         <meta charset="UTF-8">
         <title>@yield('title') | Habitat For Humanity</title>
         {{ HTML::style('assets/css/style.css'); }}
-
+        
         {{ HTML::script('assets/js/jquery-1.11.1.min.js'); }}
+        {{ HTML::script('assets/js/modernizr.js'); }}
         {{ HTML::script('assets/js/bootstrap.min.js'); }}
         {{ HTML::script('assets/js/master.js');}}
         {{ HTML::script('assets/js/dist/typeahead.bundle.js');}}
