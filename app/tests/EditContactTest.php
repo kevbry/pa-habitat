@@ -136,6 +136,7 @@ class EditContactTest extends TestCase
      */
     public function tearDown()
     {
+        parent::tearDown();
         Mockery::close();
-    }
+    }    
 }

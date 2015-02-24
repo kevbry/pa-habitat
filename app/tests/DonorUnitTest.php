@@ -80,5 +80,6 @@ class DonorUnitTest extends ContactUnitTest {
     public function tearDown()
     {
         parent::tearDown();
-    }
+        Mockery::close();
+    }    
 }

@@ -77,4 +77,9 @@ class EditProjectHoursTest extends TestCase
         $this->assertResponseOk();
         
     }   
+    public function tearDown()
+    {
+        parent::tearDown();
+        Mockery::close();
+    }    
 }

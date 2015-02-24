@@ -92,4 +92,10 @@ class HabitatSearchBoxUnitTest extends TestCase
         $success = $this->testSearchBox->build();
         $this->assertTrue($success);
     }
+    
+    public function tearDown()
+    {
+        parent::tearDown();
+        Mockery::close();
+    }    
 }
