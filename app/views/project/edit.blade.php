@@ -143,7 +143,7 @@ Edit Project
             {{ Form::text('family',$family->name,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
         <div id="editFamily">
-            <?php $familySearch->show(true) ?>
+            <?php $familySearch->show() ?>
         </div>
         <div id="changeFamButton">
             <a href="#" class="btn btn-primary changeFam">Change Family</a>
