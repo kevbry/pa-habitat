@@ -44,5 +44,49 @@ class CompanyController extends \BaseController {
         return View::make('company.show')
                         ->withCompany($company);
     }
+    
+    
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return View::make('company.create');
+    }
+    
+        /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        // Retrieve company information from user
+        $companyInput['name'] = Input::get('company_name');
+        $companyInput['contact_id'] = Input::get('primary_contact_1');
+        
+        //Store company
+        $companyID = $this->createCompanyWith($companyInput);
+ 
+        // If the family was successfully created
+        if ($companyID > 0)
+        {
+            return Redirect::action('CompanyController@show', $companyID);
 
+        }
+        
+        // Redirect user to newly created family's detail page
+    }
+    
+    
+    public function createCompanyWith($data)
+    {
+        $company = new Company($data);
+        
+        $this->companyRepo->saveCompany($company);
+        
+        return $company->id;
+    }
 }

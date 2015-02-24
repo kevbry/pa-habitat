@@ -42,16 +42,16 @@ class EloquentCompanyRepository  implements CompanyRepository
     }
     
     
-      public function orderBy($sort,$order)
-      {
-            $order = ($order == 'a' ? 'asc' : 'desc');
+    public function orderBy($sort,$order)
+    {
+          $order = ($order == 'a' ? 'asc' : 'desc');
 
-        switch ($sort) {
-            case 'n':
-                $sortby = 'name';
-                break;
-        }
-
-        return \Company::orderBy($sortby, $order)->paginate(20);
+      switch ($sort) {
+          case 'n':
+              $sortby = 'name';
+              break;
       }
+
+      return \Company::orderBy($sortby, $order)->paginate(20);
+    }
 }
