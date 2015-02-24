@@ -34,6 +34,7 @@ Edit Project
 <h2>Editing Details for {{ $project->name }}</h2>
 
 {{ Form::open(array('method'=>'PUT','route'=>array('project.update', $project->id), 'class'=>'form-horizontal', 'id'=>'form')) }}
+<section class="row">
 <section class="generalInfo col-md-7">
     <h3>Project Details</h3>
     <div class="form-group">
@@ -121,8 +122,7 @@ Edit Project
         {{ Form::textarea('comments',$project->comments,array('class'=>'form-control')) }}
     </div>
 </div>
-{{HTML::linkAction('ProjectController@show', "Discard Changes", array($project->id), array('class'=>'btn btn-primary btn-lg')) }}
-{{Form::submit('Save Changes',array('class'=>'btn btn-primary btn-lg', 'onclick'=>'confirmExit(false); return false;'))}}
+
 
 </section>
 <section class="col-md-5"> 
@@ -137,7 +137,6 @@ Edit Project
         @endif-->
     </div>
     <div class="form-group">
-
         {{ Form::label('family', 'Family: ') }}
         <div id="familySet">
             {{ Form::text('family',$family->name,array('class'=>'form-control','readonly'=>'readonly')) }}
@@ -148,9 +147,15 @@ Edit Project
         <div id="changeFamButton">
             <a href="#" class="btn btn-primary changeFam">Change Family</a>
         </div>
-       
-        
     </div>
 </section>
+</section>
+<section class="row text-right">
+    <div class="col-md-5 pull-right">
+{{HTML::linkAction('ProjectController@show', "Discard Changes", array($project->id), array('class'=>'btn btn-primary btn-lg')) }}
+{{Form::submit('Save Changes',array('class'=>'btn btn-primary btn-lg', 'onclick'=>'confirmExit(false); return false;'))}}
+    </div>
+</section>
+{{Form::close()}}
  {{ HTML::script('assets/js/EditProjStyle.js');}}
 @stop            

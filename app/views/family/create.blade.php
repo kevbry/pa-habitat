@@ -100,7 +100,7 @@ Create a Family
 </section>
 </section>
 <section class="row text-right">
-      <div class="form-group">
+    <div class="col-md-5 pull-right">
         {{Form::submit('Create New Family',array('class'=>'btn btn-primary btn-lg'))}}
     </div>  
 </section>
