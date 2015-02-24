@@ -88,20 +88,10 @@ class ProjectController extends \BaseController {
         //Assign returned value of a project id created to a variable.
         $projectID = $this->createProjectWith($projectInput);
 
-        // Store values from the contact form
-//            $projectValues = Input::only('name');
-//            
-        // Create a new contact object to store in the database
-        //$project = new Project($projectValues);
-//            
-//            // Store contact
-//            $this->projectRepo->saveProject($project);
-//            
-        // Grab the id of the new contact
+        // Grab the id of the new project
         $id = $projectID;
-//
-//           
-        // Redirect to view the newly created contact
+ 
+        // Redirect to view the newly created project
         return Redirect::action('ProjectController@show', array($id));
     }
 

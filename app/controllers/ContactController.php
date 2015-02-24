@@ -284,15 +284,4 @@ class ContactController extends \BaseController {
             // return to redirect
             return $redirectVariable;
 	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//boom
-	}
 }
