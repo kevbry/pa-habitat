@@ -45,7 +45,7 @@ class VolunteerHourReportTest extends TestCase
         $this->mockedFamilyRepo
                 ->shouldReceive('getAllFamilies')->once();
         
-        $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
+        //$this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
         
         $response = $this->call('GET','volunteerhours/report/120');
        
