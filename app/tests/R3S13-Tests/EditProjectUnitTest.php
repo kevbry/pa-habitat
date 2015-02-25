@@ -94,8 +94,8 @@ class EditProjectUnitTest extends TestCase
               
         $this->call('GET','project/161/edit');
         $crawler = $this->client->request('GET', 'project/161/edit');
-        
-        $this->assertResponseOk();
+                $this->assertResponseOk();
+
         $this->assertCount(1, $crawler->filter('th:contains("Editing")'));
     } 
     /**

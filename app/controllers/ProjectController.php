@@ -90,7 +90,7 @@ class ProjectController extends \BaseController {
 
         // Grab the id of the new project
         $id = $projectID;
- 
+
         // Redirect to view the newly created project
         return Redirect::action('ProjectController@show', array($id));
     }
@@ -131,16 +131,29 @@ class ProjectController extends \BaseController {
      */
     public function edit($id) {
         $project = $this->projectRepo->getProject($id);
+//        $family = $this->familyRepo->getFamily($project->family_id);
+//        if (($projectContact = $this->projectContactRepo->getProjectContact($id)) != null) {
+//            return View::make('project.edit')
+//                            ->withProject($project)
+//                            ->withProjectContact($projectContact)
+//                                    ->withFamily($family);
+//        } else {
+//            return View::make('project.edit')
+//                            ->withProject($project)
+//                            ->withFamily($family);
+//        }
+
         $family = $this->familyRepo->getFamily($project->family_id);
-        if (($projectContact = $this->projectContactRepo->getProjectContact($id)) != null) {
-            return View::make('project.edit')
-                            ->withProject($project)
-                            ->withProjectContact($projectContact)
-                                    ->withFamily($family);
-        } else {
+        var_dump($family);
+
+
+        if ($family != null) {
             return View::make('project.edit')
                             ->withProject($project)
                             ->withFamily($family);
+        } else {
+            return View::make('project.edit')
+                            ->withProject($project);
         }
     }
 
