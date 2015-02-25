@@ -11,6 +11,10 @@ class EditProjectHoursTest extends TestCase
     protected $mockedVolunteerHoursController;
     protected $volunteerHoursInput;
     
+    protected $mockedFamilyRepo;
+    protected $mockedVolunteerRepo;
+    protected $mockedProjectRepo;
+    
     protected $invalidDataException;
     
     public function setUp()
@@ -26,6 +30,14 @@ class EditProjectHoursTest extends TestCase
         $this->mockedVolunteerHoursController = Mockery::mock('app\controllers\VolunteerHoursController');
         $this->app->instance('app\controllers\VolunteerHoursController', $this->mockedVolunteerHoursController);
         
+        $this->mockedVolunteerRepo = Mockery::mock('app\repositories\VolunteerRepository');
+        $this->app->instance('app\repositories\VolunteerRepository', $this->mockedVolunteerRepo);
+        
+        $this->mockedProjectRepo = Mockery::mock('app\repositories\ProjectRepository');
+        $this->app->instance('app\repositories\ProjectRepository', $this->mockedProjectRepo);
+        
+        $this->mockedFamilyRepo = Mockery::mock('app\repositories\FamilyRepository');
+        $this->app->instance('app\repositories\FamilyRepository', $this->mockedFamilyRepo);
     }
           
     /**
@@ -67,6 +79,14 @@ class EditProjectHoursTest extends TestCase
     
      public function testIndexForProject()
     {
+         $this->mockedVolunteerRepo
+                ->shouldReceive('getAllVolunteersNonPaginated')->once();
+        $this->mockedProjectRepo
+                ->shouldReceive('getAllProjectsNonPaginated')->once();
+        $this->mockedProjectRepo
+                ->shouldReceive('getProject')->once()->with(56);
+        $this->mockedFamilyRepo
+                ->shouldReceive('getAllFamilies')->once();
         $this->mockedVolunteerHoursRepo
                 ->shouldReceive('getHoursForProject')->once()->with(56);
         

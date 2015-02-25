@@ -39,7 +39,7 @@ class ProjectItemTest extends TestCase
          ];
         
         // Assemble
-        $this->mockedProjectItemController->shouldReceive('store')->once()->with($this->projectItemInput);
+        //$this->mockedProjectItemController->shouldReceive('store')->once()->with($this->projectItemInput);
         $this->mockedProjectItemRepo->shouldReceive('saveProjectItem')->once()->with(Mockery::type('ProjectItem'));
 
         // Act 
@@ -68,9 +68,9 @@ class ProjectItemTest extends TestCase
     public function testIndex()
     {
         $this->mockedProjectItemRepo
-            ->shouldReceive('getItemsForProject')->once()->with(1);
+            ->shouldReceive('getItemsForProject')->once()->with(195);
         
-        $this->call('GET','/project/1/items');
+        $this->call('GET','/project/195/items');
         
         $this->assertResponseOk();
         
@@ -79,10 +79,10 @@ class ProjectItemTest extends TestCase
     public function testCreate()
     {
        $this->mockedProjectItemRepo
-            ->shouldReceive('getItemsForProject')->once()->with(1);
+            ->shouldReceive('getItemsForProject')->once()->with(195);
 
         //Call the method
-        $response = $this->call('GET', 'project/1/items');
+        $response = $this->call('GET', 'project/195/items');
         
         //Make assertions
         $this->assertContains('Items for', $response->getContent());

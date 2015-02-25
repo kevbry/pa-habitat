@@ -87,7 +87,7 @@ class FamilyUnitTest extends TestCase
     public function testStoreFamilySuccess()
     {
         //Assemble
-        $this->mockedFamilyController->shouldReceive('createFamilyWith')->once()->with($this->familyInput);
+        //$this->mockedFamilyController->shouldReceive('createFamilyWith')->once()->with($this->familyInput);
         $this->mockedFamilyRepo->shouldReceive('saveFamily')->once()->with(Mockery::type('Family'));
         
         //Redirect::shouldReceive('action')->once()->with('FamilyController@show')->with($this->familyInput);
@@ -108,8 +108,8 @@ class FamilyUnitTest extends TestCase
     {
         //Assemble
         $numberOfContacts = count($this->familyInput['contacts']);
-        $this->mockedFamilyController->shouldReceive('createFamilyContactWith')->times($numberOfContacts)->with($this->familyContactInput[0]);
-        $this->mockedFamilyContactRepo->shouldReceive('saveFamilyContact')->times($numberOfContacts)->with(Mockery::type('FamilyContact'));
+        $this->mockedFamilyController->shouldReceive('createFamilyContactWith')->times($numberOfContacts)->with($this->familyInput["contacts"]);
+        //$this->mockedFamilyContactRepo->shouldReceive('saveFamilyContact')->times($numberOfContacts)->with(Mockery::type('FamilyContact'));
         $this->mockedFamilyRepo->shouldReceive('saveFamily')->once()->with(Mockery::type('Family'));
         
         //Redirect::shouldReceive('action')->once()->with('FamilyController@show');
