@@ -232,8 +232,10 @@ class ContactController extends \BaseController {
                         'postal_code', 
                         'country', 
                         'comments');
+            
             $volunteerPassed = Input::has('is_volunteer');
             $volunteerInfo = [];
+            
             if($volunteerPassed)
             {
                 $volunteerInfo['active_status'] = Input::has('active_status') ? 1 : 0;
@@ -281,16 +283,5 @@ class ContactController extends \BaseController {
             }
             // return to redirect
             return $redirectVariable;
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//boom
 	}
 }

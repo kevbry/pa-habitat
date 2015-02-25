@@ -34,27 +34,7 @@ All Donors
                     
             </th>
             
-            <th>Phone
-            @if ($sortby == 'h' && $order == 'd')
-                 <a href='{{action(
-                           'DonorController@index',
-                            array(
-                               'sortby' => 'h',
-                                'order' => 'a'
-                           )
-                       )
-                  }}'  ><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
-                    @else 
-                  
-                 <a href='{{action(
-                           'DonorController@index',
-                            array(
-                               'sortby' => 'h',
-                                'order' => 'd'
-                           )
-                       )
-                  }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-                    @endif</th>
+            <th>Phone</th>
             
             <th>Email
             @if ($sortby == 'e' && $order == 'd')
@@ -81,7 +61,13 @@ All Donors
     @foreach($donors as $donor)
     <tr>
         <td>{{$donor->contact->first_name . ' ' . $donor->contact->last_name}}</td>
-        <td>{{$donor->contact->home_phone}}</td>
+        <td>@if (!empty($donor->contact->home_phone))
+        {{$donor->contact->home_phone}}
+        @elseif (!empty($donor->contact->cell_phone))
+        {{$donor->contact->cell_phone}}
+        @else 
+        {{$donor->contact->work_phone}}
+        @endif</td>
         <td>{{$donor->contact->email_address}}</td>
         <td><a href="contact/{{$donor->id}}">View Details</a> | <a href="contact/{{$donor->id}}/edit">Edit Details</a></td>
     </tr>

@@ -33,24 +33,6 @@ class CompanyController extends \BaseController {
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create() {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store() {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -62,35 +44,49 @@ class CompanyController extends \BaseController {
         return View::make('company.show')
                         ->withCompany($company);
     }
-
+    
+    
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for creating a new resource.
      *
-     * @param  int  $id
      * @return Response
      */
-    public function edit($id) {
-        //
+    public function create()
+    {
+        return View::make('company.create');
     }
-
-    /**
-     * Update the specified resource in storage.
+    
+        /**
+     * Show the form for creating a new resource.
      *
-     * @param  int  $id
      * @return Response
      */
-    public function update($id) {
-        //
-    }
+    public function store()
+    {
+        // Retrieve company information from user
+        $companyInput['name'] = Input::get('company_name');
+        $companyInput['contact_id'] = Input::get('primary_contact_1');
+        
+        //Store company
+        $companyID = $this->createCompanyWith($companyInput);
+ 
+        // If the family was successfully created
+        if ($companyID > 0)
+        {
+            return Redirect::action('CompanyController@show', $companyID);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id) {
-        //
+        }
+        
+        // Redirect user to newly created family's detail page
     }
-
+    
+    
+    public function createCompanyWith($data)
+    {
+        $company = new Company($data);
+        
+        $this->companyRepo->saveCompany($company);
+        
+        return $company->id;
+    }
 }

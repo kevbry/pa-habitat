@@ -74,7 +74,7 @@ Create a Project
         
     </div>
         <div class="form-group">
-        {{ Form::label('role', 'Project Coordinator: ',array('class'=>'col-sm-3')) }}
+        {{ Form::label('project_coordinator', 'Project Coordinator: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         <?php $coordinator_search->show(); ?>
         </div>
@@ -133,10 +133,8 @@ Create a Project
     </div>
 </section>
 </section>
-<section class="row">
-<section class="col-md-7">
-    <section class="row text-right">
-          <div class="form-group">
+<section class="row text-right">
+    <div class="col-md-5 pull-right">
             {{Form::submit('Create New Project',array('class'=>'btn btn-primary btn-lg'))}}
         </div>  
     </section>

@@ -18,8 +18,8 @@ Add Inspections for Project {{$project->name}}
 </script>
 <h1>Inspections for {{$project->name}}</h1>
 {{ Form::open(array('route'=>'storeInspections','class'=>'form-horizontal')) }}
-<a href="#" id="addhours" class="btn btn-primary btn-lg">Add Row</a>
-{{Form::submit('Save All',array('class'=>'btn btn-primary btn-lg'))}}
+<a href="#" id="addhours" class="btn btn-primary">Add Row</a>
+{{Form::submit('Save All',array('class'=>'btn btn-primary'))}}
 <table class="table">
     <thead>
         <tr><th>Date</th><th>Type</th><th>Mandatory</th><th>Pass/Fail</th><th>Comments</th></tr>

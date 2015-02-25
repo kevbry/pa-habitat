@@ -10,6 +10,7 @@ Edit Contact
 <h2>Editing Details for {{$contact->first_name . " " . $contact->last_name}}</h2>
 <h2></h2>
 {{ Form::open(array('method'=>'PUT','route'=>array('contact.update', $contact->id), 'class'=>'form-horizontal', 'id'=>'form')) }}
+<section class="row">
 <section class="generalInfo col-md-7">
 <h3>Contact Details</h3>
 <div class="form-group">
@@ -84,8 +85,7 @@ Edit Contact
      {{ Form::textarea('comments',$contact->comments,array('class'=>'form-control')) }}
      </div>
  </div>
-    {{HTML::linkAction('ContactController@show', "Discard Changes", array($contact->id), array('class'=>'btn btn-primary btn-lg')) }}
-    {{Form::submit('Save Changes',array('class'=>'btn btn-primary btn-lg', 'onclick'=>'confirmExit(false); return false;'))}}
+
 </section>
  <?php
     $volunteerStatus = 0;
@@ -111,7 +111,7 @@ Edit Contact
         $volunteerSafetyDate = $volunteer->last_attended_safety_meeting_date;
     }
  ?>
-<section class='volunteerFields col-md-5 row'>
+<section class='volunteerFields col-md-5'>
     <h3>Volunteer Details</h3>
 @if (!$volunteer)
     <div class="form-group">
@@ -147,6 +147,13 @@ Edit Contact
     </div>
 @endif
  </section>
+</section>
+<section class="row text-right">
+    <div class="col-md-5 pull-right">
+            {{HTML::linkAction('ContactController@show', "Discard Changes", array($contact->id), array('class'=>'btn btn-primary btn-lg')) }}
+    {{Form::submit('Save Changes',array('class'=>'btn btn-primary btn-lg', 'onclick'=>'confirmExit(false); return false;'))}}
+    </div>
+</section>
 
 {{ Form::close() }}
 

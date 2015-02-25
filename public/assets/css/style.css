@@ -22,7 +22,7 @@ footer p {
 }
 
 .scrollable {
-    width: 100%;
+    width: 100%; 
 }
 
 .scrollable thead, .scrollable tbody, .scrollable tr, .scrollable td, .scrollable th {
@@ -152,3 +152,19 @@ span.twitter-typeahead{
     width: 250px;
     z-index: 1000;
 }
+
+#spacing{
+    margin-bottom: 10px;
+    padding-left:0px;
+}
+
+#revSpace{
+    padding-left:0px;
+}
+
+#spacingSecond{
+    padding-left:15px;
+   
+}
+
+ 

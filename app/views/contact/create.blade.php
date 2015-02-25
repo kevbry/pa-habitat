@@ -119,9 +119,9 @@ Create a Contact
 </section>
 </section>
 <section class="row text-right">
-      <div class="form-group">
-        {{Form::submit('Create New Contact',array('class'=>'btn btn-primary btn-lg'))}}
-    </div>  
+    <div class="col-md-5 pull-right">
+        {{Form::submit('Save New Contact',array('class'=>'btn btn-primary btn-lg'))}}
+    </div>
 </section>
 
 {{Form::close()}}

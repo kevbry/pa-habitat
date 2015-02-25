@@ -1,29 +1,17 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
-
-// NOTE TO FUTURE SELVES: FIX THIS TO BE MORE SECURE.
-
-
 Route::get('/', function()
 {
 	return View::make('hello');
 });
-Route::resource('contact', 'ContactController');
-Route::resource('donor', 'DonorController');
-Route::resource('company', 'CompanyController');
-Route::resource('project', 'ProjectController');
-Route::resource('volunteer', 'VolunteerController');
-Route::resource('family', 'FamilyController');
+
+
+Route::resource('contact', 'ContactController', ['except' => ['destroy']]);
+Route::resource('donor', 'DonorController', ['only' => ['index']]);
+Route::resource('company', 'CompanyController', ['only' => ['index', 'show', 'create','store']]);
+Route::resource('project', 'ProjectController', ['except' => ['destroy']]);
+Route::resource('volunteer', 'VolunteerController', ['only' => ['index']]);
+Route::resource('family', 'FamilyController', ['except' => ['update', 'destroy']]);
 
 //Volunteer Hour Routes
 Route::get('volunteerhours/project/{project}','VolunteerHoursController@indexForProject');
@@ -34,6 +22,8 @@ Route::get('volunteerhours/add/project/{project}',array('as'=>'projHoursAdd', 'u
 Route::get('volunteerhours/add/volunteer/{volunteer}',array('as'=>'volHoursAdd', 'uses'=>'VolunteerHoursController@createForContact'));
 Route::get('volunteerhours/volunteerEdit/{volunteer}',array('as'=>'volHoursEditRoute', 'uses'=>'VolunteerHoursController@indexForEditContact'));
 Route::post('volunteerhours/volunteerEdit/',array('as'=>'updatehours','uses'=>'VolunteerHoursController@updatehours'));
+
+//Project Inspection routes
 Route::get('project/{project}/inspections', array('as'=>'projInspectionsView', 'uses'=>'ProjectInspectionController@index'));
 Route::get('project/{project}/inspections/create', array('as'=>'projInspectionsAdd', 'uses'=>'ProjectInspectionController@create'));
 Route::post('project/{project}/inspections/create', array('as'=>'storeInspections', 'uses'=>'ProjectInspectionController@store'));
@@ -51,6 +41,7 @@ Route::post('project/{project}/items/edit',array('as'=>'updateFormItems','uses'=
 //Report routes
 Route::get('volunteerhours/report/{volunteer}', array('as'=>'volunteerReport', 'uses'=>'VolunteerHoursController@viewHoursReport'));
 Route::get('projecthours/report/{volunteer}', array('as'=>'projectReport', 'uses'=>'VolunteerHoursController@viewHoursReportForProject'));
+
 
 //Search routes
 Route::get('search/searchContacts', 'SearchAPIController@searchContacts');
