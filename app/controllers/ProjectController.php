@@ -36,7 +36,7 @@ class ProjectController extends \BaseController {
     public function index() {
         $sortby = Input::get('sortby');
         $order = Input::get('order');
-        // Retrieve all projects from the database
+// Retrieve all projects from the database
 
         if ($sortby && $order) {
             $projectList = $this->projectRepo->orderBy($sortby, $order);
@@ -44,7 +44,7 @@ class ProjectController extends \BaseController {
             $projectList = $this->projectRepo->getAllProjects();
         }
 
-        // Return that to the list view
+// Return that to the list view
         return View::make('project.index', compact('sortby', 'order'))->with('projects', $projectList);
     }
 
@@ -63,7 +63,7 @@ class ProjectController extends \BaseController {
      * @return Response
      */
     public function store() {
-        //Retrieve Project information from user
+//Retrieve Project information from user
 
         $projectInput['build_number'] = Input::get('build_number');
         $projectInput['name'] = Input::get('name');
@@ -85,13 +85,13 @@ class ProjectController extends \BaseController {
         }
 
 
-        //Assign returned value of a project id created to a variable.
+//Assign returned value of a project id created to a variable.
         $projectID = $this->createProjectWith($projectInput);
 
-        // Grab the id of the new project
+// Grab the id of the new project
         $id = $projectID;
 
-        // Redirect to view the newly created project
+// Redirect to view the newly created project
         return Redirect::action('ProjectController@show', array($id));
     }
 
@@ -131,6 +131,7 @@ class ProjectController extends \BaseController {
      */
     public function edit($id) {
         $project = $this->projectRepo->getProject($id);
+        var_dump($project);
 
         if (( $family = $this->familyRepo->getFamily($project->family_id)) != null) {
 
@@ -139,7 +140,8 @@ class ProjectController extends \BaseController {
                             ->withFamily($family);
         } else {
             return View::make('project.edit')
-                            ->withProject($project);
+                            ->withProject($project)
+                            ->withFamily($family);
         }
     }
 
@@ -183,10 +185,10 @@ class ProjectController extends \BaseController {
 
 
 
-        // Store values from the project form
+// Store values from the project form
         $projectInfo = Input::only(
                         'updated_at', 'family', 'build_number', 'street_number', 'postal_code', 'city', 'province', 'start_date', 'end_date', 'comments', 'building_permit_number', 'building_permit_date', 'mortgage_date', 'blueprint_plan_number', 'blueprint_designer');
-        // Array of field names
+// Array of field names
         $fieldNames = array(
             'updated_at',
             'family_id',
@@ -206,33 +208,33 @@ class ProjectController extends \BaseController {
 
 
 
-        //Used to count the field number based on the number of time through
-        //the for each loop
+//Used to count the field number based on the number of time through
+//the for each loop
         $counter = 0;
-        //Creating an associate array for the update
+//Creating an associate array for the update
         $fieldUpdateValues = array();
 
-        //added key value pairs to the array
+//added key value pairs to the array
         foreach ($projectInfo as $fieldValue) {
             $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
             $counter++;
         }
 
-        //updating the record in the contact table for the contact with the id passed in
-        //var_dump($id);
-        //var_dump($fieldUpdateValues);
+//updating the record in the contact table for the contact with the id passed in
+//var_dump($id);
+//var_dump($fieldUpdateValues);
         $affectedRows = Project::where('id', '=', $id)->update($fieldUpdateValues);
-        //$affectedRows = 0;
-        //var_dump($affectedRows);
-        //use affected rows to dertirming if it was a success or not
+//$affectedRows = 0;
+//var_dump($affectedRows);
+//use affected rows to dertirming if it was a success or not
         if ($affectedRows > 0) {
-            // Redirect to view the updated contact info
+// Redirect to view the updated contact info
             $redirectVariable = Redirect::action('ProjectController@show', $id);
         } else {
-            //Redirect back to the edit page with an error message
+//Redirect back to the edit page with an error message
             $redirectVariable = Redirect::action('ProjectController@edit', $id)->withErrors(['Error', 'The Message']);
         }
-        // return to redirect
+// return to redirect
         return $redirectVariable;
     }
 
