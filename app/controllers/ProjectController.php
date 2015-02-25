@@ -131,7 +131,6 @@ class ProjectController extends \BaseController {
      */
     public function edit($id) {
         $project = $this->projectRepo->getProject($id);
-        var_dump($project);
 
         if (( $family = $this->familyRepo->getFamily($project->family_id)) != null) {
 
