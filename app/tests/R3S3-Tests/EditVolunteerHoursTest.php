@@ -18,14 +18,14 @@ class EditVolunteerHoursTest extends TestCase
         $this->volunteerHoursInput = [];
 
         // Set up the Volunteer Hours Mocked Repository
-        $this->mockedVolunteerHoursRepo = Mockery::mock('app\repositories\VolunteerHoursRepository');
-        $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
+        $this->mockedVolunteerHoursRepo = Mockery::mock('App\Repositories\EloquentVolunteerHoursRepository');
+        $this->app->instance('App\Repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
         
         $this->mockedVolunteerHoursController = Mockery::mock('app\controllers\VolunteerHoursController');
         $this->app->instance('app\controllers\VolunteerHoursController', $this->mockedVolunteerHoursController);
         
-        $this->mockedVolunteerRepo = Mockery::mock('app\repositories\VolunteerRepository');
-        $this->app->instance('app\repositories\VolunteerRepository', $this->mockedVolunteerRepo);
+        $this->mockedVolunteerRepo = Mockery::mock('App\Repositories\EloquentVolunteerRepository');
+        $this->app->instance('App\Repositories\VolunteerRepository', $this->mockedVolunteerRepo);
         
         $this->mockedProjectRepo = Mockery::mock('app\repositories\ProjectRepository');
         $this->app->instance('app\repositories\ProjectRepository', $this->mockedProjectRepo);
@@ -53,8 +53,7 @@ class EditVolunteerHoursTest extends TestCase
             'vol_id' => 2
          ];
         // Assemble
-        //$this->mockedVolunteerHoursController->shouldReceive('storeHoursEntryWith')->once()->with($this->volunteerHoursInput);
-        $this->mockedVolunteerHoursRepo->shouldReceive('saveVolunteerHours')->once()->with(Mockery::type('VolunteerHours'));
+        //$this->mockedVolunteerHoursController->shouldReceive('updatehours')->once();
 
         // Act 
         $response = $this->route("POST", "updatehours", $this->volunteerHoursInput);
@@ -77,11 +76,11 @@ class EditVolunteerHoursTest extends TestCase
     public function testIndexForVolunteer()
     {
         $this->mockedVolunteerRepo
-                ->shouldReceive('getVolunteer')->once()->with(2);
+                ->shouldReceive('getVolunteer')->once()->with(2)->passthru();
         $this->mockedProjectRepo
-                ->shouldReceive('getAllProjectsNonPaginated')->once();
+                ->shouldReceive('getAllProjects')->once();
         $this->mockedFamilyRepo
-                ->shouldReceive('getAllFamiliesNonPaginated')->once();
+                ->shouldReceive('getAllFamilies')->once();
         $this->mockedVolunteerHoursRepo
                 ->shouldReceive('getHoursForVolunteer')->once()->with(2);
         

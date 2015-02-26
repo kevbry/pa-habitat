@@ -45,8 +45,8 @@ class EditProjectUnitTest extends TestCase
 
         // Instantiate objects with dummy data
 
-        $this->mockedProjectRepo = Mockery::mock('app\repositories\ProjectRepository');
-        $this->app->instance('app\repositories\ProjectRepository', $this->mockedProjectRepo);
+        $this->mockedProjectRepo = Mockery::mock('App\Repositories\EloquentProjectRepository');
+        $this->app->instance('App\Repositories\ProjectRepository', $this->mockedProjectRepo);
         
         $this->mockedFamilyRepo = Mockery::mock('App\Repositories\EloquentFamilyRepository');
         $this->app->instance('app\repositories\FamilyRepository', $this->mockedFamilyRepo);
@@ -93,17 +93,17 @@ class EditProjectUnitTest extends TestCase
     
     public function testShowEditProject()
     {
-       //$family = new {'family_id' = 2};
        $this->mockedProjectRepo
-               ->shouldReceive('getProject')->once()->with(2)->andReturn($family);
-       $this->mockedFamilyRepo
-               ->shouldReceive('getFamily')->once()->with(2);
+               ->shouldReceive('getProject')->once()->with(2)->passthru();
+       //$this->mockedFamilyRepo
+       //        ->shouldReceive('getFamily')->once()->with(2)->passthru();
        
-        $this->call('GET','project/2/edit');
-        $crawler = $this->client->request('GET', 'project/2/edit');
+        $response = $this->call('GET','project/2/edit');
+        //$crawler = $this->client->request('GET', 'project/2/edit');
         
         $this->assertResponseOk();
-        $this->assertCount(1, $crawler->filter('th:contains("Editing")'));
+        $this->assertContains("Editing Details", $response->getContent());
+        //$this->assertCount(1, $crawler->filter('th:contains("Editing")'));
     } 
     /**
      * Test clean up
