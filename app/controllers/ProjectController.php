@@ -132,8 +132,8 @@ class ProjectController extends \BaseController {
     public function edit($id) {
         $project = $this->projectRepo->getProject($id);
 
-        if (( $family = $this->familyRepo->getFamily($project->family_id)) != null) {
-
+        if ($this->familyRepo->getFamily($project->family_id) != null) {
+            $family = $this->familyRepo->getFamily($project->family_id);
             return View::make('project.edit')
                             ->withProject($project)
                             ->withFamily($family);

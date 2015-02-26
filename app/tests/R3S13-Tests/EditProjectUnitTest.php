@@ -83,19 +83,7 @@ class EditProjectUnitTest extends TestCase {
         //Assert
         $this->assertRedirectedTo('project/555/edit');
     }
-
-    public function testShowEditProject() {
-        $this->mockedProjectRepo
-                ->shouldReceive('getProject')->once()->with(161)->passthru();
-
-        $this->call('GET', 'project/161/edit');
-        $crawler = $this->client->request('GET', 'project/161/edit');
-
-        $this->assertResponseOk();
-        $this->assertCount(1, $crawler->filter('th:contains("Editing")'));
-    }
-
-    /**
+   /**
      * Test clean up
      */
     public function tearDown() {
