@@ -28,7 +28,7 @@ class VolunteerHoursController extends \BaseController {
         $volunteers = $this->volunteerRepo->getAllVolunteers();
         $project = $this->projectRepo->getProject($projectId);
         $volunteerHours = $this->volunteerHrsRepo->getHoursForProject($projectId);
-        $families = $this->familyRepo->getAllFamilies();
+        $families = $this->familyRepo->getAllFamiliesNonPaginated();
 
         return View::make('volunteerhours.project', array('id' => $projectId, 'volunteers' => $volunteers,
                     'project' => $project, 'volunteerhours' => $volunteerHours,
@@ -40,7 +40,7 @@ class VolunteerHoursController extends \BaseController {
         $projects = $this->projectRepo->getAllProjects();
         $volunteerHours = $this->volunteerHrsRepo->getHoursForVolunteer($contactId);
        
-        $families = $this->familyRepo->getAllFamilies();
+        $families = $this->familyRepo->getAllFamiliesNonPaginated();
        
         return View::make('volunteerhours.volunteer', array('id' => $contactId, 'volunteer' => $volunteer,
                     'projects' => $projects, 'volunteerhours' => $volunteerHours,
@@ -71,7 +71,7 @@ class VolunteerHoursController extends \BaseController {
         $projects = $this->projectRepo->getAllProjectsNonPaginated();
         $volunteerHours = $this->volunteerHrsRepo->getHoursForVolunteerNonPaginated($contactId);
        
-        $families = $this->familyRepo->getAllFamilies();
+        $families = $this->familyRepo->getAllFamiliesNonPaginated();
        
         return View::make('volunteerhours.volunteerEdit', array('id' => $contactId, 'volunteer' => $volunteer,
                     'projects' => $projects, 'volunteerhours' => $volunteerHours,
@@ -224,7 +224,7 @@ $type=Input::get('pageType');
             }
         }
        
-        $families = $this->familyRepo->getAllFamilies();
+        $families = $this->familyRepo->getAllFamiliesNonPaginated();
        
         return View::make('report.volunteer', array('id' => $id, 'volunteer' => $volunteer,
                     'projects' => $projects, 'volunteerhours' => $volunteerHours,
@@ -246,7 +246,7 @@ $type=Input::get('pageType');
             }
         }
        
-        $families = $this->familyRepo->getAllFamilies();
+        $families = $this->familyRepo->getAllFamiliesNonPaginated();
        
         return View::make('report.project', array('id' => $id, 'project' => $project,
                     'volunteers' => $volunteers, 'volunteerhours' => $volunteerHours,
@@ -260,7 +260,7 @@ $type=Input::get('pageType');
         $projects = $this->projectRepo->getAllProjectsNonPaginated();
         //MAKE NON-PAGINATEd, REMEMBER TO REMOVE LINKS AT BOTTOM OF THE VIEW.
        
-        $families = $this->familyRepo->getAllFamilies();
+        $families = $this->familyRepo->getAllFamiliesNonPaginated();
        
         return View::make('volunteerhours.projectedit', array('id' => $projectId, 'volunteers' => $volunteers,
                     'project' => $project, 'projects' => $projects, 'volunteerhours' => $volunteerHours,
