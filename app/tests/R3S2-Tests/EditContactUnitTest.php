@@ -90,7 +90,6 @@ class EditContactUnitTest extends TestCase
         $this->assertRedirectedTo('contact/555/edit');
     }
     
-    
     public function testIndexForContact()
     {
         

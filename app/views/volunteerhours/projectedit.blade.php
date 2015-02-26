@@ -5,12 +5,13 @@ Edit Volunteer Hours for Project {{$project->id}}
 @stop
 
 @section('content')
-
+<!--Show the project name.-->
 <h1>Editing Project Hours for {{$project->name}}</h1>
 {{ Form::open(array('route'=> array('updateProjectHours'),'class'=>'form-horizontal')) }}
 {{Form::submit('Save All',array('class'=>'btn btn-primary','id'=>'submitEdit'))}}
 <br />
-
+<!--If the project has less than 8 rows, don't add the annoying scroll bar.
+Otherwise we will add it.-->
 @if(count($volunteerhours) > 8)
 
         <div style="max-height:460px;overflow:scroll;overflow-x:hidden;">
@@ -32,6 +33,7 @@ Edit Volunteer Hours for Project {{$project->id}}
     </thead>
         <tbody>
             {{Form::hidden('proj_id', $project->id)}}
+            <!--for every volunteer hour for that project display it.-->
             @if (!empty($volunteerhours)) 
                 @foreach($volunteerhours as $volunteerhour)
                 <tr class="formrow">

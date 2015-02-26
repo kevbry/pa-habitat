@@ -10,10 +10,10 @@ Create a Project
 <section class="row">
 <section class="col-md-7">
     <?php
-    $PAGE_URL = Session::get('page_url');
+   $PAGE_ROOT_URL = explode(Request::path(), Request::url())[0];
         
-    $coordinator_search = new HabitatSearchBox($PAGE_URL, "coordinator_search", "Select Project Coordinator...");
-    $family_search = new HabitatSearchBox($PAGE_URL, "family_search", "Select Family...");
+    $coordinator_search = new HabitatSearchBox($PAGE_ROOT_URL, "coordinator_search", "Select Project Coordinator...");
+    $family_search = new HabitatSearchBox($PAGE_ROOT_URL, "family_search", "Select Family...");
     
     $family_search->configureOnClickEvent(sprintf(HabitatSearchBox::SELECT_ID_ON_CLICK, 'family_id'))
             ->configureDatumFormat('id', 'name')

@@ -90,12 +90,14 @@ Edit Contact
  <?php
     $volunteerStatus = 0;
     $volunteerSafetyDate = "";
-    
+    //If the volunteer exists
     if( $volunteer )
     {
+        //Show the active status and last safety meeting
         $volunteerStatus = $volunteer->active_status;
         $volunteerSafetyDate = $volunteer->last_attended_safety_meeting_date;
     }
+    //If the status is 1 it's active otherwise no.
     if ($volunteerStatus === 1) {
         $volunteerStatus = 'Active';
     }

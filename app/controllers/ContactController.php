@@ -190,6 +190,7 @@ class ContactController extends \BaseController {
 	{
             $contact = $this->contactRepo->getContact($id);
             $volunteer = $this->volunteerRepo->getVolunteer($id);
+            //Return the edit contact form!
             return View::make('contact.edit')
                     ->withContact($contact)
                     ->withVolunteer($volunteer);
@@ -235,18 +236,22 @@ class ContactController extends \BaseController {
             
             $volunteerPassed = Input::has('is_volunteer');
             $volunteerInfo = [];
-            
+            //if a volunteer was passed to the page.
             if($volunteerPassed)
             {
+                //Don't show the *make volunteer* checkbox, but show everything else.
                 $volunteerInfo['active_status'] = Input::has('active_status') ? 1 : 0;
                 $volunteerInfo['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
                 // Assign the contact id
                 $volunteerInfo['id'] = $id;
                 
+                //Store the volunteers info.
                 $this->storeVolunteerWith($volunteerInfo);         
             }
             else
             {
+                //If a volunteer was not passed in. We need to show the box to make them an volunteer, as well 
+                //as the other checkboxes. Can't mix with the other one, as the update methods are different.
                 $volunteerInfo['active_status'] = Input::has('active_status') ? 1 : 0;
                 $volunteerInfo['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
                 Volunteer::where('id','=',$id)->update($volunteerInfo);
