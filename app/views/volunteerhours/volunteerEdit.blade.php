@@ -5,7 +5,7 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
 @stop
 
 @section('content')
-
+<!-- Get the volunteer name and display it -->
 <h1>Editing Volunteer Hours for {{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</h1>
 {{ Form::open(array('route'=> array('updatehours'),'class'=>'form-horizontal')) }}
 {{Form::submit('Save All',array('class'=>'btn btn-primary','id'=>'submitEdit'))}}
@@ -22,6 +22,7 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
 @endif
 <table class="table">
     <thead style="position: inherit">
+        <!--If no hours were found display that, otherwise display the table. -->
         @if (count($volunteerhours) == 0)
             <tr><h3>No hours found for {{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</h3></tr>
         @else
@@ -29,6 +30,7 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
         @endif
     </thead>
         <tbody>
+            <!--For every hour for the volunteer-->
             @if (!empty($volunteerhours)) 
                 @foreach($volunteerhours as $volunteerhour)
                 <tr>

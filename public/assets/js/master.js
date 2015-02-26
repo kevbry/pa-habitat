@@ -6,11 +6,9 @@ $(document).ready(function(){
     $('#addhours').click(function(e){
         e.preventDefault();
         var existingRow = $('.formrow:last-of-type');
-
         var template = document.getElementById('rowtemplate').innerHTML;
         console.log(template);
         var newRow = existingRow.after(template);
-
         $('body').on('click', '.remove', function(e) {
             e.preventDefault();
             var row = $(this).closest('.formrow');
