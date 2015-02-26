@@ -28,8 +28,8 @@ class VolunteerHoursProjectTest extends TestCase
         $this->mockedVolunteerRepo = Mockery::mock('app\repositories\VolunteerRepository');
         $this->app->instance('app\repositories\VolunteerRepository', $this->mockedVolunteerRepo);
         
-        $this->mockedProjectRepo = Mockery::mock('app\repositories\ProjectRepository');
-        $this->app->instance('app\repositories\ProjectRepository', $this->mockedProjectRepo);
+        $this->mockedProjectRepo = Mockery::mock('App\Repositories\EloquentProjectRepository');
+        $this->app->instance('App\Repositories\ProjectRepository', $this->mockedProjectRepo);
         
         $this->mockedFamilyRepo = Mockery::mock('app\repositories\FamilyRepository');
         $this->app->instance('app\repositories\FamilyRepository', $this->mockedFamilyRepo);
@@ -43,8 +43,8 @@ class VolunteerHoursProjectTest extends TestCase
     {
         $this->volunteerHoursInput = [
             'id' => '555',
-            'volunteer_id' => 1, 
-            'project_id' => 1, 
+            'volunteer_id' => 2, 
+            'project_id' => 2, 
             'family_id' => 1,
             'date_of_contribution' => '2015-01-22',
             'paid_hours' => 1, 
@@ -58,7 +58,7 @@ class VolunteerHoursProjectTest extends TestCase
         $response = $this->route("POST", "storehours", $this->volunteerHoursInput);
 
         // Assert
-        $this->assertRedirectedToAction('VolunteerHoursController@indexForProject',1);
+        $this->assertRedirectedToAction('VolunteerHoursController@indexForProject',2);
     }
     
     public function OFF_testStoreSingleEntryFailure()
@@ -80,19 +80,20 @@ class VolunteerHoursProjectTest extends TestCase
         $this->mockedVolunteerRepo
                 ->shouldReceive('getAllVolunteers')->once();
         $this->mockedProjectRepo
-                ->shouldReceive('getProject')->once()->with(176);
+                ->shouldReceive('getProject')->once()->with(2)
+                ->passthru();
         $this->mockedFamilyRepo
                 ->shouldReceive('getAllFamilies')->once();
         $this->mockedVolunteerHoursRepo
-                ->shouldReceive('getHoursForProject')->once()->with(176);
+                ->shouldReceive('getHoursForProject')->once()->with(2);
         
         //$this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
         
-        //$response = $this->call('GET','/volunteerhours/project/176');
-        //$response = $TestController->indexForProject(176);
-        $response = $this->route("GET", "projHoursRoute",176);
-        $this->assertTrue($response->getContent());
-        //$this->assertContains("Ac Mattis Ornare Associates",$response);
+        $response = $this->call('GET','/volunteerhours/project/2');
+        //$response = $TestController->indexForProject(2);
+        //$response = $this->route("GET", "projHoursRoute",2);
+        //$this->assertTrue($response->getContent());
+        $this->assertContains("Volunteer Hours for",$response->getContent());
         
     } 
     

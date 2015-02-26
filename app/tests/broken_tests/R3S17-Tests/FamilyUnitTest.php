@@ -74,8 +74,8 @@ class FamilyUnitTest extends TestCase
         $this->mockedVolunteerHoursRepo = Mockery::mock('app\repositories\VolunteerHoursRepository');
         $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
         
-        $this->mockedFamilyController = Mockery::mock('app\controllers\FamilyController');
-        $this->app->instance('app\controllers\FamilyController', $this->mockedFamilyController);
+        //$this->mockedFamilyController = Mockery::mock('App\Controllers\FamilyController');
+        //$this->app->instance('App\Controllers\FamilyController', $this->mockedFamilyController);
         
         $this->testController = new FamilyController($this->mockedFamilyRepo, $this->mockedFamilyContactRepo, $this->mockedVolunteerHoursRepo);
         
@@ -108,8 +108,10 @@ class FamilyUnitTest extends TestCase
     {
         //Assemble
         $numberOfContacts = count($this->familyInput['contacts']);
-        $this->mockedFamilyController->shouldReceive('createFamilyContactWith')->times($numberOfContacts)->with($this->familyInput["contacts"]);
-        //$this->mockedFamilyContactRepo->shouldReceive('saveFamilyContact')->times($numberOfContacts)->with(Mockery::type('FamilyContact'));
+        //$this->mockedFamilyController->shouldReceive('createFamilyContactWith')->times($numberOfContacts)->with($this->familyInput["contacts"][0])
+        //        ->passthru();
+        $this->mockedFamilyContactRepo->shouldReceive('saveFamilyContact')->times($numberOfContacts)->with(Mockery::type('FamilyContact'))
+                ->passthru();
         $this->mockedFamilyRepo->shouldReceive('saveFamily')->once()->with(Mockery::type('Family'));
         
         //Redirect::shouldReceive('action')->once()->with('FamilyController@show');

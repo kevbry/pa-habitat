@@ -30,6 +30,7 @@ class ProjectItemController extends \BaseController {
     }
 
     public function store() {
+        
         $projectItem = array();
         for ($i = 0; $i < count(Input::get('project_id')); $i++) {
             $projectItem['project_id'] = Input::get('project_id')[$i];

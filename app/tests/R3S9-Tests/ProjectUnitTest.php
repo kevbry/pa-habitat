@@ -22,7 +22,7 @@ class ProjectUnitTest extends TestCase {
         $this->projectInput = [
             'id' => '33',
             'blueprint_id' => '45',
-            'project_name' => '123 fake street',
+            'name' => '123 fake street',
             'street_number' => '123 fake street',
             'city'=> 'Calgary',
             'province' => 'AB',
@@ -137,7 +137,7 @@ class ProjectUnitTest extends TestCase {
                 function($passedInProjectInfo) use($projectInput)
                 {
                     $this->assertNull($passedInProjectInfo['id']);
-                    $this->assertEquals($projectInput['project_name'], $passedInProjectInfo['project_name']);
+                    $this->assertEquals($projectInput['name'], $passedInProjectInfo['name']);
                     return true;
                 }
                 ));

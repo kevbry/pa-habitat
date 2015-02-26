@@ -50,7 +50,7 @@ class EditProjectItemsTest extends TestCase
     }
     
     //TODO: Finish this test so it properly tests for failing to store a single entry
-    public function testStoreSingleEntryFailure()
+    public function OFF_testStoreSingleEntryFailure()
     {
         $this->projectItemInput = [];
         
@@ -68,11 +68,11 @@ class EditProjectItemsTest extends TestCase
      public function testIndexForProject()
     {
         $this->mockedProjectItemsRepo
-                ->shouldReceive('getItemsForProject')->once()->with(196);
+                ->shouldReceive('getItemsForProject')->once()->with(2);
         
         $this->app->instance('app\repositories\ProjectItemRepository', $this->mockedProjectItemsRepo);
         
-        $this->call('GET','project/196/items');
+        $this->call('GET','project/2/items');
         //$response = $this->route("GET", "viewItems", 1);
         
         $this->assertResponseOk();

@@ -14,11 +14,11 @@ class ProjectItemTest extends TestCase
         $this->projectItemInput = [];
 
         // Set up the Project Item Mocked Repository
-        $this->mockedProjectItemRepo = Mockery::mock('app\repositories\ProjectItemRepository');
-        $this->app->instance('app\repositories\ProjectItemRepository', $this->mockedProjectItemRepo);
+        $this->mockedProjectItemRepo = Mockery::mock('App\Repositories\EloquentProjectItemRepository');
+        $this->app->instance('App\Repositories\ProjectItemRepository', $this->mockedProjectItemRepo);
         
-        $this->mockedProjectItemController = Mockery::mock('app\controllers\ProjectItemController');
-        $this->app->instance('app\controllers\ProjectItemController', $this->mockedProjectItemController);
+//        $this->mockedProjectItemController = Mockery::mock('app\controllers\ProjectItemController');
+//        $this->app->instance('app\controllers\ProjectItemController', $this->mockedProjectItemController);
         
     }
         
@@ -29,7 +29,7 @@ class ProjectItemTest extends TestCase
     {
         $this->projectItemInput = [
             'id' => '555',
-            'project_id' => 1, 
+            'project_id' => 2, 
             'item_type' => 'Refrigerator',
             'manufacturer' => 'Acme Ltd.',
             'model' => 'Super Cold 3000',
@@ -39,27 +39,27 @@ class ProjectItemTest extends TestCase
          ];
         
         // Assemble
-        //$this->mockedProjectItemController->shouldReceive('store')->once()->with($this->projectItemInput);
+        //$this->mockedProjectItemController->shouldReceive('store')->once();
         $this->mockedProjectItemRepo->shouldReceive('saveProjectItem')->once()->with(Mockery::type('ProjectItem'));
 
         // Act 
         $response = $this->route("POST", "storeItems", $this->projectItemInput);
 
         // Assert
-        $this->assertRedirectedToAction('ProjectItemController@index',1);
+        $this->assertRedirectedToAction('ProjectItemController@index',2);
     }
     
     //TODO: Finish this test so it properly tests for failing to store a single entry
-    public function testStoreSingleEntryFailure()
+    public function OFF_testStoreSingleEntryFailure()
     {
         $this->projectItemInput = [];
         
-        // Assemble
-        $this->mockedProjectItemController
-                ->shouldReceive('store')
-                ->once()
-                ->with($this->projectItemInput)
-                ->andThrow(new Exception());
+//        // Assemble
+//        $this->mockedProjectItemController
+//                ->shouldReceive('store')
+//                ->once()
+//                ->with($this->projectItemInput)
+//                ->andThrow(new Exception());
         
         // This test does not appear to be finished.
         $this->markTestIncomplete('This test has not been properly implemented yet');
@@ -68,9 +68,10 @@ class ProjectItemTest extends TestCase
     public function testIndex()
     {
         $this->mockedProjectItemRepo
-            ->shouldReceive('getItemsForProject')->once()->with(195);
+            ->shouldReceive('getItemsForProject')->once()->with(2)
+            ->passthru();
         
-        $this->call('GET','/project/195/items');
+        $this->call('GET','/project/2/items');
         
         $this->assertResponseOk();
         
@@ -79,10 +80,11 @@ class ProjectItemTest extends TestCase
     public function testCreate()
     {
        $this->mockedProjectItemRepo
-            ->shouldReceive('getItemsForProject')->once()->with(195);
+            ->shouldReceive('getItemsForProject')->once()->with(2)
+               ->passthru();
 
         //Call the method
-        $response = $this->call('GET', 'project/195/items');
+        $response = $this->call('GET', 'project/2/items');
         
         //Make assertions
         $this->assertContains('Items for', $response->getContent());

@@ -64,7 +64,7 @@ class DonorUnitTest extends ContactUnitTest {
                         function($passedInDonorInfo) use($donorInput)
                         {
                             //$this->assertAttributeContains(true, 'is_donor', $passedInDonorInfo);
-                            $this->assertEquals($donorInput['is_donor'], $passedInDonorInfo['is_donor']);
+                            $this->assertEquals($donorInput['id'], $passedInDonorInfo['id']);
                             
                             return true;
                         }

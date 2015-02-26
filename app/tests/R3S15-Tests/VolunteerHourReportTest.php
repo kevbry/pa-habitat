@@ -20,12 +20,12 @@ class VolunteerHourReportTest extends TestCase
         // Set up the Volunteer Hours Mocked Repository
         $this->mockedVolunteerHoursRepo = Mockery::mock('app\repositories\VolunteerHoursRepository');
         $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
-        
+        /*
         $this->mockedVolunteerHoursController = Mockery::mock('app\controllers\VolunteerHoursController');
         $this->app->instance('app\controllers\VolunteerHoursController', $this->mockedVolunteerHoursController);
-        
-        $this->mockedVolunteerRepo = Mockery::mock('app\repositories\VolunteerRepository');
-        $this->app->instance('app\repositories\VolunteerRepository', $this->mockedVolunteerRepo);
+        */
+        //$this->mockedVolunteerRepo = Mockery::mock('app\repositories\VolunteerRepository');
+        //$this->app->instance('app\repositories\VolunteerRepository', $this->mockedVolunteerRepo);
         
         $this->mockedProjectRepo = Mockery::mock('app\repositories\ProjectRepository');
         $this->app->instance('app\repositories\ProjectRepository', $this->mockedProjectRepo);
@@ -34,20 +34,19 @@ class VolunteerHourReportTest extends TestCase
         $this->app->instance('app\repositories\FamilyRepository', $this->mockedFamilyRepo);
     }
     
-    public function OFF_testView()
+    public function testView()
     {
         $this->mockedVolunteerHoursRepo
-                ->shouldReceive('getHoursForVolunteerSortedByProject')->once()->with(120);
-        $this->mockedVolunteerRepo
-                ->shouldReceive('getVolunteer')->once()->with(120);
+                ->shouldReceive('getHoursForVolunteerSortedByProject')->once()->with(2);
+        //$this->mockedVolunteerRepo
+        //        ->shouldReceive('getVolunteer')->once()->with(2)->passthru();
         $this->mockedProjectRepo
                 ->shouldReceive('getAllProjects')->once();
         $this->mockedFamilyRepo
                 ->shouldReceive('getAllFamilies')->once();
         
-        //$this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
         
-        $response = $this->call('GET','volunteerhours/report/120');
+        $response = $this->call('GET','volunteerhours/report/2');
        
         $this->assertResponseOk();
         $this->assertContains('Volunteer Hours for', $response->getContent());

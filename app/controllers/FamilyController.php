@@ -76,7 +76,6 @@ class FamilyController extends \BaseController
         
         $inputStringArray = array();
         preg_match_all($contactRegEx, implode($contactArray, " "), $inputStringArray);
-        
         //Store family contacts
         $familyID = $this->createFamilyWith($familyInput);
  

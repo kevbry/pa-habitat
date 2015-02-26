@@ -61,4 +61,9 @@ class ContactIntegrationTest extends TestCase {
         $this->assertContains('Greg Smith',$response->getContent());
         
     }
+    public function tearDown()
+    {
+        parent::tearDown();
+        Mockery::close();
+    }    
 }

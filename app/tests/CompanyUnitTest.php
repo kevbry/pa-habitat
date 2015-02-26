@@ -14,7 +14,7 @@ class CompanyUnitTest extends ContactUnitTest
         // Create dummy Company and Contact information
         $this->companyInput = $this->contactInput;
         
-        $this->companyInput['company_name'] = 'Test Company ABC';
+        $this->companyInput['name'] = 'Test Company ABC';
         $this->companyInput['contact_id'] = '555';
         
     }
@@ -59,7 +59,7 @@ class CompanyUnitTest extends ContactUnitTest
                         function($passedInCompanyInfo) use($companyInput)
                 {
                     $this->assertNull($passedInCompanyInfo['id']);
-                    $this->assertEquals($companyInput['company_name'], $passedInCompanyInfo['company_name']);
+                    $this->assertEquals($companyInput['name'], $passedInCompanyInfo['name']);
                     $this->assertEquals($companyInput['contact_id'], $passedInCompanyInfo['contact_id']);
                     
                     return true;
