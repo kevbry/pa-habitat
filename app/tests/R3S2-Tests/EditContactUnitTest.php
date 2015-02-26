@@ -91,19 +91,7 @@ class EditContactUnitTest extends TestCase
     }
     
     
-    public function testIndexForContact()
-    {
-        
-       $this->mockedContactRepo
-               ->shouldReceive('getContact')->once()->with(1);
-              
-        $this->call('GET','contact/1/edit');
-        $crawler = $this->client->request('GET', 'contact/1/edit');
-        
-        $this->assertResponseOk();
-        $this->assertCount(1, $crawler->filter('th:contains("Editing")'));
-    } 
-    
+   
     
     
     /**
