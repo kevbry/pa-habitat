@@ -75,15 +75,15 @@ class VolunteerHoursProjectTest extends TestCase
     
     public function testIndexForProject()
     {
-        $TestController = new VolunteerHoursController($this->mockedVolunteerRepo, $this->mockedProjectRepo,
-                $this->mockedVolunteerHoursRepo, $this->mockedFamilyRepo);
+        //$TestController = new VolunteerHoursController($this->mockedVolunteerRepo, $this->mockedProjectRepo,
+        //        $this->mockedVolunteerHoursRepo, $this->mockedFamilyRepo);
         $this->mockedVolunteerRepo
                 ->shouldReceive('getAllVolunteers')->once();
         $this->mockedProjectRepo
                 ->shouldReceive('getProject')->once()->with(2)
                 ->passthru();
         $this->mockedFamilyRepo
-                ->shouldReceive('getAllFamilies')->once();
+                ->shouldReceive('getAllFamiliesNonPaginated')->once();
         $this->mockedVolunteerHoursRepo
                 ->shouldReceive('getHoursForProject')->once()->with(2);
         

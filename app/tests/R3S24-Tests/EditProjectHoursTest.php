@@ -86,7 +86,7 @@ class EditProjectHoursTest extends TestCase
         //$this->mockedProjectRepo
         //        ->shouldReceive('getProject')->once()->with(1);
         $this->mockedFamilyRepo
-                ->shouldReceive('getAllFamilies')->once();
+                ->shouldReceive('getAllFamiliesNonPaginated')->once();
         $this->mockedVolunteerHoursRepo
                 ->shouldReceive('getHoursForProject')->once()->with(1);
         

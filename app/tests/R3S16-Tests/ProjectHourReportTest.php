@@ -42,7 +42,7 @@ class ProjectHourReportTest extends TestCase
         $this->mockedVolunteerHoursRepo
                 ->shouldReceive('getHoursForProjectSortedByVolunteer')->once()->with(1);
         $this->mockedFamilyRepo
-                ->shouldReceive('getAllFamilies')->once();
+                ->shouldReceive('getAllFamiliesNonPaginated')->once();
         
         //$this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
         

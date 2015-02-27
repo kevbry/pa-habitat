@@ -78,7 +78,7 @@ class VolunteerHoursTest extends TestCase
         $this->mockedProjectRepo
                 ->shouldReceive('getAllProjects')->once()->passthru();
         $this->mockedFamilyRepo
-                ->shouldReceive('getAllFamilies')->once();
+                ->shouldReceive('getAllFamiliesNonPaginated')->once();
         $this->mockedVolunteerHoursRepo
                 ->shouldReceive('getHoursForVolunteer')->once()->with(2);
 
