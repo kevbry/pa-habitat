@@ -30,13 +30,29 @@ Edit Company
 <h1>Company details</h1>
 <h2>Editing Details for {{ $company->name }}</h2>
 {{ Form::open(array('method'=>'PUT','route'=>array('company.update', $company->id), 'class'=>'form-horizontal', 'id'=>'form')) }}
-<section class="row">
-    <section class="col-md-5"> 
+<section class="row"> 
+    <section class="col-md-6"> 
         <div class="form-group">
-            <div id="editCompanyMain">
+            {{ Form::label('name', 'Company Name: ',array('class'=>'col-sm-3')) }}
+            <div class="col-sm-7">
+                {{ Form::text('name',$company->name,array('class'=>'form-control')) }}
+            </div>
+        </div>    
+
+      
+            {{ Form::label('contain_id', 'Main Contact: ',array('class'=>'col-sm-3')) }}
+
+            <div id="familySet">
+                {{ Form::text('con',$company ? $company->contact_id : "Not Assigned" ,array('class'=>'form-control','readonly'=>'readonly')) }}
+                {{Form::hidden('contact_id',$company->contact_id)}}
+            </div>
+            <div id="editFamily">
                 <?php $contactSearch->show() ?>
             </div>
-        </div>
+            <div id="changeFamButton">
+                <a href="#" class="btn btn-primary changeFam">Change Main Contact</a>
+            </div>  
+
     </section>
 </section>
 <section class="row text-right">
@@ -45,5 +61,7 @@ Edit Company
         {{Form::submit('Save Changes',array('class'=>'btn btn-primary btn-lg', 'onclick'=>'confirmExit(false); return false;'))}}
     </div>
 </section>
+
 {{Form::close()}}
+{{ HTML::script('assets/js/EditProjStyle.js');}}
 @stop            
