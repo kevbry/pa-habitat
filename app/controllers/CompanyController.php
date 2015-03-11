@@ -89,4 +89,71 @@ class CompanyController extends \BaseController {
         
         return $company->id;
     }
+    
+    
+     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id) {
+        $company = $this->companyRepo->GetCompany($id);
+
+       
+            return View::make('company.edit')
+                            ->withCompany($company);
+    
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id) {
+        
+        $projectInfo = Input::only(
+                        'updated_at', 'family', 'build_number', 'street_number', 'postal_code', 'city', 'province', 'start_date', 'end_date', 'comments', 'building_permit_number', 'building_permit_date', 'mortgage_date', 'blueprint_plan_number', 'blueprint_designer');
+// Array of field names
+        $fieldNames = array(
+            'updated_at',
+            'family_id',
+            'build_number',
+            'street_number',
+            'postal_code',
+            'city',
+            'province',
+            'start_date',
+            'end_date',
+            'comments',
+            'building_permit_number',
+            'building_permit_date',
+            'mortgage_date',
+            'blueprint_plan_number',
+            'blueprint_designer');
+ 
+        $counter = 0;
+ 
+        $fieldUpdateValues = array();
+ 
+        foreach ($projectInfo as $fieldValue) {
+            $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
+            $counter++;
+        }
+ 
+        $affectedRows = Project::where('id', '=', $id)->update($fieldUpdateValues);
+ 
+        if ($affectedRows > 0) {
+ 
+            $redirectVariable = Redirect::action('ProjectController@show', $id);
+        } else {
+ 
+            $redirectVariable = Redirect::action('ProjectController@edit', $id)->withErrors(['Error', 'The Message']);
+        }
+ 
+        return $redirectVariable;
+    }
+
 }
