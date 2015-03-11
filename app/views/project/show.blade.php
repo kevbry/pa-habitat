@@ -141,6 +141,7 @@ Project Details
          {{ HTML::linkRoute('viewItems', 'View Item Details', array($project->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('projItemsAdd', 'Add Items', array($project->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('editFormForItems', 'Edit Items', array($project->id), array('class' => 'btn btn-primary')) }}
+        {{ HTML::linkRoute('projContactsView', 'View Project Contacts', array($project->id), array('class' => 'btn btn-primary')) }}
     </div> 
 </section>
  

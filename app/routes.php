@@ -33,7 +33,7 @@ Route::post('project/{project}/inspections/create', array('as'=>'storeInspection
 //Project Contact routes
 Route::get('project/{project}/contacts', array('as'=>'projContactsView', 'uses'=>'ProjectContactController@index'));
 Route::get('project/{project}/contacts/create', array('as'=>'projContactsAdd', 'uses'=>'ProjectContactController@create'));
-Route::post('project/{project}/contacts/create', array('as'=>'storeContacts', 'uses'=>'ProjectContactController@store'));
+Route::post('project/{project}/contacts/create', array('as'=>'projStoreContacts', 'uses'=>'ProjectContactController@store'));
 
 //Project Item routes
 Route::get('project/{project}/items',array('as'=>'viewItems','uses'=>'ProjectItemController@index'));
