@@ -15,7 +15,7 @@ Session::put('page_url', $PAGE_ROOT_URL);
  */
 $contactSearch->configureOnClickEvent(sprintf(HabitatSearchBox::SELECT_ID_ON_CLICK, 'contact'))
         ->configureDatumFormat('id', 'name')
-        ->configureEngine('findContact', HabitatSearchBox::SEARCH_FAMILY_URL, 'Contact')
+        ->configureEngine('findContact', HabitatSearchBox::SEARCH_CONTACT_URL, 'Contact')
         ->configureSettings()
         ->build();
 ?> 
@@ -32,19 +32,16 @@ Edit Company
 {{ Form::open(array('method'=>'PUT','route'=>array('company.update', $company->id), 'class'=>'form-horizontal', 'id'=>'form')) }}
 <section class="row">
     <section class="col-md-5"> 
-
         <div class="form-group">
-
             <div id="editCompanyMain">
                 <?php $contactSearch->show() ?>
             </div>
-
         </div>
     </section>
 </section>
 <section class="row text-right">
     <div class="col-md-5 pull-right">
-        {{HTML::linkAction('Companyontroller@show', "Discard Changes", array($project->id), array('class'=>'btn btn-primary btn-lg')) }}
+        {{HTML::linkAction('CompanyController@show', "Discard Changes", array($company->id), array('class'=>'btn btn-primary btn-lg')) }}
         {{Form::submit('Save Changes',array('class'=>'btn btn-primary btn-lg', 'onclick'=>'confirmExit(false); return false;'))}}
     </div>
 </section>

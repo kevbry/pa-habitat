@@ -39,7 +39,7 @@ All Companies
     @foreach($companies as $company)
     <tr>
         <td>{{$company->name}}</td>
-        <td><a href="company/{{$company->id}}">View Details</a></td>
+        <td><a href="company/{{$company->id}}">View Details</a> | <a href="company/{{$company->id}}/edit">Edit Details</a></td>
     </tr>
     @endforeach
 </table>
