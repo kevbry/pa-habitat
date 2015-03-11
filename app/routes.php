@@ -22,14 +22,18 @@ Route::get('volunteerhours/add/project/{project}',array('as'=>'projHoursAdd', 'u
 Route::get('volunteerhours/add/volunteer/{volunteer}',array('as'=>'volHoursAdd', 'uses'=>'VolunteerHoursController@createForContact'));
 Route::get('volunteerhours/volunteerEdit/{volunteer}',array('as'=>'volHoursEditRoute', 'uses'=>'VolunteerHoursController@indexForEditContact'));
 Route::post('volunteerhours/volunteerEdit/',array('as'=>'updatehours','uses'=>'VolunteerHoursController@updatehours'));
+Route::get('volunteerhours/edit/project/{project}',array('as'=>'projHoursEdit', 'uses'=>'VolunteerHoursController@indexForEditProject'));
+Route::post('volunteerhours/edit/project/',array('as'=>'updateProjectHours','uses'=>'VolunteerHoursController@updateProjectHours'));
 
 //Project Inspection routes
 Route::get('project/{project}/inspections', array('as'=>'projInspectionsView', 'uses'=>'ProjectInspectionController@index'));
 Route::get('project/{project}/inspections/create', array('as'=>'projInspectionsAdd', 'uses'=>'ProjectInspectionController@create'));
 Route::post('project/{project}/inspections/create', array('as'=>'storeInspections', 'uses'=>'ProjectInspectionController@store'));
 
-Route::get('volunteerhours/edit/project/{project}',array('as'=>'projHoursEdit', 'uses'=>'VolunteerHoursController@indexForEditProject'));
-Route::post('volunteerhours/edit/project/',array('as'=>'updateProjectHours','uses'=>'VolunteerHoursController@updateProjectHours'));
+//Project Contact routes
+Route::get('project/{project}/contacts', array('as'=>'projContactsView', 'uses'=>'ProjectContactController@index'));
+Route::get('project/{project}/contacts/create', array('as'=>'projContactsAdd', 'uses'=>'ProjectContactController@create'));
+Route::post('project/{project}/contacts/create', array('as'=>'storeContacts', 'uses'=>'ProjectContactController@store'));
 
 //Project Item routes
 Route::get('project/{project}/items',array('as'=>'viewItems','uses'=>'ProjectItemController@index'));

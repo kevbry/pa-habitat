@@ -28,7 +28,8 @@ class ProjectContact extends \Eloquent
 
         protected $fillable = array('contact_id',
                                     'project_id',
-                                    'role');
+                                    'role',
+                                    'notes');
         
         /*
          * return Response
