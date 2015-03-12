@@ -19,6 +19,16 @@ class ProjectContact extends \Eloquent
 	 * @var string
 	 */
 	protected $table = 'ProjectContact';
+        protected $with = array('project', 'contact');
+        public static $roles = array(
+            'Project Coordinator',
+            'Plumber',
+            'Gas Fitter',
+            'Electrician',
+            'Carpenter',
+            'Contractor',
+            'Mechanical',
+            'Other');
 
 	/**
 	 * The attributes that are mass-assignment

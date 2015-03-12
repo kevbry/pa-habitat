@@ -39,8 +39,10 @@ class ProjectContactController extends \BaseController {
     {
         $project = $this->projectRepo->getProject($projectId);
         $contacts = $this->contactRepo->getAllContactsNonPaginated();
+        $roleTypes = \ProjectContact::$roles;
         return View::make('projectcontact.create', array('id' => $projectId, 
-            'project' => $project,'contacts' => $contacts));
+            'project' => $project,'contacts' => $contacts, 
+            'roleTypes' => $roleTypes));
     }
     
     /**
@@ -48,7 +50,7 @@ class ProjectContactController extends \BaseController {
      */
     public function store() {
         $projectContact = array();
-        for ($i = 0; $i < count(Input::get('type')); $i++) 
+        for ($i = 0; $i < count(Input::get('contact_id')); $i++) 
         {
             $projectContact['project_id'] = Input::get('project_id');
             $projectContact['contact_id'] = Input::get('contact_id')[$i];

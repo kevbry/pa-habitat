@@ -18,7 +18,7 @@ Contacts for Project {{$project->name}}
         @if (!empty($projectContacts)) 
             @foreach($projectContacts as $projectContact)
             <tr>
-                <td>{{$projectContact->contact->first_name . " " . last_name}}</td>
+                <td>{{$projectContact->contact->first_name . " " . $projectContact->contact->last_name}}</td>
                 <td>{{$projectContact->role}}</td>
                 <td>{{$projectContact->notes}}</td>
                 <td></td>

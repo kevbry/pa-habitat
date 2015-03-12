@@ -16,7 +16,15 @@ Add Contacts for Project {{$project->name}}
             @endif
                 </select>
             </td>
-            <td>{{Form::select('role[]', array('Project Coordinator', 'Plumber'), '', array('min'=>0,'class'=>'form-control'));}}</td>
+            <td>
+                <select name="role[]" class="form-control">
+                @if (!empty($roleTypes))
+                    @foreach($roleTypes as $roleType)
+                        <option value="{{$roleType}}">{{$roleType}}</option>
+                    @endforeach
+                @endif
+                </select>
+            </td>
             <td>{{Form::textarea('notes[]',null,array('class'=>'form-control', 'rows'=>3));}}</td>
             <td>{{Form::hidden('project_id',$project->id)}}
                 <a href="#" class="remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
@@ -41,7 +49,15 @@ Add Contacts for Project {{$project->name}}
             @endif
                 </select>
             </td>
-            <td>{{Form::select('role[]', array('Project Coordinator', 'Plumber'), '', array('min'=>0,'class'=>'form-control'));}}</td>
+            <td>
+                <select name="role[]" class="form-control">
+                @if (!empty($roleTypes))
+                    @foreach($roleTypes as $roleType)
+                        <option value="{{$roleType}}">{{$roleType}}</option>
+                    @endforeach
+                @endif
+                </select>
+            </td>
             <td>{{Form::textarea('notes[]',null,array('class'=>'form-control', 'rows'=>3));}}</td>
             <td>{{Form::hidden('project_id',$project->id)}}
                 <a href="#" class="remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>

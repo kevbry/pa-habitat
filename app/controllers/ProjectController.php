@@ -18,7 +18,13 @@ class ProjectController extends \BaseController {
     public $volunteerRepo;
     public $familyRepo;
 
-    public function __construct(ProjectRepository $projectRepo, ProjectContactRepository $projectContactRepo, ProjectInspectionRepository $projectInspectionRepo, ProjectItemRepository $projectItemRepo, VolunteerHoursRepository $volunteerHrsRepo, VolunteerRepository $volunteerRepo, FamilyRepository $familyRepo) {
+    public function __construct(ProjectRepository $projectRepo, 
+            ProjectContactRepository $projectContactRepo, 
+            ProjectInspectionRepository $projectInspectionRepo, 
+            ProjectItemRepository $projectItemRepo, 
+            VolunteerHoursRepository $volunteerHrsRepo, 
+            VolunteerRepository $volunteerRepo, FamilyRepository $familyRepo) 
+    {
         $this->projectRepo = $projectRepo;
         $this->projectContactRepo = $projectContactRepo;
         $this->projectInspectionRepo = $projectInspectionRepo;
@@ -104,23 +110,26 @@ class ProjectController extends \BaseController {
     public function show($id) {
         $project = $this->projectRepo->getProject($id);
         $projectInspections = $this->projectInspectionRepo->getInspectionsForProject($id);
+        $projectContacts = $this->projectContactRepo->getContactsForProject($id);
         $projectItems = $this->projectItemRepo->getItemsForProject($id);
         $volunteerHours = $this->volunteerHrsRepo->getHoursForProject($id);
         $volunteers = $this->volunteerRepo->getAllVolunteersNonPaginated();
         $family = $this->familyRepo->getFamily($project->family_id);
 
-        if (($projectContact = $this->projectContactRepo->getProjectContact($id)) != null) {
-            return View::make('project.show', array('project' => $project,
-                                'projectInspections' => $projectInspections,
-                                'projectItems' => $projectItems, 'volunteerhours' => $volunteerHours,
-                                'volunteers' => $volunteers, 'family' => $family))
-                            ->withProjectContact($projectContact);
-        } else {
-            return View::make('project.show', array('project' => $project,
+//        if (($projectContact = $this->projectContactRepo->getProjectContact($id)) != null) {
+//            return View::make('project.show', array('project' => $project,
+//                                'projectInspections' => $projectInspections,
+//                                'projectItems' => $projectItems, 'volunteerhours' => $volunteerHours,
+//                                'volunteers' => $volunteers, 'family' => $family))
+//                            ->withProjectContact($projectContact);
+//        } else {
+        return View::make('project.show', array('project' => $project,
                         'projectInspections' => $projectInspections,
-                        'projectItems' => $projectItems, 'volunteerhours' => $volunteerHours,
-                        'volunteers' => $volunteers, 'family' => $family));
-        }
+                        'projectItems' => $projectItems, 
+                        'volunteerhours' => $volunteerHours,
+                        'volunteers' => $volunteers, 'family' => $family,
+                        'projectContacts' => $projectContacts));
+//        }
     }
 
     /**
