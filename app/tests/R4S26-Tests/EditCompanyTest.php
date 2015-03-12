@@ -1,6 +1,6 @@
 <?php
 
-class EditComapnyTest extends TestCase {
+class EditCompanyTest extends TestCase {
 
     protected $companyInput;
     protected $testCompany;
@@ -11,18 +11,15 @@ class EditComapnyTest extends TestCase {
     public function setUp() {
         parent::setUp();
 
-        // Create dummy Company and Contact information
-        $this->companyInput = $this->contactInput;
+        // Create dummy Company and Contact information 
 
         $this->companyInput['name'] = 'Test Company ABC';
-        $this->companyInput['contact_id'] = '555';
+        $this->companyInput['contact_id'] = '12';
 
         $this->mockedCompanyRepo = Mockery::mock('App\Repositories\EloquentCompanyRepository');
         $this->app->instance('App\Repositories\CompanyRepository', $this->mockedCompanyRepo);
 
-
-        $this->mockedContactRepo = Mockery::mock('App\Repositories\EloquentContactRepository');
-        $this->app->instance('App\Repositories\ContactRepository', $this->mockedContactRepo);
+ 
 
         $this->mockedCompanyController = Mockery::mock('app\controllers\CompanyController');
         $this->app->instance('app\controllers\CompanyController', $this->mockedCompanyController);
@@ -66,9 +63,9 @@ class EditComapnyTest extends TestCase {
      */
     public function testIndexForCompany() {
         $this->mockedCompanyRepo
-                ->shouldReceive('getCompany')->once()->with(2)->passthru();
+                ->shouldReceive('getCompany')->once()->with(125)->passthru();
 
-        $response = $this->call('GET', 'company/2/edit');
+        $response = $this->call('GET', 'company/125/edit');
 
         $this->assertResponseOk();
         $this->assertContains("Editing Details", $response->getContent());
