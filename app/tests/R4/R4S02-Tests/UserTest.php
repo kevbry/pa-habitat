@@ -6,6 +6,7 @@ class UserTest extends TestCase
     protected $mockedUserController;
     protected $userInput;
     protected $invalidDataException;
+    protected $mockedWhatever;
     
     public function setUp()
     {
@@ -22,22 +23,30 @@ class UserTest extends TestCase
      */
     public function testStoreSingleEntrySuccess()
     {
+        $this->mockedWhatever = Mockery::mock('Eloquent', 'User');
+        
         $this->userInput = [
             'id' => '555',
-            'contact_id' => 2, 
-            'email_username' => 'etter1596@siast.sk.ca',
-            'password' => '',
+            'contact_id' => rand(1,100), 
+            'password' => 'testpassword',
+            'confirm_password' => 'testpassword',
             'access_level' => 'admin'
          ];
         
+        $this->mockedWhatever->shouldReceive('create')->once();
+        
+        $this->app->instance('User', $this->mockedWhatever);
+        
         // Assemble
-        $this->mockedUserController->shouldReceive('store')->once();
+        //$this->mockedUserController->shouldReceive('create')->once();
+        
 
         // Act 
-        $response = $this->route("POST", "storeUser", $this->userInput);
+        $response = $this->call("POST", "user", $this->userInput);
 
         // Assert
-        $this->assertRedirectedToAction('UserController@show',2);
+        $this->assertContains("ADDED", $response->getContent());
+        //$this->assertRedirectedToAction('UserController@show',2);
     }
     
     public function testIndex()

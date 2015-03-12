@@ -19,7 +19,22 @@ class UserController extends \BaseController
      */
     public function index()
     {
+        // Retrieve  Users from the database
+
+//        $sortby = Input::get('sortby');
+//        $order = Input::get('order');
+//
+//        if ($sortby && $order) {
+//
+//           $contactList = $this->contactRepo->orderBy($sortby, $order);
+//        } else {
+//            $contactList = $this->contactRepo->getAllContacts();
+//        }
+
+        $userList = User::all();
         
+        // Return that to the list view
+        return View::make('user.index')->with('users', $userList);        
         
     }
     
@@ -45,29 +60,62 @@ class UserController extends \BaseController
         $userInfo = Input::only('password', 'contact_id');
         $confirmPassword = Input::get('confirm_password');
         
+        $response = null;
+        
         // Get the contact's email address
         $userContact = $this->contactRepo->getContact($userInfo['contact_id']);
-        $emailUsername = $userContact['email_address'];
         
-        $userInfo['email_username'] = $emailUsername;
-        
-        if ($userInfo['password'] !== $confirmPassword)
+        // Ensure only one user is added for a contact
+        if((User::where('contact_id', '=', $userInfo['contact_id'])->first()) !== null)
         {
-            // Change to something more professional before pushing
-            return 'NO MATCH';
+            // Redirect back with errors
+            $response = Redirect::action('UserController@create')
+                    ->withInput(Input::except(array('password', 'confirm_password')))
+                    ->withErrors(['DuplicateUser', 'user already exists']);
         }
         else
         {
-            $userInfo['password'] = Hash::make($userInfo['password']);
+            $emailUsername = $userContact['email_address'];
+        
+            $userInfo['email_username'] = $emailUsername;
             
-            // Save user to database
-            $newUser = new User($userInfo);
-            $newUser->save();
-        }
-        
+            if ($userInfo['password'] !== $confirmPassword)
+            {
+                // Redirect back with errors
+                $response = Redirect::action('UserController@create')
+                        ->withInput(Input::except(array('password', 'confirm_password')))
+                        ->withErrors(['PasswordMismatch', 'Passwords do not match']);
+            }
+            else
+            {
+                // Hash the user's password for storage
+                $userInfo['password'] = Hash::make($userInfo['password']);
 
-        return "ADDED";
+                // Save user to database
+                $userID = $this->storeUserWith($userInfo);
+                
+                if ($userID > 0)
+                {
+                    $response = Redirect::action('UserController@details', $userID);
+                }
+            }            
+        }
+
+        return $response;
         
+    }
+    
+    /**
+     * Helper method to save a user to the data base
+     * @param array $userInfo - array of info to store in db
+     * @return int - the id of the newly added user
+     */
+    private function storeUserWith($userInfo)
+    {
+        $newUser = new User($userInfo);
+        $newUser->save();
+        
+        return $newUser->id;
     }
     
     
