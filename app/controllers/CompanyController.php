@@ -104,11 +104,11 @@ class CompanyController extends \BaseController {
      */
     public function edit($id) {
         $company = $this->companyRepo->GetCompany($id);
-        $contact = $this->contactRepo->GetContact($company->contact_id);
+       // $contact = $this->contactRepo->GetContact($company->contact_id);
         
         return View::make('company.edit')
-                            ->withCompany($company)
-                            ->withContact($contact);
+                            ->withCompany($company);
+                          //  ->withContact($contact);
     }
 
     /**

@@ -43,7 +43,7 @@ Edit Company
             {{ Form::label('contain_id', 'Main Contact: ',array('class'=>'col-sm-3')) }}
 
             <div id="familySet" class="col-sm-7">
-                {{ Form::text('con',$contact->first_name . " " . $contact->last_name,array('class'=>'form-control','readonly'=>'readonly')) }}
+                {{ Form::text('con',$company->mainContact->first_name . " " .  $company->mainContact->last_name,array('class'=>'form-control','readonly'=>'readonly')) }}
                 {{Form::hidden('contact_id',$company->contact_id)}}
             </div>
             <div id="editFamily" class="col-sm-7">

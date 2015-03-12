@@ -139,8 +139,10 @@ Edit Project
     <div class="form-group">
         {{ Form::label('family', 'Family: ') }}
         <div id="familySet">
-            {{ Form::text('fam',$family ? $family->name : "Not Assigned" ,array('class'=>'form-control','readonly'=>'readonly')) }}
-            {{Form::hidden('family',$family->id)}}
+            {{ Form::text('fam',( $project->family  ? $project->family->name : "Not Assigned") ,array('class'=>'form-control','readonly'=>'readonly')) }}
+            @if($project->family)
+            {{Form::hidden('family',$project->family->id)}}
+            @endif
         </div>
         <div id="editFamily">
             <?php $familySearch->show() ?>

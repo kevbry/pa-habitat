@@ -131,17 +131,11 @@ class ProjectController extends \BaseController {
      */
     public function edit($id) {
         $project = $this->projectRepo->getProject($id);
-
-        if ($this->familyRepo->getFamily($project->family_id) != null) {
-            $family = $this->familyRepo->getFamily($project->family_id);
+ 
             return View::make('project.edit')
-                            ->withProject($project)
-                            ->withFamily($family);
-        } else {
-            return View::make('project.edit')
-                            ->withProject($project)
-                            ->withFamily($family);
-        }
+                            ->withProject($project);
+                            
+       
     }
 
     /**
