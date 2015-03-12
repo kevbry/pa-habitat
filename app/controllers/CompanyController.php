@@ -4,13 +4,11 @@ use App\Repositories\CompanyRepository;
 use App\Repositories\ContactRepository;
 
 class CompanyController extends \BaseController {
-    
+
     public $companyRepo;
     public $contactRepo;
 
-    public function __construct(CompanyRepository $companyRepo, 
-            ContactRepository $contactRepo) 
-    {
+    public function __construct(CompanyRepository $companyRepo, ContactRepository $contactRepo) {
         $this->companyRepo = $companyRepo;
         $this->contactRepo = $contactRepo;
     }
@@ -49,54 +47,46 @@ class CompanyController extends \BaseController {
         return View::make('company.show')
                         ->withCompany($company);
     }
-    
-    
+
     /**
      * Show the form for creating a new resource.
      *
      * @return Response
      */
-    public function create()
-    {
+    public function create() {
         return View::make('company.create');
     }
-    
-        /**
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response
      */
-    public function store()
-    {
+    public function store() {
         // Retrieve company information from user
         $companyInput['name'] = Input::get('company_name');
         $companyInput['contact_id'] = Input::get('primary_contact_1');
-        
+
         //Store company
         $companyID = $this->createCompanyWith($companyInput);
- 
-        // If the family was successfully created
-        if ($companyID > 0)
-        {
-            return Redirect::action('CompanyController@show', $companyID);
 
+        // If the family was successfully created
+        if ($companyID > 0) {
+            return Redirect::action('CompanyController@show', $companyID);
         }
-        
+
         // Redirect user to newly created family's detail page
     }
-    
-    
-    public function createCompanyWith($data)
-    {
+
+    public function createCompanyWith($data) {
         $company = new Company($data);
-        
+
         $this->companyRepo->saveCompany($company);
-        
+
         return $company->id;
     }
-    
-    
-     /**
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -104,11 +94,11 @@ class CompanyController extends \BaseController {
      */
     public function edit($id) {
         $company = $this->companyRepo->GetCompany($id);
-       // $contact = $this->contactRepo->GetContact($company->contact_id);
-        
+        // $contact = $this->contactRepo->GetContact($company->contact_id);
+
         return View::make('company.edit')
-                            ->withCompany($company);
-                          //  ->withContact($contact);
+                        ->withCompany($company);
+        //  ->withContact($contact);
     }
 
     /**
@@ -120,33 +110,32 @@ class CompanyController extends \BaseController {
     public function update($id) {
         //Array of values to update
         $companyInfo = Input::only(
-            'name', 
-            'contact_id');
-        
+                        'name', 'contact_id');
+
         // Array of field names
         $fieldNames = array(
             'name',
             'contact_id');
- 
+   
         $counter = 0;
- 
+
         $fieldUpdateValues = array();
- 
+
         foreach ($companyInfo as $fieldValue) {
             $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
             $counter++;
         }
- 
+
         $affectedRows = Company::where('id', '=', $id)->update($fieldUpdateValues);
- 
+
         if ($affectedRows > 0) {
- 
+
             $redirectVariable = Redirect::action('CompanyController@show', $id);
         } else {
- 
+
             $redirectVariable = Redirect::action('CompanyController@edit', $id)->withErrors(['Error', 'The Message']);
         }
- 
+
         return $redirectVariable;
     }
 

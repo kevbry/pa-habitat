@@ -13,7 +13,7 @@ Session::put('page_url', $PAGE_ROOT_URL);
  *      Set up the selection engine(s) that fetches and formats results from the database
  *      Set up the searchbox settings
  */
-$contactSearch->configureOnClickEvent(sprintf(HabitatSearchBox::SELECT_ID_ON_CLICK, 'contact'))
+$contactSearch->configureOnClickEvent(sprintf(HabitatSearchBox::SELECT_ID_ON_CLICK, 'contact_id'))
         ->configureDatumFormat('id', 'name')
         ->configureEngine('findContact', HabitatSearchBox::SEARCH_CONTACT_URL, 'Contact')
         ->configureSettings()
@@ -33,25 +33,25 @@ Edit Company
 <section class="row"> 
     <section class="generalInfo col-md-7"> 
         <div class="form-group">
-            {{ Form::label('name', 'Company Name: ',array('class'=>'col-sm-3')) }}
+            {{ Form::label('name', 'Company Name: ',array('class'=>'col-sm-7')) }}
             <div class="col-sm-7">
                 {{ Form::text('name',$company->name,array('class'=>'form-control')) }}
             </div>
         </div>    
 
         <div class="form-group">
-            {{ Form::label('contain_id', 'Main Contact: ',array('class'=>'col-sm-3')) }}
+            {{ Form::label('contain_id', 'Main Contact: ',array('class'=>'col-sm-7')) }}
 
-            <div id="familySet" class="col-sm-7">
+            <div id="set" class="col-sm-7">
                 {{ Form::text('con',$company->mainContact->first_name . " " .  $company->mainContact->last_name,array('class'=>'form-control','readonly'=>'readonly')) }}
-                {{Form::hidden('contact_id',$company->contact_id)}}
+                {{Form::hidden('contact_id',$company->mainContact->id)}}
             </div>
-            <div id="editFamily" class="col-sm-7">
+            <div id="edit" class="col-sm-7">
                 <?php $contactSearch->show() ?>
             </div>
         </div>
-            <div id="changeFamButton">
-                <a href="#" class="btn btn-primary changeFam">Change Main Contact</a>
+            <div id="changeButton">
+                <a href="#" class="btn btn-primary change">Change Main Contact</a>
             </div>  
         
     </section>

@@ -138,17 +138,17 @@ Edit Project
     </div>
     <div class="form-group">
         {{ Form::label('family', 'Family: ') }}
-        <div id="familySet">
+        <div id="set">
             {{ Form::text('fam',( $project->family  ? $project->family->name : "Not Assigned") ,array('class'=>'form-control','readonly'=>'readonly')) }}
             @if($project->family)
             {{Form::hidden('family',$project->family->id)}}
             @endif
         </div>
-        <div id="editFamily">
+        <div id="edit">
             <?php $familySearch->show() ?>
         </div>
-        <div id="changeFamButton">
-            <a href="#" class="btn btn-primary changeFam">Change Family</a>
+        <div id="changeButton">
+            <a href="#" class="btn btn-primary change">Change Family</a>
         </div>
     </div>
 </section>
