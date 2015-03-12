@@ -31,7 +31,7 @@ Edit Company
 <h2>Editing Details for {{ $company->name }}</h2>
 {{ Form::open(array('method'=>'PUT','route'=>array('company.update', $company->id), 'class'=>'form-horizontal', 'id'=>'form')) }}
 <section class="row"> 
-    <section class="col-md-6"> 
+    <section class="generalInfo col-md-7"> 
         <div class="form-group">
             {{ Form::label('name', 'Company Name: ',array('class'=>'col-sm-3')) }}
             <div class="col-sm-7">
@@ -39,20 +39,21 @@ Edit Company
             </div>
         </div>    
 
-      
+        <div class="form-group">
             {{ Form::label('contain_id', 'Main Contact: ',array('class'=>'col-sm-3')) }}
 
-            <div id="familySet">
-                {{ Form::text('con',$company ? $company->contact_id : "Not Assigned" ,array('class'=>'form-control','readonly'=>'readonly')) }}
+            <div id="familySet" class="col-sm-7">
+                {{ Form::text('con',$contact->first_name . " " . $contact->last_name,array('class'=>'form-control','readonly'=>'readonly')) }}
                 {{Form::hidden('contact_id',$company->contact_id)}}
             </div>
-            <div id="editFamily">
+            <div id="editFamily" class="col-sm-7">
                 <?php $contactSearch->show() ?>
             </div>
+        </div>
             <div id="changeFamButton">
                 <a href="#" class="btn btn-primary changeFam">Change Main Contact</a>
             </div>  
-
+        
     </section>
 </section>
 <section class="row text-right">
