@@ -176,6 +176,7 @@ Project Details
         </table>
          {{ HTML::linkRoute('projInspectionsView', 'View Inspection Details', array($project->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('projInspectionsAdd', 'Add Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
+         {{ HTML::linkRoute('editFormForInspections', 'Edit Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
     </div>
          <div class="form-group row">
         {{ Form::label('hours', 'Project Hours:') }}
