@@ -11,7 +11,7 @@ Edit Inspections for Project {{$project->project_name}}
 {{ Form::submit('Save Changes', array('class'=>'btn btn-primary')) }}
 <table class="table">
     <thead>
-        <tr><th>Mandatory</th><th>Date</th><th>Type</th><th>Pass</th><th>Comments</th></tr>
+        <tr><th>Date</th><th>Type</th><th>Mandatory</th><th>Pass/Fail</th><th>Comments</th></tr>
     </thead>
     <tbody>
         {{Form::hidden('project_id', $project->id)}}
@@ -20,6 +20,8 @@ Edit Inspections for Project {{$project->project_name}}
             @foreach($projectInspections as $projectInspection)
             <tr class="formrow">
                 {{Form::hidden('id[]', $projectInspection->id)}}
+                <td>{{Form::input('date', 'date[]', $projectInspection->date, array('class'=>'form-control'))}}</td>
+                <td>{{Form::input('type', 'type[]', $projectInspection->type, array('class'=>'form-control'))}}</td>
                 <td><select name="mandatory[]" class="form-control">
                         <!-- The $key is the key to the PASS/FAIL, it is the 0/1 that we will pass in as the value-->
                         @foreach($mandatoryTypes as $key => $mandatoryType)
@@ -31,8 +33,6 @@ Edit Inspections for Project {{$project->project_name}}
                         @endforeach
                 </select>
                 </td>
-                <td>{{Form::input('date', 'date[]', $projectInspection->date, array('class'=>'form-control'))}}</td>
-                <td>{{Form::input('type', 'type[]', $projectInspection->type, array('class'=>'form-control'))}}</td>
                 <td><select name="pass[]" class="form-control">
                         <!-- The $key is the key to the PASS/FAIL, it is the 0/1 that we will pass in as the value-->
                         @foreach($inspectionPasses as $key => $inspectionPass)
