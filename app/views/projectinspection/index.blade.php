@@ -8,8 +8,8 @@ Inspections for Project {{$project->name}}
 
 <h1>Inspections for {{$project->name}}</h1>
 {{ HTML::linkRoute('projInspectionsAdd', 'Add Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
+{{ HTML::linkRoute('editFormForInspections', "Edit Inspections", array($project->id), array('class'=>'btn btn-primary')) }}
 {{ Form::open(array('route'=>'storeInspections','class'=>'form-horizontal')) }}
-
 <table class="table">
     <thead>
         <tr><th>Date</th><th>Type</th><th>Mandatory</th><th>Pass/Fail</th><th>Comments</th></tr>
