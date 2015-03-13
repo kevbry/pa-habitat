@@ -132,7 +132,7 @@ Project Details
                    <tr>
                        <td>{{$projectContact->contact->first_name . " " . 
                                    $projectContact->contact->last_name}}</td>
-                       <td>{{$projectContact->role}}</td>
+                       <td>{{$projectContact->role->role}}</td>
                    </tr>
                    @endforeach
                 @endif

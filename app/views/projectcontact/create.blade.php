@@ -17,10 +17,10 @@ Add Contacts for Project {{$project->name}}
                 </select>
             </td>
             <td>
-                <select name="role[]" class="form-control">
-                @if (!empty($roleTypes))
-                    @foreach($roleTypes as $roleType)
-                        <option value="{{$roleType}}">{{$roleType}}</option>
+                <select name="role_id[]" class="form-control">
+                @if (!empty($roles))
+                    @foreach($roles as $role)
+                        <option value="{{$role->id}}">{{$role->role}}</option>
                     @endforeach
                 @endif
                 </select>
@@ -50,10 +50,10 @@ Add Contacts for Project {{$project->name}}
                 </select>
             </td>
             <td>
-                <select name="role[]" class="form-control">
-                @if (!empty($roleTypes))
-                    @foreach($roleTypes as $roleType)
-                        <option value="{{$roleType}}">{{$roleType}}</option>
+                <select name="role_id[]" class="form-control">
+                @if (!empty($roles))
+                    @foreach($roles as $role)
+                        <option value="{{$role->id}}">{{$role->role}}</option>
                     @endforeach
                 @endif
                 </select>

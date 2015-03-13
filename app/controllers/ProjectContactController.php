@@ -3,6 +3,7 @@
 use App\Repositories\ProjectContactRepository;
 use App\Repositories\ProjectRepository;
 use App\Repositories\ContactRepository;
+use App\Repositories\ProjectRolesRepository;
 /**
  * Specifies a controller for the ProjectContact class and functionality.
  */
@@ -11,13 +12,16 @@ class ProjectContactController extends \BaseController {
     public $projectRepo;
     public $projectContactRepo;
     public $contactRepo;
+    public $roleRepo;
 
     public function __construct(ProjectContactRepository $projectContactRepo, 
-            ProjectRepository $projectRepo, ContactRepository $contactRepo) 
+            ProjectRepository $projectRepo, ContactRepository $contactRepo,
+            ProjectRolesRepository $roleRepo) 
     {
         $this->projectRepo = $projectRepo;
         $this->projectContactRepo = $projectContactRepo;
         $this->contactRepo = $contactRepo;
+        $this->roleRepo = $roleRepo;
     }
     /**
      * Displays a list of all project inspections.
@@ -27,9 +31,11 @@ class ProjectContactController extends \BaseController {
         $project = $this->projectRepo->getProject($projectId);
         $projectContacts = $this->projectContactRepo->getContactsForProject($projectId);
         $contacts = $this->contactRepo->getAllContactsNonPaginated();
+        $roles = $this->roleRepo->getAllRoles();
 
         return View::make('projectcontact.index', array('project' => $project, 
-            'projectContacts' => $projectContacts, 'contacts' => $contacts));
+            'projectContacts' => $projectContacts, 'contacts' => $contacts,
+            'roles' => $roles));
     }
     
     /**
@@ -39,10 +45,10 @@ class ProjectContactController extends \BaseController {
     {
         $project = $this->projectRepo->getProject($projectId);
         $contacts = $this->contactRepo->getAllContactsNonPaginated();
-        $roleTypes = \ProjectContact::$roles;
+        $roles = $this->roleRepo->getAllRoles();
         return View::make('projectcontact.create', array('id' => $projectId, 
             'project' => $project,'contacts' => $contacts, 
-            'roleTypes' => $roleTypes));
+            'roles' => $roles));
     }
     
     /**
@@ -54,7 +60,7 @@ class ProjectContactController extends \BaseController {
         {
             $projectContact['project_id'] = Input::get('project_id');
             $projectContact['contact_id'] = Input::get('contact_id')[$i];
-            $projectContact['role'] = Input::get('role')[$i];
+            $projectContact['role_id'] = Input::get('role_id')[$i];
             $projectContact['notes'] = Input::get('notes')[$i];
 
             if (empty($projectContact)) {
