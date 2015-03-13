@@ -3,6 +3,7 @@ use App\Repositories\ContactRepository;
 use App\Repositories\CompanyRepository;
 use App\Repositories\VolunteerRepository;
 use App\Repositories\DonorRepository;
+use App\Libraries\Validators;
 
 class ContactController extends \BaseController {
     
@@ -10,7 +11,7 @@ class ContactController extends \BaseController {
         public $contactRepo;
         public $donorRepo;
         public $volunteerRepo;
-
+        
         public function __construct(ContactRepository $contactRepo, VolunteerRepository $volunteerRepo, CompanyRepository $companyRepo, DonorRepository $donorRepo)
         {
             $this->companyRepo = $companyRepo;
@@ -81,9 +82,19 @@ class ContactController extends \BaseController {
                                     'postal_code', 
                                     'country', 
                                     'comments');
-            
+            $v = new App\Libraries\Validators\ContactValidator($contactInfo);
+            if($v->passes())
+            {
+                $id = $this->storeContactWith($contactInfo);
+                return Redirect::route('contact.index')->with('flash',
+                        'New contact ' . $contactInfo['first_name'] . ' was created');
+            }
+            else
+            {
+                return Redirect::route('contact.create')->with('message', 'Creation Failed.');
+            }
             // Store the contact
-            $id = $this->storeContactWith($contactInfo);
+
             
             // Add the contact as a donor if specified
             if ($donorStatus)
