@@ -6,7 +6,7 @@ Index of all users
 
 @section('content')
 
-<h1>Contacts</h1>
+<h1>Users</h1>
 <nav>
 <a href="user/create" class="btn btn-primary">Add User</a>
 </nav>
@@ -25,7 +25,7 @@ Index of all users
     @if (!empty($users))
         @foreach($users as $user)
         <tr>
-            <td>{{$user->email_username}}</td>
+            <td>{{$user->username}}</td>
             <td>{{ucwords(str_replace('_', ' ', $user->access_level))}}</td>
             <td><a href="user/{{$user->id}}">View Details</a> | <a href="user/{{$user->id}}/edit">Edit Details</a></td>
         </tr>

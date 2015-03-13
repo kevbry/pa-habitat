@@ -29,6 +29,12 @@ Create a User
 <section class="row">
 <section class="col-md-7">
     <div class="form-group">
+        {{ Form::label('username', 'Username: ',array('class'=>'col-sm-3')) }}
+        <div class="col-sm-7">
+            {{ Form::input('text', 'username',null,array('class'=>'form-control')) }}
+        </div>
+    </div>    
+    <div class="form-group">
         {{ Form::label('contact_id', 'Associated Contact: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
             <?php $contact_search->show(); ?>

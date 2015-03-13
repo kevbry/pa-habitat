@@ -14,14 +14,14 @@ class AddUserTable extends Migration
     {
         Schema::create('User', function(Blueprint $table)
         {
-            $table->increments('id');
             $table->integer('contact_id')->unsigned()->unique();
             $table->foreign('contact_id')->references('id')->on('Contact');
             $table->string('password');
-            $table->string('email_username');
+            $table->string('username');
             $table->string('remember_token')->nullable();
             $table->string('access_level')->default('basic_user');
             $table->timestamps();
+            $table->primary('contact_id');
         });
     }
 

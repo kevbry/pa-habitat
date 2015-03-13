@@ -1,16 +1,7 @@
 <?php
-use App\Repositories\ContactRepository;
 
 class UserController extends \BaseController
 {
-    
-    public $contactRepo;
-    
-    public function __construct(ContactRepository $contactRepo)
-    {
-        $this->contactRepo = $contactRepo;
-    }
-    
     
     /**
      * Display a listing of the resource.
@@ -57,13 +48,11 @@ class UserController extends \BaseController
     public function store()
     {
         // Get form input
-        $userInfo = Input::only('password', 'contact_id');
+        $userInfo = Input::only('password', 'contact_id', 'username');
         $confirmPassword = Input::get('confirm_password');
         
         $response = null;
         
-        // Get the contact's email address
-        $userContact = $this->contactRepo->getContact($userInfo['contact_id']);
         
         // Ensure only one user is added for a contact
         if((User::where('contact_id', '=', $userInfo['contact_id'])->first()) !== null)
@@ -75,9 +64,6 @@ class UserController extends \BaseController
         }
         else
         {
-            $emailUsername = $userContact['email_address'];
-        
-            $userInfo['email_username'] = $emailUsername;
             
             if ($userInfo['password'] !== $confirmPassword)
             {
@@ -96,11 +82,11 @@ class UserController extends \BaseController
                 
                 if ($userID > 0)
                 {
-                    $response = Redirect::action('UserController@details', $userID);
+                    $response = Redirect::action('UserController@show', $userID);
                 }
             }            
         }
-
+        
         return $response;
         
     }
@@ -110,12 +96,12 @@ class UserController extends \BaseController
      * @param array $userInfo - array of info to store in db
      * @return int - the id of the newly added user
      */
-    private function storeUserWith($userInfo)
+    public function storeUserWith($userInfo)
     {
         $newUser = new User($userInfo);
         $newUser->save();
         
-        return $newUser->id;
+        return $newUser->contact_id;
     }
     
     
@@ -127,7 +113,7 @@ class UserController extends \BaseController
     public function show($id)
     {
         
-        
+        return View::make('user.show');
     }
 
     /**
