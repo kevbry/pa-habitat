@@ -5,6 +5,13 @@ Create a Contact
 @stop
 
 @section('content')
+<div class="errorMsg">
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+            <h1>{{$error}}</h1>
+        @endforeach
+    @endif
+</div>
 <h1>Create a Contact</h1>
 {{ Form::open(array('route'=>'contact.store','class'=>'form-horizontal')) }}
 <section class="row">
