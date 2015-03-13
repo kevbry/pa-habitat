@@ -79,3 +79,17 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+/*
+|--------------------------------------------------------------------------
+| Registering custom validators
+ * 
+ * We need to register any custom validation rules, doing this in start/global
+ * assures that the custom rules will be created at launch on any system.
+|--------------------------------------------------------------------------
+|
+ */
+Validator::resolver(function($translator, $data, $rules, $messages)
+{
+    return new PhoneValidatorRule($translator, $data, $rules, $messages);
+});

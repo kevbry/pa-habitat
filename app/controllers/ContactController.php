@@ -71,17 +71,17 @@ class ContactController extends \BaseController {
             
             // Store values from the contact form
             $contactInfo = Input::only('first_name', 
-                                    'last_name', 
-                                    'email_address',
-                                    'home_phone', 
-                                    'cell_phone', 
-                                    'work_phone', 
-                                    'street_address', 
-                                    'city', 
-                                    'province', 
-                                    'postal_code', 
-                                    'country', 
-                                    'comments');
+                                        'last_name', 
+                                        'email_address',
+                                        'home_phone', 
+                                        'cell_phone', 
+                                        'work_phone', 
+                                        'street_address', 
+                                        'city', 
+                                        'province', 
+                                        'postal_code', 
+                                        'country', 
+                                        'comments');
             $v = new App\Libraries\Validators\ContactValidator($contactInfo);
             if($v->passes())
             {
@@ -91,7 +91,8 @@ class ContactController extends \BaseController {
             }
             else
             {
-                return Redirect::route('contact.create')->with('message', 'Creation Failed.');
+                return Redirect::route('contact.create')->withInput()
+                        ->withErrors($v->getErrors());
             }
             // Store the contact
 
