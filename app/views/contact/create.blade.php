@@ -43,6 +43,9 @@ if($errors->any())
                 $counter++;
             }
             //If the error message contains the same field name aka 'first name'
+            //Note this is not the field name first_name, this is the name
+            //that is used in ContactValidator, or the name that comes up in
+            //the actually error message.
             if(strpos($error,key($errorList)) !== FALSE)
             {
                 //Add it to the array under the key, so we can use it later.
@@ -67,6 +70,11 @@ if($errors->any())
         <div class="col-sm-7">
         {{ Form::text('first_name',null,array('class'=>'form-control')) }}
         </div>
+        <!-- This is where the error message will be placed, Check if the error is empty
+        If the error is not empty, fill a div with the $errorList['validator name']
+        NOTE--------------------------- DO NOT USE THE field_name with the underscore
+        use whatever the error message has like "The first name field is required" so you
+        would use first name, as this is what the string parses for, and what it uses to check for validation-->
         <div class="col-sm-7">
         @if(!empty($errorList['first name']))
             <div class="inputError">{{$errorList['first name']}}</div>
