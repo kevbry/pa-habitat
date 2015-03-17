@@ -36,7 +36,7 @@ class ProjectItem extends \Eloquent
      *
      * @fillable array with column names we wish to be able to assign to.
      */
-    protected $fillable = array('id', 'project_id', 'item_type', 'manufacturer', 'model', 'serial_number', 'vendor', 'comments');
+    protected $fillable = array('id', 'description', 'description', 'manufacturer', 'model', 'serial_number', 'vendor', 'comments');
     
     public function project()
     {
