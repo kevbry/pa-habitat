@@ -269,10 +269,11 @@ class ProjectController extends \BaseController {
      * 
      * @param type $data
      */
-    public function createProjectContactWith($data) {
-        $projectContact = new ProjectContact($data);
-
-        $this->projectContactRepo->saveProjectContact($projectContact);
-    }
+//    public function createProjectContactWith($data) {
+//        $projectContact = new ProjectContact($data);
+//
+//        $this->projectContactRepo->saveProjectContact($projectContact);
+//        
+//    }
 
 }
