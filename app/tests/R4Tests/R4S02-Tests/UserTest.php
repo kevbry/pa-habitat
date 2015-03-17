@@ -73,6 +73,27 @@ class UserTest extends TestCase
         $this->assertResponseOk();
     }
     
+    public function testShowRoute()
+    {
+        $this->mockedUserController = Mockery::mock('UserController[show]');
+        $this->app->instance('UserController', $this->mockedUserController);
+        $this->mockedUserController->shouldReceive('show')->once()->with(1);
+        
+        $response = $this->action('GET', 'UserController@show', 1);
+        
+        $this->assertResponseOk();        
+    }
+    
+    public function testShowResponse()
+    {
+        $this->mockedUser = Mockery::mock('Eloquent','User[find]');
+        $this->app->instance('User', $this->mockedUser);
+        
+        $response = $this->action('GET', 'UserController@show', 82);
+        
+        $this->assertContains('User Details', $response->getContent());        
+    }
+    
     /*
      * Test clean up
      */

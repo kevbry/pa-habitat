@@ -112,8 +112,9 @@ class UserController extends \BaseController
      */    
     public function show($id)
     {
+        $showUser = User::find($id);
         
-        return View::make('user.show');
+        return View::make('user.show')->with('user', $showUser);
     }
 
     /**
@@ -123,7 +124,9 @@ class UserController extends \BaseController
      */    
     public function edit($id)
     {
+        $editUser = User::find($id);
         
+        return View::make('user.edit')->with('user', $editUser);
         
     }
     
