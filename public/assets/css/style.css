@@ -166,5 +166,8 @@ span.twitter-typeahead{
     padding-left:15px;
    
 }
+.inputError {
+    color: red;
+}
 
  

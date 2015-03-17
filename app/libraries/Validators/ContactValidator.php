@@ -12,19 +12,20 @@
  * @author cst224
  */
 class ContactValidator extends Validator {
-    
+    //an array of the validators to be used on the fields
     public static $rules = array(
-        'first_name' => '',
-        'last_name' => '',
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'company' => '',
         'email_address' => 'required|email',
         'home_phone' => 'required|phone',
-        'cell_phone' => '',
-        'work_phone' => '',
-        'street_address' => '',
-        'city' => '',
-        'province' => '',
+        'cell_phone' => 'phone',
+        'work_phone' => 'phone',
+        'street_address' => 'required',
+        'city' => 'required',
+        'province' => 'required',
         'postal_code' => 'required|min:6|max:6',
-        'country' => '',
+        'country' => 'required',
         'comments' => '',
     );
 

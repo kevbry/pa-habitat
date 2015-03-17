@@ -12,9 +12,11 @@ class PhoneValidatorRule extends \Illuminate\Validation\Validator {
         return preg_match("^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$^", $value);
     }
     //This method replaces the terrible validation.phone error message with a beautiful informative one.
+    //You should probably mention the field names in lowercase, because this is how we use assoc arrays
+    //to actually display the messages. It might break if you use upper case.
     protected function replacePhone($message, $attribute, $rule, $parameters)
     {
-         return str_replace('validation.phone', 'Phone number should be in the format (###)-###-####', $message);
+         return str_replace('validation.phone', 'phone number should be in the format ###-###-####', $message);
     }
  //*****************READ THIS*******************************//
     /*
