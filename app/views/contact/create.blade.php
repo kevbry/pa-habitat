@@ -45,7 +45,6 @@ if($errors->any())
             //If the error message contains the same field name aka 'first name'
             if(strpos($error,key($errorList)) !== FALSE)
             {
-                var_dump(key($errorList));
                 //Add it to the array under the key, so we can use it later.
                 $errorList[key($errorList)] = $error;
             }
@@ -54,7 +53,6 @@ if($errors->any())
         }
     }
 }
-var_dump($errorList);
 
 
 
