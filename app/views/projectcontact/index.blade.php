@@ -1,13 +1,21 @@
 @extends('master')
 
 @section('title')
-Contacts for Project {{$project->name}}
+Contacts for Project     
+@if (!empty($project))
+    {{$project->name}}
+@endif
 @stop
 
 @section('content')
 
-<h1>Contacts for {{$project->name}}</h1>
+<h1>Contacts for 
+    @if (!empty($project))
+    {{$project->name}}
+@endif</h1>
+@if (!empty($project))
 {{ HTML::linkRoute('projContactsAdd', 'Add Contacts', array($project->id), array('class' => 'btn btn-primary')) }}
+@endif
 {{ Form::open(array('route'=>'projStoreContacts','class'=>'form-horizontal')) }}
 
 <table class="table">
@@ -29,7 +37,9 @@ Contacts for Project {{$project->name}}
 </table>
 
 {{Form::close()}}
+@if (!empty($project))
 {{ HTML::linkAction('ProjectController@show','Back To Project', array($project->id)) }}
+@endif
 <?php 
 if (!empty($projectContacts))
 {

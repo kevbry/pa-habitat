@@ -56,9 +56,9 @@ class ProjectContactController extends \BaseController {
      */
     public function store() {
         $projectContact = array();
+        $projectContact['project_id'] = Input::get('project_id');
         for ($i = 0; $i < count(Input::get('contact_id')); $i++) 
         {
-            $projectContact['project_id'] = Input::get('project_id');
             $projectContact['contact_id'] = Input::get('contact_id')[$i];
             $projectContact['role_id'] = Input::get('role_id')[$i];
             $projectContact['notes'] = Input::get('notes')[$i];
