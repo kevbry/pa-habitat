@@ -73,6 +73,7 @@ return array(
         "phone"                => "The :attribute should be in the format ###-###-####",
         "cellphone"            => "The :attribute should be in the format ###-###-####",
         "workphone"            => "The :attribute should be in the format ###-###-####",
+        "postalcode"           => "The :attribute should be in the format LNL NLN",
 
 	/*
 	|--------------------------------------------------------------------------
