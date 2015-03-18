@@ -7,11 +7,13 @@ namespace App\Repositories;
  *
  * @author cst222
  */
-interface VolunteerInterest {
+interface VolunteerInterestRepository 
+{
 
+    public function getVolunteerInterests($id);
+    
     public function saveVolunteerInterest($volunteer);
 
-    public function getVolunteerInterest($id);
 
-    public function getVolunteerInterestsNonPaginated();
+    public function getVolunteerInterestsNonPaginated($id);
 }

@@ -5,10 +5,10 @@
  */
 namespace App\Repositories;
 
-class EloquentVolunteerInterestRepository implements VolunteerInterest {
+class EloquentVolunteerInterestRepository implements VolunteerInterestRepository {
 
-    public function getVolunteerInterest($id) {
-        return \VolunteerInterest::whereRaw('volunter_id =' . $id)->paginate(20);
+    public function getVolunteerInterests($id) {
+        return \VolunteerInterest::whereRaw('volunteer_id =' . $id)->paginate(20);
     }
 
     public function saveVolunteerInterest($volunteerInterest) {
@@ -16,7 +16,7 @@ class EloquentVolunteerInterestRepository implements VolunteerInterest {
     }
     
     public function getVolunteerInterestsNonPaginated($id) {
-        return \VolunteerInterest::whereRaw('volunteer_id =' . $id)->orderBy('item_type', 'asc')->get();
+        return \VolunteerInterest::whereRaw('volunteer_id =' . $id)->get();
     }
 
 }

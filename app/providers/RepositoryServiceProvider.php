@@ -55,5 +55,15 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\ProjectItemRepository',
             'App\Repositories\EloquentProjectItemRepository'
         );
+        
+          $this->app->bind(
+            'App\Repositories\InterestRepository',
+            'App\Repositories\EloquentInterestRepository'
+        );
+          
+           $this->app->bind(
+            'App\Repositories\VolunteerInterestRepository',
+            'App\Repositories\EloquentVolunteerInterestRepository'
+        );
     }
 }

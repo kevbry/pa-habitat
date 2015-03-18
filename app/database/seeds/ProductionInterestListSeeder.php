@@ -1,6 +1,6 @@
 <?php
 
-class InterestTableSeeder extends Seeder 
+class ProductionInterestListSeeder extends Seeder 
 {
     
     /**

@@ -1,6 +1,6 @@
 <?php
 
-class ProjectItem extends \Eloquent
+class VolunteerInterest extends \Eloquent
 {
     /**
      * The database table used by the model.

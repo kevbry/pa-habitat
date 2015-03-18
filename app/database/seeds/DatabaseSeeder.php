@@ -53,6 +53,10 @@ class DatabaseSeeder extends Seeder
                 $this->call('VolunteerHoursTableSeeder');
                 $this->command->info('VolunteerHours table seeded!');
                 
+                $this->command->info('Adding Interest List to Database:');
+		$this->call('ProductionInterestListSeeder');
+                $this->command->info('Interest added successfully!');
+                
                 DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 	}
 

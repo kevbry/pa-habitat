@@ -298,7 +298,7 @@ Contact Details
                 @endif
             </tbody>
         </table>
-        {{ Form::button('Edit Interests', array('id' => 'editInterests','class'=>'btn btn-primary')) }}
+        {{ HTML::linkRoute('editInterests', 'Edit Interests', array($contact->id), array('class' => 'btn btn-primary')) }}
     </div>
           @endif
  </section>
