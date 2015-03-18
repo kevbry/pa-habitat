@@ -106,15 +106,26 @@ class UserTest extends TestCase
     }
     
     public function testEditResponseSuccessfulUpdate()
-    {
-        $this->mockedUser = Mockery::mock('Eloquent','User[update]');
-        $this->app->instance('User', $this->mockedUser);
+    {       
+        $userInput['contact_id'] = 82;
+        $userInput['access_level'] = 'basic_user';
+
         
-        $response = $this->action('GET', 'UserController@edit', 82);
+        $this->mockedUserController = Mockery::mock('app\controllers\UserController');
+        $this->app->instance('app\controllers\UserController', $this->mockedUserController);
         
-        $this->mockedUser->shouldReceive('update')->once()->andReturn(1);
-        
-        $this->assertContains('', $response->getContent());    
+        // Assemble
+        $this->mockedUserController
+                ->shouldReceive('update')->once()
+                ->with($userInput['contact_id']);
+
+        // Act 
+        $this->mockedUserController->update($userInput['contact_id']);
+        $this->route("PUT", "user.update", $userInput);
+
+        //Assert
+        //$this->assertRedirectedToAction("ProjectController@update",1);
+        $this->assertResponseStatus(302);
     }
     
     /*

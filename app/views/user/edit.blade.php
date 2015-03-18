@@ -30,6 +30,19 @@ User Details
          </select>
      </div>
  </div>
+
+<div class="form-group">
+    {{ Form::label('password', 'Password: ',array('class'=>'col-sm-3')) }}
+    <div class="col-sm-7">
+    {{ Form::input('password', 'password',null,array('class'=>'form-control')) }}
+    </div>
+</div>
+<div class="form-group">
+    {{ Form::label('confirm_password', 'Confirm Password: ',array('class'=>'col-sm-3')) }}
+    <div class="col-sm-7">
+    {{ Form::input('password', 'confirm_password',null,array('class'=>'form-control')) }}
+    </div>
+</div>
 </section>
 
 <section class="row text-right">

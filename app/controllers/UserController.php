@@ -58,7 +58,7 @@ class UserController extends \BaseController
         if((User::where('contact_id', '=', $userInfo['contact_id'])->first()) !== null)
         {
             // Redirect back with errors
-            $response = Redirect::action('UserController@create')
+            return Redirect::action('UserController@create')
                     ->withInput(Input::except(array('password', 'confirm_password')))
                     ->withErrors(['DuplicateUser', 'user already exists']);
         }
@@ -68,7 +68,7 @@ class UserController extends \BaseController
             if ($userInfo['password'] !== $confirmPassword)
             {
                 // Redirect back with errors
-                $response = Redirect::action('UserController@create')
+                return Redirect::action('UserController@create')
                         ->withInput(Input::except(array('password', 'confirm_password')))
                         ->withErrors(['PasswordMismatch', 'Passwords do not match']);
             }
@@ -82,7 +82,7 @@ class UserController extends \BaseController
                 
                 if ($userID > 0)
                 {
-                    $response = Redirect::action('UserController@show', $userID);
+                    return Redirect::action('UserController@show', $userID);
                 }
             }            
         }
@@ -100,8 +100,8 @@ class UserController extends \BaseController
     {
         $newUser = new User($userInfo);
         $newUser->save();
-        
-        return $newUser->contact_id;
+
+        return $userInfo['contact_id'];
     }
     
     
@@ -140,12 +140,14 @@ class UserController extends \BaseController
     {
         // Get the updated field(s)
         $userID = Input::only('contact_id');
-        $newAccessLevel = Input::only('access_level');
+        $newUserInfo['access_level'] = Input::only('access_level')['access_level'];
+        $newUserInfo['password'] = Input::only('password')['password'];
         
+        $newUserInfo['password'] = Hash::make($newUserInfo['password']);
         
         // Update the user row with new values
-        $affectedRows = User::where($userID, '=', $userID)->update($newAccessLevel);
-        
+        $affectedRows = User::where($userID, '=', $userID)->update($newUserInfo);
+
         
         if ($affectedRows > 0)
         {
