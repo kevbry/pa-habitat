@@ -1,8 +1,14 @@
 <?php
 
 class WorkPhoneValidatorRule extends \Illuminate\Validation\Validator {
+    
+    //function __construct(\Validator $validator)
+    //{
+    //    $this->validator = $validator;
+    //}
+    
     //Create the custom validation, this is a regex for phone.
-    public function validateWorkPhone($attribute, $value, $parameters)
+    public function validateWorkPhone($attribute, $value, $parameters, $validator)
     {
         return preg_match("^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$^", $value);
     }
@@ -11,12 +17,6 @@ class WorkPhoneValidatorRule extends \Illuminate\Validation\Validator {
     //to actually display the messages. It might break if you use upper case.
     protected function replaceWorkPhone($message, $attribute, $rule, $parameters, $phone='')
     {
-         return str_replace('validation.WorkPhone', 'The work phone field should be in the format ###-###-####', $message);
+         return str_replace('validation.workPhone', 'The work phone field should be in the format ###-###-####', $message);
     }
- //*****************READ THIS*******************************//
-    /*
-     * IF YOU ARE PLANNING ON ADDING A CUSTOM VALIDATOR, YOU NEED THE RESOLVE METHOD THAT
-     * IS ADDED AT THE BOTTOM OF START/GLOBAL.php FOR THE METHOD OF YOUR VALIDATION.
-     */
 }
-Validator::extend('workphone', 'WorkPhoneValidatorRule@validateWorkPhone');
