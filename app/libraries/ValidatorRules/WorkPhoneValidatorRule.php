@@ -19,4 +19,9 @@ class WorkPhoneValidatorRule extends \Illuminate\Validation\Validator {
      * IS ADDED AT THE BOTTOM OF START/GLOBAL.php FOR THE METHOD OF YOUR VALIDATION.
      */
 }
-Validator::extend('workphone', 'WorkPhoneValidatorRule@validateWorkPhone');
+
+Validator::resolver(function($translator, $data, $rules, $messages)
+{
+    return new WorkPhoneValidatorRule($translator, $data, $rules, $messages);
+});
+//Validator::resolver('workphone', 'WorkPhoneValidatorRule@validateWorkPhone');
