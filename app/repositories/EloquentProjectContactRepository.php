@@ -37,6 +37,11 @@ class EloquentProjectContactRepository implements ProjectContactRepository
         return \ProjectContact::find($id);
     }
     
+    public function getContactsForProject($id) 
+    {
+        return \ProjectContact::whereRaw('project_id =' . $id)->paginate(20);
+    }
+    
     /**
      * 
      * @param type $projectContact
