@@ -75,6 +75,7 @@ if($errors->any())
         NOTE--------------------------- DO NOT USE THE field_name with the underscore
         use whatever the error message has like "The first name field is required" so you
         would use first name, as this is what the string parses for, and what it uses to check for validation-->
+        <div class="col-sm-3"></div>
         <div class="col-sm-7">
         @if(!empty($errorList['first name']))
             <div class="inputError">{{$errorList['first name']}}</div>
@@ -86,6 +87,7 @@ if($errors->any())
         <div class="col-sm-7">
         {{ Form::text('last_name',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
         <div class="col-sm-7">
         @if(!empty($errorList['last name']))
             <div class="inputError">{{$errorList['last name']}}</div>
@@ -97,6 +99,7 @@ if($errors->any())
         <div class="col-sm-7">
         {{Form::text('company_name',null,array('class'=>'form-control'))}}
         </div>
+        <div class="col-sm-3"></div>
         <div class="col-sm-7">
         @if(!empty($errorList['company name']))
             <div class="inputError">{{$errorList['company name']}}</div>
@@ -108,6 +111,7 @@ if($errors->any())
         <div class="col-sm-7">
         {{ Form::input('email','email_address',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
         <div class="col-sm-7">
         @if(!empty($errorList['email address']))
             <div class="inputError">{{$errorList['email address']}}</div>
@@ -119,6 +123,7 @@ if($errors->any())
         <div class="col-sm-7">
         {{ Form::text('home_phone',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
         <div class="col-sm-7">
         @if(!empty($errorList['home phone']))
             <div class="inputError">{{$errorList['home phone']}}</div>
@@ -130,6 +135,7 @@ if($errors->any())
         <div class="col-sm-7">
         {{ Form::text('cell_phone',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
         <div class="col-sm-7">
         @if(!empty($errorList['cell phone']))
             <div class="inputError">{{$errorList['cell phone']}}</div>
@@ -141,6 +147,7 @@ if($errors->any())
         <div class="col-sm-7">
         {{ Form::text('work_phone',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
         <div class="col-sm-7">
         @if(!empty($errorList['work phone']))
             <div class="inputError">{{$errorList['work phone']}}</div>
@@ -152,6 +159,7 @@ if($errors->any())
         <div class="col-sm-7">
         {{ Form::text('street_address',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
         <div class="col-sm-7">
         @if(!empty($errorList['street address']))
             <div class="inputError">{{$errorList['street address']}}</div>
@@ -163,6 +171,7 @@ if($errors->any())
         <div class="col-sm-7">
         {{ Form::text('city',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
         <div class="col-sm-7">
         @if(!empty($errorList['city']))
             <div class="inputError">{{$errorList['city']}}</div>
@@ -174,6 +183,7 @@ if($errors->any())
         <div class="col-sm-7">
         {{ Form::text('province',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
         <div class="col-sm-7">
         @if(!empty($errorList['province']))
             <div class="inputError">{{$errorList['province']}}</div>
@@ -185,6 +195,7 @@ if($errors->any())
         <div class="col-sm-7">
         {{ Form::text('postal_code',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
         <div class="col-sm-7">
         @if(!empty($errorList['postal code']))
             <div class="inputError">{{$errorList['postal code']}}</div>
@@ -196,6 +207,7 @@ if($errors->any())
         <div class="col-sm-7">
         {{ Form::text('country',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
         <div class="col-sm-7">
         @if(!empty($errorList['country']))
             <div class="inputError">{{$errorList['country']}}</div>
@@ -207,6 +219,7 @@ if($errors->any())
         <div class="col-sm-7">
         {{ Form::textarea('comments',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
         <div class="col-sm-7">
         @if(!empty($errorList['comments']))
             <div class="inputError">{{$errorList['comments']}}</div>
