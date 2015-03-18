@@ -9,10 +9,10 @@
 //METHODS IN THE BOTTOM OF THE APP/START/GLOBAL.PHP FILE, ELSE IT WILL THINK IT DOESN"T EXIST
 class PhoneValidatorRule extends \Illuminate\Validation\Validator {
         
-    function __construct(\Validator $validator)
-    {
-        $this->validator = $validator;
-    }
+    //function __construct(\Validator $validator)
+   // {
+    //    $this->validator = $validator;
+    //}
     //Create the custom validation, this is a regex for phone.
     public function validatePhone($attribute, $value, $parameters, $validator)
     {

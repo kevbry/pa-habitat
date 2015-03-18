@@ -2,10 +2,10 @@
 
 class WorkPhoneValidatorRule extends \Illuminate\Validation\Validator {
     
-    //function __construct(\Validator $validator)
-    //{
-    //    $this->validator = $validator;
-    //}
+    function __construct(\Validator $validator)
+    {
+        $this->validator = $validator;
+    }
     
     //Create the custom validation, this is a regex for phone.
     public function validateWorkPhone($attribute, $value, $parameters, $validator)
