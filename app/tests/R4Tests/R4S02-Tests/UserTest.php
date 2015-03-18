@@ -94,6 +94,29 @@ class UserTest extends TestCase
         $this->assertContains('User Details', $response->getContent());        
     }
     
+    public function testEditRoute()
+    {
+        $this->mockedUserController = Mockery::mock('UserController[edit]');
+        $this->app->instance('UserController', $this->mockedUserController);
+        $this->mockedUserController->shouldReceive('edit')->once()->with(1);
+        
+        $response = $this->action('GET', 'UserController@edit', 1);
+        
+        $this->assertResponseOk();           
+    }
+    
+    public function testEditResponseSuccessfulUpdate()
+    {
+        $this->mockedUser = Mockery::mock('Eloquent','User[update]');
+        $this->app->instance('User', $this->mockedUser);
+        
+        $response = $this->action('GET', 'UserController@edit', 82);
+        
+        $this->mockedUser->shouldReceive('update')->once()->andReturn(1);
+        
+        $this->assertContains('', $response->getContent());    
+    }
+    
     /*
      * Test clean up
      */

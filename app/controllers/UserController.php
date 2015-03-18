@@ -138,8 +138,21 @@ class UserController extends \BaseController
      */    
     public function update($id)
     {
+        // Get the updated field(s)
+        $userID = Input::only('contact_id');
+        $newAccessLevel = Input::only('access_level');
         
         
+        // Update the user row with new values
+        $affectedRows = User::where($userID, '=', $userID)->update($newAccessLevel);
+        
+        
+        if ($affectedRows > 0)
+        {
+            return Redirect::action('UserController@show', $userID);
+        }
+        
+        return Redirect::action('UserController@index');
     }    
     
 }
