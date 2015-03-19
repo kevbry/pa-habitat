@@ -56,6 +56,19 @@ Route::get('search/searchProjects', 'SearchAPIController@searchProjects');
 Route::get('search/searchCompanies', 'SearchAPIController@searchCompanies');
 Route::get('search/searchFamilies', 'SearchAPIController@searchFamilies');
 
-
 // User routes
 Route::resource('user', 'UserController', ['except' => ['destroy']]);
+
+//Session routes
+Route::get('login', array(
+  'uses' => 'SessionController@create',
+  'as' => 'session.create'
+));
+Route::post('login', array(
+  'uses' => 'SessionController@store',
+  'as' => 'session.store'
+));
+Route::get('logout', array(
+  'uses' => 'SessionController@destroy',
+  'as' => 'session.destroy'
+));
