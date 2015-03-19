@@ -1,7 +1,7 @@
 <?php
  
 use Mockery as m;
-use App\Libraries\Validators\ContactValidator;
+use App\Libraries\Validators;
  
 class ValidateContactTest extends TestCase {
  
@@ -10,7 +10,7 @@ class ValidateContactTest extends TestCase {
    */
   public function testValidatorThrowsExceptionOnWrongDependency()
   {
-    $validator = new ContactValidator( new StdClass() );
+    $validator = new CoreValidator( new StdClass() );
   }
  
   /**
@@ -18,7 +18,7 @@ class ValidateContactTest extends TestCase {
    */
   public function testWithMethodThrowsExceptionIfNotArray()
   {
-    $validator = new ContactValidator( m::mock('Illuminate\Validation\Factory') );
+    $validator = new CoreValidator( m::mock('Illuminate\Validation\Factory') );
  
     $validator->with( 'first name' );
   }
@@ -28,7 +28,7 @@ class ValidateContactTest extends TestCase {
    */
   public function testPassesMethodThrowsExceptionIfNotArray()
   {
-    $validator = new ContactValidator( m::mock('Illuminate\Validation\Factory') );
+    $validator = new CoreValidator( m::mock('Illuminate\Validation\Factory') );
  
     $validator->passes( 'first name' );
   }

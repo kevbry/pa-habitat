@@ -15,7 +15,7 @@ class ContactValidator extends Validator {
         'home_phone' => 'required|phone',
         'cell_phone' => 'phone|cellPhone',
         'work_phone' => 'phone|workPhone',
-        'street_address' => 'required|alphaspacenum',
+        'street_address' => 'required',
         'city' => 'required|alphaspace',
         'province' => 'required|alphaspace',
         'postal_code' => 'required|postalcode',

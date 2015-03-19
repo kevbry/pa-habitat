@@ -86,12 +86,11 @@ class ContactController extends \BaseController {
             if($v->passes())
             {
                 $id = $this->storeContactWith($contactInfo);
-                return Redirect::route('contact.index')->with('flash',
-                        'New contact ' . $contactInfo['first_name'] . ' was created');
+                return Redirect::action('ContactController@show', $id);
             }
             else
             {
-                return Redirect::route('contact.create')->withInput()
+                return Redirect::action('ContactController@create')->withInput()
                         ->withErrors($v->getErrors());
             }
             // Store the contact
@@ -284,21 +283,17 @@ class ContactController extends \BaseController {
             
             //updating the record in the contact table for the contact with the id passed in
             
-            $affectedRows = Contact::where('id','=',$id)->update($fieldUpdateValues);
-
-            //var_dump($affectedRows);
-            //use affected rows to dertirming if it was a success or not
-            if($affectedRows > 0)
+            $v = new App\Libraries\Validators\ContactValidator($contactInfo);
+            if($v->passes())
             {
-                // Redirect to view the updated contact info
+                $affectedRows = Contact::where('id','=',$id)->update($fieldUpdateValues);
                 $redirectVariable = Redirect::action('ContactController@show', $id);
             }
             else
             {
-                //Redirect back to the edit page with an error message
-                $redirectVariable = Redirect::action('ContactController@edit', $id)->withErrors(['Error', 'The Message']);
+               $redirectVariable = Redirect::action('ContactController@edit', $id)->withInput()->withErrors($v->getErrors());
             }
-            // return to redirect
+            
             return $redirectVariable;
 	}
 }
