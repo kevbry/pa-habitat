@@ -140,13 +140,24 @@ class UserController extends \BaseController
     {
         // Get the updated field(s)
         $userID = Input::only('contact_id');
-        $newUserInfo['access_level'] = Input::only('access_level')['access_level'];
-        $newUserInfo['password'] = Input::only('password')['password'];
+        $newUserInfo['access_level'] = Input::get('access_level');
+        $newUserInfo['password'] = Input::get('password');
+        $affectedRows = 0;
         
-        $newUserInfo['password'] = Hash::make($newUserInfo['password']);
-        
-        // Update the user row with new values
-        $affectedRows = User::where($userID, '=', $userID)->update($newUserInfo);
+        // Temp 
+        if (!empty($newUserInfo['password']) && $newUserInfo['password'] === Input::get('confirm_password'))
+        {
+            $newUserInfo['password'] = Hash::make($newUserInfo['password']);
+
+            // Update the user row with new values
+            $affectedRows = User::where($userID, '=', $userID)->update($newUserInfo);            
+        }
+        else if ($newUserInfo['password'] !== Input::get('confirm_password'))
+        {
+            return Redirect::action('UserController@edit', $userID)
+                ->withInput(Input::except(array('password', 'confirm_password')))
+                ->withErrors(['PasswordMismatch', 'Passwords do not match']);
+        }
 
         
         if ($affectedRows > 0)

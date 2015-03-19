@@ -6,10 +6,14 @@ User Details
 
 @section('content')
 
-{{ Form::open(array('class'=>'form-horizontal')) }}
 <h1>{{ $user->contact->first_name . " " . $user->contact->last_name . "'s User Details" }}</h1>
+<div class="buttons">
     <a href="{{$user->contact_id}}/edit" class="btn btn-primary">Edit Details</a>
-    {{ HTML::linkAction('ContactController@show','View Contact Details', $user->contact_id) }}
+    {{ HTML::linkAction('ContactController@show','View Contact Details', $user->contact_id, array('class'=>"btn btn-primary")) }}    
+</div>    
+
+
+{{ Form::open(array('class'=>'form-horizontal')) }}
 <section class="generalInfo col-md-7">
  <div class="form-group">
      {{ Form::label('username','Username: ',array('class'=>'col-sm-3')) }}
