@@ -34,6 +34,17 @@ class CoreValidator extends Illuminate\Validation\Validator {
     //Validator Regex for postal codes LNL NLN or LNLNLN
     public function validatePostalCode($attribute, $value, $parameters)
     {
-        return preg_match("^[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]$^", $value);
+        return preg_match("^[a-zA-Z][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$^", $value);
     }
+    //Validator Regex for letters and spaces ex. Prince Albert
+    public function validateAlphaSpace($attribute, $value, $paramteres)
+    {
+        return preg_match("/^[a-zA-Z\s]*$/",$value);
+    }
+    //Validator Regex for letters, spaces and numbers ex. 123 Main Street
+    public function validateAlphaSpaceNum($attribute, $value, $paramteres)
+    {
+        return preg_match("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$^",$value);
+    }
+    
 }

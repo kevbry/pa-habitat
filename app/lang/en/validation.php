@@ -74,6 +74,8 @@ return array(
         "cellphone"            => "The :attribute should be in the format ###-###-####",
         "workphone"            => "The :attribute should be in the format ###-###-####",
         "postalcode"           => "The :attribute should be in the format LNL NLN",
+        "alphaspace"           => "The :attribute must contain letters and spaces only",
+        "alphaspacenum"           => "The :attribute must contain letters, spaces and numbers only",
 
 	/*
 	|--------------------------------------------------------------------------
