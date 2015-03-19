@@ -81,6 +81,8 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
                                 <li>{{ HTML::linkAction('FamilyController@create','Add a Family') }}</li>
                             </ul>
                         </li>
+                        <?php if (Auth::check() && Session::get('access_level') === 'administrator')
+                        {?>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users<span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -88,7 +90,7 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
                                 <li>{{ HTML::linkAction('UserController@create','Add a User') }}</li>
                             </ul>
                         </li>
-                        
+                        <?php } ?>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-search"><?php $masterSearch->show(); ?></li>

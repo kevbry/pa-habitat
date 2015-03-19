@@ -2,7 +2,10 @@
 
 class UserController extends \BaseController
 {
-    
+    public function __construct()
+    {
+        $this->beforeFilter('admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -141,13 +144,16 @@ class UserController extends \BaseController
         // Get the updated field(s)
         $userID = Input::only('contact_id');
         $newUserInfo['access_level'] = Input::get('access_level');
-        $newUserInfo['password'] = Input::get('password');
+        $newPassword = Input::get('password');
         $affectedRows = 0;
         
         // Temp 
-        if (!empty($newUserInfo['password']) && $newUserInfo['password'] === Input::get('confirm_password'))
+        if ($newPassword === Input::get('confirm_password'))
         {
-            $newUserInfo['password'] = Hash::make($newUserInfo['password']);
+            if (!empty($newUserInfo['password']))
+            {
+                $newUserInfo['password'] = Hash::make($newPassword);
+            }
 
             // Update the user row with new values
             $affectedRows = User::where($userID, '=', $userID)->update($newUserInfo);            

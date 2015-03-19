@@ -16,9 +16,9 @@ App::before(function($request)
 	//
 });
 
-
-App::after(function (Illuminate\Http\Request $request, \Symfony\Component\HttpFoundation\Response $response){
-  $response->header('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
+App::after(function($request)
+{
+	//
 });
 
 /*
@@ -87,3 +87,27 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+
+
+
+// Admin filter
+Route::filter('admin', function()
+{
+    // check for admin access level
+    if (Auth::check() && Session::get('access_level') === 'administrator')
+    {
+        return Redirect::intended();
+    }
+    else if (Auth::check())
+    {
+        return "can't do that.";
+    }
+    else
+    {
+        return Redirect::to('login');
+    }
+    
+});
+
+Route::when('user/*', 'admin');

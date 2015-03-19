@@ -59,6 +59,7 @@ Route::get('search/searchFamilies', 'SearchAPIController@searchFamilies');
 // User routes
 Route::resource('user', 'UserController', ['except' => ['destroy']]);
 
+
 //Session routes
 Route::get('login', array(
   'uses' => 'SessionController@create',

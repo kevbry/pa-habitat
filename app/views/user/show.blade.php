@@ -30,7 +30,7 @@ User Details
  <div class="form-group">
      {{ Form::label('access_level','Access Level: ',array('class'=>'col-sm-3')) }}
      <div class="col-sm-7">
-     {{ Form::text('access_level',$user->access_level,array('class'=>'form-control','readonly'=>'readonly')) }}
+     {{ Form::text('access_level',ucwords(str_replace('_', ' ', $user->access_level)),array('class'=>'form-control','readonly'=>'readonly')) }}
      </div>
  </div>
 </section>
