@@ -19,16 +19,17 @@ class ProjectContact extends \Eloquent
 	 * @var string
 	 */
 	protected $table = 'ProjectContact';
+        protected $with = array('project', 'contact', 'role');
 
 	/**
 	 * The attributes that are mass-assignment
 	 *
 	 * @fillable array with column names we wish to be able to assign to.
 	 */
-
         protected $fillable = array('contact_id',
                                     'project_id',
-                                    'role');
+                                    'role_id',
+                                    'notes');
         
         /*
          * return Response
@@ -44,6 +45,11 @@ class ProjectContact extends \Eloquent
         public function contact()
         {
             return $this->hasOne('Contact', 'id', 'contact_id');
+        }
+        
+        public function role()
+        {
+            return $this->hasOne('ProjectRoles', 'id', 'role_id');
         }
         
 }

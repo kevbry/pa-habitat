@@ -10,4 +10,5 @@ interface ProjectInspectionRepository
 {
     public function getInspectionsForProject($id);
     public function saveProjectInspection($projectInspection);
+    public function getInspectionsForProjectNonPaginated($id);
 }

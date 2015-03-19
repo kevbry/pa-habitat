@@ -13,5 +13,8 @@ class EloquentProjectInspectionRepository implements ProjectInspectionRepository
     {
         $projectInspection->save();
     }
-
+    public function getInspectionsForProjectNonPaginated($id)
+    {
+        return \ProjectInspection::whereRaw('project_id =' . $id)->orderBy('date', 'asc')->get();
+    }
 }

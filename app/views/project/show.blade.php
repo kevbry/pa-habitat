@@ -113,7 +113,36 @@ Project Details
         @endif
     </div>
 </section>
-    
+
+<section class="col-md-5"> 
+    <div class="form-group row">
+        {{ Form::label('contacts', 'Project Contacts:') }}
+        
+        <table class="table table-hover scrollable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                  @if (!empty($project))
+                    @foreach($projectContacts as $projectContact)
+
+                   <tr>
+                       <td>{{$projectContact->contact->first_name . " " . 
+                                   $projectContact->contact->last_name}}</td>
+                       <td>{{$projectContact->role->role}}</td>
+                   </tr>
+                   @endforeach
+                @endif
+            </tbody>
+        </table>
+         {{ HTML::linkRoute('projContactsView', 'View Contact Details', array($project->id), array('class' => 'btn btn-primary')) }}
+         {{ HTML::linkRoute('projContactsAdd', 'Add Contact', array($project->id), array('class' => 'btn btn-primary')) }}
+    </div> 
+</section>
+
 <section class="col-md-5"> 
     <div class="form-group row">
         {{ Form::label('items', 'Project Items:') }}
@@ -176,6 +205,7 @@ Project Details
         </table>
          {{ HTML::linkRoute('projInspectionsView', 'View Inspection Details', array($project->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('projInspectionsAdd', 'Add Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
+         {{ HTML::linkRoute('editFormForInspections', 'Edit Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
     </div>
          <div class="form-group row">
         {{ Form::label('hours', 'Project Hours:') }}
