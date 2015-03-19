@@ -3,7 +3,6 @@ use App\Repositories\ContactRepository;
 use App\Repositories\CompanyRepository;
 use App\Repositories\VolunteerRepository;
 use App\Repositories\DonorRepository;
-use App\Libraries\Validators;
 
 class ContactController extends \BaseController {
     
