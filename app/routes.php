@@ -43,7 +43,9 @@ Route::post('project/{project}/items/edit',array('as'=>'updateFormItems','uses'=
 
 //Volunteer Interest routes
 Route::get('volunteer/{volunteer}/edit',array('as'=>'editInterests','uses'=>'VolunteerInterestController@edit'));
-
+Route::post('volunteer/{volunteer}/store',array('as'=>'storeInterests','uses'=>'VolunteerInterestController@store'));
+Route::post('volunteer/{volunteer}/update',array('as'=>'updateInterests','uses'=>'VolunteerInterestController@update'));
+Route::get('volunteer/{volunteer}/create',array('as'=>'createInterests','uses'=>'VolunteerInterestController@create'));
 //Report routes
 Route::get('volunteerhours/report/{volunteer}', array('as'=>'volunteerReport', 'uses'=>'VolunteerHoursController@viewHoursReport'));
 Route::get('projecthours/report/{volunteer}', array('as'=>'projectReport', 'uses'=>'VolunteerHoursController@viewHoursReportForProject'));

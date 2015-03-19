@@ -299,6 +299,7 @@ Contact Details
             </tbody>
         </table>
         {{ HTML::linkRoute('editInterests', 'Edit Interests', array($contact->id), array('class' => 'btn btn-primary')) }}
+        {{ HTML::linkRoute('createInterests', 'Add Interests', array($contact->id), array('class' => 'btn btn-primary')) }}
     </div>
           @endif
  </section>

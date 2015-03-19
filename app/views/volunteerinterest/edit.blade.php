@@ -1,14 +1,15 @@
 @extends('master')
 
 @section('title')
-Items for Project {{$volunteer->volunteer_name}}
+Interests for {{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name }} 
 @stop
 
 @section('content')
 
-<h1>Interests for {{$volunteer->name}}</h1> 
-{{ HTML::linkRoute('editFormForInterests', 'Edit Interests', array($volunteer->id), array('class' => 'btn btn-primary')) }}
-{{ Form::open(array('route'=>'storeInterests','class'=>'form-horizontal')) }}
+<h1>Interests for {{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name }} </h1> 
+
+{{ Form::open(array('route'=>'updateInterests','class'=>'form-horizontal')) }}
+{{ Form::submit('Save Changes', array('class'=>'btn btn-primary')) }}
 <table class="table">
     <thead>
         <tr><th>Interest</th><th>Comment</th></tr>
@@ -29,7 +30,8 @@ Items for Project {{$volunteer->volunteer_name}}
                 </select>
                 </td>
                 <td>{{Form::input('comments', 'comments[]', $volInterest->comments, array('class'=>'form-control'))}}</td>
-                <td><a href="#" class="removeEdit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                <td>{{Form::hidden('volunteer_id[]',$volunteer->id)}}
+                <a href="#" class="removeEdit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
             </tr>
             @endforeach
         @endif

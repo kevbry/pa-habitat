@@ -7,7 +7,7 @@ use App\Repositories\InterestRepository;
 class VolunteerInterestController extends \BaseController {
 
     public $volunteerRepo;
-    public $volunteerID;
+    public $volunteerInterestRepo;
     public $interestRepo;
 
     public function __construct(VolunteerInterestRepository $volunteerInterestRepo, VolunteerRepository $volunteerRepo, InterestRepository $interestRepo) {
@@ -30,157 +30,134 @@ class VolunteerInterestController extends \BaseController {
 
         $volunteer = $this->volunteerRepo->getVolunteer($volunteerID);
         $volunteerInterests = $this->volunteerInterestRepo->getVolunteerInterests($volunteer->id);
-        $interests= $this ->interestRepo->getAllInterests();
+        $interests = $this->interestRepo->getAllInterests();
 
 
-        return View::make('volunteerinterest.edit', array('volunteer' => $volunteer, 'volunteerInterest' => $volunteerInterests, 'interests'=> $interests));
+        return View::make('volunteerinterest.edit', array('volunteer' => $volunteer, 'volunteerInterests' => $volunteerInterests, 'interests' => $interests));
     }
 
     public function create($volunteerID) {
-        $interestdescriptions = \Interest::$description;
+        $interests = $this->interestRepo->getAllInterests();
         $volunteer = $this->volunteerRepo->getVolunteer($volunteerID);
-        return View::make('volunterInterest.create', array('id' => $volunteerID, 'interestDescriptions' => $interestdescriptions,
+        return View::make('volunteerinterest.create', array('interests' => $interests,
                     'volunteer' => $volunteer));
     }
 
     public function store() {
-//        
-//        $projectItem = array();
-//        for ($i = 0; $i < count(Input::get('project_id')); $i++) {
-//            $projectItem['project_id'] = Input::get('project_id')[$i];
-//            $projectItem['item_type'] = Input::get('item_type')[$i];
-//            $projectItem['manufacturer'] = Input::get('manufacturer')[$i];
-//            $projectItem['model'] = Input::get('model')[$i];
-//            $projectItem['serial_number'] = Input::get('serial_number')[$i];
-//            $projectItem['vendor'] = Input::get('vendor')[$i];
-//            $projectItem['comments'] = Input::get('comments')[$i];
-//
-//            if (empty($projectItem)) {
-//                throw new Exception('No Project Item info inserted.');
-//            }
-//            $this->storeItemWith($projectItem);
-//        }
-//
-//        return Redirect::action('ProjectItemController@index', $projectItem['project_id']);
-//
-//    }
-//    
-//    public function edit($projectId) {
-//        $itemTypes = \ProjectItem::$types;
-//        $project = $this->projectRepo->getProject($projectId);
-//        $projectItems = $this->projectItemRepo->getItemsForProjectNonPaginated($projectId);
-//
-//        return View::make('projectitem.edit', array('project' => $project, 'itemTypes' => $itemTypes, 'projectItems' => $projectItems));
-//    }
-//    /*
-//     * A function to update the items for a project :D
-//     */
-//    public function update() {
-//        //Arrays that will contain the items information
-//        $projectItem = array();
-//        $infoArray = array();
-//        //For every row on the form, add that row to a array containing the rows!
-//        for ($i = 0; $i < count(Input::get('id')); $i++) {
-//            //$projectItem['project_id'] = Input::get('project_id');
-//            $projectItem['id'] = Input::get('id')[$i];
-//            $projectItem['item_type'] = Input::get('item_type')[$i];
-//            $projectItem['manufacturer'] = Input::get('manufacturer')[$i];
-//            $projectItem['model'] = Input::get('model')[$i];
-//            $projectItem['serial_number'] = Input::get('serial_number')[$i];
-//            $projectItem['vendor'] = Input::get('vendor')[$i];
-//            $projectItem['comments'] = Input::get('comments')[$i];
-//
-//            if (empty($projectItem)) {
-//                throw new Exception('No Project Item info inserted.');
-//            }
-//            //Call our helper update method with the row information
-//            $this->updateItemWith($projectItem);
-//            //Add the row to an array so it won't be deleted later
-//            $infoArray[$i] = $projectItem;
-//        }
-//        //Get the static project id, this never changes and we are making sure it won't
-//        $id = Input::get('project_id');
-//        //Get all the project items from the database, will be used to delete.
-//        $itemArray = $this->projectItemRepo->getItemsForProjectNonPaginated($id);
-//        //IF the database is not empty.
-//        if(!empty($itemArray))
-//        {
-//            //For every item in the database.
-//            foreach($itemArray as $itemEntry)
-//            {
-//                //Haven't found an item to keep yet.
-//                $bFound = false;
-//                //If the rows aren't empty on the form.
-//                if(!empty($infoArray))
-//                {
-//                    //For every row on the form.
-//                    foreach($infoArray as $formEntry)
-//                    {
-//                        //Is it the same as one in the database?
-//                        if( strval($itemEntry['id']) == $formEntry['id'] )
-//                        {
-//                            //If it is, we are keeping it.
-//                            $bFound = true;
-//                        }
-//                    }
-//                }
-//                //Row in the database doesn't exist on the form.
-//                if(!$bFound)
-//                {
-//                    //So we nuke it out of the database as well.
-//                    $affectedRows = ProjectItem::where('id','=',$itemEntry['id'])->delete();
-//                }
-//            }     
-//        }
-//        //Redirect back to index for project items
-//        return Redirect::action('ProjectItemController@index', $id);
+
+        $volunteerInterests = array();
+        for ($i = 0; $i < count(Input::get('volunteer_id')); $i++) {
+            $volunteerInterests['volunteer_id'] = Input::get('volunteer_id')[$i];
+            $volunteerInterests['interest_id'] = Input::get('interest')[$i];
+            $volunteerInterests['comments'] = Input::get('comments')[$i];
+
+
+            if (empty($volunteerInterests)) {
+                throw new Exception('No Volunteer Interest info inserted.');
+            }
+            $this->storeInterestWith($volunteerInterests);
+        }
+
+        return Redirect::action('ContactController@show', $volunteerInterests['volunteer_id']);
     }
 
     /*
-     * Helper method to update item row in the database
+     * A function to update the interests for a volunteer 
      */
 
-    public function updateItemWith($projectItem) {
+    public function update() {
+        //Arrays that will contain the interests information
+        $volunteerInterests = array();
+        $infoArray = array();
+        //For every row on the form, add that row to a array containing the rows!
+        for ($i = 0; $i < count(Input::get('id')); $i++) {
+            //$volunteerItem['volunteer_id'] = Input::get('volunteer_id');
+            $volunteerInterests['volunteer_id'] = Input::get('volunteer_id')[$i];
+            $volunteerInterests['interest_id'] = Input::get('interest')[$i];
+            $volunteerInterests['comments'] = Input::get('comments')[$i];
+
+            if (empty($volunteerInterests)) {
+                throw new Exception('No Volunteer Interest info inserted.');
+            }
+            //Call our helper update method with the row information
+            $this->updateInterestWith($volunteerInterests);
+            //Add the row to an array so it won't be deleted later
+            $infoArray[$i] = $volunteerInterests;
+        }
+        //Get the static volunteer id, this never changes and we are making sure it won't
+        $id = Input::get('volunteer_id');
+        //Get all the volunteer interests from the database, will be used to delete.
+        $interestArray = $this->volunteerInterestRepo->getVolunteerInterestsNonPaginated($id);
+        //IF the database is not empty.
+        if (!empty($interestArray)) {
+            //For every interest in the database.
+            foreach ($interestArray as $interestEntry) {
+                //Haven't found an interest to keep yet.
+                $bFound = false;
+                //If the rows aren't empty on the form.
+                if (!empty($infoArray)) {
+                    //For every row on the form.
+                    foreach ($infoArray as $formEntry) {
+                        //Is it the same as one in the database?
+                        if (strval($interestEntry['volunteer_id']) == $formEntry['volunteer_id']) {
+                            //If it is, we are keeping it.
+                            $bFound = true;
+                        }
+                    }
+                }
+                //Row in the database doesn't exist on the form.
+                if (!$bFound) {
+                    //So we nuke it out of the database as well.
+                    $affectedRows = VolunteerInterest::where('volunteer_id','=', $interestEntry['volunteer_id'] )
+                              ->where('interest_id','=',$volunteerInterests['interest_id'])->delete();
+                }
+            }
+        }
+        //Redirect back to index for volunteer interests
+        return Redirect::action('ContactController@show', $id);
+    }
+
+    /*
+     * Helper method to update interest row in the database
+     */
+
+    public function updateInterestWith($volunteerInterests) {
         $counter = 0;
         //Generic array of database field names.
         $fieldNames = array(
-            //'project_id',
-            'id',
-            'item_type',
-            'manufacturer',
-            'model',
-            'serial_number',
-            'vendor',
-            'comments'
+            'volunteer_id',
+            'interest_id',
+            'comments',
         );
+        
         //Array to have the keys/values to update the row.
         $fieldUpdateValues = array();
         //For every value passed from the form entry.
-        foreach ($projectItem as $fieldValue) {
-            //Don't update the first one, it's an id to be used lower as a primary key.
-            if ($counter != 0) {
-                //Add the key ($fieldNames[$counter]) and the value ($fieldValue)
-                //To an array ($fieldUpdateValues) to be updated lower.
-                $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
-            }
+        foreach ($volunteerInterests as $fieldValue) {
+            //Add the key ($fieldNames[$counter]) and the value ($fieldValue)
+            //To an array ($fieldUpdateValues) to be updated lower.
+            $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
+
             $counter++;
         }
         //Update the field/values in $fieldUpdateValues!!!
-        $affectedRows = ProjectItem::where('id', '=', $projectItem['id'])->update($fieldUpdateValues);
+       $affectedRows = VolunteerInterest::where('volunteer_id','=', $volunteerInterests['volunteer_id'])
+               ->where('interest_id','=',$volunteerInterests['interest_id'])->update($fieldUpdateValues);
     }
 
     /*
-     * A function to store an item.
+     * A function to store an interest.
      */
 
-    public function storeItemWith($projectItem) {
+    public function storeInterestWith($volunteerInterest) {
 
-        $item = new ProjectItem($projectItem);
+        $interest = new VolunteerInterest($volunteerInterest);
 
-        // Store item
-        $this->projectItemRepo->saveProjectItem($item);
 
-        return $item->id;
+        // Store interest
+        $this->volunteerInterestRepo->saveVolunteerInterest($interest);
+
+        return $interest->interest_id;
     }
 
 }
