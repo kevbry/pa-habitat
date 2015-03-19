@@ -17,7 +17,7 @@ ClassLoader::addDirectories(array(
 	app_path().'/controllers',
 	app_path().'/models',
 	app_path().'/database/seeds',
-
+        app_path().'/libraries/validators',
 ));
 
 /*
@@ -91,16 +91,5 @@ require app_path().'/filters.php';
  */
 Validator::resolver(function($translator, $data, $rules, $messages)
 {
-    return new PhoneValidatorRule($translator, $data, $rules, $messages);
+    return new CoreValidator($translator, $data, $rules, $messages);
 });
-Validator::resolver(function($translator, $data, $rules, $messages)
-{
-    return new CellPhoneValidatorRule($translator, $data, $rules, $messages);
-});
-Validator::resolver(function($translator, $data, $rules, $messages)
-{
-    return new WorkPhoneValidatorRule($translator, $data, $rules, $messages);
-});
-Validator::extend('phone', 'PhoneValidatorRule@validatePhone');
-Validator::extend('cellPhone', 'CellPhoneValidatorRule@validateCellPhone');
-Validator::extend('workPhone', 'WorkPhoneValidatorRule@validateWorkPhone');
