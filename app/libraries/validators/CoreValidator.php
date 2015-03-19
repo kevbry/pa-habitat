@@ -19,17 +19,17 @@ class CoreValidator extends Illuminate\Validation\Validator {
     //Validator Regex for home phone, ###-###-####
     public function validatePhone($attribute, $value, $parameters)
     {
-        return preg_match("^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$^", $value);
+        return preg_match("^([0-9]{0,3})[-. ]?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})\$^", $value);
     }
     //Validator Regex for work phone, ###-###-####
     public function validateWorkPhone($attribute, $value, $parameters)
     {
-        return preg_match("^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$^", $value);
+        return preg_match("^([0-9]{0,3})[-. ]?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})\$^", $value);
     }
     //Validator Regex for cell phone, ###-###-####
     public function validateCellPhone($attribute, $value, $parameters)
     {
-        return preg_match("^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$^", $value);
+        return preg_match("^([0-9]{0,3})[-. ]?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})\$^", $value);
     }
     //Validator Regex for postal codes LNL NLN or LNLNLN
     public function validatePostalCode($attribute, $value, $parameters)
