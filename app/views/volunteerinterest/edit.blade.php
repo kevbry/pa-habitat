@@ -18,7 +18,8 @@ Interests for {{$volunteer->contact->first_name . ' ' . $volunteer->contact->las
        @if (!empty($volunteerInterests)) 
             @foreach($volunteerInterests as $volInterest)
             <tr class="formrow">
-                {{Form::hidden('id[]', $volInterest->interest_id)}}
+
+                 {{Form::hidden('fieldID[]', $volInterest->id)}}            
                 <td><select name="interest[]" class="form-control">
                         @foreach($interests as $interest)
                             @if ($interest->id === $volInterest->interest_id)

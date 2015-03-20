@@ -70,8 +70,9 @@ class VolunteerInterestController extends \BaseController {
         $volunteerInterests = array();
         $infoArray = array();
         //For every row on the form, add that row to a array containing the rows!
-        for ($i = 0; $i < count(Input::get('id')); $i++) {
+        for ($i = 0; $i < count(Input::get('fieldID')); $i++) {
             //$volunteerItem['volunteer_id'] = Input::get('volunteer_id');
+            $volunteerInterests['id'] = Input::get('fieldID')[$i];
             $volunteerInterests['volunteer_id'] = Input::get('volunteer_id')[$i];
             $volunteerInterests['interest_id'] = Input::get('interest')[$i];
             $volunteerInterests['comments'] = Input::get('comments')[$i];
@@ -108,8 +109,7 @@ class VolunteerInterestController extends \BaseController {
                 //Row in the database doesn't exist on the form.
                 if (!$bFound) {
                     //So we nuke it out of the database as well.
-                    $affectedRows = VolunteerInterest::where('volunteer_id','=', $interestEntry['volunteer_id'] )
-                              ->where('interest_id','=',$volunteerInterests['interest_id'])->delete();
+                    $affectedRows = \VolunteerInterest::where('id', '=', $volunteerInterests['id'])->delete();
                 }
             }
         }
@@ -129,20 +129,19 @@ class VolunteerInterestController extends \BaseController {
             'interest_id',
             'comments',
         );
-        
+
         //Array to have the keys/values to update the row.
         $fieldUpdateValues = array();
         //For every value passed from the form entry.
         foreach ($volunteerInterests as $fieldValue) {
             //Add the key ($fieldNames[$counter]) and the value ($fieldValue)
             //To an array ($fieldUpdateValues) to be updated lower.
-            $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
-
-            $counter++;
+            if ($counter > 0) {
+                $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
+            }
         }
         //Update the field/values in $fieldUpdateValues!!!
-       $affectedRows = VolunteerInterest::where('volunteer_id','=', $volunteerInterests['volunteer_id'])
-               ->where('interest_id','=',$volunteerInterests['interest_id'])->update($fieldUpdateValues);
+        $affectedRows = VolunteerInterest::where('id', '=', $volunteerInterests['fieldID'])->update($fieldUpdateValues);
     }
 
     /*
