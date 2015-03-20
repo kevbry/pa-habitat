@@ -81,14 +81,18 @@ class ContactController extends \BaseController {
                                         'postal_code', 
                                         'country', 
                                         'comments');
+            //Create a validator, based on the contact validator I created.
             $v = new App\Libraries\Validators\ContactValidator($contactInfo);
+            //If the validator passes with the input provided, based on the rules in the validator class.
             if($v->passes())
             {
+                //Store the contact and redirect to their show
                 $id = $this->storeContactWith($contactInfo);
                 return Redirect::action('ContactController@show', $id);
             }
             else
             {
+                //otherwise return back to the contact, with the same inputs, and the error messages.
                 return Redirect::action('ContactController@create')->withInput()
                         ->withErrors($v->getErrors());
             }
@@ -281,8 +285,9 @@ class ContactController extends \BaseController {
             }
             
             //updating the record in the contact table for the contact with the id passed in
-            
+            //Create validator
             $v = new App\Libraries\Validators\ContactValidator($contactInfo);
+            //If the validator passes, redirect to the show, otherwise redirect back to edit with inputs and errors
             if($v->passes())
             {
                 $affectedRows = Contact::where('id','=',$id)->update($fieldUpdateValues);

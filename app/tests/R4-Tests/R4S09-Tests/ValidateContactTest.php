@@ -2,11 +2,13 @@
  
 class ValidateContactTest extends TestCase {
     
-    protected $contactInfo;
-    
-   public function testValidatorPasses()
-    {
-        $contactInfo = array(
+   protected $goodContactInfo;
+
+   public function setUp()
+   {
+       parent::setUp();
+       
+       $this->goodContactInfo = array(
             'first_name' => 'John',
             'last_name' => 'Doe',
             'company' => 'Company',
@@ -20,50 +22,100 @@ class ValidateContactTest extends TestCase {
             'postal_code' => 's0k 0z0',
             'country' => 'canada',
             'comments' => '');
-        
-        $contactValidator = new App\Libraries\Validators\ContactValidator($contactInfo);
+   }
+   public function testValidatorPassesAll()
+    {
+        $contactValidator = new App\Libraries\Validators\ContactValidator($this->goodContactInfo);
 
         $this->assertTrue($contactValidator->passes());
     }
-    public function testValidatorFailsNoInput()
+    
+    public function testValidatePhonePass()
     {
-        $contactInfo = array(
-            'first_name' => '',
-            'last_name' => '',
-            'company' => '',
-            'email_address' => '',
-            'home_phone' => '',
-            'cell_phone' => '',
-            'work_phone' => '',
-            'street_address' => '',
-            'city' => '',
-            'province' => '',
-            'postal_code' => '',
-            'country' => '',
-            'comments' => '');
-        
-        $contactValidator = new App\Libraries\Validators\ContactValidator($contactInfo);
+        $this->goodContactInfo["home_phone"] = "306-999-9999";
+        $contactValidator = new App\Libraries\Validators\ContactValidator($this->goodContactInfo);
+
+        $this->assertTrue($contactValidator->passes());
+    }
+    public function testValidatePhoneFail()
+    {
+        $this->goodContactInfo["home_phone"] = "GHOUL";
+        $contactValidator = new App\Libraries\Validators\ContactValidator($this->goodContactInfo);
 
         $this->assertFalse($contactValidator->passes());
     }
-    public function testValidatorFailsBadInput()
+    
+    public function testValidateWorkPhonePass()
     {
-        $contactInfo = array(
-            'first_name' => '45',
-            'last_name' => '76',
-            'company' => '?l',
-            'email_address' => '$$$@awesome.co$',
-            'home_phone' => '$$$',
-            'cell_phone' => '',
-            'work_phone' => '',
-            'street_address' => '$$$$',
-            'city' => '$$$$',
-            'province' => '$$$',
-            'postal_code' => '@#',
-            'country' => '%$%^',
-            'comments' => '');
-        
-        $contactValidator = new App\Libraries\Validators\ContactValidator($contactInfo);
+        $this->goodContactInfo["work_phone"] = "306-999-9999";
+        $contactValidator = new App\Libraries\Validators\ContactValidator($this->goodContactInfo);
+
+        $this->assertTrue($contactValidator->passes());
+    }
+    public function testValidateWorkPhoneFail()
+    {
+        $this->goodContactInfo["work_phone"] = "GHOST";
+        $contactValidator = new App\Libraries\Validators\ContactValidator($this->goodContactInfo);
+
+        $this->assertFalse($contactValidator->passes());
+    }
+    
+    public function testValidateCellPhonePass()
+    {
+        $this->goodContactInfo["cell_phone"] = "306-999-9999";
+        $contactValidator = new App\Libraries\Validators\ContactValidator($this->goodContactInfo);
+
+        $this->assertTrue($contactValidator->passes());
+    }
+    public function testValidateCellPhoneFail()
+    {
+        $this->goodContactInfo["cell_phone"] = "GHASTLY";
+        $contactValidator = new App\Libraries\Validators\ContactValidator($this->goodContactInfo);
+
+        $this->assertFalse($contactValidator->passes());
+    }
+    
+    public function testValidatePostalCodePass()
+    {
+        $this->goodContactInfo["postal_code"] = "s0k 0z0";
+        $contactValidator = new App\Libraries\Validators\ContactValidator($this->goodContactInfo);
+
+        $this->assertTrue($contactValidator->passes());
+    }
+    public function testValidatePostalCodeFail()
+    {
+        $this->goodContactInfo["postal_code"] = "GRIMEE";
+        $contactValidator = new App\Libraries\Validators\ContactValidator($this->goodContactInfo);
+
+        $this->assertFalse($contactValidator->passes());
+    }
+    
+    public function testValidateAlphaSpacePass()
+    {
+        $this->goodContactInfo["province"] = "New Brunswick";
+        $contactValidator = new App\Libraries\Validators\ContactValidator($this->goodContactInfo);
+
+        $this->assertTrue($contactValidator->passes());
+    }
+    public function testValidateAlphaSpaceFail()
+    {
+        $this->goodContactInfo["province"] = "%@.com";
+        $contactValidator = new App\Libraries\Validators\ContactValidator($this->goodContactInfo);
+
+        $this->assertFalse($contactValidator->passes());
+    }
+    
+    public function testValidateAddressPass()
+    {
+        $this->goodContactInfo["street_address"] = "123 Main Street, East";
+        $contactValidator = new App\Libraries\Validators\ContactValidator($this->goodContactInfo);
+
+        $this->assertTrue($contactValidator->passes());
+    }
+    public function testValidateAddressFail()
+    {
+        $this->goodContactInfo["street_address"] = "HAPPY BIRTHDAY!";
+        $contactValidator = new App\Libraries\Validators\ContactValidator($this->goodContactInfo);
 
         $this->assertFalse($contactValidator->passes());
     }
