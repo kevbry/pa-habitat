@@ -21,6 +21,7 @@ class ContactValidator extends Validator {
         'postal_code' => 'required|postalcode',
         'country' => 'required|alpha',
         'comments' => '',
+        'last_attended_safety_meeting_date' => 'safetymeetingdate'
     );
 
 }

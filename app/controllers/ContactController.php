@@ -83,17 +83,17 @@ class ContactController extends \BaseController {
                                         'country', 
                                         'comments');
             $v = new App\Libraries\Validators\ContactValidator($contactInfo);
-            if($v->passes())
-            {
-                $id = $this->storeContactWith($contactInfo);
-                return Redirect::route('contact.index')->with('flash',
-                        'New contact ' . $contactInfo['first_name'] . ' was created');
-            }
-            else
-            {
-                return Redirect::route('contact.create')->withInput()
-                        ->withErrors($v->getErrors());
-            }
+//            if($v->passes())
+//            {
+//                $id = $this->storeContactWith($contactInfo);
+//                return Redirect::route('contact.index')->with('flash',
+//                        'New contact ' . $contactInfo['first_name'] . ' was created');
+//            }
+//            else
+//            {
+//                return Redirect::route('contact.create')->withInput()
+//                        ->withErrors($v->getErrors());
+//            }
             // Store the contact
 
             
@@ -120,6 +120,8 @@ class ContactController extends \BaseController {
                 
                 // Store Volunteer
                 $this->storeVolunteerWith($volunteerInfo);
+                
+
             }
             
             // Add the contact as a company if specified
@@ -132,13 +134,26 @@ class ContactController extends \BaseController {
                 $companyInfo = $companyName;
                 
                 // Assign the contact's id
-                $companyInfo['contact_id'] = $id;
+                //$companyInfo['contact_id'] = $id;
+                $contactInfo['contact_id'] = $id;
                 
                 // Store Company
                 $this->storeCompanyWith($companyInfo);
 
            }
-           
+            
+           $v = new App\Libraries\Validators\ContactValidator($contactInfo);
+           if($v->passes())
+           {
+               $id = $this->storeContactWith($contactInfo);
+               return Redirect::route('contact.index')->with('flash',
+                       'New contact ' . $contactInfo['first_name'] . ' was created');
+           }
+           else
+           {
+               return Redirect::route('contact.create')->withInput()
+                       ->withErrors($v->getErrors());
+           }
             //assign a redirect variable
             $redirectVariable = Redirect::action('ContactController@show', $id);
             // Redirect to view the newly created contact

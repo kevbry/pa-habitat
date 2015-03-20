@@ -23,7 +23,8 @@ $errorList = array(
     'province' => '',
     'postal code' => '',
     'country' => '',
-    'comments' => ''
+    'comments' => '',
+    'safety meeting date' => ''
 );
     //If there are errors
 if($errors->any())
@@ -51,6 +52,7 @@ if($errors->any())
                 //Add it to the array under the key, so we can use it later.
                 $errorList[key($errorList)] = $error;
             }
+            var_dump($errorList);
             //Move the key pointer.
             next($errorList);
         }
@@ -247,6 +249,12 @@ if($errors->any())
             <div class="col-sm-6">
             {{Form::input('date', 'last_attended_safety_meeting_date',null,array('class'=>'form-control'))}}
             </div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-7">
+            @if(!empty($errorList['safety meeting date']))
+                <div class="inputError">{{$errorList['safety meeting date']}}</div>
+            @endif
+        </div>
         </div>
 
     <div class="form-group">

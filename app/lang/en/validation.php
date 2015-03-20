@@ -74,6 +74,7 @@ return array(
         "cellphone"            => "The :attribute should be in the format ###-###-####",
         "workphone"            => "The :attribute should be in the format ###-###-####",
         "postalcode"           => "The :attribute should be in the format LNL NLN",
+        "safetymeetingdate"    => "The :attribute should be not be a future date",
 
 	/*
 	|--------------------------------------------------------------------------

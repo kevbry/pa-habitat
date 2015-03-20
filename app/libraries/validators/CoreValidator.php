@@ -36,4 +36,18 @@ class CoreValidator extends Illuminate\Validation\Validator {
     {
         return preg_match("^[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]$^", $value);
     }
+    
+    public function validateSafetyMeetingDate($attribute, $value, $parameters) 
+    {
+        $return_value = FALSE;
+        
+        $dt = new DateTime('Y-m-d');
+        //$dt->format('YYYY-mm-dd');
+        //$dt->ToString();
+        if(strtotime($value) <= strtotime($dt))
+        {
+            $return_value = TRUE;
+        }
+        return $return_value;
+    }
 }
