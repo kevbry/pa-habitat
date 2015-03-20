@@ -22,6 +22,8 @@ Route::get('volunteerhours/add/project/{project}',array('as'=>'projHoursAdd', 'u
 Route::get('volunteerhours/add/volunteer/{volunteer}',array('as'=>'volHoursAdd', 'uses'=>'VolunteerHoursController@createForContact'));
 Route::get('volunteerhours/volunteerEdit/{volunteer}',array('as'=>'volHoursEditRoute', 'uses'=>'VolunteerHoursController@indexForEditContact'));
 Route::post('volunteerhours/volunteerEdit/',array('as'=>'updatehours','uses'=>'VolunteerHoursController@updatehours'));
+Route::get('volunteerhours/edit/project/{project}',array('as'=>'projHoursEdit', 'uses'=>'VolunteerHoursController@indexForEditProject'));
+Route::post('volunteerhours/edit/project/',array('as'=>'updateProjectHours','uses'=>'VolunteerHoursController@updateProjectHours'));
 
 //Project Inspection routes
 Route::get('project/{project}/inspections', array('as'=>'projInspectionsView', 'uses'=>'ProjectInspectionController@index'));
@@ -30,8 +32,10 @@ Route::post('project/{project}/inspections/create', array('as'=>'storeInspection
 Route::get('project/{project}/inspections/edit',array('as'=>'editFormForInspections','uses'=>'ProjectInspectionController@edit'));
 Route::post('project/{project}/inspections/edit',array('as'=>'updateFormInspections','uses'=>'ProjectInspectionController@update'));
 
-Route::get('volunteerhours/edit/project/{project}',array('as'=>'projHoursEdit', 'uses'=>'VolunteerHoursController@indexForEditProject'));
-Route::post('volunteerhours/edit/project/',array('as'=>'updateProjectHours','uses'=>'VolunteerHoursController@updateProjectHours'));
+//Project Contact routes
+Route::get('project/{project}/contacts', array('as'=>'projContactsView', 'uses'=>'ProjectContactController@index'));
+Route::get('project/{project}/contacts/create', array('as'=>'projContactsAdd', 'uses'=>'ProjectContactController@create'));
+Route::post('project/{project}/contacts/create', array('as'=>'projStoreContacts', 'uses'=>'ProjectContactController@store'));
 
 //Project Item routes
 Route::get('project/{project}/items',array('as'=>'viewItems','uses'=>'ProjectItemController@index'));
@@ -52,4 +56,19 @@ Route::get('search/searchProjects', 'SearchAPIController@searchProjects');
 Route::get('search/searchCompanies', 'SearchAPIController@searchCompanies');
 Route::get('search/searchFamilies', 'SearchAPIController@searchFamilies');
 
+// User routes
+Route::resource('user', 'UserController', ['except' => ['destroy']]);
 
+//Session routes
+Route::get('login', array(
+  'uses' => 'SessionController@create',
+  'as' => 'session.create'
+));
+Route::post('login', array(
+  'uses' => 'SessionController@store',
+  'as' => 'session.store'
+));
+Route::get('logout', array(
+  'uses' => 'SessionController@destroy',
+  'as' => 'session.destroy'
+));

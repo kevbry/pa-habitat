@@ -14,6 +14,11 @@ class EloquentContactRepository implements ContactRepository
         return \Contact::orderBy('first_name','asc')->paginate(20);        
     }
     
+    public function getAllContactsNonPaginated()
+    {
+        return \Contact::orderBy('first_name','asc')->get();        
+    }
+    
     public function getAllContactsForSeed()
     {
         return \Contact::lists('id');      

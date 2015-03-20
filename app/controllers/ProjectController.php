@@ -7,6 +7,7 @@ use App\Repositories\ProjectItemRepository;
 use App\Repositories\VolunteerHoursRepository;
 use App\Repositories\VolunteerRepository;
 use App\Repositories\FamilyRepository;
+use App\Repositories\ProjectRolesRepository;
 
 class ProjectController extends \BaseController {
 
@@ -17,8 +18,16 @@ class ProjectController extends \BaseController {
     public $volunteerHrsRepo;
     public $volunteerRepo;
     public $familyRepo;
+    public $roleRepo;
 
-    public function __construct(ProjectRepository $projectRepo, ProjectContactRepository $projectContactRepo, ProjectInspectionRepository $projectInspectionRepo, ProjectItemRepository $projectItemRepo, VolunteerHoursRepository $volunteerHrsRepo, VolunteerRepository $volunteerRepo, FamilyRepository $familyRepo) {
+    public function __construct(ProjectRepository $projectRepo, 
+            ProjectContactRepository $projectContactRepo, 
+            ProjectInspectionRepository $projectInspectionRepo, 
+            ProjectItemRepository $projectItemRepo, 
+            VolunteerHoursRepository $volunteerHrsRepo, 
+            VolunteerRepository $volunteerRepo, FamilyRepository $familyRepo,
+            ProjectRolesRepository $roleRepo) 
+    {
         $this->projectRepo = $projectRepo;
         $this->projectContactRepo = $projectContactRepo;
         $this->projectInspectionRepo = $projectInspectionRepo;
@@ -26,6 +35,7 @@ class ProjectController extends \BaseController {
         $this->volunteerHrsRepo = $volunteerHrsRepo;
         $this->volunteerRepo = $volunteerRepo;
         $this->familyRepo = $familyRepo;
+        $this->roleRepo = $roleRepo;
     }
 
     /**
@@ -104,23 +114,28 @@ class ProjectController extends \BaseController {
     public function show($id) {
         $project = $this->projectRepo->getProject($id);
         $projectInspections = $this->projectInspectionRepo->getInspectionsForProject($id);
+        $projectContacts = $this->projectContactRepo->getContactsForProject($id);
         $projectItems = $this->projectItemRepo->getItemsForProject($id);
         $volunteerHours = $this->volunteerHrsRepo->getHoursForProject($id);
         $volunteers = $this->volunteerRepo->getAllVolunteersNonPaginated();
         $family = $this->familyRepo->getFamily($project->family_id);
+        $roles = $this->roleRepo->getAllRoles();
 
-        if (($projectContact = $this->projectContactRepo->getProjectContact($id)) != null) {
-            return View::make('project.show', array('project' => $project,
-                                'projectInspections' => $projectInspections,
-                                'projectItems' => $projectItems, 'volunteerhours' => $volunteerHours,
-                                'volunteers' => $volunteers, 'family' => $family))
-                            ->withProjectContact($projectContact);
-        } else {
-            return View::make('project.show', array('project' => $project,
+//        if (($projectContact = $this->projectContactRepo->getProjectContact($id)) != null) {
+//            return View::make('project.show', array('project' => $project,
+//                                'projectInspections' => $projectInspections,
+//                                'projectItems' => $projectItems, 'volunteerhours' => $volunteerHours,
+//                                'volunteers' => $volunteers, 'family' => $family))
+//                            ->withProjectContact($projectContact);
+//        } else {
+        return View::make('project.show', array('project' => $project,
                         'projectInspections' => $projectInspections,
-                        'projectItems' => $projectItems, 'volunteerhours' => $volunteerHours,
-                        'volunteers' => $volunteers, 'family' => $family));
-        }
+                        'projectItems' => $projectItems, 
+                        'volunteerhours' => $volunteerHours,
+                        'volunteers' => $volunteers, 'family' => $family,
+                        'projectContacts' => $projectContacts,
+                        'roles' => $roles));
+//        }
     }
 
     /**
@@ -254,10 +269,11 @@ class ProjectController extends \BaseController {
      * 
      * @param type $data
      */
-    public function createProjectContactWith($data) {
-        $projectContact = new ProjectContact($data);
-
-        $this->projectContactRepo->saveProjectContact($projectContact);
-    }
+//    public function createProjectContactWith($data) {
+//        $projectContact = new ProjectContact($data);
+//
+//        $this->projectContactRepo->saveProjectContact($projectContact);
+//        
+//    }
 
 }
