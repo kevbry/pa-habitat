@@ -12,7 +12,10 @@ class ContactController extends \BaseController {
         public $donorRepo;
         public $volunteerRepo;
         
-        public function __construct(ContactRepository $contactRepo, VolunteerRepository $volunteerRepo, CompanyRepository $companyRepo, DonorRepository $donorRepo)
+        public function __construct(ContactRepository $contactRepo, 
+                VolunteerRepository $volunteerRepo, 
+                CompanyRepository $companyRepo, 
+                DonorRepository $donorRepo)
         {
             $this->companyRepo = $companyRepo;
             $this->contactRepo = $contactRepo;
@@ -69,8 +72,12 @@ class ContactController extends \BaseController {
             // Check if the contact being created is a company
             $companyStatus = Input::has('company_name');
             
-            // Store values from the contact form
-            $contactInfo = Input::only('first_name', 
+            $contactInfo;
+            
+            if($volunteerStatus)
+            {
+                //declare the array with the safety meeting field
+                $contactInfo = Input::only('first_name', 
                                         'last_name', 
                                         'email_address',
                                         'home_phone', 
@@ -81,20 +88,37 @@ class ContactController extends \BaseController {
                                         'province', 
                                         'postal_code', 
                                         'country', 
-                                        'comments');
+                                        'comments',
+                                        'last_attended_safety_meeting_date');
+            }
+            else
+            {                
+                // Store values from the contact form, without the safety meeting field
+                $contactInfo = Input::only('first_name', 
+                                            'last_name', 
+                                            'email_address',
+                                            'home_phone', 
+                                            'cell_phone', 
+                                            'work_phone', 
+                                            'street_address', 
+                                            'city', 
+                                            'province', 
+                                            'postal_code', 
+                                            'country', 
+                                            'comments');
+            }
             $v = new App\Libraries\Validators\ContactValidator($contactInfo);
-//            if($v->passes())
-//            {
-//                $id = $this->storeContactWith($contactInfo);
-//                return Redirect::route('contact.index')->with('flash',
-//                        'New contact ' . $contactInfo['first_name'] . ' was created');
-//            }
-//            else
-//            {
-//                return Redirect::route('contact.create')->withInput()
-//                        ->withErrors($v->getErrors());
-//            }
-            // Store the contact
+            if($v->passes())
+            {
+                $id = $this->storeContactWith($contactInfo);
+                return Redirect::route('contact.index')->with('flash',
+                        'New contact ' . $contactInfo['first_name'] . ' was created');
+            }
+            else
+            {
+                return Redirect::route('contact.create')->withInput()
+                        ->withErrors($v->getErrors());
+            }
 
             
             // Add the contact as a donor if specified
@@ -140,20 +164,8 @@ class ContactController extends \BaseController {
                 // Store Company
                 $this->storeCompanyWith($companyInfo);
 
-           }
-            
-           $v = new App\Libraries\Validators\ContactValidator($contactInfo);
-           if($v->passes())
-           {
-               $id = $this->storeContactWith($contactInfo);
-               return Redirect::route('contact.index')->with('flash',
-                       'New contact ' . $contactInfo['first_name'] . ' was created');
-           }
-           else
-           {
-               return Redirect::route('contact.create')->withInput()
-                       ->withErrors($v->getErrors());
-           }
+           }            
+
             //assign a redirect variable
             $redirectVariable = Redirect::action('ContactController@show', $id);
             // Redirect to view the newly created contact

@@ -37,14 +37,29 @@ class CoreValidator extends Illuminate\Validation\Validator {
         return preg_match("^[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]$^", $value);
     }
     
+    /**
+     * Validator to ensure the inputted date is not in the future
+     * 
+     * @param string $attribute
+     * @param date $value
+     * @param string $parameters
+     * @return boolean
+     */
     public function validateSafetyMeetingDate($attribute, $value, $parameters) 
     {
+        //Set the return value
         $return_value = FALSE;
         
-        $dt = new DateTime('Y-m-d');
-        //$dt->format('YYYY-mm-dd');
-        //$dt->ToString();
-        if(strtotime($value) <= strtotime($dt))
+        //create today's date
+        $todaysDate = new DateTime();
+        $todaysDate->format('Y-m-d');
+      
+        //The inputted date
+        $inputDate = new DateTime($value);
+        $inputDate->format('Y-m-d');
+        
+        //If todaysDate is greather than or equal to the inputDate, the date is valid
+        if( $todaysDate >= $inputDate )
         {
             $return_value = TRUE;
         }
