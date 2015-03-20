@@ -28,7 +28,7 @@ class SessionController extends BaseController {
   public function destroy()
   {
     Auth::logout();
- 
+    Session::clear();
     return View::make('session.destroy');
   }
  

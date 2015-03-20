@@ -88,26 +88,65 @@ Route::filter('csrf', function()
 	}
 });
 
-
-
-
 // Admin filter
-Route::filter('admin', function()
+Route::filter('administrator', function()
 {
     // check for admin access level
-    if (Auth::check() && Session::get('access_level') === 'administrator')
+    if (Session::get('access_level') === 'administrator')
     {
-        return Redirect::intended();
-    }
-    else if (Auth::check())
-    {
-        return "can't do that.";
+        return;
     }
     else
     {
-        return Redirect::to('login');
+        return 'not proper permissions yo';
     }
-    
 });
 
-Route::when('user/*', 'admin');
+// Project Manager filter
+Route::filter('projectmanager', function()
+{
+    // check for admin access level
+    if (Session::get('access_level') === 'administrator' 
+            || Session::get('access_level') === 'project_manager')
+    {
+        return;
+    }
+    else
+    {
+        return 'not proper permissions yo';
+    }
+});
+
+//Contact Manager filter
+Route::filter('contactmanager', function()
+{
+    // check for admin access level
+    if (Session::get('access_level') === 'administrator' 
+            || Session::get('access_level') === 'project_manager'
+            || Session::get('access_level') === 'contact_manager')
+    {
+        return;
+    }
+    else
+    {
+        return 'not proper permissions yo';
+
+    }
+});
+
+//Basic User filter
+Route::filter('basicuser', function()
+{
+    // check for admin access level
+    if (Session::get('access_level') === 'administrator' 
+            || Session::get('access_level') === 'project_manager'
+            || Session::get('access_level') === 'contact_manager'
+            || Session::get('access_level') === 'basic_user')
+    {
+        return;
+    }
+    else
+    {
+        return 'not proper permissions yo';
+    }
+});

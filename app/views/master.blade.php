@@ -45,6 +45,13 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
     </head>
     <body>
     <header class="container">
+        <div class="col-md-12 pull-right text-right">
+            @if (!Auth::check())
+            {{ HTML::linkAction('SessionController@create','Login') }}
+            @else
+            {{ HTML::linkAction('SessionController@destroy','Logout') }}
+            @endif
+        </div>
         {{ HTML::image('assets/img/logo.png') }}
         <nav class="navbar navbar-default" role="navigation">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -81,7 +88,7 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
                                 <li>{{ HTML::linkAction('FamilyController@create','Add a Family') }}</li>
                             </ul>
                         </li>
-                        <?php if (Auth::check() && Session::get('access_level') === 'administrator')
+                        <?php if (Auth::check() && (Session::get('access_level') === 'administrator' || Session::get('access_level') === 'project_manager'))
                         {?>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users<span class="caret"></span></a>

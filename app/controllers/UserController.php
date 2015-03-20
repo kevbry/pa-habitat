@@ -2,10 +2,6 @@
 
 class UserController extends \BaseController
 {
-    public function __construct()
-    {
-        $this->beforeFilter('admin');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -14,16 +10,6 @@ class UserController extends \BaseController
     public function index()
     {
         // Retrieve  Users from the database
-
-//        $sortby = Input::get('sortby');
-//        $order = Input::get('order');
-//
-//        if ($sortby && $order) {
-//
-//           $contactList = $this->contactRepo->orderBy($sortby, $order);
-//        } else {
-//            $contactList = $this->contactRepo->getAllContacts();
-//        }
 
         $userList = User::all();
         
@@ -39,6 +25,7 @@ class UserController extends \BaseController
      */    
     public function create()
     {
+        //$this->beforeFilter('auth|admin');
         return View::make('user.create');
     }
     
