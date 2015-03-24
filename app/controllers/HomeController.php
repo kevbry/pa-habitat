@@ -19,5 +19,9 @@ class HomeController extends BaseController {
         {
             return View::make('hello');
         }
-
+        
+        public function unauthorized()
+        {
+            return View::make('unauthorized');
+        }
 }

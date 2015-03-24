@@ -98,7 +98,7 @@ Route::filter('administrator', function()
     }
     else
     {
-        return 'not proper permissions yo';
+        return Redirect::to('unauthorized');
     }
 });
 
@@ -113,7 +113,7 @@ Route::filter('projectmanager', function()
     }
     else
     {
-        return 'not proper permissions yo';
+        return Redirect::to('unauthorized');
     }
 });
 
@@ -129,7 +129,7 @@ Route::filter('contactmanager', function()
     }
     else
     {
-        return 'not proper permissions yo';
+        return Redirect::to('unauthorized');
 
     }
 });
@@ -147,6 +147,6 @@ Route::filter('basicuser', function()
     }
     else
     {
-        return 'not proper permissions yo';
+        return Redirect::to('unauthorized');
     }
 });

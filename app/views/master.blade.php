@@ -63,6 +63,7 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
+                        @if (Auth::check() && (Session::get('access_level') !== 'inactive'))
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Contacts<span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -81,6 +82,7 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
                                 <li>{{ HTML::linkAction('ProjectController@create','Add a Project') }}</li>
                             </ul>
                         </li>
+                        
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Families<span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -88,8 +90,8 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
                                 <li>{{ HTML::linkAction('FamilyController@create','Add a Family') }}</li>
                             </ul>
                         </li>
-                        <?php if (Auth::check() && (Session::get('access_level') === 'administrator' || Session::get('access_level') === 'project_manager'))
-                        {?>
+                        @endif
+                        @if (Auth::check() && (Session::get('access_level') === 'administrator' || Session::get('access_level') === 'project_manager'))
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users<span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -97,11 +99,13 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
                                 <li>{{ HTML::linkAction('UserController@create','Add a User') }}</li>
                             </ul>
                         </li>
-                        <?php } ?>
+                        @endif
                     </ul>
+                    @if (Auth::check() && (Session::get('access_level') !== 'inactive'))
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-search"><?php $masterSearch->show(); ?></li>
                     </ul>
+                    @endif
                 </div>
             </div>
         </nav>

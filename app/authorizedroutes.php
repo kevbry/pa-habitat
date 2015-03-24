@@ -107,6 +107,11 @@ Route::get('/', array(
     'as'     => 'home.index'
 ));
 
+Route::get('unauthorized', array(
+   'uses'    => 'HomeController@unauthorized',
+    'as'     => 'unauthorized'
+));
+
 
 //Project Routes
 Route::get('project',array(
