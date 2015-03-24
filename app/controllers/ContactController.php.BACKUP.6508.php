@@ -33,9 +33,21 @@ class ContactController extends \BaseController {
 
         if ($sortby && $order) {
         
+<<<<<<< HEAD
+        public function __construct(ContactRepository $contactRepo, 
+                VolunteerRepository $volunteerRepo, 
+                CompanyRepository $companyRepo, 
+                DonorRepository $donorRepo)
+        {
+            $this->companyRepo = $companyRepo;
+            $this->contactRepo = $contactRepo;
+            $this->donorRepo = $donorRepo;
+            $this->volunteerRepo = $volunteerRepo;
+=======
            $contactList = $this->contactRepo->orderBy($sortby, $order);
         } else {
             $contactList = $this->contactRepo->getAllContacts();
+>>>>>>> master
         }
 
         // Return that to the list view
@@ -68,6 +80,12 @@ class ContactController extends \BaseController {
             // Check if the contact being created is a company
             $companyStatus = Input::has('company_name');
             
+            $contactInfo;
+            
+            if($volunteerStatus)
+            {
+                //declare the array with the safety meeting field
+                $contactInfo = Input::only('first_name', 
                                         'last_name', 
                                         'email_address',
                                         'home_phone', 
@@ -78,6 +96,7 @@ class ContactController extends \BaseController {
                                         'province', 
                                         'postal_code', 
                                         'country', 
+<<<<<<< HEAD
                                         'comments',
                                         'last_attended_safety_meeting_date');
             }
@@ -97,9 +116,15 @@ class ContactController extends \BaseController {
                                             'country', 
                                             'comments');
             }
+=======
+                                        'comments');
+            //Create a validator, based on the contact validator I created.
+>>>>>>> master
             $v = new App\Libraries\Validators\ContactValidator($contactInfo);
+            //If the validator passes with the input provided, based on the rules in the validator class.
             if($v->passes())
             {
+                //Store the contact and redirect to their show
                 $id = $this->storeContactWith($contactInfo);
                 return Redirect::action('ContactController@show', $id);
             }
@@ -110,10 +135,11 @@ class ContactController extends \BaseController {
                         ->withErrors($v->getErrors());
             }
 
+        // Check if the contact being created is a company
+        $companyStatus = Input::has('company_name');
 
-
-
-
+<<<<<<< HEAD
+            }
             
             // Add the contact as a volunteer if specified
             if ($volunteerStatus)
@@ -141,20 +167,48 @@ class ContactController extends \BaseController {
                 $companyInfo = $companyName;
                 
                 // Assign the contact's id
-                $companyInfo['contact_id'] = $id;
+                //$companyInfo['contact_id'] = $id;
+                $contactInfo['contact_id'] = $id;
+                
+                // Store Company
+                $this->storeCompanyWith($companyInfo);
 
-           
+           }            
+
+            //assign a redirect variable
+            $redirectVariable = Redirect::action('ContactController@show', $id);
+            // Redirect to view the newly created contact
+            return $redirectVariable;
+	}
+=======
+        // Store values from the contact form
+        $contactInfo = Input::only('first_name', 
+                                'last_name', 
+                                'email_address',
+                                'home_phone', 
+                                'cell_phone', 
+                                'work_phone', 
+                                'street_address', 
+                                'city', 
+                                'province', 
+                                'postal_code', 
+                                'country', 
+                                'comments');
+
+        // Store the contact
+        $id = $this->storeContactWith($contactInfo);
+
         // Add the contact as a donor if specified
         if ($donorStatus)
         {                
             // Assign the contact
             $donorInfo['id'] = $id;
-           }            
 
             // Store Donor
             $this->storeDonorWith($donorInfo);
+>>>>>>> master
 
-
+        }
 
         // Add the contact as a volunteer if specified
         if ($volunteerStatus)

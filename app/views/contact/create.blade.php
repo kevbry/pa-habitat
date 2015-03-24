@@ -58,9 +58,6 @@ if($errors->any())
         }
     }
 }
-
-
-
 ?>
 
 <h1>Create a Contact</h1>

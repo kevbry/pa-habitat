@@ -17,9 +17,8 @@ App::before(function($request)
 });
 
 
-App::after(function($request, $response)
-{
-	//
+App::after(function (Illuminate\Http\Request $request, \Symfony\Component\HttpFoundation\Response $response){
+  $response->header('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 });
 
 /*

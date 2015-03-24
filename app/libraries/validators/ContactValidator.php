@@ -15,11 +15,11 @@ class ContactValidator extends Validator {
         'home_phone' => 'required|phone',
         'cell_phone' => 'phone|cellPhone',
         'work_phone' => 'phone|workPhone',
-        'street_address' => 'required',
-        'city' => 'required|alpha',
-        'province' => 'required|alpha',
+        'street_address' => 'required|address|min:5',
+        'city' => 'required|alphaspace',
+        'province' => 'required|alphaspace',
         'postal_code' => 'required|postalcode',
-        'country' => 'required|alpha',
+        'country' => 'required|alphaspace',
         'comments' => '',
         'last_attended_safety_meeting_date' => 'safetymeetingdate'
     );
