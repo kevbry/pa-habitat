@@ -39,7 +39,15 @@ class VolunteerInterestController extends \BaseController {
     public function create($volunteerID) {
         $interests = $this->interestRepo->getAllInterests();
         $volunteer = $this->volunteerRepo->getVolunteer($volunteerID);
-        return View::make('volunteerinterest.create', array('interests' => $interests,
+//        $volunteerInterests = $this->volunteerInterestRepo->getVolunteerInterests($volunteerID);
+        
+        $intArray=array();
+        
+        foreach($this->volunteerInterestRepo->getVolunteerInterests($volunteerID) as $vInt)
+        {
+            array_push($intArray,$vInt->interest->id );
+        }
+        return View::make('volunteerinterest.create', array('interests' => $interests, 'interestList' => $intArray,
                     'volunteer' => $volunteer));
     }
 
@@ -70,9 +78,9 @@ class VolunteerInterestController extends \BaseController {
         $volunteerInterests = array();
         $infoArray = array();
         //For every row on the form, add that row to a array containing the rows!
-        for ($i = 0; $i < count(Input::get('fieldID')); $i++) {
+        for ($i = 0; $i < count(Input::get('id')); $i++) {
             //$volunteerItem['volunteer_id'] = Input::get('volunteer_id');
-            $volunteerInterests['id'] = Input::get('fieldID')[$i];
+            $volunteerInterests['id'] = Input::get('id')[$i];
             $volunteerInterests['volunteer_id'] = Input::get('volunteer_id')[$i];
             $volunteerInterests['interest_id'] = Input::get('interest')[$i];
             $volunteerInterests['comments'] = Input::get('comments')[$i];
@@ -108,6 +116,8 @@ class VolunteerInterestController extends \BaseController {
                 }
                 //Row in the database doesn't exist on the form.
                 if (!$bFound) {
+                    echo $bFound;
+                    exit;
                     //So we nuke it out of the database as well.
                     $affectedRows = \VolunteerInterest::where('id', '=', $volunteerInterests['id'])->delete();
                 }
@@ -125,6 +135,7 @@ class VolunteerInterestController extends \BaseController {
         $counter = 0;
         //Generic array of database field names.
         $fieldNames = array(
+            '',
             'volunteer_id',
             'interest_id',
             'comments',
@@ -139,9 +150,10 @@ class VolunteerInterestController extends \BaseController {
             if ($counter > 0) {
                 $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
             }
+            $counter++;
         }
         //Update the field/values in $fieldUpdateValues!!!
-        $affectedRows = VolunteerInterest::where('id', '=', $volunteerInterests['fieldID'])->update($fieldUpdateValues);
+        $affectedRows = \VolunteerInterest::where('id', '=', $volunteerInterests['id'])->update($fieldUpdateValues);
     }
 
     /*

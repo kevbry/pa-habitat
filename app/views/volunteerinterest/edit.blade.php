@@ -19,7 +19,7 @@ Interests for {{$volunteer->contact->first_name . ' ' . $volunteer->contact->las
             @foreach($volunteerInterests as $volInterest)
             <tr class="formrow">
 
-                 {{Form::hidden('fieldID[]', $volInterest->id)}}            
+                 {{Form::hidden('id[]', $volInterest->id)}}            
                 <td><select name="interest[]" class="form-control">
                         @foreach($interests as $interest)
                             @if ($interest->id === $volInterest->interest_id)
@@ -42,9 +42,9 @@ Interests for {{$volunteer->contact->first_name . ' ' . $volunteer->contact->las
 {{Form::close()}}
 {{ HTML::linkAction('ContactController@show','Back To Volunteer', array($volunteer->id)) }}
 <?php 
-if (!empty($volunteerInterests))
-{
-    echo $volunteerInterests->links();
-}
- ?>
+//if (!empty($volunteerInterests))
+//{
+//    echo $volunteerInterests->links();
+//}
+// ?>
 @stop

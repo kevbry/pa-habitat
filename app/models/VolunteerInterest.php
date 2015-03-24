@@ -16,7 +16,7 @@ class VolunteerInterest extends \Eloquent
      *
      * @fillable array with column names we wish to be able to assign to.
      */
-    protected $fillable = array('volunteer_id', 'interest_id', 'comments');
+    protected $fillable = array('id','volunteer_id', 'interest_id', 'comments');
     
     public function volunteer()
     {

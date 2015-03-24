@@ -8,7 +8,7 @@ namespace App\Repositories;
 class EloquentVolunteerInterestRepository implements VolunteerInterestRepository {
 
     public function getVolunteerInterests($id) {
-        return \VolunteerInterest::whereRaw('volunteer_id =' . $id)->paginate(20);
+        return \VolunteerInterest::where('volunteer_id','=' , $id)->paginate(20);
     }
 
     public function saveVolunteerInterest($volunteerInterest) {

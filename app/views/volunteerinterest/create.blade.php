@@ -5,18 +5,21 @@ Interests for {{$volunteer->contact->first_name . ' ' . $volunteer->contact->las
 @stop
 
 @section('content')
+ 
 <script type="text/html" id="rowtemplate">
     <tr class="formrow">
 
         <td><select name="interest[]" class="form-control">
                 @foreach($interests as $interest)
+                 @if( !in_array($interest->id ,$interestList))
                 <option value="{{$interest->id}}">{{$interest->description}}</option>
+                @endif
                 @endforeach
             </select>
         </td>
         <td>{{Form::input('comments', 'comments[]',null, array('class'=>'form-control'))}}</td>
-      <td>{{Form::hidden('volunteer_id[]',$volunteer->id)}}
-                <a href="#" class="remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+        <td>{{Form::hidden('volunteer_id[]',$volunteer->id)}}
+            <a href="#" class="remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
     </tr>
 </script>
 
@@ -30,19 +33,23 @@ Interests for {{$volunteer->contact->first_name . ' ' . $volunteer->contact->las
     </thead>
     <tbody>
         <tr class="formrow">
-  
-        <td><select name="interest[]" class="form-control col-sm-6">
-                @foreach($interests as $interest)
-                <option value="{{$interest->id}}">{{$interest->description}}</option>
-                @endforeach
-            </select>
-        </td>
-   
-    <td>{{Form::input('comments', 'comments[]', null, array('class'=>'form-control'))}}</td>
-    <td>{{Form::hidden('volunteer_id[]',$volunteer->id)}}
+
+            <td><select name="interest[]" class="form-control col-sm-6">
+                    @foreach($interests as $interest)
+
+                    @if( !in_array($interest->id ,$interestList))
+                    <option value="{{$interest->id}}">{{$interest->description}}</option>
+                    @endif
+
+                    @endforeach
+                </select>
+            </td>
+
+            <td>{{Form::input('comments', 'comments[]', null, array('class'=>'form-control'))}}</td>
+            <td>{{Form::hidden('volunteer_id[]',$volunteer->id)}}
                 <a href="#" class="remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-</tr>
-</tbody>
+        </tr>
+    </tbody>
 </table>
 {{Form::close()}}
 {{ HTML::linkAction('ContactController@show','Back To Volunteer', array($volunteer->id)) }}
