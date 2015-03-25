@@ -273,7 +273,7 @@ Contact Details
         </table>
         {{ Form::button('Edit Skills', array('id' => 'editSkills','class'=>'btn btn-primary')) }}  
     </div>
-     
+<!--     
     <div class="form-group">
         {{ Form::label('interests', 'Interest(s):') }}
         <table class="table table-hover">
@@ -285,12 +285,14 @@ Contact Details
             </thead>
             <tbody>
                 @if (isset($volunteer))
-                @foreach ($volunteer->interests as $interest)
-                    <tr>
-                        <td>{{$interest->description}}</td>
-                        <td>{{$interest->pivot->comments}}</td>
-                    </tr>
-                @endforeach
+                    @if(!empty($volunteer->interests))
+                        @foreach ($volunteer->interests as $interest)
+                            <tr>
+                                <td>{{$interest->description}}</td>
+                                <td>{{$interest->pivot->comments}}</td>
+                            </tr>
+                        @endforeach
+                    @endif
                 @else
                     <tr>
                         <td colspan="3">No interests</td>
@@ -300,7 +302,7 @@ Contact Details
         </table>
         {{ HTML::linkRoute('editInterests', 'Edit Interests', array($contact->id), array('class' => 'btn btn-primary')) }}
         {{ HTML::linkRoute('createInterests', 'Add Interests', array($contact->id), array('class' => 'btn btn-primary')) }}
-    </div>
+    </div>-->
           @endif
  </section>
  {{ Form::close() }}

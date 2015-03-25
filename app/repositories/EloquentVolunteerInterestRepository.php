@@ -18,5 +18,15 @@ class EloquentVolunteerInterestRepository implements VolunteerInterestRepository
     public function getVolunteerInterestsNonPaginated($id) {
         return \VolunteerInterest::where('volunteer_id','=', $id)->get();
     }
+    
+     public function deleteVolunteerInterests($id)
+     {
+       return  \VolunteerInterest::where('id', '=', $id)
+                ->delete();
+     }
+       public function getVolunteerInterestsAsArray($id) {
+        return \VolunteerInterest::select('id')->where('volunteer_id','=', $id)->get();
+    }
+        
 
 }

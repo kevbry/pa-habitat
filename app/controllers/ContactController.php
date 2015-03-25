@@ -172,12 +172,14 @@ class ContactController extends \BaseController {
 	 */
 	public function show($id)
 	{
+            print_r($id);
+            
             $contact = $this->contactRepo->getContact($id);
             $volunteer = $this->volunteerRepo->getVolunteer($id);
             
-            return View::make('contact.show')
-                    ->withContact($contact)
-                    ->withVolunteer($volunteer);
+//            return View::make('contact.show')
+//                    ->withContact($contact)
+//                    ->withVolunteer($volunteer);
 	}
 
 	/**

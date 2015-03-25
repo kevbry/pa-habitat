@@ -40,12 +40,11 @@ class VolunteerInterestController extends \BaseController {
         $interests = $this->interestRepo->getAllInterests();
         $volunteer = $this->volunteerRepo->getVolunteer($volunteerID);
 //        $volunteerInterests = $this->volunteerInterestRepo->getVolunteerInterests($volunteerID);
-        
-        $intArray=array();
-        
-        foreach($this->volunteerInterestRepo->getVolunteerInterests($volunteerID) as $vInt)
-        {
-            array_push($intArray,$vInt->interest->id );
+
+        $intArray = array();
+
+        foreach ($this->volunteerInterestRepo->getVolunteerInterests($volunteerID) as $vInt) {
+            array_push($intArray, $vInt->interest->id);
         }
         return View::make('volunteerinterest.create', array('interests' => $interests, 'interestList' => $intArray,
                     'volunteer' => $volunteer));
@@ -77,10 +76,11 @@ class VolunteerInterestController extends \BaseController {
         //Arrays that will contain the interests information
         $volunteerInterests = array();
         $infoArray = array();
+        $formIDArray = array();
         //For every row on the form, add that row to a array containing the rows!
-        for ($i = 0; $i < count(Input::get('id')); $i++) {
+        for ($i = 0; $i < count(Input::get('row_id')); $i++) {
             //$volunteerItem['volunteer_id'] = Input::get('volunteer_id');
-            $volunteerInterests['id'] = Input::get('id')[$i];
+            $formIDArray[$i] = $volunteerInterests['id'] = Input::get('row_id')[$i];
             $volunteerInterests['volunteer_id'] = Input::get('volunteer_id')[$i];
             $volunteerInterests['interest_id'] = Input::get('interest')[$i];
             $volunteerInterests['comments'] = Input::get('comments')[$i];
@@ -92,39 +92,68 @@ class VolunteerInterestController extends \BaseController {
             $this->updateInterestWith($volunteerInterests);
             //Add the row to an array so it won't be deleted later
             $infoArray[$i] = $volunteerInterests;
+            
         }
+        //  print_r($infoArray);
         //Get the static volunteer id, this never changes and we are making sure it won't
         $id = Input::get('volunteer_id');
+        
+        var_dump($infoArray);
+      
         //Get all the volunteer interests from the database, will be used to delete.
-        $interestArray = $this->volunteerInterestRepo->getVolunteerInterestsNonPaginated($id);
-        //IF the database is not empty.
-        if (!empty($interestArray)) {
-            //For every interest in the database.
-            foreach ($interestArray as $interestEntry) {
-                //Haven't found an interest to keep yet.
-                $bFound = false;
-                //If the rows aren't empty on the form.
-                if (!empty($infoArray)) {
-                    //For every row on the form.
-                    foreach ($infoArray as $formEntry) {
-                        //Is it the same as one in the database?
-                        if (strval($interestEntry['volunteer_id']) == $formEntry['volunteer_id']) {
-                            //If it is, we are keeping it.
-                            $bFound = true;
-                        }
-                    }
-                }
-                //Row in the database doesn't exist on the form.
-                if (!$bFound) {
-                    echo $bFound;
-                    exit;
-                    //So we nuke it out of the database as well.
-                    $affectedRows = \VolunteerInterest::where('id', '=', $volunteerInterests['id'])->delete();
-                }
+        $interestArray = $this->volunteerInterestRepo->getVolunteerInterestsAsArray($id);
+      
+        //infoArray -> interests on the form (ones NOT to be deleted!)
+        //$interestArray-> interests in the database
+        //removedInterestsArray -> array of interests to remove from the database
+        
+//        $removedInterestsArray = array_diff($interestArray, $infoArray);
+//        print_r($removedInterestsArray);
+        
+        foreach($interestArray as $interestEntry)
+        {
+            if(!in_array($interestEntry['id'], $formIDArray))
+            {
+               $affectedRows = $this->volunteerInterestRepo->
+                            deleteVolunteerInterests($interestEntry['id']);  
             }
         }
-        //Redirect back to index for volunteer interests
-        return Redirect::action('ContactController@show', $id);
+       
+   
+        
+//        //IF the database is not empty.
+//        if (!empty($interestArray)) {
+//            //For every interest in the database.
+//            foreach ($interestArray as $interestEntry) {
+//                
+//              //  print_r($interestEntry['volunteer_id']);
+//                //Haven't found an interest to keep yet.
+//                $bFound = false;
+//                //If the rows aren't empty on the form.
+//                if (!empty($infoArray)) {
+//                    //For every row on the form.
+//                    foreach ($infoArray as $formEntry) {
+//                     //    print_r($formEntry);
+//                        //Is it the same as one in the database?
+//                        if (strval($interestEntry['interest_id']) == $formEntry['interest_id']) {
+//                            //If it is, we are keeping it.
+//                            $bFound = true;
+//                   //      print_r("_____x______");
+//                        }
+//                    }
+//                }
+//                //Row in the database doesn't exist on the form.
+//                if (!$bFound) {
+//
+//                    //So we nuke it out of the database as well.
+//                    $affectedRows = $this->volunteerInterestRepo->
+//                            deleteVolunteerInterests($volunteerInterests['id']);
+//                }
+//            }
+//        }
+        
+        
+    return Redirect::action('ContactController@show', $id);
     }
 
     /*

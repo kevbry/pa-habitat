@@ -14,6 +14,9 @@ interface VolunteerInterestRepository
     
     public function saveVolunteerInterest($volunteer);
 
-
     public function getVolunteerInterestsNonPaginated($id);
+    
+    public function deleteVolunteerInterests($id);
+    
+    public function getVolunteerInterestsAsArray($id);
 }
