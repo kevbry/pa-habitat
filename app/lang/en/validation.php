@@ -70,6 +70,13 @@ return array(
 	),
 	"unique"               => "The :attribute has already been taken.",
 	"url"                  => "The :attribute format is invalid.",
+        "phone"                => "The :attribute should be in the format #-###-###-####",
+        "cellphone"            => "The :attribute should be in the format #-###-###-####",
+        "workphone"            => "The :attribute should be in the format #-###-###-####",
+        "postalcode"           => "The :attribute should be in the format LNL NLN",
+        "alphaspace"           => "The :attribute must contain letters and spaces only",
+        "alphaspacenum"        => "The :attribute must contain letters, spaces and numbers only",
+        "address"              => "The :attribute must contain letters, spaces, dashes and numbers only",
 
 	/*
 	|--------------------------------------------------------------------------
@@ -100,5 +107,6 @@ return array(
 	*/
 
 	'attributes' => array(),
+    
 
 );

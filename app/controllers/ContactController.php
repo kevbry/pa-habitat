@@ -32,7 +32,7 @@ class ContactController extends \BaseController {
         $order = Input::get('order');
 
         if ($sortby && $order) {
-
+        
            $contactList = $this->contactRepo->orderBy($sortby, $order);
         } else {
             $contactList = $this->contactRepo->getAllContacts();
@@ -52,18 +52,50 @@ class ContactController extends \BaseController {
         return View::make('contact.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-        // Check if the contact being created is a donor
-        $donorStatus = Input::has('is_donor');
-
-        // Check if the contact being created is a volunteer
-        $volunteerStatus = Input::has('is_volunteer');
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+            // Check if the contact being created is a donor
+            $donorStatus = Input::has('is_donor');
+            
+            // Check if the contact being created is a volunteer
+            $volunteerStatus = Input::has('is_volunteer');
+            
+            // Check if the contact being created is a company
+            $companyStatus = Input::has('company_name');
+            
+            // Store values from the contact form
+            $contactInfo = Input::only('first_name', 
+                                        'last_name', 
+                                        'email_address',
+                                        'home_phone', 
+                                        'cell_phone', 
+                                        'work_phone', 
+                                        'street_address', 
+                                        'city', 
+                                        'province', 
+                                        'postal_code', 
+                                        'country', 
+                                        'comments');
+            //Create a validator, based on the contact validator I created.
+            $v = new App\Libraries\Validators\ContactValidator($contactInfo);
+            //If the validator passes with the input provided, based on the rules in the validator class.
+            if($v->passes())
+            {
+                //Store the contact and redirect to their show
+                $id = $this->storeContactWith($contactInfo);
+                return Redirect::action('ContactController@show', $id);
+            }
+            else
+            {
+                //otherwise return back to the contact, with the same inputs, and the error messages.
+                return Redirect::action('ContactController@create')->withInput()
+                        ->withErrors($v->getErrors());
+            }
 
         // Check if the contact being created is a company
         $companyStatus = Input::has('company_name');
@@ -263,30 +295,27 @@ class ContactController extends \BaseController {
         //Creating an associate array for the update
         $fieldUpdateValues = array();
 
-        //added key value pairs to the array
-        foreach($contactInfo as $fieldValue)
-        {
-            $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
-            $counter++;
-        }
-
-        //updating the record in the contact table for the contact with the id passed in
-
-        $affectedRows = Contact::where('id','=',$id)->update($fieldUpdateValues);
-
-        //var_dump($affectedRows);
-        //use affected rows to dertirming if it was a success or not
-        if($affectedRows > 0)
-        {
-            // Redirect to view the updated contact info
-            $redirectVariable = Redirect::action('ContactController@show', $id);
-        }
-        else
-        {
-            //Redirect back to the edit page with an error message
-            $redirectVariable = Redirect::action('ContactController@edit', $id)->withErrors(['Error', 'The Message']);
-        }
-        // return to redirect
-        return $redirectVariable;
-    }
+            //added key value pairs to the array
+            foreach($contactInfo as $fieldValue)
+            {
+                $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
+                $counter++;
+            }
+            
+            //updating the record in the contact table for the contact with the id passed in
+            //Create validator
+            $v = new App\Libraries\Validators\ContactValidator($contactInfo);
+            //If the validator passes, redirect to the show, otherwise redirect back to edit with inputs and errors
+            if($v->passes())
+            {
+                $affectedRows = Contact::where('id','=',$id)->update($fieldUpdateValues);
+                $redirectVariable = Redirect::action('ContactController@show', $id);
+            }
+            else
+            {
+               $redirectVariable = Redirect::action('ContactController@edit', $id)->withInput()->withErrors($v->getErrors());
+            }
+            
+            return $redirectVariable;
+	}
 }
