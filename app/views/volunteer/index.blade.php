@@ -73,7 +73,11 @@ All Volunteers
                 {{$volunteer->contact->work_phone}}
                 @endif</td>
         <td>{{$volunteer->contact->email_address}}</td>
-        <td><a href="contact/{{$volunteer->id}}">View Details</a> | <a href="contact/{{$volunteer->id}}/edit">Edit Details</a></td>
+        <td><a href="contact/{{$volunteer->id}}">View Details</a> 
+            @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
+            | <a href="contact/{{$volunteer->id}}/edit">Edit Details</a>
+        @endif
+        </td>
     </tr>
     @endforeach
 </table>

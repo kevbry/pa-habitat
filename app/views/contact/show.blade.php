@@ -8,7 +8,10 @@ Contact Details
 
 {{ Form::open(array('class'=>'form-horizontal')) }}
 <h1>{{ $contact->first_name . " " . $contact->last_name . "'s Details" }}
-    <a href="{{$contact->id}}/edit" class="btn btn-primary">Edit Details</a></h1>
+    @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
+    <a href="{{$contact->id}}/edit" class="btn btn-primary">Edit Details</a>
+    @endif
+</h1>
 <section class="generalInfo col-md-7">
 <h3>Contact Details</h3>
  <div class="form-group">
@@ -152,10 +155,14 @@ Contact Details
             </tbody>
         </table>
          {{ HTML::linkRoute('volHoursRoute', 'View Hours Details', array($contact->id), array('class' => 'btn btn-primary')) }}
+         @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
          {{ HTML::linkRoute('volHoursAdd', 'Add Hours', array($contact->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('volHoursEditRoute', 'Edit Hours', array($contact->id), array('class'=>'btn btn-primary')) }}
+         @endif
          <br /> <br />
+         @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
          {{ HTML::linkRoute('volunteerReport', 'Generate Hours Report', array($contact->id), array('class'=>'btn btn-primary')) }}
+         @endif
     </div>
      
     <div class="form-group">
@@ -184,7 +191,9 @@ Contact Details
                 @endif
             </tbody>
         </table>
+        @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
         {{ Form::button( 'Edit Availability', array('id' => 'editAvail','class'=>'btn btn-primary') ) }}
+        @endif
     </div>
      
     <div class="form-group">
@@ -215,7 +224,9 @@ Contact Details
                 @endif
             </tbody>
         </table>
+        @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
         {{ Form::button('Edit Certifications', array('id' => 'editCerts','class'=>'btn btn-primary')) }}
+        @endif
     </div>
      
     <div class="form-group">
@@ -242,7 +253,9 @@ Contact Details
                 @endif
             </tbody>
         </table>
-        {{ Form::button('Edit Trades', array('id' => 'editTrades','class'=>'btn btn-primary')) }}       
+        @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
+        {{ Form::button('Edit Trades', array('id' => 'editTrades','class'=>'btn btn-primary')) }}  
+        @endif
     </div>
      
     <div class="form-group">
@@ -271,7 +284,9 @@ Contact Details
                 @endif
             </tbody>
         </table>
+        @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
         {{ Form::button('Edit Skills', array('id' => 'editSkills','class'=>'btn btn-primary')) }}  
+        @endif
     </div>
      
     <div class="form-group">
@@ -298,7 +313,9 @@ Contact Details
                 @endif
             </tbody>
         </table>
+        @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
         {{ Form::button('Edit Interests', array('id' => 'editInterests','class'=>'btn btn-primary')) }}
+        @endif
     </div>
           @endif
  </section>

@@ -8,7 +8,9 @@ User Details
 
 <h1>{{ $user->contact->first_name . " " . $user->contact->last_name . "'s User Details" }}</h1>
 <div class="buttons">
+    @if (Auth::check() && (Session::get('access_level') === 'administrator' ))
     <a href="{{$user->contact_id}}/edit" class="btn btn-primary">Edit Details</a>
+    @endif
     {{ HTML::linkAction('ContactController@show','View Contact Details', $user->contact_id, array('class'=>"btn btn-primary")) }}    
 </div>    
 

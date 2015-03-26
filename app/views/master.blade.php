@@ -71,15 +71,18 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
                                 <li>{{ HTML::linkAction('VolunteerController@index','Just Volunteers') }}</li>
                                 <li>{{ HTML::linkAction('DonorController@index','Just Donors') }}</li>
                                 <li>{{ HTML::linkAction('CompanyController@index','Companies') }}</li>
+                                @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
                                 <li>{{ HTML::linkAction('ContactController@create','Add a Contact') }}</li>
-                                
+                                @endif
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Projects<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li>{{ HTML::linkAction('ProjectController@index','All Projects') }}</li>
+                                @if (Auth::check() && (Session::get('access_level') === 'project_manager' || Session::get('access_level') === 'administrator' ))
                                 <li>{{ HTML::linkAction('ProjectController@create','Add a Project') }}</li>
+                                @endif
                             </ul>
                         </li>
                         
@@ -87,7 +90,9 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Families<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li>{{ HTML::linkAction('FamilyController@index','All Families') }}</li>
+                                @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
                                 <li>{{ HTML::linkAction('FamilyController@create','Add a Family') }}</li>
+                                @endif
                             </ul>
                         </li>
                         @endif

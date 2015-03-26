@@ -8,7 +8,9 @@ Volunteer Hours for Project {{$id}}
 
 <h1>Volunteer Hours for {{$project->name}}</h1>
 {{ HTML::linkRoute('projHoursAdd', 'Add Hours', array($project->id), array('class' => 'btn btn-primary')) }}
+@if (Auth::check() && (Session::get('access_level') === 'project_managers' || Session::get('access_level') === 'administrator' ))
 {{ HTML::linkAction('projHoursEdit','Edit Hours', array($project->id), array('class'=>'btn btn-primary'))}}
+@endif
 {{ Form::open(array('route'=>'storehours','class'=>'form-horizontal')) }}
 <table class="table">
     <thead>
