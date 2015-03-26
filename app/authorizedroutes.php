@@ -297,11 +297,6 @@ Route::get('volunteer',array(
 
 
 //Volunteer Hour Routes
-Route::post('volunteerhours',array(
-    'before' => 'auth|contactmanager',
-    'uses'=>'VolunteerHoursController@storehours',
-    'as'=>'storehours'
-));
 Route::get('volunteerhours/volunteer/{volunteer}',array(
     'before' => 'auth|basicuser',
     'as'=>'volHoursRoute', 
@@ -313,7 +308,7 @@ Route::get('volunteerhours/project/{project}',array(
     'uses'=>'VolunteerHoursController@indexForProject'
 ));
 Route::get('volunteerhours/add/project/{project}',array(
-    'before' => 'auth|contactmanager',
+    'before' => 'auth|projectmanager',
     'as'=>'projHoursAdd', 
     'uses'=>'VolunteerHoursController@createForProject'
 ));
@@ -321,6 +316,12 @@ Route::get('volunteerhours/add/volunteer/{volunteer}',array(
     'before' => 'auth|contactmanager',
     'as'=>'volHoursAdd', 
     'uses'=>'VolunteerHoursController@createForContact'
+));
+//START HERE SARAH
+Route::post('volunteerhours',array(
+    'before' => 'auth|contactmanager',
+    'uses'=>'VolunteerHoursController@storehours',
+    'as'=>'storehours'
 ));
 Route::get('volunteerhours/volunteerEdit/{volunteer}',array(
     'before' => 'auth|projectmanager',
