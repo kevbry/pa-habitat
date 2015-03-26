@@ -51,7 +51,6 @@ if($errors->any())
                 //Add it to the array under the key, so we can use it later.
                 $errorList[key($errorList)] = $error;
             }
-            var_dump($errorList);
             //Move the key pointer.
             next($errorList);
         }
