@@ -77,6 +77,7 @@ return array(
         "alphaspace"           => "The :attribute must contain letters and spaces only",
         "alphaspacenum"        => "The :attribute must contain letters, spaces and numbers only",
         "address"              => "The :attribute must contain letters, spaces, dashes and numbers only",
+        "beforedate"           => "The :attribute must be before the :other date", 
 
 	/*
 	|--------------------------------------------------------------------------

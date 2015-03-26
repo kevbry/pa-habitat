@@ -52,4 +52,13 @@ class CoreValidator extends Illuminate\Validation\Validator {
         return preg_match("^\A(\d+[a-zA-Z]{0,1}\s{0,1}[-]{1}\s{0,1}\d*[a-zA-Z]{0,1}|\d+[a-zA-Z-]{0,1}\d*[a-zA-Z]{0,1})\s*+(.*)$^",$value);  
     }
     
+    //Validate that one date is greater than another date
+    public function validateBeforeDate($attribute, $value, $parameters)
+    {
+ 
+        return strtotime( $value ) < strtotime( $this->attributes[ $parameters[0] ] );
+ 
+    }
+
+    
 }
