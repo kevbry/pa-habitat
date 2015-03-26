@@ -143,7 +143,10 @@ Project Details
             </tbody>
         </table>
          {{ HTML::linkRoute('projContactsView', 'View Contact Details', array($project->id), array('class' => 'btn btn-primary')) }}
+         @if (Auth::check() && (Session::get('access_level') === 'project_manager' || 
+        Session::get('access_level') === 'administrator' ))
          {{ HTML::linkRoute('projContactsAdd', 'Add Contact', array($project->id), array('class' => 'btn btn-primary')) }}
+         @endif
     </div> 
 </section>
 
