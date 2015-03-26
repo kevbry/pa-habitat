@@ -48,12 +48,12 @@ Route::get('contact/{contactid}',array(
     'as' => 'contact.show'
 ));
 Route::get('contact/{contactid}/edit',array(
-    'before' => 'auth|projectmanager',
+    'before' => 'auth|contactmanager',
     'uses' => 'ContactController@edit',
     'as' => 'contact.edit'
 ));
 Route::put('contact/{contactid}',array(
-    'before' => 'auth|projectmanager',
+    'before' => 'auth|contactmanager',
     'uses' => 'ContactController@update',
     'as' => 'contact.update'
 ));
@@ -89,12 +89,12 @@ Route::get('family/{familyid}',array(
     'as' => 'family.show'
 ));
 Route::get('family/{familyid}/edit',array(
-    'before' => 'auth|projectmanager',
+    'before' => 'auth|contactmanager',
     'uses' => 'FamilyController@edit',
     'as' => 'family.edit'
 ));
 Route::put('family/{familyid}',array(
-    'before' => 'auth|projectmanager',
+    'before' => 'auth|contactmanager',
     'uses' => 'FamilyController@update',
     'as' => 'family.update'
 ));
@@ -106,7 +106,6 @@ Route::get('/', array(
     'uses'   => 'HomeController@index',
     'as'     => 'home.index'
 ));
-
 Route::get('unauthorized', array(
    'uses'    => 'HomeController@unauthorized',
     'as'     => 'unauthorized'
@@ -135,12 +134,12 @@ Route::get('project/{projectid}',array(
     'as' => 'project.show'
 ));
 Route::get('project/{projectid}/edit',array(
-    'before' => 'auth|administrator',
+    'before' => 'auth|projectmanager',
     'uses' => 'ProjectController@edit',
     'as' => 'project.edit'
 ));
 Route::put('project/{projectid}',array(
-    'before' => 'auth|administrator',
+    'before' => 'auth|projectmanager',
     'uses' => 'ProjectController@update',
     'as' => 'project.update'
 ));
@@ -181,12 +180,12 @@ Route::post('project/{project}/inspections/create', array(
     'uses' => 'ProjectInspectionController@store'
 ));
 Route::get('project/{project}/inspections/edit',array(
-    'before' => 'auth|administrator',
+    'before' => 'auth|projectmanager',
     'as' => 'editFormForInspections',
     'uses' => 'ProjectInspectionController@edit'
 ));
 Route::post('project/{project}/inspections/edit',array(
-    'before' => 'auth|administrator',
+    'before' => 'auth|projectmanager',
     'as' => 'updateFormInspections',
     'uses' => 'ProjectInspectionController@update'
 ));
@@ -209,12 +208,12 @@ Route::post('project/{project}/items/create', array(
     'uses' => 'ProjectItemController@store'
 ));
 Route::get('project/{project}/items/edit', array(
-    'before' => 'auth|administrator',
+    'before' => 'auth|projectmanager',
     'as' => 'editFormForItems',
     'uses' => 'ProjectItemController@edit'
 ));
 Route::post('project/{project}/items/edit', array(
-    'before' => 'auth|administrator',
+    'before' => 'auth|projectmanager',
     'as' => 'updateFormItems',
     'uses' => 'ProjectItemController@update'
 ));
@@ -226,7 +225,7 @@ Route::get('volunteerhours/report/{volunteer}', array(
     'as' => 'volunteerReport', 
     'uses' => 'VolunteerHoursController@viewHoursReport'
 ));
-Route::get('projecthours/report/{volunteer}', array(
+Route::get('projecthours/report/{project}', array(
     'before' => 'auth|projectmanager',
     'as' => 'projectReport', 
     'uses' => 'VolunteerHoursController@viewHoursReportForProject'

@@ -1,6 +1,6 @@
 <?php
 
-class UserAuthorizationTest extends TestCase
+class ProjectItemAuthorizationTest extends TestCase
 {
     
     private $inactiveUser;
@@ -22,8 +22,8 @@ class UserAuthorizationTest extends TestCase
         
     }
     
-    // Test to test failed authorization for user.index
-    public function testUserIndexFailure_Inactive()
+    // Test to test failed authorization for projectitem.index
+    public function testProjectItemIndexFailure_Inactive()
     {
         $this->session([
             'username' => $this->inactiveUser->username, 
@@ -33,14 +33,15 @@ class UserAuthorizationTest extends TestCase
         // Set test user as current authenticated user
         $this->be($this->inactiveUser);
         
+        $testProjectID = 1;
         // Call route under test
-        $this->call('GET', 'user');
+        $response = $this->call('GET', 'project/'.$testProjectID.'/items');
         
         // Assert redirected to access denied page
         $this->assertRedirectedToRoute('unauthorized');
     }
-    // Test to test successful authorization for user.index
-    public function testUserIndexSuccess_BasicUser()
+    // Test to test successful authorization for projectitem.index
+    public function testProjectItemIndexSuccess_BasicUser()
     {
         // Set test user as current authenticated user
         $this->be($this->basicUser);
@@ -50,13 +51,14 @@ class UserAuthorizationTest extends TestCase
             'access_level' => $this->basicUser->access_level
             ]);
         
+        $testProjectID = 1;
         // Call route under test
-        $response = $this->call('GET', 'user');
+        $response = $this->call('GET', 'project/'.$testProjectID.'/items');
         
-        $this->assertRedirectedToRoute('unauthorized');
+        $this->assertContains('Items for', $response->getContent());
     }
-    // Test to test successful authorization for user.index
-    public function testUserIndexSuccess_ContactManager()
+    // Test to test successful authorization for projectitem.index
+    public function testProjectItemIndexSuccess_ContactManager()
     {
         // Set test user as current authenticated user
         $this->be($this->contactManager);
@@ -66,13 +68,14 @@ class UserAuthorizationTest extends TestCase
             'access_level' => $this->contactManager->access_level
             ]);
         
+        $testProjectID = 1;
         // Call route under test
-        $response = $this->call('GET', 'user');
+        $response = $this->call('GET', 'project/'.$testProjectID.'/items');
         
-        $this->assertRedirectedToRoute('unauthorized');
+        $this->assertContains('Items for', $response->getContent());
     }
-    // Test to test successful authorization for user.index
-    public function testUserIndexSuccess_ProjectManager()
+    // Test to test successful authorization for projectitem.index
+    public function testProjectItemIndexSuccess_ProjectItemManager()
     {
         // Set test user as current authenticated user
         $this->be($this->projectManager);
@@ -82,13 +85,14 @@ class UserAuthorizationTest extends TestCase
             'access_level' => $this->projectManager->access_level
             ]);
         
+        $testProjectID = 1;
         // Call route under test
-        $response = $this->call('GET', 'user');
+        $response = $this->call('GET', 'project/'.$testProjectID.'/items');
         
-        $this->assertContains('Companies', $response->getContent());
+        $this->assertContains('Items for', $response->getContent());
     }
-    // Test to test successful authorization for user.index
-    public function testUserIndexSuccess_Administrator()
+    // Test to test successful authorization for projectitem.index
+    public function testProjectItemIndexSuccess_Administrator()
     {
         // Set test user as current authenticated user
         $this->be($this->administrator);
@@ -98,17 +102,18 @@ class UserAuthorizationTest extends TestCase
             'access_level' => $this->administrator->access_level
             ]);
         
+        $testProjectID = 1;
         // Call route under test
-        $response = $this->call('GET', 'user');
+        $response = $this->call('GET', 'project/'.$testProjectID.'/items');
         
-        $this->assertContains('Companies', $response->getContent());
+        $this->assertContains('Items for', $response->getContent());
     }
 
     
     
     
-    // Test to test failed authorization for user.create
-    public function testUserCreateFailure_Inactive()
+    // Test to test failed authorization for projectitem.create
+    public function testProjectItemCreateFailure_Inactive()
     {
         $this->session([
             'username' => $this->inactiveUser->username, 
@@ -118,14 +123,15 @@ class UserAuthorizationTest extends TestCase
         // Set test user as current authenticated user
         $this->be($this->inactiveUser);
         
+        $testProjectID = 1;
         // Call route under test
-        $this->call('GET', 'user/create');
+        $response = $this->call('GET', 'project/'.$testProjectID.'/items/create');
         
         // Assert redirected to access denied page
         $this->assertRedirectedToRoute('unauthorized');
     }
-    // Test to test failed authorization for user.create
-    public function testUserCreateFailure_BasicUser()
+    // Test to test failed authorization for projectitem.create
+    public function testProjectItemCreateFailure_BasicUser()
     {
         // Set test user as current authenticated user
         $this->be($this->basicUser);
@@ -135,14 +141,15 @@ class UserAuthorizationTest extends TestCase
             'access_level' => $this->basicUser->access_level
             ]);
         
+        $testProjectID = 1;
         // Call route under test
-        $response = $this->call('GET', 'user/create');
+        $response = $this->call('GET', 'project/'.$testProjectID.'/items/create');
         
         // Assert redirected to access denied page
         $this->assertRedirectedToRoute('unauthorized');
     }
-    // Test to test successful authorization for user.index
-    public function testUserCreateSuccess_ContactManager()
+    // Test to test failed authorization for projectitem.index
+    public function testProjectItemCreateFailure_ContactManager()
     {
         // Set test user as current authenticated user
         $this->be($this->contactManager);
@@ -152,13 +159,14 @@ class UserAuthorizationTest extends TestCase
             'access_level' => $this->contactManager->access_level
             ]);
         
+        $testProjectID = 1;
         // Call route under test
-        $response = $this->call('GET', 'user/create');
+        $response = $this->call('GET', 'project/'.$testProjectID.'/items/create');
         
         $this->assertRedirectedToRoute('unauthorized');
     }
-    // Test to test successful authorization for user.index
-    public function testUserCreateSuccess_ProjectManager()
+    // Test to test successful authorization for projectitem.index
+    public function testProjectItemCreateSuccess_ProjectItemManager()
     {
         // Set test user as current authenticated user
         $this->be($this->projectManager);
@@ -168,13 +176,14 @@ class UserAuthorizationTest extends TestCase
             'access_level' => $this->projectManager->access_level
             ]);
         
+        $testProjectID = 1;
         // Call route under test
-        $response = $this->call('GET', 'user/create');
+        $response = $this->call('GET', 'project/'.$testProjectID.'/items/create');
         
-        $this->assertContains('Create a User', $response->getContent());
+        $this->assertContains('Items for', $response->getContent());
     }
-    // Test to test successful authorization for user.index
-    public function testUserCreateSuccess_Administrator()
+    // Test to test successful authorization for projectitem.index
+    public function testProjectItemCreateSuccess_Administrator()
     {
         // Set test user as current authenticated user
         $this->be($this->administrator);
@@ -184,17 +193,18 @@ class UserAuthorizationTest extends TestCase
             'access_level' => $this->administrator->access_level
             ]);
         
+        $testProjectID = 1;
         // Call route under test
-        $response = $this->call('GET', 'user/create');
+        $response = $this->call('GET', 'project/'.$testProjectID.'/items/create');
         
-        $this->assertContains('Create a User', $response->getContent());
+        $this->assertContains('Items for', $response->getContent());
     }
 
     
     
     
-    // Test to test failed authorization for user.store
-    public function testUserStoreFailure_Inactive()
+    // Test to test failed authorization for projectitem.store
+    public function testProjectItemStoreFailure_Inactive()
     {
         $this->session([
             'username' => $this->inactiveUser->username, 
@@ -204,14 +214,15 @@ class UserAuthorizationTest extends TestCase
         // Set test user as current authenticated user
         $this->be($this->inactiveUser);
         
+        $testProjectID = 1;
         // Call route under test
-        $this->call('POST', 'user');
+        $response = $this->call('POST', 'project/'.$testProjectID.'/items/create');
         
         // Assert redirected to access denied page
         $this->assertRedirectedToRoute('unauthorized');
     }
-    // Test to test failed authorization for user.store
-    public function testUserStoreFailure_BasicUser()
+    // Test to test failed authorization for projectitem.store
+    public function testProjectItemStoreFailure_BasicUser()
     {
         // Set test user as current authenticated user
         $this->be($this->basicUser);
@@ -221,56 +232,15 @@ class UserAuthorizationTest extends TestCase
             'access_level' => $this->basicUser->access_level
             ]);
         
+        $testProjectID = 1;
         // Call route under test
-        $response = $this->call('POST', 'user');
+        $response = $this->call('POST', 'project/'.$testProjectID.'/items/create');
         
         // Assert redirected to access denied page
         $this->assertRedirectedToRoute('unauthorized');
-    }
-    
-    
-    
-    
-        // Test to test failed authorization for user.show
-    public function testUserShowFailure_Inactive()
-    {
-        $this->session([
-            'username' => $this->inactiveUser->username, 
-            'access_level' => $this->inactiveUser->access_level
-            ]);
-        
-        // Set test user as current authenticated user
-        $this->be($this->inactiveUser);
-        
-        $testUserID = 1;
-        
-        // Call route under test
-        $this->call('GET', 'user/'.$testUserID);
-        
-        // Assert redirected to access denied page
-        $this->assertRedirectedToRoute('unauthorized');
-    }
-    // Test to test failed authorization for user.show
-    public function testUserShowSuccess_BasicUser()
-    {
-        // Set test user as current authenticated user
-        $this->be($this->basicUser);
-        
-        $this->session([
-            'username' => $this->basicUser->username, 
-            'access_level' => $this->basicUser->access_level
-            ]);
-        
-        $testUserID = 1;
-        
-        // Call route under test
-        $response = $this->call('GET', 'user/'.$testUserID);
-        
-        $this->assertRedirectedToRoute('unauthorized');
-
-    }
-    // Test to test successful authorization for user.show
-    public function testUserShowSuccess_ContactManager()
+    }    
+    // Test to test failed authorization for projectitem.store
+    public function testProjectItemStoreFailure_ContactManager()
     {
         // Set test user as current authenticated user
         $this->be($this->contactManager);
@@ -280,54 +250,19 @@ class UserAuthorizationTest extends TestCase
             'access_level' => $this->contactManager->access_level
             ]);
         
-        $testUserID = 1;
-        
+        $testProjectID = 1;
         // Call route under test
-        $response = $this->call('GET', 'user/'.$testUserID);
+        $response = $this->call('POST', 'project/'.$testProjectID.'/items/create');
         
+        // Assert redirected to access denied page
         $this->assertRedirectedToRoute('unauthorized');
-
-    }
-    // Test to test successful authorization for user.show
-    public function testUserShowSuccess_ProjectManager()
-    {
-        // Set test user as current authenticated user
-        $this->be($this->projectManager);
-        
-        $this->session([
-            'username' => $this->projectManager->username, 
-            'access_level' => $this->projectManager->access_level
-            ]);
-        
-        $testUserID = 1;
-        
-        // Call route under test
-        $response = $this->call('GET', 'user/'.$testUserID);
-        
-        $this->assertContains("User Details", $response->getContent());
-    }
-    // Test to test successful authorization for user.show
-    public function testUserShowSuccess_Administrator()
-    {
-        // Set test user as current authenticated user
-        $this->be($this->administrator);
-        
-        $this->session([
-            'username' => $this->administrator->username, 
-            'access_level' => $this->administrator->access_level
-            ]);
-        
-        $testUserID = 1;
-        
-        // Call route under test
-        $response = $this->call('GET', 'user/'.$testUserID);
-        
-        $this->assertContains("User Details", $response->getContent());
     }
     
     
-           // Test to test failed authorization for user.edit
-    public function testUserEditFailure_Inactive()
+    
+    
+           // Test to test failed authorization for projectitem.edit
+    public function testProjectItemEditFailure_Inactive()
     {
         $this->session([
             'username' => $this->inactiveUser->username, 
@@ -337,16 +272,15 @@ class UserAuthorizationTest extends TestCase
         // Set test user as current authenticated user
         $this->be($this->inactiveUser);
         
-        $testUserID = 1;
-        
+        $testProjectID = 1;
         // Call route under test
-        $this->call('GET', 'user/'.$testUserID.'/edit');
+        $response = $this->call('GET', 'project/'.$testProjectID.'/items/edit');
         
         // Assert redirected to access denied page
         $this->assertRedirectedToRoute('unauthorized');
     }
-    // Test to test failed authorization for user.show
-    public function testUserEditFailure_BasicUser()
+    // Test to test failed authorization for projectitem.edit
+    public function testProjectItemEditFailure_BasicUser()
     {
         // Set test user as current authenticated user
         $this->be($this->basicUser);
@@ -356,16 +290,15 @@ class UserAuthorizationTest extends TestCase
             'access_level' => $this->basicUser->access_level
             ]);
         
-        $testUserID = 1;
-        
+        $testProjectID = 1;
         // Call route under test
-        $this->call('GET', 'user/'.$testUserID.'/edit');
+        $response = $this->call('GET', 'project/'.$testProjectID.'/items/edit');
         
         $this->assertRedirectedToRoute('unauthorized');
 
     }
-    // Test to test failed authorization for user.edit
-    public function testUserEditFailure_ContactManager()
+    // Test to test failed authorization for projectitem.edit
+    public function testProjectItemEditFailure_ContactManager()
     {
         // Set test user as current authenticated user
         $this->be($this->contactManager);
@@ -375,15 +308,15 @@ class UserAuthorizationTest extends TestCase
             'access_level' => $this->contactManager->access_level
             ]);
         
-        $testUserID = 1;
-        
+        $testProjectID = 1;
         // Call route under test
-        $response = $this->call('GET', 'user/'.$testUserID.'/edit');
+        $response = $this->call('GET', 'project/'.$testProjectID.'/items/edit');
         
         $this->assertRedirectedToRoute('unauthorized');
+
     }
-    // Test to test failed authorization for user.edit
-    public function testUserEditFailure_ProjectManager()
+    // Test to test successful authorization for projectitem.edit
+    public function testProjectItemEditSuccess_ProjectItemManager()
     {
         // Set test user as current authenticated user
         $this->be($this->projectManager);
@@ -393,15 +326,14 @@ class UserAuthorizationTest extends TestCase
             'access_level' => $this->projectManager->access_level
             ]);
         
-        $testUserID = 1;
-        
+        $testProjectID = 1;
         // Call route under test
-        $response = $this->call('GET', 'user/'.$testUserID.'/edit');
+        $response = $this->call('GET', 'project/'.$testProjectID.'/items/edit');
         
-        $this->assertRedirectedToRoute('unauthorized');
+        $this->assertContains("Edit Items for", $response->getContent());
     }
-    // Test to test successful authorization for user.edit
-    public function testUserEditSuccess_Administrator()
+    // Test to test successful authorization for projectitem.edit
+    public function testProjectItemEditSuccess_Administrator()
     {
         // Set test user as current authenticated user
         $this->be($this->administrator);
@@ -411,13 +343,11 @@ class UserAuthorizationTest extends TestCase
             'access_level' => $this->administrator->access_level
             ]);
         
-        $testUserID = 1;
-        
+        $testProjectID = 1;
         // Call route under test
-        $response = $this->call('GET', 'user/'.$testUserID.'/edit');
+        $response = $this->call('GET', 'project/'.$testProjectID.'/items/edit');
         
-        $this->assertContains("User Details", $response->getContent());
-
+        $this->assertContains("Edit Items for", $response->getContent());
     }
     
     
@@ -425,8 +355,8 @@ class UserAuthorizationTest extends TestCase
     
     
     
-    // Test to test failed authorization for user.update
-    public function testUserUpdateFailure_Inactive()
+    // Test to test failed authorization for projectitem.update
+    public function testProjectItemUpdateFailure_Inactive()
     {
         $this->session([
             'username' => $this->inactiveUser->username, 
@@ -436,16 +366,15 @@ class UserAuthorizationTest extends TestCase
         // Set test user as current authenticated user
         $this->be($this->inactiveUser);
         
-        $testUserID = 1;
-        
+        $testProjectID = 1;        
         // Call route under test
-        $this->call('PUT', 'user/'.$testUserID);
+        $this->call('POST', 'project/'.$testProjectID.'/items/edit');
         
         // Assert redirected to access denied page
         $this->assertRedirectedToRoute('unauthorized');
     }
-    // Test to test failed authorization for user.update
-    public function testUserUpdateFailure_BasicUser()
+    // Test to test failed authorization for projectitem.update
+    public function testProjectItemUpdateFailure_BasicUser()
     {
         // Set test user as current authenticated user
         $this->be($this->basicUser);
@@ -454,10 +383,26 @@ class UserAuthorizationTest extends TestCase
             'username' => $this->basicUser->username, 
             'access_level' => $this->basicUser->access_level
             ]);
-        $testUserID = 1;
-        
+        $testProjectID = 1;        
         // Call route under test
-        $response = $this->call('PUT', 'user/'.$testUserID);
+        $this->call('POST', 'project/'.$testProjectID.'/items/edit');
+        
+        // Assert redirected to access denied page
+        $this->assertRedirectedToRoute('unauthorized');
+    }
+    // Test to test failed authorization for projectitem.update
+    public function testProjectItemUpdateFailure_ContactManager()
+    {
+        // Set test user as current authenticated user
+        $this->be($this->contactManager);
+        
+        $this->session([
+            'username' => $this->contactManager->username, 
+            'access_level' => $this->contactManager->access_level
+            ]);
+        $testProjectID = 1;        
+        // Call route under test
+        $this->call('POST', 'project/'.$testProjectID.'/items/edit');
         
         // Assert redirected to access denied page
         $this->assertRedirectedToRoute('unauthorized');

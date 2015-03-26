@@ -5,7 +5,7 @@ User Details
 @stop
 
 @section('content')
-
+@if(!empty($user))
 <h1>{{ $user->contact->first_name . " " . $user->contact->last_name . "'s User Details" }}</h1>
 <div class="buttons">
     @if (Auth::check() && (Session::get('access_level') === 'administrator' ))
@@ -36,6 +36,7 @@ User Details
      </div>
  </div>
 </section>
+@endif
 {{ Form::close() }}
 
  @stop            
