@@ -304,9 +304,8 @@ class ContactController extends \BaseController {
             $volunteerInfo['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
             // Assign the contact id
             $volunteerInfo['id'] = $id;
-
-            //Store the volunteers info.
-            $this->storeVolunteerWith($volunteerInfo);         
+             $this->storeVolunteerWith($volunteerInfo); 
+        
         }
         else
         {
@@ -314,7 +313,8 @@ class ContactController extends \BaseController {
             //as the other checkboxes. Can't mix with the other one, as the update methods are different.
             $volunteerInfo['active_status'] = Input::has('active_status') ? 1 : 0;
             $volunteerInfo['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
-            Volunteer::where('id','=',$id)->update($volunteerInfo);
+
+            
         }
 
         //Used to count the field number based on the number of time through
@@ -342,6 +342,8 @@ class ContactController extends \BaseController {
                 
                 $affectedRows = Contact::where('id','=',$id)->update($fieldUpdateValues);
                 $redirectVariable = Redirect::action('ContactController@show', $id);
+                //Store the volunteers info.
+               
             }
             else
             {
