@@ -32,4 +32,9 @@ class Contact extends \Eloquent
         {
             return $this->hasOne('Volunteer','id', 'id');
         }
+        
+//        public function user()
+//        {
+//            return $this->hasOne('User','contact_id', 'id');
+//        }
 }

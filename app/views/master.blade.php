@@ -81,6 +81,14 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
                                 <li>{{ HTML::linkAction('FamilyController@create','Add a Family') }}</li>
                             </ul>
                         </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>{{ HTML::linkAction('UserController@index','All Users') }}</li>
+                                <li>{{ HTML::linkAction('UserController@create','Add a User') }}</li>
+                            </ul>
+                        </li>
+                        
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-search"><?php $masterSearch->show(); ?></li>
