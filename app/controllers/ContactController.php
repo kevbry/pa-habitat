@@ -271,64 +271,83 @@ class ContactController extends \BaseController {
         //updating the record in the contact table for the contact with the id passed in
         //Create validator
         $v = new App\Libraries\validators\ContactValidator($contactInfo);
-            
-        //if a volunteer was passed to the page.
-        if($volunteerPassed)
-        {
-            //Don't show the *make volunteer* checkbox, but show everything else.
-            $volunteerInfo['active_status'] = Input::has('active_status') ? 1 : 0;
-            $volunteerInfo['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
-            // Assign the contact id
-            $volunteerInfo['id'] = $id;
-            //Store the volunteers info.
-            if($v->passes())
-            {
-                $this->storeVolunteerWith($volunteerInfo); 
-            }
         
-        }
-        else
+        //If the validator passes, redirect to the show, otherwise redirect back to edit with inputs and errors
+        //var_dump($v->passes());
+        if($v->passes())
         {
-            //If a volunteer was not passed in. We need to show the box to make them an volunteer, as well 
-            //as the other checkboxes. Can't mix with the other one, as the update methods are different.
-            $volunteerInfo['active_status'] = Input::has('active_status') ? 1 : 0;
-            $volunteerInfo['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
-
-            
-        }
-
-        //Used to count the field number based on the number of time through
-        //the for each loop
-        $counter = 0;
-        //Creating an associate array for the update
-        $fieldUpdateValues = array();
-
-            //added key value pairs to the array
-            foreach($contactInfo as $fieldValue)
+               
+            //if a volunteer was passed to the page.
+            if($volunteerPassed)
             {
-                if( !( $fieldValue.equalToIgnoringCase('last_attended_safety_meeting_date'))){
-                    $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
-                    $counter++;
-                }
+                //Don't show the *make volunteer* checkbox, but show everything else.
+                $volunteerInfo['active_status'] = Input::has('active_status') ? 1 : 0;
+                $volunteerInfo['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
+                // Assign the contact id
+                $volunteerInfo['id'] = $id;
+                //Store the volunteers info.
+                //if($v->passes())
+                //{
+                    $this->storeVolunteerWith($volunteerInfo); 
+                //}
+
             }
-           
-            
-            //If the validator passes, redirect to the show, otherwise redirect back to edit with inputs and errors
-            //var_dump($v->passes());
-            if($v->passes())
+            else
             {
-                
-                $affectedRows = Contact::where('id','=',$id)->update($fieldUpdateValues);
-                $redirectVariable = Redirect::action('ContactController@show', $id);
-                
+                //If a volunteer was not passed in. We need to show the box to make them an volunteer, as well 
+                //as the other checkboxes. Can't mix with the other one, as the update methods are different.
+                $volunteerInfo['active_status'] = Input::has('active_status') ? 1 : 0;
+                $volunteerInfo['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
+                Volunteer::where('id','=',$id)->update($volunteerInfo);
+
+            }
+
+            //Used to count the field number based on the number of time through
+            //the for each loop
+            $counter = 0;
+            //Creating an associate array for the update
+            $fieldUpdateValues = array();
+
+                //added key value pairs to the array
+                foreach($contactInfo as $fieldValue)
+                {
+                    if( !( $fieldValue.equalToIgnoringCase('last_attended_safety_meeting_date'))){
+                        $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
+                        $counter++;
+                    }
+                }
+
+                ///$id = $this->storeContactWith($contactInfo);       
+               /// $affectedRows = Contact::where('id','=',$id)->update($fieldUpdateValues);
+                ///$redirectVariable = Redirect::action('ContactController@show', $id);
+                //
+                    //updating the record in the contact table for the contact with the id passed in        
+                    $affectedRows = Contact::where('id','=',$id)->update($fieldUpdateValues);
+
+                    //var_dump($affectedRows);
+                    //use affected rows to dertirming if it was a success or not
+                    if($affectedRows > 0)
+                    {
+                        // Redirect to view the updated contact info
+                        $redirectVariable = Redirect::action('ContactController@show', $id);
+                    }
+                    else
+                    {
+                        //Redirect back to the edit page with an error message
+                        $redirectVariable = Redirect::action('ContactController@edit', $id)->withErrors(['Error', 'The Message']);
+                    }
                
             }
             else
             {
                $redirectVariable = Redirect::action('ContactController@edit', $id)->withInput()->withErrors($v->getErrors());
             }
-            
+             // return to redirect
             return $redirectVariable;
     
     }
+    
+            
+
+
 }
