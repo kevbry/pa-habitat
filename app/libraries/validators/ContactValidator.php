@@ -1,4 +1,4 @@
-<?php namespace App\Libraries\Validators;
+<?php namespace App\Libraries\validators;
 
 /**
  * Description of Contact
@@ -21,6 +21,7 @@ class ContactValidator extends Validator {
         'postal_code' => 'required|postalcode',
         'country' => 'required|alphaspace',
         'comments' => '',
+        'last_attended_safety_meeting_date' => 'safetymeetingdate'
     );
 
 }

@@ -36,7 +36,7 @@ class CoreValidator extends Illuminate\Validation\Validator {
     {
         return preg_match("^[a-zA-Z][0-9][a-zA-Z] ?[0-9][a-zA-Z][0-9]$^", $value);
     }
-    //Validator Regex for letters and spaces ex. Prince Albert
+     //Validator Regex for letters and spaces ex. Prince Albert
     public function validateAlphaSpace($attribute, $value, $parameters)
     {
         return preg_match("/^[a-zA-Z\s]*$/",$value);
@@ -46,10 +46,40 @@ class CoreValidator extends Illuminate\Validation\Validator {
     {
         return preg_match("^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$^",$value);
     }
+
     //Validator Regex for more complex addresses such as 45-a West Street, East
     public function validateAddress($attribute, $value, $parameters)
     {
         return preg_match("^\A(\d+[a-zA-Z]{0,1}\s{0,1}[-]{1}\s{0,1}\d*[a-zA-Z]{0,1}|\d+[a-zA-Z-]{0,1}\d*[a-zA-Z]{0,1})\s*+(.*)$^",$value);  
     }
-    
+
+
+   /**
+     * Validator to ensure the inputted date is not in the future
+     * 
+     * @param string $attribute
+     * @param date $value
+     * @param string $parameters
+     * @return boolean
+     */
+    public function validateSafetyMeetingDate($attribute, $value, $parameters) 
+    {
+        //Set the return value
+        $return_value = FALSE;
+        
+        //create today's date
+        $todaysDate = new DateTime();
+        $todaysDate->format('Y-m-d');
+      
+        //The inputted date
+        $inputDate = new DateTime($value);
+        $inputDate->format('Y-m-d');
+        
+        //If todaysDate is greather than or equal to the inputDate, the date is valid
+        if( $todaysDate >= $inputDate || $value == nullValue() )
+        {
+            $return_value = TRUE;
+        }
+        return $return_value;
+    }
 }

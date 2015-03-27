@@ -57,36 +57,53 @@ class ContactController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
+    public function store()
+    {
             // Check if the contact being created is a donor
             $donorStatus = Input::has('is_donor');
             
             // Check if the contact being created is a volunteer
             $volunteerStatus = Input::has('is_volunteer');
             
-            // Check if the contact being created is a company
+            //check if the contact being created has a company assigned to it.
             $companyStatus = Input::has('company_name');
             
-            // Store values from the contact form
-            $contactInfo = Input::only('first_name', 
-                                        'last_name', 
-                                        'email_address',
-                                        'home_phone', 
-                                        'cell_phone', 
-                                        'work_phone', 
-                                        'street_address', 
-                                        'city', 
-                                        'province', 
-                                        'postal_code', 
-                                        'country', 
-                                        'comments');
-            //Create a validator, based on the contact validator I created.
-            $v = new App\Libraries\Validators\ContactValidator($contactInfo);
-            //If the validator passes with the input provided, based on the rules in the validator class.
+            if($volunteerStatus ){
+                // Check if the contact being created is a company
+               $contactInfo = Input::only('first_name',           
+                                            'last_name', 
+                                            'email_address',
+                                            'home_phone', 
+                                            'cell_phone', 
+                                            'work_phone', 
+                                            'street_address', 
+                                            'city', 
+                                            'province', 
+                                            'postal_code', 
+                                            'country', 
+                                            'comments',
+                                            'last_attended_safety_meeting_date');
+            }
+            else
+            {                
+                // Store values from the contact form, without the safety meeting field
+                $contactInfo = Input::only('first_name', 
+                                            'last_name', 
+                                            'email_address',
+                                            'home_phone', 
+                                            'cell_phone', 
+                                            'work_phone', 
+                                            'street_address', 
+                                            'city', 
+                                            'province', 
+                                            'postal_code', 
+                                            'country', 
+                                            'comments');
+            }
+             
+            $v = new App\Libraries\validators\ContactValidator($contactInfo);
             if($v->passes())
             {
-                //Store the contact and redirect to their show
                 $id = $this->storeContactWith($contactInfo);
                 return Redirect::action('ContactController@show', $id);
             }
@@ -97,36 +114,44 @@ class ContactController extends \BaseController {
                         ->withErrors($v->getErrors());
             }
 
-        // Check if the contact being created is a company
-        $companyStatus = Input::has('company_name');
+            // Add the contact as a volunteer if specified
+            if ($volunteerStatus)
+            {
+                // Get volunteer information
+                $volunteerInfo['active_status'] = Input::has('active_status') ? 1 : 0;
+                $volunteerInfo['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
+                
+                // Assign the contact id
+                $volunteerInfo['id'] = $id;
+                
+                // Store Volunteer
+                $this->storeVolunteerWith($volunteerInfo);
+            }
+            
+            // Add the contact as a company if specified
+            if ($companyStatus)
+            {
+                //Convert web form keys/values to match database keys/values
+                $companyData = Input::only('company_name');
+                $companyName['name'] = $companyData['company_name'];
+                // Store values from the company portion of contact form
+                $companyInfo = $companyName;
+                
+                // Assign the contact's id
+                $companyInfo['contact_id'] = $id;
 
-        // Store values from the contact form
-        $contactInfo = Input::only('first_name', 
-                                'last_name', 
-                                'email_address',
-                                'home_phone', 
-                                'cell_phone', 
-                                'work_phone', 
-                                'street_address', 
-                                'city', 
-                                'province', 
-                                'postal_code', 
-                                'country', 
-                                'comments');
-
-        // Store the contact
-        $id = $this->storeContactWith($contactInfo);
-
+           
         // Add the contact as a donor if specified
         if ($donorStatus)
         {                
             // Assign the contact
             $donorInfo['id'] = $id;
+           }            
 
             // Store Donor
             $this->storeDonorWith($donorInfo);
 
-        }
+
 
         // Add the contact as a volunteer if specified
         if ($volunteerStatus)
@@ -163,6 +188,8 @@ class ContactController extends \BaseController {
         $redirectVariable = Redirect::action('ContactController@show', $id);
         // Redirect to view the newly created contact
         return $redirectVariable;
+        }
+        
     }
 
     public function storeDonorWith($donorInfo)
@@ -238,19 +265,20 @@ class ContactController extends \BaseController {
     public function update($id)
     {
         // Store values from the contact form
-        $contactInfo = Input::only(
-                    'first_name',
-                    'last_name',
-                    'email_address',
-                    'home_phone', 
-                    'cell_phone', 
-                    'work_phone', 
-                    'street_address', 
-                    'city', 
-                    'province', 
-                    'postal_code', 
-                    'country', 
-                    'comments');
+          $contactInfo = Input::only(
+                'first_name',           
+                'last_name', 
+                'email_address',
+                'home_phone', 
+                'cell_phone', 
+                'work_phone', 
+                'street_address', 
+                'city', 
+                'province', 
+                'postal_code', 
+                'country', 
+                'comments',
+                'last_attended_safety_meeting_date');
         // Array of field names
         $fieldNames = array(
                     'first_name',
@@ -298,16 +326,20 @@ class ContactController extends \BaseController {
             //added key value pairs to the array
             foreach($contactInfo as $fieldValue)
             {
-                $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
-                $counter++;
+                if( !( $fieldValue.equalToIgnoringCase('last_attended_safety_meeting_date'))){
+                    $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
+                    $counter++;
+                }
             }
-            
+           
             //updating the record in the contact table for the contact with the id passed in
             //Create validator
-            $v = new App\Libraries\Validators\ContactValidator($contactInfo);
+            $v = new App\Libraries\validators\ContactValidator($contactInfo);
             //If the validator passes, redirect to the show, otherwise redirect back to edit with inputs and errors
+            //var_dump($v->passes());
             if($v->passes())
             {
+                
                 $affectedRows = Contact::where('id','=',$id)->update($fieldUpdateValues);
                 $redirectVariable = Redirect::action('ContactController@show', $id);
             }
@@ -317,5 +349,6 @@ class ContactController extends \BaseController {
             }
             
             return $redirectVariable;
-	}
+    
+    }
 }
