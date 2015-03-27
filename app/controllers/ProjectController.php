@@ -94,15 +94,26 @@ class ProjectController extends \BaseController {
             $projectInput['family_id'] = Input::get('family_id');
         }
 
+//Create a validator, based on the contact validator I created.
+        $v = new App\Libraries\Validators\ProjectValidator($projectInput);
+        //If the validator passes with the input provided, based on the rules in the validator class.
+            if($v->passes())
+            {
+                //Assign returned value of a project id created to a variable.
+                $projectID = $this->createProjectWith($projectInput);
+                
+                // Grab the id of the new project
+                $id = $projectID;
 
-//Assign returned value of a project id created to a variable.
-        $projectID = $this->createProjectWith($projectInput);
-
-// Grab the id of the new project
-        $id = $projectID;
-
-// Redirect to view the newly created project
-        return Redirect::action('ProjectController@show', array($id));
+                // Redirect to view the newly created project
+                return Redirect::action('ProjectController@show', array($id));
+            }       
+            else
+            {
+                //otherwise return back to the contact, with the same inputs, and the error messages.
+                return Redirect::action('ProjectController@create')->withInput()
+                        ->withErrors($v->getErrors());
+            }
     }
 
     /**
