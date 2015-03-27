@@ -94,8 +94,9 @@ return array(
 		'attribute-name' => array(
 			'rule-name' => 'custom-message',
 		),
+                'before_date' => ":attribute must be before :other",
 	),
-
+        
 	/*
 	|--------------------------------------------------------------------------
 	| Custom Validation Attributes

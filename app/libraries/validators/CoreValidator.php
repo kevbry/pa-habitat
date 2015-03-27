@@ -63,7 +63,7 @@ class CoreValidator extends Illuminate\Validation\Validator {
     public function validateBeforeDate($attribute, $value, $parameters)
     {
  
-        return strtotime( $value ) < strtotime( $this->attributes[ $parameters[0] ] );
+        return strtotime( $value ) < strtotime( $this->attribute[ $parameters[0] ] );
  
     }
 
