@@ -273,7 +273,7 @@ Contact Details
         </table>
         {{ Form::button('Edit Skills', array('id' => 'editSkills','class'=>'btn btn-primary')) }}  
     </div>
-<!--     
+    
     <div class="form-group">
         {{ Form::label('interests', 'Interest(s):') }}
         <table class="table table-hover">
@@ -300,9 +300,9 @@ Contact Details
                 @endif
             </tbody>
         </table>
-        {{ HTML::linkRoute('editInterests', 'Edit Interests', array($contact->id), array('class' => 'btn btn-primary')) }}
         {{ HTML::linkRoute('createInterests', 'Add Interests', array($contact->id), array('class' => 'btn btn-primary')) }}
-    </div>-->
+        {{ HTML::linkRoute('editInterests', 'Edit Interests', array($contact->id), array('class' => 'btn btn-primary')) }}
+    </div> 
           @endif
  </section>
  {{ Form::close() }}

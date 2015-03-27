@@ -30,7 +30,6 @@ Route::get('project/{project}/inspections/create', array('as'=>'projInspectionsA
 Route::post('project/{project}/inspections/create', array('as'=>'storeInspections', 'uses'=>'ProjectInspectionController@store'));
 Route::get('project/{project}/inspections/edit',array('as'=>'editFormForInspections','uses'=>'ProjectInspectionController@edit'));
 Route::post('project/{project}/inspections/edit',array('as'=>'updateFormInspections','uses'=>'ProjectInspectionController@update'));
-
 Route::get('volunteerhours/edit/project/{project}',array('as'=>'projHoursEdit', 'uses'=>'VolunteerHoursController@indexForEditProject'));
 Route::post('volunteerhours/edit/project/',array('as'=>'updateProjectHours','uses'=>'VolunteerHoursController@updateProjectHours'));
 
@@ -42,10 +41,11 @@ Route::get('project/{project}/items/edit',array('as'=>'editFormForItems','uses'=
 Route::post('project/{project}/items/edit',array('as'=>'updateFormItems','uses'=>'ProjectItemController@update'));
 
 //Volunteer Interest routes
-Route::get('volunteer/{volunteer}/edit',array('as'=>'editInterests','uses'=>'VolunteerInterestController@edit'));
-Route::post('volunteer/{volunteer}/store',array('as'=>'storeInterests','uses'=>'VolunteerInterestController@store'));
-Route::post('volunteer/{volunteer}/update',array('as'=>'updateInterests','uses'=>'VolunteerInterestController@update'));
-Route::get('volunteer/{volunteer}/create',array('as'=>'createInterests','uses'=>'VolunteerInterestController@create'));
+Route::get('volunteer/{volunteer}/interest/edit',array('as'=>'editInterests','uses'=>'VolunteerInterestController@edit'));
+Route::post('volunteer/{volunteer}/interest/store',array('as'=>'storeInterests','uses'=>'VolunteerInterestController@store'));
+Route::post('volunteer/{volunteer}/interest/update',array('as'=>'updateInterests','uses'=>'VolunteerInterestController@update'));
+Route::get('volunteer/{volunteer}/interest/create',array('as'=>'createInterests','uses'=>'VolunteerInterestController@create'));
+
 //Report routes
 Route::get('volunteerhours/report/{volunteer}', array('as'=>'volunteerReport', 'uses'=>'VolunteerHoursController@viewHoursReport'));
 Route::get('projecthours/report/{volunteer}', array('as'=>'projectReport', 'uses'=>'VolunteerHoursController@viewHoursReportForProject'));

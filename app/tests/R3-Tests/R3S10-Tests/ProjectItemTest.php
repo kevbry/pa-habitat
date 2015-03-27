@@ -31,11 +31,7 @@ class ProjectItemTest extends TestCase
             'id' => '555',
             'project_id' => 2, 
             'item_type' => 'Refrigerator',
-            'manufacturer' => 'Acme Ltd.',
-            'model' => 'Super Cold 3000',
-            'serial_number' => 'ABJ-9137-WOW3042',
-            'vendor' => 'Awesome Shop',
-            'comments' => 'Came with free bag of hot dogs'
+          
          ];
         
         // Assemble

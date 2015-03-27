@@ -65,7 +65,9 @@ class VolunteerInterestController extends \BaseController {
             $this->storeInterestWith($volunteerInterests);
         }
 
-        return Redirect::action('ContactController@show', $volunteerInterests['volunteer_id']);
+
+        
+     return Redirect::action('ContactController@show', $volunteerInterests['volunteer_id']);
     }
 
     /*
@@ -96,9 +98,9 @@ class VolunteerInterestController extends \BaseController {
         }
         //  print_r($infoArray);
         //Get the static volunteer id, this never changes and we are making sure it won't
-        $id = Input::get('volunteer_id');
+        $id = Input::get('contact');
         
-        var_dump($infoArray);
+        
       
         //Get all the volunteer interests from the database, will be used to delete.
         $interestArray = $this->volunteerInterestRepo->getVolunteerInterestsAsArray($id);

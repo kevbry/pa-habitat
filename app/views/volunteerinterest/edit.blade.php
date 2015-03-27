@@ -10,6 +10,7 @@ Interests for {{$volunteer->contact->first_name . ' ' . $volunteer->contact->las
 
 {{ Form::open(array('route'=>'updateInterests','class'=>'form-horizontal')) }}
 {{ Form::submit('Save Changes', array('class'=>'btn btn-primary')) }}
+{{Form::hidden('contact', $volunteer->id)}}     
 <table class="table">
     <thead>
         <tr><th>Interest</th><th>Comment</th></tr>
