@@ -317,22 +317,22 @@ Route::get('volunteerhours/add/volunteer/{volunteer}',array(
     'as'=>'volHoursAdd', 
     'uses'=>'VolunteerHoursController@createForContact'
 ));
-//START HERE SARAH
 Route::post('volunteerhours',array(
     'before' => 'auth|contactmanager',
     'uses'=>'VolunteerHoursController@storehours',
     'as'=>'storehours'
 ));
 Route::get('volunteerhours/volunteerEdit/{volunteer}',array(
-    'before' => 'auth|projectmanager',
+    'before' => 'auth|contactmanager',
     'as'=>'volHoursEditRoute', 
     'uses'=>'VolunteerHoursController@indexForEditContact'
 ));
 Route::post('volunteerhours/volunteerEdit/',array(
-    'before' => 'auth|projectmanager',
+    'before' => 'auth|contactmanager',
     'as'=>'updatehours',
     'uses'=>'VolunteerHoursController@updatehours'
 ));
+//START HERE SARAH
 Route::get('volunteerhours/edit/project/{project}',array(
     'before' => 'auth|projectmanager',
     'as'=>'projHoursEdit', 

@@ -385,38 +385,8 @@ class VolunteerHourAuthorizationTest extends TestCase
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // Test to test failed authorization for projectitem.store
-    public function testProjectItemStoreFailure_Inactive()
+    // Test to test failed authorization for volunteerhour.storehours
+    public function testVolunteerHourProjectStoreFailure_Inactive()
     {
         $this->session([
             'username' => $this->inactiveUser->username, 
@@ -426,15 +396,14 @@ class VolunteerHourAuthorizationTest extends TestCase
         // Set test user as current authenticated user
         $this->be($this->inactiveUser);
         
-        $testProjectID = 1;
         // Call route under test
-        $response = $this->call('POST', 'project/'.$testProjectID.'/items/create');
+        $response = $this->call('POST', 'volunteerhours');
         
         // Assert redirected to access denied page
         $this->assertRedirectedToRoute('unauthorized');
     }
-    // Test to test failed authorization for projectitem.store
-    public function testProjectItemStoreFailure_BasicUser()
+    // Test to test failed authorization for volunteerhour.storehours
+    public function testVolunteerHourProjectStoreFailure_BasicUser()
     {
         // Set test user as current authenticated user
         $this->be($this->basicUser);
@@ -444,37 +413,16 @@ class VolunteerHourAuthorizationTest extends TestCase
             'access_level' => $this->basicUser->access_level
             ]);
         
-        $testProjectID = 1;
         // Call route under test
-        $response = $this->call('POST', 'project/'.$testProjectID.'/items/create');
+        $response = $this->call('POST', 'volunteerhours');
         
         // Assert redirected to access denied page
         $this->assertRedirectedToRoute('unauthorized');
-    }    
-    // Test to test failed authorization for projectitem.store
-    public function testProjectItemStoreFailure_ContactManager()
-    {
-        // Set test user as current authenticated user
-        $this->be($this->contactManager);
-        
-        $this->session([
-            'username' => $this->contactManager->username, 
-            'access_level' => $this->contactManager->access_level
-            ]);
-        
-        $testProjectID = 1;
-        // Call route under test
-        $response = $this->call('POST', 'project/'.$testProjectID.'/items/create');
-        
-        // Assert redirected to access denied page
-        $this->assertRedirectedToRoute('unauthorized');
-    }
+    }     
     
     
-    
-    
-           // Test to test failed authorization for projectitem.edit
-    public function testProjectItemEditFailure_Inactive()
+    // Test to test failed authorization for volunteerhour.indexForEditContact
+    public function testVolunteerHourContactEditFailure_Inactive()
     {
         $this->session([
             'username' => $this->inactiveUser->username, 
@@ -484,15 +432,15 @@ class VolunteerHourAuthorizationTest extends TestCase
         // Set test user as current authenticated user
         $this->be($this->inactiveUser);
         
-        $testProjectID = 1;
+        $volunteerID = 2;
         // Call route under test
-        $response = $this->call('GET', 'project/'.$testProjectID.'/items/edit');
+        $response = $this->call('GET', 'volunteerhours/volunteerEdit/'.$volunteerID);
         
         // Assert redirected to access denied page
         $this->assertRedirectedToRoute('unauthorized');
     }
-    // Test to test failed authorization for projectitem.edit
-    public function testProjectItemEditFailure_BasicUser()
+    // Test to test failed authorization for volunteerhour.indexForEditContact
+    public function testVolunteerHourContactEditFailure_BasicUser()
     {
         // Set test user as current authenticated user
         $this->be($this->basicUser);
@@ -502,15 +450,15 @@ class VolunteerHourAuthorizationTest extends TestCase
             'access_level' => $this->basicUser->access_level
             ]);
         
-        $testProjectID = 1;
+        $volunteerID = 2;
         // Call route under test
-        $response = $this->call('GET', 'project/'.$testProjectID.'/items/edit');
+        $response = $this->call('GET', 'volunteerhours/volunteerEdit/'.$volunteerID);
         
         $this->assertRedirectedToRoute('unauthorized');
 
     }
-    // Test to test failed authorization for projectitem.edit
-    public function testProjectItemEditFailure_ContactManager()
+    // Test to test failed authorization for volunteerhour.indexForEditContact
+    public function testVolunteerHourContactEditFailure_ContactManager()
     {
         // Set test user as current authenticated user
         $this->be($this->contactManager);
@@ -520,15 +468,15 @@ class VolunteerHourAuthorizationTest extends TestCase
             'access_level' => $this->contactManager->access_level
             ]);
         
-        $testProjectID = 1;
+        $volunteerID = 2;
         // Call route under test
-        $response = $this->call('GET', 'project/'.$testProjectID.'/items/edit');
+        $response = $this->call('GET', 'volunteerhours/volunteerEdit/'.$volunteerID);
         
-        $this->assertRedirectedToRoute('unauthorized');
+        $this->assertContains("Editing Volunteer Hours for", $response->getContent());
 
     }
-    // Test to test successful authorization for projectitem.edit
-    public function testProjectItemEditSuccess_ProjectItemManager()
+    // Test to test successful authorization for volunteerhour.indexForEditContact
+    public function testVolunteerHourContactEditSuccess_ProjectItemManager()
     {
         // Set test user as current authenticated user
         $this->be($this->projectManager);
@@ -538,14 +486,14 @@ class VolunteerHourAuthorizationTest extends TestCase
             'access_level' => $this->projectManager->access_level
             ]);
         
-        $testProjectID = 1;
+        $volunteerID = 2;
         // Call route under test
-        $response = $this->call('GET', 'project/'.$testProjectID.'/items/edit');
+        $response = $this->call('GET', 'volunteerhours/volunteerEdit/'.$volunteerID);
         
-        $this->assertContains("Edit Items for", $response->getContent());
+        $this->assertContains("Editing Volunteer Hours for", $response->getContent());
     }
-    // Test to test successful authorization for projectitem.edit
-    public function testProjectItemEditSuccess_Administrator()
+    // Test to test successful authorization for volunteerhour.indexForEditContact
+    public function testVolunteerHourContactEditSuccess_Administrator()
     {
         // Set test user as current authenticated user
         $this->be($this->administrator);
@@ -555,20 +503,16 @@ class VolunteerHourAuthorizationTest extends TestCase
             'access_level' => $this->administrator->access_level
             ]);
         
-        $testProjectID = 1;
+        $volunteerID = 2;
         // Call route under test
-        $response = $this->call('GET', 'project/'.$testProjectID.'/items/edit');
+        $response = $this->call('GET', 'volunteerhours/volunteerEdit/'.$volunteerID);
         
-        $this->assertContains("Edit Items for", $response->getContent());
+        $this->assertContains("Editing Volunteer Hours for", $response->getContent());
     }
     
     
-    
-    
-    
-    
-    // Test to test failed authorization for projectitem.update
-    public function testProjectItemUpdateFailure_Inactive()
+    // Test to test failed authorization for volunteerhour.updatehours
+    public function testVolunteerHourUpdateFailure_Inactive()
     {
         $this->session([
             'username' => $this->inactiveUser->username, 
@@ -580,13 +524,13 @@ class VolunteerHourAuthorizationTest extends TestCase
         
         $testProjectID = 1;        
         // Call route under test
-        $this->call('POST', 'project/'.$testProjectID.'/items/edit');
+        $this->call('POST', 'volunteerhours/volunteerEdit/');
         
         // Assert redirected to access denied page
         $this->assertRedirectedToRoute('unauthorized');
     }
-    // Test to test failed authorization for projectitem.update
-    public function testProjectItemUpdateFailure_BasicUser()
+    // Test to test failed authorization for volunteerhour.updatehours
+    public function testVolunteerHourUpdateFailure_BasicUser()
     {
         // Set test user as current authenticated user
         $this->be($this->basicUser);
@@ -597,13 +541,141 @@ class VolunteerHourAuthorizationTest extends TestCase
             ]);
         $testProjectID = 1;        
         // Call route under test
-        $this->call('POST', 'project/'.$testProjectID.'/items/edit');
+        $this->call('POST', 'volunteerhours/volunteerEdit/');
         
         // Assert redirected to access denied page
         $this->assertRedirectedToRoute('unauthorized');
     }
-    // Test to test failed authorization for projectitem.update
-    public function testProjectItemUpdateFailure_ContactManager()
+
+    
+    
+    // Test to test failed authorization for volunteerhour.indexForEditProject
+    public function testVolunteerHourProjectEditFailure_Inactive()
+    {
+        $this->session([
+            'username' => $this->inactiveUser->username, 
+            'access_level' => $this->inactiveUser->access_level
+            ]);
+        
+        // Set test user as current authenticated user
+        $this->be($this->inactiveUser);
+        
+        $projectID = 2;
+        // Call route under test
+        $response = $this->call('GET', 'volunteerhours/edit/project/'.$projectID);
+        
+        // Assert redirected to access denied page
+        $this->assertRedirectedToRoute('unauthorized');
+    }
+    // Test to test failed authorization for volunteerhour.indexForEditProject
+    public function testVolunteerHourProjectEditFailure_BasicUser()
+    {
+        // Set test user as current authenticated user
+        $this->be($this->basicUser);
+        
+        $this->session([
+            'username' => $this->basicUser->username, 
+            'access_level' => $this->basicUser->access_level
+            ]);
+        
+        $projectID = 2;
+        // Call route under test
+        $response = $this->call('GET', 'volunteerhours/edit/project/'.$projectID);
+        
+        $this->assertRedirectedToRoute('unauthorized');
+
+    }
+    // Test to test passed authorization for volunteerhour.indexForEditProject
+    public function testVolunteerHourProjectEditFailure_ContactManager()
+    {
+        // Set test user as current authenticated user
+        $this->be($this->contactManager);
+        
+        $this->session([
+            'username' => $this->contactManager->username, 
+            'access_level' => $this->contactManager->access_level
+            ]);
+        
+        $projectID = 2;
+        // Call route under test
+        $response = $this->call('GET', 'volunteerhours/edit/project/'.$projectID);
+        
+        $this->assertRedirectedToRoute('unauthorized');
+    }
+    // Test to test successful authorization for volunteerhour.indexForEditProject
+    public function testVolunteerHourProjectEditSuccess_ProjectInspectionManager()
+    {
+        // Set test user as current authenticated user
+        $this->be($this->projectManager);
+        
+        $this->session([
+            'username' => $this->projectManager->username, 
+            'access_level' => $this->projectManager->access_level
+            ]);
+        
+        $projectID = 2;
+        // Call route under test
+        $response = $this->call('GET', 'volunteerhours/edit/project/'.$projectID);
+        
+        $this->assertContains("Editing Project Hours for", $response->getContent());
+    }
+    // Test to test successful authorization for volunteerhour.indexForEditProject
+    public function testVolunteerHourProjectEditSuccess_Administrator()
+    {
+        // Set test user as current authenticated user
+        $this->be($this->administrator);
+        
+        $this->session([
+            'username' => $this->administrator->username, 
+            'access_level' => $this->administrator->access_level
+            ]);
+        
+        $projectID = 2;
+        // Call route under test
+        $response = $this->call('GET', 'volunteerhours/edit/project/'.$projectID);
+        
+        $this->assertContains("Editing Project Hours for", $response->getContent());
+    }
+    
+    
+    
+    // Test to test failed authorization for volunteerhour.updateProjectHours
+    public function testVolunteerHourProjectUpdateFailure_Inactive()
+    {
+        $this->session([
+            'username' => $this->inactiveUser->username, 
+            'access_level' => $this->inactiveUser->access_level
+            ]);
+        
+        // Set test user as current authenticated user
+        $this->be($this->inactiveUser);
+        
+        $testProjectID = 1;        
+        // Call route under test
+        $this->call('POST', 'volunteerhours/edit/project/');
+        
+        // Assert redirected to access denied page
+        $this->assertRedirectedToRoute('unauthorized');
+    }
+    // Test to test failed authorization for volunteerhour.updateProjectHours
+    public function testVolunteerHourProjectUpdateFailure_BasicUser()
+    {
+        // Set test user as current authenticated user
+        $this->be($this->basicUser);
+        
+        $this->session([
+            'username' => $this->basicUser->username, 
+            'access_level' => $this->basicUser->access_level
+            ]);
+        $testProjectID = 1;        
+        // Call route under test
+        $this->call('POST', 'volunteerhours/edit/project/');
+        
+        // Assert redirected to access denied page
+        $this->assertRedirectedToRoute('unauthorized');
+    }
+        // Test to test failed authorization for volunteerhour.updateProjectHours
+    public function testVolunteerHourProjectUpdateFailure_ContactManager()
     {
         // Set test user as current authenticated user
         $this->be($this->contactManager);
@@ -614,7 +686,7 @@ class VolunteerHourAuthorizationTest extends TestCase
             ]);
         $testProjectID = 1;        
         // Call route under test
-        $this->call('POST', 'project/'.$testProjectID.'/items/edit');
+        $this->call('POST', 'volunteerhours/edit/project/');
         
         // Assert redirected to access denied page
         $this->assertRedirectedToRoute('unauthorized');
