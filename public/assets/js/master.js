@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function($){
     //Was a default title attribute for a hint, don't think we need anymore, but too close to release
     //so it's staying in for now.
     $('#namehelp').attr("title", "Changing this will move the hour row into another project's hours.");
