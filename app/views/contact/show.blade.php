@@ -6,11 +6,13 @@ Contact Details
 
 @section('content')
 
-{{ Form::open(array('class'=>'form-horizontal')) }}
+
 <h1>{{ $contact->first_name . " " . $contact->last_name . "'s Details" }}</h1>
     @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
     <a href="{{$contact->id}}/edit" class="btn btn-primary">Edit Details</a>
     @endif
+        {{ Form::open(array('class'=>'form-horizontal')) }}
+
 <section class="generalInfo col-md-7">
 <h3>Contact Details</h3>
  <div class="form-group">
@@ -74,8 +76,6 @@ Contact Details
      </div>
  </div>
 </section>
-{{ Form::close() }}
-{{ Form::open(array('class'=>'form-horizontal')) }}
  <?php
     $volunteerStatus = 0;
     $volunteerSafetyDate = "";
