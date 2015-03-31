@@ -67,7 +67,9 @@ class ContactController extends \BaseController {
             
             //check if the contact being created has a company assigned to it.
             $companyStatus = Input::has('company_name');
-            
+             
+            $contactInfo;
+             
             if($volunteerStatus ){
                 // Check if the contact being created is a company
                $contactInfo = Input::only('first_name',           
@@ -248,6 +250,20 @@ class ContactController extends \BaseController {
                 'province', 
                 'postal_code', 
                 'country', 
+                'comments');
+          
+         $contactInfoTwo = Input::only(
+                'first_name',           
+                'last_name', 
+                'email_address',
+                'home_phone', 
+                'cell_phone', 
+                'work_phone', 
+                'street_address', 
+                'city', 
+                'province', 
+                'postal_code', 
+                'country', 
                 'comments',
                 'last_attended_safety_meeting_date');
         // Array of field names
@@ -270,7 +286,7 @@ class ContactController extends \BaseController {
         
         //updating the record in the contact table for the contact with the id passed in
         //Create validator
-        $v = new App\Libraries\validators\ContactValidator($contactInfo);
+        $v = new App\Libraries\validators\ContactValidator($contactInfoTwo);
         
         //If the validator passes, redirect to the show, otherwise redirect back to edit with inputs and errors
         //var_dump($v->passes());
@@ -311,10 +327,8 @@ class ContactController extends \BaseController {
                 //added key value pairs to the array
                 foreach($contactInfo as $fieldValue)
                 {
-                    if( !( $fieldValue.equalToIgnoringCase('last_attended_safety_meeting_date'))){
-                        $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
-                        $counter++;
-                    }
+                    $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
+                    $counter++;
                 }
 
                 ///$id = $this->storeContactWith($contactInfo);       
@@ -336,7 +350,6 @@ class ContactController extends \BaseController {
                         //Redirect back to the edit page with an error message
                         $redirectVariable = Redirect::action('ContactController@edit', $id)->withErrors(['Error', 'The Message']);
                     }
-               
             }
             else
             {
