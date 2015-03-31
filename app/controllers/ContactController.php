@@ -316,7 +316,13 @@ class ContactController extends \BaseController {
             $volunteerInfo['last_attended_safety_meeting_date'] = Input::get('last_attended_safety_meeting_date');
             Volunteer::where('id','=',$id)->update($volunteerInfo);
         }
-
+            $contact = $this->contactRepo->getContact($id);
+            $volunteer = $this->volunteerRepo->getVolunteer($id);
+            
+            return View::make('contact.show')
+                    ->withContact($contact)
+                    ->withVolunteer($volunteer);
+	 
         //Used to count the field number based on the number of time through
         //the for each loop
         $counter = 0;

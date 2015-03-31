@@ -66,6 +66,10 @@ class DatabaseSeeder extends Seeder
                 $this->call('ProductionRoleListSeeder');
                 $this->command->info('Finished adding Project Role list.');
                 
+                $this->command->info('Adding Interest List to Database:');
+		$this->call('ProductionInterestListSeeder');
+                $this->command->info('Interest added successfully!');
+                
                 DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 	}
 
