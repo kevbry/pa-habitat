@@ -40,7 +40,9 @@ class CoreValidator extends Illuminate\Validation\Validator {
     public function validateAlphaSpace($attribute, $value, $parameters)
     {
         //return preg_match("/^[a-zA-Z\s]*$/",$value);
-        return preg_match("/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/",$value);
+        //return preg_match("/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/",$value);
+        return preg_match("/^[a-zA-Z]+(?:[.'\-,]?\s?[a-zA-Z]+)*$/",$value);
+        //return preg_match("^(?:[a-zA-Z]+(?:[.'\-,])?\s?)+$",$value);
     }
     //Validator Regex for letters, spaces and numbers ex. 123 Main Street
     public function validateAlphaSpaceNum($attribute, $value, $parameters)
