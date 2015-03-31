@@ -14,7 +14,10 @@ Contacts for Project
     {{$project->name}}
 @endif</h1>
 @if (!empty($project))
+@if (Auth::check() && (Session::get('access_level') === 'project_manager' || 
+Session::get('access_level') === 'administrator' ))
 {{ HTML::linkRoute('projContactsAdd', 'Add Contacts', array($project->id), array('class' => 'btn btn-primary')) }}
+@endif
 @endif
 {{ Form::open(array('route'=>'projStoreContacts','class'=>'form-horizontal')) }}
 

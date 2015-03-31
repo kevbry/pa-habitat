@@ -45,6 +45,13 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
     </head>
     <body>
     <header class="container">
+        <div class="col-md-12 pull-right text-right">
+            @if (!Auth::check())
+            {{ HTML::linkAction('SessionController@create','Login') }}
+            @else
+            {{ HTML::linkAction('SessionController@destroy','Logout') }}
+            @endif
+        </div>
         {{ HTML::image('assets/img/logo.png') }}
         <nav class="navbar navbar-default" role="navigation">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -56,6 +63,7 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
+                        @if (Auth::check() && (Session::get('access_level') !== 'inactive'))
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Contacts<span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -63,24 +71,32 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
                                 <li>{{ HTML::linkAction('VolunteerController@index','Just Volunteers') }}</li>
                                 <li>{{ HTML::linkAction('DonorController@index','Just Donors') }}</li>
                                 <li>{{ HTML::linkAction('CompanyController@index','Companies') }}</li>
+                                @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
                                 <li>{{ HTML::linkAction('ContactController@create','Add a Contact') }}</li>
-                                
+                                @endif
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Projects<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li>{{ HTML::linkAction('ProjectController@index','All Projects') }}</li>
+                                @if (Auth::check() && (Session::get('access_level') === 'project_manager' || Session::get('access_level') === 'administrator' ))
                                 <li>{{ HTML::linkAction('ProjectController@create','Add a Project') }}</li>
+                                @endif
                             </ul>
                         </li>
+                        
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Families<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li>{{ HTML::linkAction('FamilyController@index','All Families') }}</li>
+                                @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
                                 <li>{{ HTML::linkAction('FamilyController@create','Add a Family') }}</li>
+                                @endif
                             </ul>
                         </li>
+                        @endif
+                        @if (Auth::check() && (Session::get('access_level') === 'administrator' || Session::get('access_level') === 'project_manager'))
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users<span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -88,11 +104,13 @@ $masterSearch->configureOnClickEvent(sprintf(HabitatSearchBox::VIEW_DETAILS_ON_C
                                 <li>{{ HTML::linkAction('UserController@create','Add a User') }}</li>
                             </ul>
                         </li>
-                        
+                        @endif
                     </ul>
+                    @if (Auth::check() && (Session::get('access_level') !== 'inactive'))
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-search"><?php $masterSearch->show(); ?></li>
                     </ul>
+                    @endif
                 </div>
             </div>
         </nav>

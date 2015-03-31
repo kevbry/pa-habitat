@@ -58,11 +58,17 @@ class DatabaseSeeder extends Seeder
                     $this->command->info('Seeding ProjectContact Table:');
                     $this->call('ProjectContactTableSeeder');
                     $this->command->info('ProjectContact table seeded!');
+                    $this->call('UserTableSeeder');
+                    $this->command->info("User table seeded!");
                 }
                 
                 $this->command->info('Adding the Project Role list:');
                 $this->call('ProductionRoleListSeeder');
                 $this->command->info('Finished adding Project Role list.');
+                
+                $this->command->info('Adding Interest List to Database:');
+		$this->call('ProductionInterestListSeeder');
+                $this->command->info('Interest added successfully!');
                 
                 DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 	}
