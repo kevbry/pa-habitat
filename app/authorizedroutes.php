@@ -332,7 +332,6 @@ Route::post('volunteerhours/volunteerEdit/',array(
     'as'=>'updatehours',
     'uses'=>'VolunteerHoursController@updatehours'
 ));
-//START HERE SARAH
 Route::get('volunteerhours/edit/project/{project}',array(
     'before' => 'auth|projectmanager',
     'as'=>'projHoursEdit', 
@@ -342,4 +341,27 @@ Route::post('volunteerhours/edit/project/',array(
     'before' => 'auth|projectmanager',
     'as'=>'updateProjectHours',
     'uses'=>'VolunteerHoursController@updateProjectHours'
+));
+
+
+//Volunteer Interest routes
+Route::get('volunteer/{volunteer}/interest/edit',array(
+    'before' => 'auth|contactmanager',
+    'as'=>'editInterests',
+    'uses'=>'VolunteerInterestController@edit'
+));
+Route::post('volunteer/{volunteer}/interest/store',array(
+    'before' => 'auth|contactmanager',
+    'as'=>'storeInterests',
+    'uses'=>'VolunteerInterestController@store'
+));
+Route::post('volunteer/{volunteer}/interest/update',array(
+    'before' => 'auth|contactmanager',
+    'as'=>'updateInterests',
+    'uses'=>'VolunteerInterestController@update'
+));
+Route::get('volunteer/{volunteer}/interest/create',array(
+    'before' => 'auth|contactmanager',
+    'as'=>'createInterests',
+    'uses'=>'VolunteerInterestController@create'
 ));
