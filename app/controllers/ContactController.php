@@ -322,8 +322,7 @@ class ContactController extends \BaseController {
             return View::make('contact.show')
                     ->withContact($contact)
                     ->withVolunteer($volunteer);
-	}
-
+	 
         //Used to count the field number based on the number of time through
         //the for each loop
         $counter = 0;
