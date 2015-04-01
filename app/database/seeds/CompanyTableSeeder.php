@@ -28,7 +28,7 @@ class CompanyTableSeeder extends Seeder
                         echo "Adding Company: " . $company->company_name . 
                                 " with contact ID: $contacts[$contact].\n";
 			Company::create(array(
-				'name' => $company->company_name, 
+				'company_name' => $company->company_name, 
                                 'contact_id' => $contacts[$contact]
 			));
                     }
