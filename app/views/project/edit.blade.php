@@ -139,11 +139,10 @@ Edit Project
         <div class="form-group">
             {{ Form::label('fam', 'Family: ') }}
             <div id="familySet">
-                {{ Form::text('fam',$family ? $family->name : "Not Assigned" ,array('class'=>'form-control','readonly'=>'readonly')) }}
                 @if (!empty($family))
-                {{Form::hidden('family',$family->id,array('class'=>'form-control','readonly'=>'readonly'))}}
-                @else
-
+                    {{ Form::text('fam', $family->name,array('class'=>'form-control','readonly'=>'readonly')) }}
+                @else 
+                Not Assigned
                 @endif
             </div>
             <div id="editFamily">
