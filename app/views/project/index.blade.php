@@ -8,7 +8,10 @@ All Projects
 
 <h1>Projects</h1>
 <nav>
+@if (Auth::check() && (Session::get('access_level') === 'project_manager' || 
+Session::get('access_level') === 'administrator' ))
 <a href="project/create" class="btn btn-primary">Add Projects</a>
+@endif
 </nav>
 <table class="table table-hover">
     <thead>
@@ -85,7 +88,12 @@ All Projects
         <td>{{$project->street_number}}</td>
         <td>{{$project->city}}</td>
         <td>{{$project->project_coordinator}}</td>
-        <td><a href="project/{{$project->id}}">View Details</a> | <a href="project/{{$project->id}}/edit">Edit Details</a></td>
+        <td><a href="project/{{$project->id}}">View Details</a> 
+            @if (Auth::check() && (Session::get('access_level') === 'project_manager' || 
+            Session::get('access_level') === 'administrator' ))    
+            | <a href="project/{{$project->id}}/edit">Edit Details</a>
+            @endif
+        </td>
     </tr>
     @endforeach
 </table>

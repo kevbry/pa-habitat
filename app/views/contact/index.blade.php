@@ -8,7 +8,9 @@ Index of all contacts
 
 <h1>Contacts</h1>
 <nav>
+@if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
 <a href="contact/create" class="btn btn-primary">Add Contact</a>
+@endif
 </nav>
 <table class="table table-hover">
     <thead>
@@ -75,7 +77,12 @@ Index of all contacts
                 {{$contact->work_phone}}
                 @endif</td>
             <td>{{$contact->email_address}}</td>
-            <td><a href="contact/{{$contact->id}}">View Details</a> | <a href="contact/{{$contact->id}}/edit">Edit Details</a></td>
+            <td><a href="contact/{{$contact->id}}">View Details</a> 
+                @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
+                | <a href="contact/{{$contact->id}}/edit">Edit Details</a>
+                @endif
+            </td>
+                
         </tr>
         @endforeach
     @endif

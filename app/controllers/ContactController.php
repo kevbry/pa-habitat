@@ -317,7 +317,6 @@ class ContactController extends \BaseController {
                 Volunteer::where('id','=',$id)->update($volunteerInfo);
 
             }
-
             //Used to count the field number based on the number of time through
             //the for each loop
             $counter = 0;

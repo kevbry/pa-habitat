@@ -74,7 +74,6 @@ class CompanyController extends \BaseController {
         if ($companyID > 0)
         {
             return Redirect::action('CompanyController@show', $companyID);
-
         }
         
         // Redirect user to newly created family's detail page
