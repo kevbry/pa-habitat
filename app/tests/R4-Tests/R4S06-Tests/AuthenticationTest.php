@@ -32,8 +32,8 @@ class AuthenticationTest extends TestCase
     {
         //user has to exist in database for this test to pass
         $userinput = [
-            'username' => 'asdf',
-            'password' => 'e456b34v6wse4t6we4vt'
+            'username' => 'admin',
+            'password' => 'password'
         ];
         
       Auth::shouldReceive('attempt')->andReturn(true);
