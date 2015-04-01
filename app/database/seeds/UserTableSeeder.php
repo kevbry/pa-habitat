@@ -1,4 +1,5 @@
 <?php
+use App\Repositories\EloquentContactRepository;
 
 class UserTableSeeder extends Seeder 
 {
@@ -9,10 +10,12 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        $contactRepo = new EloquentContactRepository();
+        $contacts = $contactRepo->getAllContactsForSeed();
         DB::table('User')->delete();
         
         User::create([
-            'contact_id' => 25,
+            'contact_id' => $contacts[0],
             'password'  => Hash::make('password'),
             'username' => 'admin',
             'access_level' => 'administrator'
