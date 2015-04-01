@@ -6,7 +6,7 @@ Family Details
 
 <?php
 // Retrieve the base URL for linking to other parts of the project
-$rootPageURL = explode('family', $_SERVER['HTTP_REFERER']);
+
 
 $requiredHours = 500; // Temporary global defining required hours in a project
 $aggregateHours = array(); // Collection of hours by volunteer id
@@ -87,7 +87,9 @@ $percentHours = number_format(($totalHours / $requiredHours) * 100, 2);
                  Without this trick, the system deposits the label into the value of the field, preventing
                  us from reporting 0 values. REALLY ANNOYING. -->
                 <td>{{Form::label('contact_total_hours', " " . $aggregateHours[$contact->id], array('class'=>'col-sm-7'))}}</td>
-                <td><a href="{{$rootPageURL[0] . "contact/" . $contact->id}}">View Details</a></td>
+                <td>
+                {{ HTML::linkRoute('contact.show', 'View Details', $contact->id) }}
+                </td>
             </tr>
         @endforeach    
         </tbody>
@@ -114,7 +116,7 @@ $percentHours = number_format(($totalHours / $requiredHours) * 100, 2);
                 <td>{{$contact->first_name . ' ' . $contact->last_name}}</td>
                 <td>{{$contactType}}</td>
                 <td>{{Form::label('contact_total_hours', " " . $aggregateHours[$contact->id], array('class'=>'col-sm-7'))}}</td>
-                <td><a href="{{$rootPageURL[0] . "contact/" . $contact->id}}">View Details</a></td>
+                <td>{{ HTML::linkRoute('contact.show', 'View Details', $contact->id) }}</td>
             </tr>
         @endforeach    
         </tbody>

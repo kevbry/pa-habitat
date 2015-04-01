@@ -8,7 +8,9 @@ Index of all Families
 
 <h1>Families</h1>
 <nav>
+    @if (Auth::check() && (Session::get('access_level') !== 'basic_user'))
 <a href="family/create" class="btn btn-primary">Add Family</a>
+@endif
 </nav>
 <table class="table table-hover">
     <thead>

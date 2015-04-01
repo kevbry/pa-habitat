@@ -22,7 +22,8 @@ $errorList = array(
     'province' => '',
     'postal code' => '',
     'country' => '',
-    'comments' => ''
+    'comments' => '',
+    'safety meeting date' => ''
 );
     //If there are errors
 if($errors->any())
@@ -255,6 +256,12 @@ if($errors->any())
         <div class="col-sm-6">
         {{Form::input('date', 'last_attended_safety_meeting_date',null,array('class'=>'form-control'))}}
         </div>
+        <div class="col-sm-6"></div>
+            <div class="col-sm-6">
+            @if(!empty($errorList['safety meeting date']))
+                <div class="inputError">{{$errorList['safety meeting date']}}</div>
+            @endif
+        </div>
     </div>
 @else
     <div class="form-group">
@@ -267,6 +274,12 @@ if($errors->any())
         {{Form::label('last_attended_safety_meeting_date', 'Last Attended Safety Meeting: ',array('class'=>'col-sm-6'))}}
         <div class="col-sm-6">
         {{Form::input('date', 'last_attended_safety_meeting_date',$volunteerSafetyDate,array('class'=>'form-control'))}}
+        </div>
+        <div class="col-sm-6"></div>
+            <div class="col-sm-6">
+            @if(!empty($errorList['safety meeting date']))
+                <div class="inputError">{{$errorList['safety meeting date']}}</div>
+            @endif
         </div>
     </div>
 @endif

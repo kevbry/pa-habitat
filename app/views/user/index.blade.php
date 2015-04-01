@@ -27,7 +27,11 @@ Index of all users
         <tr>
             <td>{{$user->username}}</td>
             <td>{{ucwords(str_replace('_', ' ', $user->access_level))}}</td>
-            <td><a href="user/{{$user->contact_id}}">View Details</a> | <a href="user/{{$user->contact_id}}/edit">Edit Details</a></td>
+            <td><a href="user/{{$user->contact_id}}">View Details</a> 
+            @if (Auth::check() && (Session::get('access_level') === 'administrator' ))
+                | <a href="user/{{$user->contact_id}}/edit">Edit Details</a>
+            @endif
+            </td>
         </tr>
         @endforeach
     @endif
