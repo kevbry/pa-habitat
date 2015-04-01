@@ -173,4 +173,18 @@ span.twitter-typeahead{
 .buttons{
     margin-bottom: 30px;
 }
+
+.required{
+    color: red;
+    float: left;
+}
  
+.form-control {
+    width: 96%;
+    float:right;
+}
+
+.nav-search .form-control.typeahead {
+    width: 100%;
+    float: none;
+}
