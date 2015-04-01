@@ -7,9 +7,12 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
 @section('content')
 
 <h1>Volunteer Hours for {{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</h1>
+@if (Auth::check() && (Session::get('access_level') !== 'basic_user')) 
 {{ HTML::linkRoute('volHoursAdd', 'Add Hours', array($volunteer->id), array('class' => 'btn btn-primary'))}}
 {{ HTML::linkAction('VolunteerHoursController@indexForEditContact','Edit Hours', array($volunteer->id), array('class'=>'btn btn-primary'))}}
+@endif
 {{ Form::open(array('route'=>'storehours','class'=>'form-horizontal'))}}
+
 
 <table class="table">
     <thead>

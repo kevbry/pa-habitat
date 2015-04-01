@@ -5,6 +5,61 @@ Create a Contact
 @stop
 
 @section('content')
+
+<?php
+//Define our array of error messages
+//Need to set this to the number of inputs you want validated, for
+//simplicities sake down the road.
+$errorList = array(
+    'first name' => '',
+    'last name' => '',
+    'company' => '',
+    'email address' => '',
+    'home phone' => '',
+    'cell phone' => '',
+    'work phone' => '',
+    'street address' => '',
+    'city' => '',
+    'province' => '',
+    'postal code' => '',
+    'country' => '',
+    'comments' => '',
+    'safety meeting date' => ''
+);
+    //If there are errors
+if($errors->any())
+{
+    //For every error
+    foreach($errors->all() as $error)
+    {
+        $counter = 0;
+        //For every entry in the "errorList" array
+        //This array contains labels for each error, in order to append to
+        //The correct fields and allow for scalability.
+        foreach($errorList as $errorKey)
+        {
+            if($counter == 0)
+            {
+                prev($errorList);
+                $counter++;
+            }
+            //If the error message contains the same field name aka 'first name'
+            //Note this is not the field name first_name, this is the name
+            //that is used in ContactValidator, or the name that comes up in
+            //the actually error message.
+            if(strpos($error,key($errorList)) !== FALSE)
+            {
+                //Add it to the array under the key, so we can use it later.
+                $errorList[key($errorList)] = $error;
+            }
+
+            //Move the key pointer.
+            next($errorList);
+        }
+    }
+}
+?>
+
 <h1>Create a Contact</h1>
 {{ Form::open(array('route'=>'contact.store','class'=>'form-horizontal')) }}
 <section class="row">
@@ -12,13 +67,30 @@ Create a Contact
     <div class="form-group">
         {{ Form::label('first_name', 'First Name: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('first_name',null,array('class'=>'form-control')) }}
+        <span class="required">*</span>{{ Form::text('first_name',null,array('class'=>'form-control')) }}
+        </div>
+        <!-- This is where the error message will be placed, Check if the error is empty
+        If the error is not empty, fill a div with the $errorList['validator name']
+        NOTE--------------------------- DO NOT USE THE field_name with the underscore
+        use whatever the error message has like "The first name field is required" so you
+        would use first name, as this is what the string parses for, and what it uses to check for validation-->
+        <div class="col-sm-3"></div>
+        <div class="col-sm-7">
+        @if(!empty($errorList['first name']))
+            <div class="inputError">{{$errorList['first name']}}</div>
+        @endif
         </div>
     </div>
     <div class="form-group">
         {{ Form::label('last_name', 'Last Name: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('last_name',null,array('class'=>'form-control')) }}
+        <span class="required">*</span>{{ Form::text('last_name',null,array('class'=>'form-control')) }}
+        </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-7">
+        @if(!empty($errorList['last name']))
+            <div class="inputError">{{$errorList['last name']}}</div>
+        @endif
         </div>
     </div>
     <div class="form-group">
@@ -26,11 +98,23 @@ Create a Contact
         <div class="col-sm-7">
         {{Form::text('company_name',null,array('class'=>'form-control'))}}
         </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-7">
+        @if(!empty($errorList['company name']))
+            <div class="inputError">{{$errorList['company name']}}</div>
+        @endif
+        </div>
     </div>
     <div class="form-group">
         {{ Form::label('email_address', 'Email Address: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::input('email','email_address',null,array('class'=>'form-control')) }}
+        </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-7">
+        @if(!empty($errorList['email address']))
+            <div class="inputError">{{$errorList['email address']}}</div>
+        @endif
         </div>
     </div>
     <div class="form-group">
@@ -38,11 +122,23 @@ Create a Contact
         <div class="col-sm-7">
         {{ Form::text('home_phone',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-7">
+        @if(!empty($errorList['home phone']))
+            <div class="inputError">{{$errorList['home phone']}}</div>
+        @endif
+        </div>
     </div>
     <div class="form-group">
         {{ Form::label('cell_phone', 'Cell Phone: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::text('cell_phone',null,array('class'=>'form-control')) }}
+        </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-7">
+        @if(!empty($errorList['cell phone']))
+            <div class="inputError">{{$errorList['cell phone']}}</div>
+        @endif
         </div>
     </div>
     <div class="form-group">
@@ -50,11 +146,23 @@ Create a Contact
         <div class="col-sm-7">
         {{ Form::text('work_phone',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-7">
+        @if(!empty($errorList['work phone']))
+            <div class="inputError">{{$errorList['work phone']}}</div>
+        @endif
+        </div>
     </div>
     <div class="form-group">
         {{ Form::label('street_address', 'Street Address: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::text('street_address',null,array('class'=>'form-control')) }}
+        </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-7">
+        @if(!empty($errorList['street address']))
+            <div class="inputError">{{$errorList['street address']}}</div>
+        @endif
         </div>
     </div>
     <div class="form-group">
@@ -62,11 +170,23 @@ Create a Contact
         <div class="col-sm-7">
         {{ Form::text('city',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-7">
+        @if(!empty($errorList['city']))
+            <div class="inputError">{{$errorList['city']}}</div>
+        @endif
+        </div>
     </div>
     <div class="form-group">
         {{ Form::label('province', 'Province: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::text('province',null,array('class'=>'form-control')) }}
+        </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-7">
+        @if(!empty($errorList['province']))
+            <div class="inputError">{{$errorList['province']}}</div>
+        @endif
         </div>
     </div>
     <div class="form-group">
@@ -74,17 +194,35 @@ Create a Contact
         <div class="col-sm-7">
         {{ Form::text('postal_code',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-7">
+        @if(!empty($errorList['postal code']))
+            <div class="inputError">{{$errorList['postal code']}}</div>
+        @endif
+        </div>
     </div>
     <div class="form-group">
         {{ Form::label('country', 'Country: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::text('country',null,array('class'=>'form-control')) }}
         </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-7">
+        @if(!empty($errorList['country']))
+            <div class="inputError">{{$errorList['country']}}</div>
+        @endif
+        </div>
     </div>
     <div class="form-group">
         {{ Form::label('comments', 'Comments:',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         {{ Form::textarea('comments',null,array('class'=>'form-control')) }}
+        </div>
+        <div class="col-sm-3"></div>
+        <div class="col-sm-7">
+        @if(!empty($errorList['comments']))
+            <div class="inputError">{{$errorList['comments']}}</div>
+        @endif
         </div>
     </div>
 </section>
@@ -107,7 +245,13 @@ Create a Contact
             {{Form::label('last_attended_safety_meeting_date', 'Last Attended Safety Meeting: ',array('class'=>'col-sm-6'))}}
             <div class="col-sm-6">
             {{Form::input('date', 'last_attended_safety_meeting_date',null,array('class'=>'form-control'))}}
-            </div>
+            </div> 
+            <div class="col-sm-6"></div>
+            <div class="col-sm-6">
+            @if(!empty($errorList['safety meeting date']))
+                <div class="inputError">{{$errorList['safety meeting date']}}</div>
+            @endif
+        </div>
         </div>
 
     <div class="form-group">

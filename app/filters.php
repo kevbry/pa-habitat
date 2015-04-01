@@ -16,8 +16,7 @@ App::before(function($request)
 	//
 });
 
-
-App::after(function($request, $response)
+App::after(function($request)
 {
 	//
 });
@@ -87,4 +86,67 @@ Route::filter('csrf', function()
 	{
 		throw new Illuminate\Session\TokenMismatchException;
 	}
+});
+
+// Admin filter
+Route::filter('administrator', function()
+{
+    // check for admin access level
+    if (Session::get('access_level') === 'administrator')
+    {
+        return;
+    }
+    else
+    {
+        return Redirect::to('unauthorized');
+    }
+});
+
+// Project Manager filter
+Route::filter('projectmanager', function()
+{
+    // check for admin access level
+    if (Session::get('access_level') === 'administrator' 
+            || Session::get('access_level') === 'project_manager')
+    {
+        return;
+    }
+    else
+    {
+        return Redirect::to('unauthorized');
+    }
+});
+
+//Contact Manager filter
+Route::filter('contactmanager', function()
+{
+    // check for admin access level
+    if (Session::get('access_level') === 'administrator' 
+            || Session::get('access_level') === 'project_manager'
+            || Session::get('access_level') === 'contact_manager')
+    {
+        return;
+    }
+    else
+    {
+        return Redirect::to('unauthorized');
+
+    }
+});
+
+//Basic User filter
+Route::filter('basicuser', function()
+{
+    // check for admin access level
+    if (Session::get('access_level') === 'administrator' 
+            || Session::get('access_level') === 'project_manager'
+            || Session::get('access_level') === 'contact_manager'
+            || Session::get('access_level') === 'basic_user')
+    {
+        return;
+    }
+    else
+    {
+        return Redirect::to('unauthorized');
+    }
 });

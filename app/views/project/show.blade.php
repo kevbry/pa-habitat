@@ -6,7 +6,11 @@ Project Details
 
 @section('content')
 <h1>{{ $project->name }}
-    <a href="{{$project->id}}/edit"  class="btn btn-primary">Edit Details</a></h1>
+     @if (Auth::check() && (Session::get('access_level') === 'project_manager' || 
+    Session::get('access_level') === 'administrator' ))
+    <a href="{{$project->id}}/edit"  class="btn btn-primary">Edit Details</a>
+       @endif
+</h1>
 {{ Form::open(array('class'=>'form-horizontal')) }}
 <section class="generalInfo col-md-7">
     <h3>Project Details</h3>
@@ -109,7 +113,39 @@ Project Details
        {{ Form::text('fam',( $project->family  ? $project->family->name : "Not Assigned") ,array('class'=>'form-control','readonly'=>'readonly')) }}
     </div>
 </section>
-    
+
+<section class="col-md-5"> 
+    <div class="form-group row">
+        {{ Form::label('contacts', 'Project Contacts:') }}
+        
+        <table class="table table-hover scrollable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                  @if (!empty($project))
+                    @foreach($projectContacts as $projectContact)
+
+                   <tr>
+                       <td>{{$projectContact->contact->first_name . " " . 
+                                   $projectContact->contact->last_name}}</td>
+                       <td>{{$projectContact->role->role}}</td>
+                   </tr>
+                   @endforeach
+                @endif
+            </tbody>
+        </table>
+         {{ HTML::linkRoute('projContactsView', 'View Contact Details', array($project->id), array('class' => 'btn btn-primary')) }}
+         @if (Auth::check() && (Session::get('access_level') === 'project_manager' || 
+        Session::get('access_level') === 'administrator' ))
+         {{ HTML::linkRoute('projContactsAdd', 'Add Contact', array($project->id), array('class' => 'btn btn-primary')) }}
+         @endif
+    </div> 
+</section>
+
 <section class="col-md-5"> 
     <div class="form-group row">
         {{ Form::label('items', 'Project Items:') }}
@@ -135,8 +171,11 @@ Project Details
             </tbody>
         </table>
          {{ HTML::linkRoute('viewItems', 'View Item Details', array($project->id), array('class' => 'btn btn-primary')) }}
+             @if (Auth::check() && (Session::get('access_level') === 'project_manager' || 
+          Session::get('access_level') === 'administrator' ))
          {{ HTML::linkRoute('projItemsAdd', 'Add Items', array($project->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('editFormForItems', 'Edit Items', array($project->id), array('class' => 'btn btn-primary')) }}
+         @endif
     </div> 
 </section>
  
@@ -171,8 +210,11 @@ Project Details
             </tbody>
         </table>
          {{ HTML::linkRoute('projInspectionsView', 'View Inspection Details', array($project->id), array('class' => 'btn btn-primary')) }}
+             @if (Auth::check() && (Session::get('access_level') === 'project_manager' || 
+            Session::get('access_level') === 'administrator' ))
          {{ HTML::linkRoute('projInspectionsAdd', 'Add Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('editFormForInspections', 'Edit Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
+         @endif
     </div>
          <div class="form-group row">
         {{ Form::label('hours', 'Project Hours:') }}
@@ -220,10 +262,14 @@ Project Details
             </tbody>
         </table>
         {{ HTML::linkRoute('projHoursRoute', 'View Hours', array($project->id), array('class' => 'btn btn-primary')) }}
+            @if (Auth::check() && (Session::get('access_level') === 'project_manager' || 
+        Session::get('access_level') === 'administrator' ))
         {{ HTML::linkRoute('projHoursAdd', 'Add Hours', array($project->id), array('class' => 'btn btn-primary')) }}
         {{ HTML::linkAction('projHoursEdit','Edit Hours', array($project->id), array('class'=>'btn btn-primary'))}}
+        
         <br /><br />
         {{ HTML::linkRoute('projectReport', 'Generate Hours Report', array($project->id), array('class' => 'btn btn-primary')) }}
+        @endif
     </div>
     
 </section>

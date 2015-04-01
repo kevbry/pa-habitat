@@ -8,7 +8,9 @@ All Companies
 
 <h1>Companies</h1>
 <nav>
+    @if (Auth::check() && (Session::get('access_level') !== 'basic_user'))
 <a href="company/create" class="btn btn-primary">Add Company</a>
+    @endif
 </nav>
 <table class="table table-hover">
     <thead>

@@ -7,8 +7,11 @@ Inspections for Project {{$project->name}}
 @section('content')
 
 <h1>Inspections for {{$project->name}}</h1>
+@if (Auth::check() && (Session::get('access_level') === 'project_manager' || 
+Session::get('access_level') === 'administrator' ))
 {{ HTML::linkRoute('projInspectionsAdd', 'Add Inspections', array($project->id), array('class' => 'btn btn-primary')) }}
 {{ HTML::linkRoute('editFormForInspections', "Edit Inspections", array($project->id), array('class'=>'btn btn-primary')) }}
+@endif
 {{ Form::open(array('route'=>'storeInspections','class'=>'form-horizontal')) }}
 <table class="table">
     <thead>

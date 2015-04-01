@@ -72,13 +72,13 @@ Create a Project
         </div>
     </div>
         
-    </div>
+<!--    </div>
         <div class="form-group">
         {{ Form::label('project_coordinator', 'Project Coordinator: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
         <?php $coordinator_search->show(); ?>
         </div>
-    </div>
+    </div>-->
 
     <div class="form-group">
         {{ Form::label('start_date', 'Start Date: ',array('class'=>'col-sm-3')) }}

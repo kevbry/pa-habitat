@@ -6,9 +6,13 @@ Contact Details
 
 @section('content')
 
-{{ Form::open(array('class'=>'form-horizontal')) }}
-<h1>{{ $contact->first_name . " " . $contact->last_name . "'s Details" }}
-    <a href="{{$contact->id}}/edit" class="btn btn-primary">Edit Details</a></h1>
+
+<h1>{{ $contact->first_name . " " . $contact->last_name . "'s Details" }}</h1>
+    @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
+    <a href="{{$contact->id}}/edit" class="btn btn-primary">Edit Details</a>
+    @endif
+        {{ Form::open(array('class'=>'form-horizontal')) }}
+
 <section class="generalInfo col-md-7">
 <h3>Contact Details</h3>
  <div class="form-group">
@@ -72,8 +76,6 @@ Contact Details
      </div>
  </div>
 </section>
-{{ Form::close() }}
-{{ Form::open(array('class'=>'form-horizontal')) }}
  <?php
     $volunteerStatus = 0;
     $volunteerSafetyDate = "";
@@ -152,10 +154,14 @@ Contact Details
             </tbody>
         </table>
          {{ HTML::linkRoute('volHoursRoute', 'View Hours Details', array($contact->id), array('class' => 'btn btn-primary')) }}
+         @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
          {{ HTML::linkRoute('volHoursAdd', 'Add Hours', array($contact->id), array('class' => 'btn btn-primary')) }}
          {{ HTML::linkRoute('volHoursEditRoute', 'Edit Hours', array($contact->id), array('class'=>'btn btn-primary')) }}
+         @endif
          <br /> <br />
+         @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
          {{ HTML::linkRoute('volunteerReport', 'Generate Hours Report', array($contact->id), array('class'=>'btn btn-primary')) }}
+         @endif
     </div>
      
     <div class="form-group">
@@ -184,7 +190,9 @@ Contact Details
                 @endif
             </tbody>
         </table>
+        @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
         {{ Form::button( 'Edit Availability', array('id' => 'editAvail','class'=>'btn btn-primary') ) }}
+        @endif
     </div>
      
     <div class="form-group">
@@ -215,7 +223,9 @@ Contact Details
                 @endif
             </tbody>
         </table>
+        @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
         {{ Form::button('Edit Certifications', array('id' => 'editCerts','class'=>'btn btn-primary')) }}
+        @endif
     </div>
      
     <div class="form-group">
@@ -242,7 +252,9 @@ Contact Details
                 @endif
             </tbody>
         </table>
-        {{ Form::button('Edit Trades', array('id' => 'editTrades','class'=>'btn btn-primary')) }}       
+        @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
+        {{ Form::button('Edit Trades', array('id' => 'editTrades','class'=>'btn btn-primary')) }}  
+        @endif
     </div>
      
     <div class="form-group">
@@ -271,9 +283,11 @@ Contact Details
                 @endif
             </tbody>
         </table>
+        @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
         {{ Form::button('Edit Skills', array('id' => 'editSkills','class'=>'btn btn-primary')) }}  
+        @endif
     </div>
-     
+    
     <div class="form-group">
         {{ Form::label('interests', 'Interest(s):') }}
         <table class="table table-hover">
@@ -285,12 +299,14 @@ Contact Details
             </thead>
             <tbody>
                 @if (isset($volunteer))
-                @foreach ($volunteer->interests as $interest)
-                    <tr>
-                        <td>{{$interest->description}}</td>
-                        <td>{{$interest->pivot->comments}}</td>
-                    </tr>
-                @endforeach
+                    @if(!empty($volunteer->interests))
+                        @foreach ($volunteer->interests as $interest)
+                            <tr>
+                                <td>{{$interest->description}}</td>
+                                <td>{{$interest->pivot->comments}}</td>
+                            </tr>
+                        @endforeach
+                    @endif
                 @else
                     <tr>
                         <td colspan="3">No interests</td>
@@ -298,8 +314,11 @@ Contact Details
                 @endif
             </tbody>
         </table>
-        {{ Form::button('Edit Interests', array('id' => 'editInterests','class'=>'btn btn-primary')) }}
-    </div>
+ @if (Auth::check() && (Session::get('access_level') !== 'basic_user' ))
+        {{ HTML::linkRoute('createInterests', 'Add Interests', array($contact->id), array('class' => 'btn btn-primary')) }}
+        {{ HTML::linkRoute('editInterests', 'Edit Interests', array($contact->id), array('class' => 'btn btn-primary')) }}
+ @endif
+    </div> 
           @endif
  </section>
  {{ Form::close() }}

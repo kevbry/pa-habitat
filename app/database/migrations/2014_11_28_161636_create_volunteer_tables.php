@@ -15,7 +15,10 @@ class CreateVolunteerTables extends Migration {
 	{
             // Rename the contact table to 'Contact' to meet the ERD conventions
             
-            Schema::rename('contact', 'Contact');
+            if (strtoupper(substr(PHP_OS, 0, 3)) != 'WIN') 
+            {
+                Schema::rename('contact', 'Contact');
+            } 
             
             // Creates the volunteer table.
             // Includes reference to ID primary key in Contact table.
@@ -129,7 +132,10 @@ class CreateVolunteerTables extends Migration {
 	 */
 	public function down()
 	{
-            Schema::rename('Contact', 'contact');
+            if (strtoupper(substr(PHP_OS, 0, 3)) != 'WIN') 
+            {
+                Schema::rename('Contact', 'contact');
+            } 
             
             Schema::drop('Availability');    
             Schema::drop('VolunteerCertification');
