@@ -63,20 +63,30 @@ class CompanyController extends \BaseController {
      */
     public function store()
     {
-        // Retrieve company information from user
-        $companyInput['name'] = Input::get('company_name');
+        $errorList['name'] = Input::get('name');
+        $errorList['primary_contact_1'] = Input::get('primary_contact_1');    
+       
+         // Retrieve company information from user
+        $companyInput['name'] = Input::get('name');
         $companyInput['contact_id'] = Input::get('primary_contact_1');
         
-        //Store company
-        $companyID = $this->createCompanyWith($companyInput);
- 
-        // If the family was successfully created
-        if ($companyID > 0)
+        $v = new App\Libraries\validators\CompanyValidator($errorList);
+        if($v->passes())
         {
-            return Redirect::action('CompanyController@show', $companyID);
+            //Store company
+            $companyID = $this->createCompanyWith($companyInput);
+
+            // If the company was successfully created
+            if ($companyID > 0)
+            {
+                return Redirect::action('CompanyController@show', $companyID);
+            }
         }
-        
-        // Redirect user to newly created family's detail page
+        else
+        {
+            //otherwise return back to the company, with the same inputs, and the error messages.
+            return Redirect::action('CompanyController@create')->withInput()->withErrors($v->getErrors());
+        }
     }
     
     
