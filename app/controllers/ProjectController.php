@@ -20,14 +20,7 @@ class ProjectController extends \BaseController {
     public $familyRepo;
     public $roleRepo;
 
-    public function __construct(ProjectRepository $projectRepo, 
-            ProjectContactRepository $projectContactRepo, 
-            ProjectInspectionRepository $projectInspectionRepo, 
-            ProjectItemRepository $projectItemRepo, 
-            VolunteerHoursRepository $volunteerHrsRepo, 
-            VolunteerRepository $volunteerRepo, FamilyRepository $familyRepo,
-            ProjectRolesRepository $roleRepo) 
-    {
+    public function __construct(ProjectRepository $projectRepo, ProjectContactRepository $projectContactRepo, ProjectInspectionRepository $projectInspectionRepo, ProjectItemRepository $projectItemRepo, VolunteerHoursRepository $volunteerHrsRepo, VolunteerRepository $volunteerRepo, FamilyRepository $familyRepo, ProjectRolesRepository $roleRepo) {
         $this->projectRepo = $projectRepo;
         $this->projectContactRepo = $projectContactRepo;
         $this->projectInspectionRepo = $projectInspectionRepo;
@@ -129,12 +122,12 @@ class ProjectController extends \BaseController {
 //                            ->withProjectContact($projectContact);
 //        } else {
         return View::make('project.show', array('project' => $project,
-                        'projectInspections' => $projectInspections,
-                        'projectItems' => $projectItems, 
-                        'volunteerhours' => $volunteerHours,
-                        'volunteers' => $volunteers, 'family' => $family,
-                        'projectContacts' => $projectContacts,
-                        'roles' => $roles));
+                    'projectInspections' => $projectInspections,
+                    'projectItems' => $projectItems,
+                    'volunteerhours' => $volunteerHours,
+                    'volunteers' => $volunteers, 'family' => $family,
+                    'projectContacts' => $projectContacts,
+                    'roles' => $roles));
 //        }
     }
 
@@ -147,15 +140,15 @@ class ProjectController extends \BaseController {
     public function edit($id) {
         $project = $this->projectRepo->getProject($id);
 
-        if ($this->familyRepo->getFamily($project->family_id) != null) {
-            $family = $this->familyRepo->getFamily($project->family_id);
+        if (( $family = $this->familyRepo->getFamily($project->family_id)) != null) {
+
             return View::make('project.edit')
                             ->withProject($project)
                             ->withFamily($family);
-        } else {
-            return View::make('project.edit')
-                            ->withProject($project)
-                            ->withFamily($family);
+        }
+        else {
+                        return View::make('project.edit')
+                            ->withProject($project);
         }
     }
 
@@ -166,89 +159,77 @@ class ProjectController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        /* TODO********************************
-          //getting values to update the project coordinator
-          $projectCoordinatorInfo = [];
-          //$projectCoordinatorInfo['project_id'] = $id;
-          $projectCoordinatorInfo['contact_id'] = (int)Input::only('project_coordinator');
-          $projectCoordinatorInfo['role'] = "'Project Coordinator'";
-          //$projectCoordinatorInfo['created_at'] = Input::only('updated_at');
-          $projectCoordinatorInfo['updated_at'] = Input::only('updated_at');
+    
+        if (Input::only('family')) {
+            // Store values from the project form
+            $projectInfo = Input::only(
+                            'updated_at', 'family', 'build_number', 'street_number', 'postal_code', 'city', 'province', 'start_date', 'end_date', 'comments', 'building_permit_number', 'building_permit_date', 'mortgage_date', 'blueprint_plan_number', 'blueprint_designer');
+            // Array of field names
+            $fieldNames = array(
+                'updated_at',
+                'family_id',
+                'build_number',
+                'street_number',
+                'postal_code',
+                'city',
+                'province',
+                'start_date',
+                'end_date',
+                'comments',
+                'building_permit_number',
+                'building_permit_date',
+                'mortgage_date',
+                'blueprint_plan_number',
+                'blueprint_designer');
+        } else {
+            // Store values from the project form
+            $projectInfo = Input::only(
+                            'updated_at', 'build_number', 'street_number', 'postal_code', 'city', 'province', 'start_date', 'end_date', 'comments', 'building_permit_number', 'building_permit_date', 'mortgage_date', 'blueprint_plan_number', 'blueprint_designer');
+            // Array of field names
+            $fieldNames = array(
+                'updated_at',
+                'build_number',
+                'street_number',
+                'postal_code',
+                'city',
+                'province',
+                'start_date',
+                'end_date',
+                'comments',
+                'building_permit_number',
+                'building_permit_date',
+                'mortgage_date',
+                'blueprint_plan_number',
+                'blueprint_designer');
+        }
 
-          $hasEntry = ProjectContact::where('project_id','=',$id)->first();
-          var_dump($hasEntry);
-
-          if($hasEntry == null && $projectCoordinatorInfo['contact_id'] != null)
-          {
-          $projectCoordinatorInfo['project_id'] = $id;
-          $projectCoordinatorInfo['created_at'] = Input::only('updated_at');
-          //var_dump($projectCoordinatorInfo);
-          $projectContact = new ProjectContact($projectCoordinatorInfo);
-          $this->projectContactRepo->saveProjectContact($projectContact);
-          }
-          else if($hasEntry != null && $projectCoordinatorInfo['contact_id'] == null)
-          {
-          ProjectContact::where('project_id','=',$id)->delete();
-          }
-          else
-          {
-          $projectCoordinatorInfo['updated_at'] = Input::only('updated_at');
-          ProjectContact::where('project_id','=',$id)->update($projectCoordinatorInfo);
-          }
-         * *********************************************** */
-
-
-
-// Store values from the project form
-        $projectInfo = Input::only(
-                        'updated_at', 'family', 'build_number', 'street_number', 'postal_code', 'city', 'province', 'start_date', 'end_date', 'comments', 'building_permit_number', 'building_permit_date', 'mortgage_date', 'blueprint_plan_number', 'blueprint_designer');
-// Array of field names
-        $fieldNames = array(
-            'updated_at',
-            'family_id',
-            'build_number',
-            'street_number',
-            'postal_code',
-            'city',
-            'province',
-            'start_date',
-            'end_date',
-            'comments',
-            'building_permit_number',
-            'building_permit_date',
-            'mortgage_date',
-            'blueprint_plan_number',
-            'blueprint_designer');
-
-
-
-//Used to count the field number based on the number of time through
-//the for each loop
+        //Used to count the field number based on the number of time through
+        //the for each loop
         $counter = 0;
-//Creating an associate array for the update
+        //Creating an associate array for the update
         $fieldUpdateValues = array();
 
-//added key value pairs to the array
+        //added key value pairs to the array
         foreach ($projectInfo as $fieldValue) {
             $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
             $counter++;
         }
 
-//updating the record in the contact table for the contact with the id passed in
-//var_dump($id);
-//var_dump($fieldUpdateValues);
+        //updating the record in the contact table for the contact with the id passed in
+        //var_dump($id);
+        //var_dump($fieldUpdateValues);
         $affectedRows = Project::where('id', '=', $id)->update($fieldUpdateValues);
-//$affectedRows = 0;
-//var_dump($affectedRows);
-//use affected rows to dertirming if it was a success or not
+        //$affectedRows = 0;
+        //var_dump($affectedRows);
+        //use affected rows to dertirming if it was a success or not
         if ($affectedRows > 0) {
-// Redirect to view the updated contact info
+        // Redirect to view the updated contact info
             $redirectVariable = Redirect::action('ProjectController@show', $id);
         } else {
-//Redirect back to the edit page with an error message
+        //Redirect back to the edit page with an error message
             $redirectVariable = Redirect::action('ProjectController@edit', $id)->withErrors(['Error', 'The Message']);
         }
-// return to redirect
+        // return to redirect
         return $redirectVariable;
     }
 
@@ -275,5 +256,4 @@ class ProjectController extends \BaseController {
 //        $this->projectContactRepo->saveProjectContact($projectContact);
 //        
 //    }
-
 }

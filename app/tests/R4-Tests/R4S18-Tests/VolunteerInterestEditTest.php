@@ -15,11 +15,11 @@ class VolunteerInterestEditTest extends TestCase
         $this->volunteerInteretsInput = [];
 
         // Set up the Volunteer Interest Item Mocked Repository
-        $this->mockedVolunteerInterestRepo = Mockery::mock('app\repositories\VolunteerInterestRepository');
-        $this->app->instance('app\repositories\VolunteerInterestRepository', $this->mockedVolunteerInterestRepo);
+        $this->mockedVolunteerInterestRepo = Mockery::mock('App\Repositories\VolunteerInterestRepository');
+        $this->app->instance('App\Repositories\VolunteerInterestRepository', $this->mockedVolunteerInterestRepo);
         
-        $this->mockedVolunteerInterestController = Mockery::mock('app\controllers\VolunteerInterestController');
-        $this->app->instance('app\controllers\VolunteerInterestController', $this->mockedVolunteerInterestController);
+        $this->mockedVolunteerInterestController = Mockery::mock('App\controllers\VolunteerInterestController');
+        $this->app->instance('App\controllers\VolunteerInterestController', $this->mockedVolunteerInterestController);
         
     }
         
@@ -29,10 +29,10 @@ class VolunteerInterestEditTest extends TestCase
     public function testSaveUpdates()
     {
         $this->volunteerInteretsInput = [
-            'id' => '555', 
-            'volunteer_id' => 1, 
-            'interest_id' => 62,
-             
+            'id'=>'5',
+            'volunteer_id' => 2, 
+            'interest' => 5,
+            'comments'=>'Interesting!'
          ];
         // Assemble
         
@@ -42,7 +42,7 @@ class VolunteerInterestEditTest extends TestCase
         $response = $this->route("POST", "storeInterests", $this->volunteerInteretsInput);
 
         // Assert
-        $this->assertRedirectedToAction('ContactController@show',1);
+        $this->assertRedirectedToAction('ContactController@show',2);
     }
     
     //TODO: Finish this test so it properly tests for failing to store a single entry

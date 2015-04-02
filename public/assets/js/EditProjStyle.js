@@ -3,25 +3,17 @@ $(document).ready(function() {
 
 
 
-    document.getElementById('editFamily').style.display = 'none';
-    document.getElementById('changeFamButton').style.padding = '10px 0px 0px 0px';
+    document.getElementById('edit').style.display = 'none';
+    document.getElementById('changeButton').style.padding = '10px 0px 0px 0px';
 
-    $('.changeFam').click(function(e) {
+    $('.change').click(function(e) {
 
         e.preventDefault();
 
-        document.getElementById('familySet').style.display = 'none';
-        document.getElementById('editFamily').style.display = 'block';
-        document.getElementById('changeFamButton').style.display = 'none';
+        document.getElementById('oldData').style.display = 'none';
+        document.getElementById('edit').style.display = 'block';
+        document.getElementById('changeButton').style.display = 'none';
     });
 
-//   $('.cancelChange').click(function(e) {
-//
-//        e.preventDefault();
-//       document.getElementById('familySet').style.visibility = 'visible';
-//        document.getElementById('editFamily').style.visibility = 'none';
-//        document.getElementById('changeFamButton').style.display = 'block'; 
-//       
-//    });
 
 });
