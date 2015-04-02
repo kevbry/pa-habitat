@@ -8,8 +8,8 @@
 class ContactValidator extends Validator {
     //an array of the validators to be used on the fields
     public static $rules = array(
-        'first_name' => 'required|alpha',
-        'last_name' => 'required|alpha',
+        'first_name' => 'required|alphaspace',
+        'last_name' => 'required|alphaspace',
         'company' => '',
         'email_address' => 'email',
         'home_phone' => 'phone',

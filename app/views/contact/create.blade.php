@@ -238,7 +238,7 @@ if($errors->any())
         <div class="form-group">
             {{Form::label('active_status', 'Is Volunteer Active: ',array('class'=>'col-sm-6'))}}
             <div class="col-sm-6">
-            {{Form::input('checkbox', 'active_status')}}
+            {{Form::checkbox('active_status',true)}}
             </div>
         </div>
         <div class="form-group">
