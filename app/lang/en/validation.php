@@ -95,7 +95,11 @@ return array(
 			'rule-name' => 'custom-message',
 		),
 	),
-
+        'custom' => array(
+		'primary_contact_1' => array(
+			'required' => 'The :attribute is required and must be selected from the suggested list of contacts.',
+		),
+	),
 	/*
 	|--------------------------------------------------------------------------
 	| Custom Validation Attributes

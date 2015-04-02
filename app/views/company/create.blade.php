@@ -59,7 +59,7 @@ if($errors->any())
         {{ Form::text('name',null,array('class'=>'form-control')) }}
         </div>
         <div class="col-sm-4"></div>
-        <div class="col-sm-6">
+        <div class="col-sm-7">
         @if(!empty($errorList['name']))
             <div class="inputError">{{$errorList['name']}}</div>
         @endif
