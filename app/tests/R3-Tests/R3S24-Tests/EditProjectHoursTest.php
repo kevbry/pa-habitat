@@ -77,6 +77,8 @@ class EditProjectHoursTest extends TestCase
                 ->andThrow(new Exception());
     }
     
+    
+    
      public function testIndexForProject()
     {
          $this->mockedVolunteerRepo

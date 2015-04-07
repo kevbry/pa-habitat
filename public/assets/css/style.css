@@ -173,4 +173,10 @@ span.twitter-typeahead{
 .buttons{
     margin-bottom: 30px;
 }
- 
+
+.required{
+    color: red;
+    float: left;
+    position: absolute;
+    left: 0px
+}

@@ -15,7 +15,7 @@ class UserTableSeeder extends Seeder
         DB::table('User')->delete();
         
         User::create([
-            'contact_id' => $contacts[0]->id,
+            'contact_id' => $contacts[0],
             'password'  => Hash::make('password'),
             'username' => 'admin',
             'access_level' => 'administrator'

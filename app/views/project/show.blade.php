@@ -110,11 +110,7 @@ Project Details
     
     <div class="form-group" id="spacingSecond">
         {{ Form::label('family', 'Family: ') }}
-        @if(isset($family))
-            {{ Form::text('family',$family->name,array('class'=>'form-control','readonly'=>'readonly')) }}
-        @else
-            {{ Form::text('family','Not Assigned',array('class'=>'form-control','readonly'=>'readonly')) }}
-        @endif
+       {{ Form::text('fam',( $project->family  ? $project->family->name : "Not Assigned") ,array('class'=>'form-control','readonly'=>'readonly')) }}
     </div>
 </section>
 
