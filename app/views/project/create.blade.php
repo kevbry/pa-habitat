@@ -23,7 +23,6 @@ $errorList = array (
     'mortgage date' => '',
     'blueprint plan number' => '',
     'blueprint designer' => '',
-    
 );
 
 //If there are errors

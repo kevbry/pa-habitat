@@ -19,6 +19,60 @@ $familySearch->configureOnClickEvent(sprintf(HabitatSearchBox::SELECT_ID_ON_CLIC
         ->configureSettings()
         ->build();
 ?> 
+<?php
+//Define our array of error messages
+//Neet to set this to the number of inputs you want validated
+
+$errorList = array (
+    'build number' => '',
+    'name' => '',
+    'street number' => '',
+    'postal code' => '',
+    'city' => '',
+    'province' => '',
+    'start date' => '',
+    'end date' => '',
+    'comments' => '',
+    'building permit date' => '',
+    'building permit number' => '',
+    'mortgage date' => '',
+    'blueprint plan number' => '',
+    'blueprint designer' => '',
+);
+
+//If there are errors
+if($errors->any())
+{
+    //For every error
+    foreach($errors->all() as $error)
+    {
+        $counter = 0;
+        //For every entry in the "errorList" array
+        //This array contains labels for each error, in order to append to
+        //The correct fields and allow for scalability.
+        foreach($errorList as $errorKey)
+        {
+            if($counter == 0)
+            {
+                prev($errorList);
+                $counter++;
+            }
+            //If the error message contains the same field name aka 'first name'
+            //Note this is not the field name first_name, this is the name
+            //that is used in ContactValidator, or the name that comes up in
+            //the actually error message.
+            if(strpos($error,key($errorList)) !== FALSE)
+            {
+                //Add it to the array under the key, so we can use it later.
+                $errorList[key($errorList)] = $error;
+            }
+            //Move the key pointer.
+            next($errorList);
+        }
+    }
+}
+
+?>
 
 @extends('master')
 
@@ -42,6 +96,11 @@ Edit Project
         <div class="col-sm-7">
             {{ Form::text('build_number',$project->build_number,array('class'=>'form-control','readonly'=>'readonly')) }}
         </div>
+        <div class="col-sm-7">
+            @if(!empty($errorList['build number']))
+                <div class="inputError">{{$errorList['build number']}}</div>
+            @endif
+        </div>        
     </div>
 </div>
 {{ Form::hidden('updated_at', date('Y-m-d H:i:s')) }}
@@ -51,11 +110,23 @@ Edit Project
     <div class="col-sm-7">
         {{ Form::text('street_number',$project->street_number,array('class'=>'form-control')) }}
     </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-7">
+        @if(!empty($errorList['street number']))
+            <div class="inputError">{{$errorList['street number']}}</div>
+        @endif
+    </div>
 </div>
 <div class="form-group">
     {{ Form::label('city', 'City: ',array('class'=>'col-sm-3')) }}
     <div class="col-sm-7">
         {{ Form::text('city',$project->city,array('class'=>'form-control')) }}
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-7">
+        @if(!empty($errorList['city']))
+            <div class="inputError">{{$errorList['city']}}</div>
+        @endif
     </div>
 </div>
 <div class="form-group">
@@ -63,11 +134,23 @@ Edit Project
     <div class="col-sm-7">
         {{ Form::text('province',$project->province,array('class'=>'form-control')) }}
     </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-7">
+        @if(!empty($errorList['province']))
+            <div class="inputError">{{$errorList['province']}}</div>
+        @endif
+    </div>
 </div>    
 <div class="form-group">
     {{ Form::label('postal_code', 'Postal Code: ',array('class'=>'col-sm-3')) }}
     <div class="col-sm-7">
         {{ Form::text('postal_code',$project->postal_code,array('class'=>'form-control')) }}
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-7">
+        @if(!empty($errorList['postal code']))
+            <div class="inputError">{{$errorList['postal code']}}</div>
+        @endif
     </div>
 </div>
 
@@ -76,11 +159,24 @@ Edit Project
     <div class="col-sm-7">
         {{ Form::input('date','start_date',$project->start_date,array('class'=>'form-control')) }}
     </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-7">
+        @if(!empty($errorList['start date']))
+            <div class="inputError">{{$errorList['start date']}}</div>
+        @endif
+    </div>    
 </div>
 <div class="form-group">
     {{ Form::label('end_date', 'End date: ',array('class'=>'col-sm-3')) }}
     <div class="col-sm-7">
         {{ Form::input('date','end_date',$project->end_date,array('class'=>'form-control')) }}
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="form-group">
+        {{ Form::label('end_date', 'End date: ',array('class'=>'col-sm-3')) }}
+        <div class="col-sm-7">
+        {{ Form::input('date','end_date',null,array('class'=>'form-control')) }}
+        </div>
     </div>
 </div>
 
@@ -90,6 +186,12 @@ Edit Project
     <div class="col-sm-7">
         {{ Form::text('blueprint_designer',$project->blueprint_designer,array('class'=>'form-control')) }}
     </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-7">
+        @if(!empty($errorList['blueprint designer']))
+            <div class="inputError">{{$errorList['blueprint designer']}}</div>
+        @endif
+    </div>
 </div>
 </div>
 <div class="form-group">
@@ -97,17 +199,35 @@ Edit Project
     <div class="col-sm-7">
         {{ Form::text('blueprint_plan_number',$project->blueprint_plan_number,array('class'=>'form-control')) }}
     </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-7">
+        @if(!empty($errorList['blueprint plan number']))
+            <div class="inputError">{{$errorList['blueprint plan number']}}</div>
+        @endif
+    </div>
 </div>
 <div class="form-group">
     {{ Form::label('building_permit_number', 'Building Permit Number: ',array('class'=>'col-sm-3')) }}
     <div class="col-sm-7">
         {{ Form::text('building_permit_number',$project->building_permit_number,array('class'=>'form-control')) }}
     </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-7">
+        @if(!empty($errorList['building permit number']))
+            <div class="inputError">{{$errorList['building permit number']}}</div>
+        @endif
+    </div>
 </div>
 <div class="form-group">
     {{ Form::label('building_permit_date', 'Building Permit Date: ',array('class'=>'col-sm-3')) }}
     <div class="col-sm-7">
         {{ Form::input('date','building_permit_date',$project->building_permit_date,array('class'=>'form-control')) }}
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-7">
+        @if(!empty($errorList['building permit date']))
+            <div class="inputError">{{$errorList['building permit date']}}</div>
+        @endif
     </div>
 </div>
 <div class="form-group">

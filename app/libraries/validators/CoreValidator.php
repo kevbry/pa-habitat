@@ -87,14 +87,19 @@ class CoreValidator extends Illuminate\Validation\Validator {
      */
     public function validateBeforeDate($attribute, $value, $parameters)
     {
-        $check = true;
-        if( isset( $parameters[0] ) )
-        {
-          $value_to_compare = $parameters[0];
-          //we compare with the provided value
-          $check = ( strtotime( $value ) < strtotime( $value_to_compare ) );
-        }
-        return $check;
+//        $check = true;
+//        if( isset( $parameters[0] ) )
+//        {
+//          $value_to_compare = $parameters[0];
+//          //we compare with the provided value
+//          $check = ( strtotime( $value ) < strtotime( $value_to_compare ) );
+//        }
+//      return $check;
+        $date = new DateTime($value);
+        $dateCompare = new DateTime(Input::get($parameters[0]));
+        
+        return $date->format("Y-m-d") <= $dateCompare->format("Y-m-d");
+        
     }
 
     

@@ -1,4 +1,4 @@
-<?php namespace App\Libraries\Validators;
+<?php namespace App\Libraries\validators;
 
 /**
  * Description of Project
@@ -14,8 +14,8 @@ class ProjectValidator extends Validator {
         'postal_code' => 'required|postalcode',
         'city' => 'required|alphaspace',
         'province' => 'required|alphaspace',
-        'start_date' => 'beforedate:end_date',
-        'end_date' => '',
+        'start_date' => '',
+        'end_date' => 'beforedate:start_date',
         'comments' => '',
         'building_permit_date' => '',
         'building_permit_number' => 'alpha_num',

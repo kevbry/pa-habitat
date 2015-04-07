@@ -95,7 +95,7 @@ class ProjectController extends \BaseController {
         }
 
 //Create a validator, based on the contact validator I created.
-        $v = new App\Libraries\Validators\ProjectValidator($projectInput);
+        $v = new App\Libraries\validators\ProjectValidator($projectInput);
         //If the validator passes with the input provided, based on the rules in the validator class.
             if($v->passes())
             {
@@ -157,7 +157,7 @@ class ProjectController extends \BaseController {
      */
     public function edit($id) {
         $project = $this->projectRepo->getProject($id);
-
+        //$family;
         if ($this->familyRepo->getFamily($project->family_id) != null) {
             $family = $this->familyRepo->getFamily($project->family_id);
             return View::make('project.edit')
