@@ -119,9 +119,13 @@ class CompanyController extends \BaseController {
      * @return Response
      */
     public function update($id) {
+        
+        $errorList['name'] = Input::get('name');
+        $errorList['primary_contact_1'] = Input::get('primary_contact_1');   
+        
         //Array of values to update
         $companyInfo = Input::only(
-                        'name', 'contact_id');
+                        'name', 'primary_contact_1');
 
         // Array of field names
         $fieldNames = array(
@@ -129,24 +133,32 @@ class CompanyController extends \BaseController {
             'contact_id');
    
         $counter = 0;
+        
+        $v = new App\Libraries\validators\CompanyValidator($errorList);
+        if($v->passes())
+        {
+            $fieldUpdateValues = array();
 
-        $fieldUpdateValues = array();
+            foreach ($companyInfo as $fieldValue) {
+                $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
+                $counter++;
+            }
 
-        foreach ($companyInfo as $fieldValue) {
-            $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
-            $counter++;
+            $affectedRows = Company::where('id', '=', $id)->update($fieldUpdateValues);
+
+            if ($affectedRows > 0) {
+
+                $redirectVariable = Redirect::action('CompanyController@show', $id);
+            } else {
+
+                $redirectVariable = Redirect::action('CompanyController@edit', $id)->withErrors(['Error', 'The Message']);
+            }
         }
-
-        $affectedRows = Company::where('id', '=', $id)->update($fieldUpdateValues);
-
-        if ($affectedRows > 0) {
-
-            $redirectVariable = Redirect::action('CompanyController@show', $id);
-        } else {
-
-            $redirectVariable = Redirect::action('CompanyController@edit', $id)->withErrors(['Error', 'The Message']);
+        else
+        {
+            //otherwise return back to the company, with the same inputs, and the error messages.
+            $redirectVariable = Redirect::action('CompanyController@edit', $id)->withInput()->withErrors($v->getErrors());
         }
-
         return $redirectVariable;
     }
 
