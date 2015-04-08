@@ -25,6 +25,17 @@ Route::get('company/{companyid}',array(
     'as' => 'company.show'
 ));
 
+Route::get('company/{companyid}/edit',array(
+    'before' => 'auth|contactmanager',
+    'uses' => 'CompanyController@edit',
+    'as' => 'company.edit'
+));
+
+Route::put('company/{companyid}',array(
+    'before' => 'auth|contactmanager',
+    'uses' => 'CompanyController@update',
+    'as' => 'company.update'
+));
 
 //Contact Routes
 Route::get('contact',array(
