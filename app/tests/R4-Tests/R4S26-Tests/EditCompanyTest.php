@@ -63,9 +63,9 @@ class EditCompanyTest extends TestCase {
      */
     public function testIndexForCompany() {
         $this->mockedCompanyRepo
-                ->shouldReceive('getCompany')->once()->with(125)->passthru();
+                ->shouldReceive('getCompany')->once()->with(12)->passthru();
 
-        $response = $this->call('GET', 'company/125/edit');
+        $response = $this->call('GET', 'company/12/edit');
 
         $this->assertResponseOk();
         $this->assertContains("Editing Details", $response->getContent());

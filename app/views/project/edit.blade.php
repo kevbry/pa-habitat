@@ -8,7 +8,8 @@ Session::put('page_url', $PAGE_ROOT_URL);
 
 /*
  *  Configure the search box
- *      Set up how the results are formatted.  First is the attribute to use as the value, second is what to display
+ *      Set up how the results are formatted.  First is the attribute to use as the value, 
+ *      second is what to display
  *      Set up the on click method (what happens when a result is selected)
  *      Set up the selection engine(s) that fetches and formats results from the database
  *      Set up the searchbox settings
