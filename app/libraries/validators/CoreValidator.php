@@ -92,11 +92,7 @@ class CoreValidator extends Illuminate\Validation\Validator {
 
         $check = true;
         
-//        if( $value == NULL && isset( $parameters[0] ) )
-//        {
-//           $check = false;
-//        }       
-        if( $otherValue )
+       if( $otherValue )
         {
           //we compare with the provided value
           $check = ( strtotime( $value ) < strtotime( $otherValue ) );
