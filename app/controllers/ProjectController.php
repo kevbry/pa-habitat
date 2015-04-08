@@ -90,6 +90,9 @@ class ProjectController extends \BaseController {
         $projectInput['blueprint_plan_number'] = Input::get('blueprint_plan_number');
         $projectInput['blueprint_designer'] = Input::get('blueprint_designer');
 
+   
+        
+        
         if (Input::get('family_id') > 0) {
             $projectInput['family_id'] = Input::get('family_id');
         }
