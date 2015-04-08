@@ -225,32 +225,42 @@ class ProjectController extends \BaseController {
 
         //Used to count the field number based on the number of time through
         //the for each loop
-        $counter = 0;
-        //Creating an associate array for the update
-        $fieldUpdateValues = array();
+        $v= new App\Libraries\validators\ProjectEditValidator($projectInfo);
+        if($v->passes())
+        {
+                   
+            $counter = 0;
+            //Creating an associate array for the update
+            $fieldUpdateValues = array();
 
-        //added key value pairs to the array
-        foreach ($projectInfo as $fieldValue) {
-            $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
-            $counter++;
-        }
+            //added key value pairs to the array
+            foreach ($projectInfo as $fieldValue) {
+                $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
+                $counter++;
+            }
 
-        //updating the record in the contact table for the contact with the id passed in
-        //var_dump($id);
-        //var_dump($fieldUpdateValues);
-        $affectedRows = Project::where('id', '=', $id)->update($fieldUpdateValues);
-        //$affectedRows = 0;
-        //var_dump($affectedRows);
-        //use affected rows to dertirming if it was a success or not
-        if ($affectedRows > 0) {
-        // Redirect to view the updated contact info
-            $redirectVariable = Redirect::action('ProjectController@show', $id);
-        } else {
-        //Redirect back to the edit page with an error message
-            $redirectVariable = Redirect::action('ProjectController@edit', $id)->withErrors(['Error', 'The Message']);
+            //updating the record in the contact table for the contact with the id passed in
+            //var_dump($id);
+            //var_dump($fieldUpdateValues);
+            $affectedRows = Project::where('id', '=', $id)->update($fieldUpdateValues);
+            //$affectedRows = 0;
+            //var_dump($affectedRows);
+            //use affected rows to dertirming if it was a success or not
+            if ($affectedRows > 0) {
+            // Redirect to view the updated contact info
+                $redirectVariable = Redirect::action('ProjectController@show', $id);
+            } else {
+            //Redirect back to the edit page with an error message
+                $redirectVariable = Redirect::action('ProjectController@edit', $id)->withErrors(['Error', 'The Message']);
+            }
+            // return to redirect
+            return $redirectVariable;
         }
-        // return to redirect
-        return $redirectVariable;
+        else
+        {
+            return Redirect::action('ProjectController@edit', $id)->withInput()
+                        ->withErrors($v->getErrors());
+        }
     }
 
     /**

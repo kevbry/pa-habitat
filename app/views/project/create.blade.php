@@ -85,7 +85,7 @@ if($errors->any())
     <div class="form-group">
         {{ Form::label('name', 'Project Name: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('name',null,array('class'=>'form-control')) }}
+        <span class="required">*</span>{{ Form::text('name',null,array('class'=>'form-control')) }}
         </div>
         <div class="col-sm-3"></div>
         <div class="col-sm-7">
@@ -97,7 +97,7 @@ if($errors->any())
     <div class="form-group">
         {{ Form::label('build_number', 'Build Number: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('build_number',null,array('class'=>'form-control')) }}
+        <span class="required">*</span>{{ Form::text('build_number',null,array('class'=>'form-control')) }}
         </div>
         <div class="col-sm-3"></div>
         <div class="col-sm-7">
@@ -115,7 +115,7 @@ if($errors->any())
     <div class="form-group">
         {{ Form::label('street_number', 'Street number: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('street_number',null,array('class'=>'form-control')) }}
+        <span class="required">*</span>{{ Form::text('street_number',null,array('class'=>'form-control')) }}
         </div>
         <div class="col-sm-3"></div>
         <div class="col-sm-7">
@@ -127,7 +127,7 @@ if($errors->any())
     <div class="form-group">
         {{ Form::label('city', 'City: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('city',null,array('class'=>'form-control')) }}
+        <span class="required">*</span>{{ Form::text('city',null,array('class'=>'form-control')) }}
         </div>
         <div class="col-sm-3"></div>
         <div class="col-sm-7">
@@ -139,7 +139,7 @@ if($errors->any())
     <div class="form-group">
         {{ Form::label('province', 'Province: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('province',null,array('class'=>'form-control')) }}
+        <span class="required">*</span>{{ Form::text('province',null,array('class'=>'form-control')) }}
         </div>
         <div class="col-sm-3"></div>
         <div class="col-sm-7">
@@ -151,7 +151,7 @@ if($errors->any())
     <div class="form-group">
         {{ Form::label('postal_code', 'Postal Code: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::text('postal_code',null,array('class'=>'form-control')) }}
+        <span class="required">*</span>{{ Form::text('postal_code',null,array('class'=>'form-control')) }}
         </div>
         <div class="col-sm-3"></div>
         <div class="col-sm-7">

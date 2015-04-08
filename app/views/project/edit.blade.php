@@ -95,21 +95,22 @@ Edit Project
         <div class="form-group">
             {{ Form::label('build_number', 'Build Number: ',array('class'=>'col-sm-3')) }}
             <div class="col-sm-7">
-                {{ Form::text('build_number',$project->build_number,array('class'=>'form-control','readonly'=>'readonly')) }}
+                <span class="required">*</span>{{ Form::text('build_number',$project->build_number,array('class'=>'form-control','readonly'=>'readonly')) }}
             </div>
-        </div>
+        
+        <div class="col-sm-3"></div>
         <div class="col-sm-7">
             @if(!empty($errorList['build number']))
                 <div class="inputError">{{$errorList['build number']}}</div>
             @endif
         </div>        
-
+        </div>  
 {{ Form::hidden('updated_at', date('Y-m-d H:i:s')) }}
 
 <div class="form-group">
     {{ Form::label('street_number', 'Street Address: ',array('class'=>'col-sm-3')) }}
     <div class="col-sm-7">
-        {{ Form::text('street_number',$project->street_number,array('class'=>'form-control')) }}
+        <span class="required">*</span>{{ Form::text('street_number',$project->street_number,array('class'=>'form-control')) }}
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-7">
@@ -117,41 +118,41 @@ Edit Project
             <div class="inputError">{{$errorList['street number']}}</div>
         @endif
     </div>
-    <div class="col-sm-3"></div>
-    <div class="col-sm-7">
-        @if(!empty($errorList['city']))
-            <div class="inputError">{{$errorList['city']}}</div>
-        @endif
-    </div>
-    <div class="col-sm-3"></div>
-    <div class="col-sm-7">
-        @if(!empty($errorList['province']))
-            <div class="inputError">{{$errorList['province']}}</div>
-        @endif
-    </div>
-    <div class="col-sm-3"></div>
-    <div class="col-sm-7">
-        @if(!empty($errorList['postal code']))
-            <div class="inputError">{{$errorList['postal code']}}</div>
-        @endif
-    </div>
-        </div>
+</div>
         <div class="form-group">
             {{ Form::label('city', 'City: ',array('class'=>'col-sm-3')) }}
             <div class="col-sm-7">
-                {{ Form::text('city',$project->city,array('class'=>'form-control')) }}
+                <span class="required">*</span>{{ Form::text('city',$project->city,array('class'=>'form-control')) }}
+            </div>
+                <div class="col-sm-3"></div>
+            <div class="col-sm-7">
+                @if(!empty($errorList['city']))
+                    <div class="inputError">{{$errorList['city']}}</div>
+                @endif
             </div>
         </div>
         <div class="form-group">
             {{ Form::label('province', 'Province: ',array('class'=>'col-sm-3')) }}
             <div class="col-sm-7">
-                {{ Form::text('province',$project->province,array('class'=>'form-control')) }}
+                <span class="required">*</span>{{ Form::text('province',$project->province,array('class'=>'form-control')) }}
+            </div>
+                <div class="col-sm-3"></div>
+            <div class="col-sm-7">
+                @if(!empty($errorList['province']))
+                    <div class="inputError">{{$errorList['province']}}</div>
+                @endif
             </div>
         </div>    
         <div class="form-group">
             {{ Form::label('postal_code', 'Postal Code: ',array('class'=>'col-sm-3')) }}
             <div class="col-sm-7">
-                {{ Form::text('postal_code',$project->postal_code,array('class'=>'form-control')) }}
+                <span class="required">*</span>{{ Form::text('postal_code',$project->postal_code,array('class'=>'form-control')) }}
+            </div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-7">
+                @if(!empty($errorList['postal code']))
+                    <div class="inputError">{{$errorList['postal code']}}</div>
+                @endif
             </div>
         </div>
 
@@ -171,13 +172,6 @@ Edit Project
     {{ Form::label('end_date', 'End date: ',array('class'=>'col-sm-3')) }}
     <div class="col-sm-7">
         {{ Form::input('date','end_date',$project->end_date,array('class'=>'form-control')) }}
-    </div>
-    <div class="col-sm-3"></div>
-    <div class="form-group">
-        {{ Form::label('end_date', 'End date: ',array('class'=>'col-sm-3')) }}
-        <div class="col-sm-7">
-        {{ Form::input('date','end_date',null,array('class'=>'form-control')) }}
-        </div>
     </div>
 </div>
 

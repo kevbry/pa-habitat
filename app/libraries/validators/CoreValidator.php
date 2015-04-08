@@ -101,18 +101,6 @@ class CoreValidator extends Illuminate\Validation\Validator {
       return $check;       
     }
     
-    
-    
-    public function validateNullDate($attribute, $rule, $parameters) {
-       
-        $check = true;
-        
-        if( $value == NULL && isset( $parameters[0] ) )
-        {
-            return $check = false;
-        }
-        return $check;
-    }
 
     
 }
