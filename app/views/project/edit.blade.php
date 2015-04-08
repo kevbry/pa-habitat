@@ -8,7 +8,8 @@ Session::put('page_url', $PAGE_ROOT_URL);
 
 /*
  *  Configure the search box
- *      Set up how the results are formatted.  First is the attribute to use as the value, second is what to display
+ *      Set up how the results are formatted.  First is the attribute to use as the value, 
+ *      second is what to display
  *      Set up the on click method (what happens when a result is selected)
  *      Set up the selection engine(s) that fetches and formats results from the database
  *      Set up the searchbox settings
@@ -89,20 +90,20 @@ Edit Project
 
 {{ Form::open(array('method'=>'PUT','route'=>array('project.update', $project->id), 'class'=>'form-horizontal', 'id'=>'form')) }}
 <section class="row">
-<section class="generalInfo col-md-7">
-    <h3>Project Details</h3>
-    <div class="form-group">
-        {{ Form::label('build_number', 'Build Number: ',array('class'=>'col-sm-3')) }}
-        <div class="col-sm-7">
-            {{ Form::text('build_number',$project->build_number,array('class'=>'form-control','readonly'=>'readonly')) }}
+    <section class="generalInfo col-md-7">
+        <h3>Project Details</h3>
+        <div class="form-group">
+            {{ Form::label('build_number', 'Build Number: ',array('class'=>'col-sm-3')) }}
+            <div class="col-sm-7">
+                {{ Form::text('build_number',$project->build_number,array('class'=>'form-control','readonly'=>'readonly')) }}
+            </div>
         </div>
         <div class="col-sm-7">
             @if(!empty($errorList['build number']))
                 <div class="inputError">{{$errorList['build number']}}</div>
             @endif
         </div>        
-    </div>
-</div>
+
 {{ Form::hidden('updated_at', date('Y-m-d H:i:s')) }}
 
 <div class="form-group">
@@ -116,23 +117,11 @@ Edit Project
             <div class="inputError">{{$errorList['street number']}}</div>
         @endif
     </div>
-</div>
-<div class="form-group">
-    {{ Form::label('city', 'City: ',array('class'=>'col-sm-3')) }}
-    <div class="col-sm-7">
-        {{ Form::text('city',$project->city,array('class'=>'form-control')) }}
-    </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-7">
         @if(!empty($errorList['city']))
             <div class="inputError">{{$errorList['city']}}</div>
         @endif
-    </div>
-</div>
-<div class="form-group">
-    {{ Form::label('province', 'Province: ',array('class'=>'col-sm-3')) }}
-    <div class="col-sm-7">
-        {{ Form::text('province',$project->province,array('class'=>'form-control')) }}
     </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-7">
@@ -140,19 +129,31 @@ Edit Project
             <div class="inputError">{{$errorList['province']}}</div>
         @endif
     </div>
-</div>    
-<div class="form-group">
-    {{ Form::label('postal_code', 'Postal Code: ',array('class'=>'col-sm-3')) }}
-    <div class="col-sm-7">
-        {{ Form::text('postal_code',$project->postal_code,array('class'=>'form-control')) }}
-    </div>
     <div class="col-sm-3"></div>
     <div class="col-sm-7">
         @if(!empty($errorList['postal code']))
             <div class="inputError">{{$errorList['postal code']}}</div>
         @endif
     </div>
-</div>
+        </div>
+        <div class="form-group">
+            {{ Form::label('city', 'City: ',array('class'=>'col-sm-3')) }}
+            <div class="col-sm-7">
+                {{ Form::text('city',$project->city,array('class'=>'form-control')) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ Form::label('province', 'Province: ',array('class'=>'col-sm-3')) }}
+            <div class="col-sm-7">
+                {{ Form::text('province',$project->province,array('class'=>'form-control')) }}
+            </div>
+        </div>    
+        <div class="form-group">
+            {{ Form::label('postal_code', 'Postal Code: ',array('class'=>'col-sm-3')) }}
+            <div class="col-sm-7">
+                {{ Form::text('postal_code',$project->postal_code,array('class'=>'form-control')) }}
+            </div>
+        </div>
 
 <div class="form-group">
     {{ Form::label('start_date', 'Start Date: ',array('class'=>'col-sm-3')) }}
@@ -244,39 +245,42 @@ Edit Project
 </div>
 
 
-</section>
-<section class="col-md-5"> 
-    <div class="form-group">
-        <h3>Additional Details</h3>
-<!--        {{ Form::label('project_coordinator', 'Project Coordinator: ') }}
-        @if (!empty($projectContact))
-        {{ Form::text('project_coordinator',$projectContact,array('class'=>'form-control')) }}
-        @else
-
-        {{Form::text('project_coordinator','Not Specified',array('class'=>'form-control','readonly'=>'readonly')) }}
-        @endif-->
-    </div>
-    <div class="form-group">
-        {{ Form::label('family', 'Family: ') }}
-        <div id="familySet">
-            {{ Form::text('fam',$family ? $family->name : "Not Assigned" ,array('class'=>'form-control','readonly'=>'readonly')) }}
-            {{Form::hidden('family',$family->id)}}
+    </section>
+    <section class="col-md-5"> 
+        <div class="form-group">
+            <h3>Additional Details</h3>
+            <!--        {{ Form::label('project_coordinator', 'Project Coordinator: ') }}
+                    @if (!empty($projectContact))
+                    {{ Form::text('project_coordinator',$projectContact,array('class'=>'form-control')) }}
+                    @else
+            
+                    {{Form::text('project_coordinator','Not Specified',array('class'=>'form-control','readonly'=>'readonly')) }}
+                    @endif-->
         </div>
-        <div id="editFamily">
-            <?php $familySearch->show() ?>
+        <div class="form-group">
+            {{ Form::label('fam', 'Family: ') }}
+            <div id="oldData">
+                @if (!empty($family))
+                    {{ Form::text('fam', $family->name,array('class'=>'form-control','readonly'=>'readonly')) }}
+                @else 
+                Not Assigned
+                @endif
+            </div>
+            <div id="edit">
+                <?php $familySearch->show() ?>
+            </div>
+            <div id="changeButton">
+                <a href="#" class="btn btn-primary change">Change Family</a>
+            </div>
         </div>
-        <div id="changeFamButton">
-            <a href="#" class="btn btn-primary changeFam">Change Family</a>
-        </div>
-    </div>
-</section>
+    </section>
 </section>
 <section class="row text-right">
     <div class="col-md-5 pull-right">
-{{HTML::linkAction('ProjectController@show', "Discard Changes", array($project->id), array('class'=>'btn btn-primary btn-lg')) }}
-{{Form::submit('Save Changes',array('class'=>'btn btn-primary btn-lg', 'onclick'=>'confirmExit(false); return false;'))}}
+        {{HTML::linkAction('ProjectController@show', "Discard Changes", array($project->id), array('class'=>'btn btn-primary btn-lg')) }}
+        {{Form::submit('Save Changes',array('class'=>'btn btn-primary btn-lg', 'onclick'=>'confirmExit(false); return false;'))}}
     </div>
 </section>
 {{Form::close()}}
- {{ HTML::script('assets/js/EditProjStyle.js');}}
+{{ HTML::script('assets/js/EditProjStyle.js');}}
 @stop            

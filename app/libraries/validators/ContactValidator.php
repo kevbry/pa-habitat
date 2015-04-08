@@ -8,18 +8,18 @@
 class ContactValidator extends Validator {
     //an array of the validators to be used on the fields
     public static $rules = array(
-        'first_name' => 'required|alpha',
-        'last_name' => 'required|alpha',
+        'first_name' => 'required|alphaspace',
+        'last_name' => 'required|alphaspace',
         'company' => '',
-        'email_address' => 'required|email',
-        'home_phone' => 'required|phone',
+        'email_address' => 'email',
+        'home_phone' => 'phone',
         'cell_phone' => 'phone|cellPhone',
         'work_phone' => 'phone|workPhone',
-        'street_address' => 'required|address|min:5',
-        'city' => 'required|alphaspace',
-        'province' => 'required|alphaspace',
-        'postal_code' => 'required|postalcode',
-        'country' => 'required|alphaspace',
+        'street_address' => 'address|min:5',
+        'city' => 'alphaspace',
+        'province' => 'alphaspace',
+        'postal_code' => 'postalcode',
+        'country' => 'alphaspace',
         'comments' => '',
         'last_attended_safety_meeting_date' => 'safetymeetingdate'
     );
