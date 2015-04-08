@@ -21,7 +21,6 @@ class CreateAddProjectInfo extends Migration {
             });
             
             
-            //Schema::dropIfExists('Project');
             Schema::table('Project', function(Blueprint $table)
             {
                 $table->integer('family_id')->unsigned()->nullable();
@@ -62,8 +61,27 @@ class CreateAddProjectInfo extends Migration {
 	public function down()
 	{
 		//
-            Schema::dropIfExists('Project');
             Schema::dropIfExists('ProjectContact');
+            
+            Schema::table('Project', function(Blueprint $table)
+            {
+                $table->dropForeign('project_family_id_foreign');
+                $table->dropColumn('family_id');
+                $table->dropColumn('build_number');
+                $table->dropForeign('project_blueprint_id_foreign');
+                $table->dropColumn('blueprint_id');
+                $table->renameColumn('project_name','name');
+                $table->dropColumn('street_number');
+                $table->dropColumn('postal_code');
+                $table->dropColumn('city');
+                $table->dropColumn('province');
+                $table->dropColumn('start_date');
+                $table->dropColumn('end_date');
+                $table->dropColumn('comments');
+                $table->dropColumn('building_permit_number');
+                $table->dropColumn('building_permit_date');
+                $table->dropColumn('mortgage_date');
+            });
             Schema::dropIfExists('Blueprint');
 	}
 

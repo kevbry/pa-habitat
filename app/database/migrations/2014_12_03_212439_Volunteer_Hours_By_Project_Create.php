@@ -44,8 +44,9 @@ class VolunteerHoursByProjectCreate extends Migration {
 	 */
 	public function down()
 	{
-            Schema::dropIfExists('Project');
             Schema::dropIfExists('VolunteeredHours');
+
+            Schema::dropIfExists('Project');
 	}
 
 }
