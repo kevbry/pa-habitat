@@ -82,7 +82,7 @@ class ProjectController extends \BaseController {
         $projectInput['city'] = Input::get('city');
         $projectInput['province'] = Input::get('province');
         $projectInput['start_date'] = Input::get('start_date');
-        $projectInput['end_date'] = Input::get('end_date');
+        $projectInput['enddate'] = Input::get('end_date');
         $projectInput['comments'] = Input::get('comments');
         $projectInput['building_permit_date'] = Input::get('building_permit_date');
         $projectInput['building_permit_number'] = Input::get('building_permit_number');
@@ -90,7 +90,13 @@ class ProjectController extends \BaseController {
         $projectInput['blueprint_plan_number'] = Input::get('blueprint_plan_number');
         $projectInput['blueprint_designer'] = Input::get('blueprint_designer');
 
-   
+        if($projectInput['start_date'] == null)
+        {
+            $dateTime = new DateTime();
+            $result = $dateTime->format('Y-m-d');
+          //  str
+            $projectInput['start_date'] = $result;           
+        }
         
         
         if (Input::get('family_id') > 0) {

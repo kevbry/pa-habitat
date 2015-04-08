@@ -7,6 +7,8 @@
  */
 class ProjectValidator extends Validator {
     //an array of the validators to be used on the fields
+    
+    
     public static $rules = array(
         'build_number' => 'required|alpha_num',
         'name' => 'required|alpha_num',
@@ -14,7 +16,7 @@ class ProjectValidator extends Validator {
         'postal_code' => 'required|postalcode',
         'city' => 'required|alphaspace',
         'province' => 'required|alphaspace',
-        'start_date' => 'beforedate:end_date',
+        'start_date' => 'beforedate',
         'end_date' => '',
         'comments' => '',
         'building_permit_date' => '',
