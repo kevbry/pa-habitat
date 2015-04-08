@@ -7,7 +7,7 @@ Create a Project
 <?php
 //Define our array of error messages
 //Neet to set this to the number of inputs you want validated
-
+$date = new DateTime();
 $errorList = array (
     'build number' => '',
     'name' => '',
@@ -171,7 +171,7 @@ if($errors->any())
     <div class="form-group">
         {{ Form::label('start_date', 'Start Date: ',array('class'=>'col-sm-3')) }}
         <div class="col-sm-7">
-        {{ Form::input('date','start_date',null,array('class'=>'form-control')) }}
+        {{ Form::input('date','start_date',$date->format('Y-m-d'),array('class'=>'form-control')) }}
         </div>
         <div class="col-sm-3"></div>
         <div class="col-sm-7">
