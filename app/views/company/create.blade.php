@@ -56,7 +56,7 @@ if($errors->any())
     <div class="form-group">
         {{ Form::label('name', 'Company Name: ',array('class'=>'col-sm-4')) }}
         <div class="col-sm-6">
-        {{ Form::text('name',null,array('class'=>'form-control')) }}
+        <span class="required">*</span>{{ Form::text('name',null,array('class'=>'form-control')) }}
         </div>
         <div class="col-sm-4"></div>
         <div class="col-sm-7">
@@ -81,7 +81,7 @@ if($errors->any())
     <div class="form-group">
         {{Form::label('primary_contact_1', 'Primary Contact 1: ', array('class'=>'col-sm-4'))}}
         <div class="col-sm-6">
-            <?php $primary_contact_search->show(); ?>
+            <span class="required">*</span><?php $primary_contact_search->show(); ?>
         </div>
         <div class="col-sm-4"></div>
         <div class="col-sm-6">

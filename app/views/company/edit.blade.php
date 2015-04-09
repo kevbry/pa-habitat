@@ -79,7 +79,7 @@ if($errors->any())
         <div class="form-group">
             {{ Form::label('name', 'Company Name: ',array('class'=>'col-sm-7')) }}
             <div class="col-sm-7">
-                {{ Form::text('name',$company->name,array('class'=>'form-control')) }}
+                <span class="required">*</span>{{ Form::text('name',$company->name,array('class'=>'form-control')) }}
             </div>
             <div class="col-sm-4"></div>
             <div class="col-sm-7">
@@ -93,11 +93,11 @@ if($errors->any())
             {{ Form::label('contain_id', 'Main Contact: ',array('class'=>'col-sm-7')) }}
 
             <div id="oldData" class="col-sm-7">
-                {{ Form::text('con',$company->mainContact->first_name . " " .  $company->mainContact->last_name,array('class'=>'form-control','readonly'=>'readonly')) }}
+                <span class="required">*</span>{{ Form::text('con',$company->mainContact->first_name . " " .  $company->mainContact->last_name,array('class'=>'form-control','readonly'=>'readonly')) }}
                 {{Form::hidden('primary_contact_1',$company->mainContact->id)}}
             </div>
             <div id="edit" class="col-sm-7">
-                <?php $contactSearch->show() ?>
+                <span class="required">*</span><?php $contactSearch->show() ?>
             </div>
             <div class="col-sm-4"></div>
             <div class="col-sm-6">
