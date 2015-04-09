@@ -35,7 +35,7 @@ class AlterTablesUpdateNameConvention extends Migration {
 		DB::statement('ALTER TABLE `habitat_Company` CHANGE name company_name  VARCHAR(255);');
                 DB::statement('ALTER TABLE `habitat_Certification` CHANGE name cert_name VARCHAR(255);');
                 DB::statement('ALTER TABLE `habitat_Trade` CHANGE name trade_name VARCHAR(255);');
-                DB::statement('ALTER TABLE `habitat_Project` CHANGE name project_nameVARCHAR(255);');
+                DB::statement('ALTER TABLE `habitat_Project` CHANGE name project_name VARCHAR(255);');
 	}
 
 }
