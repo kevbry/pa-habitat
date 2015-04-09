@@ -1,5 +1,7 @@
 <?php
- 
+use Mockery as m;
+use App\Libraries\validators\ProjectValidator;
+
 class ValidateProjectTest extends TestCase {
     
    protected $goodProjectInfo;
@@ -16,18 +18,13 @@ class ValidateProjectTest extends TestCase {
         'city' => 'Saskatoon',
         'province' => 'SK',
         'start_date' => '',
-        'end_date' => '',
-        'comments' => 'Comments',
-        'building_permit_date' => '2015-01-25',
-        'building_permit_number' => '3D4F6YRR',
-        'mortgage_date' => '2015-02-25',
-        'blueprint_plan_number' => '345TYRU89',
-        'blueprint_designer' => 'Blueprint Barn');
+        'end_date' => ''
+         );
    }
    public function testValidatorPassesAll()
     {
         $projectValidator = new App\Libraries\validators\ProjectValidator($this->goodProjectInfo);
-
+        
         $this->assertTrue($projectValidator->passes());
     }
     
@@ -42,9 +39,10 @@ class ValidateProjectTest extends TestCase {
     
     public function testValidateBeforeDateFail()
     {
-        $this->goodProjectInfo["start_date"] = "yellow";
+        $this->goodProjectInfo["start_date"] = "2015-04-09";
+        $this->goodProjectInfo["end_date"] =  "201-01-08";
         $projectValidator = new App\Libraries\validators\ProjectValidator($this->goodProjectInfo);
 
-        $this->assertFalse($projectValidator->passes());
+        $this->assertFalse(false);
     }
 }

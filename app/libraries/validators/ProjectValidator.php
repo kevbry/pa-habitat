@@ -11,9 +11,9 @@ class ProjectValidator extends Validator {
     
     public static $rules = array(
         'build_number' => 'required|alpha_num',
-        'name' => 'required|alpha_num',
+        'name' => 'required',
         'street_number' => 'required|address',
-        'postal_code' => 'required|postalcode',
+        'postal_code' => 'postalcode',
         'city' => 'required|alphaspace',
         'province' => 'required|alphaspace',
         'start_date' => 'beforedate',

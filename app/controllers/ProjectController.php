@@ -75,7 +75,7 @@ class ProjectController extends \BaseController {
         $projectInput['city'] = Input::get('city');
         $projectInput['province'] = Input::get('province');
         $projectInput['start_date'] = Input::get('start_date');
-        $projectInput['enddate'] = Input::get('end_date');
+        $projectInput['end_date'] = Input::get('end_date');
         $projectInput['comments'] = Input::get('comments');
         $projectInput['building_permit_date'] = Input::get('building_permit_date');
         $projectInput['building_permit_number'] = Input::get('building_permit_number');
