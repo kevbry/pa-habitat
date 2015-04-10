@@ -65,14 +65,14 @@ class FamilyUnitTest extends TestCase
         $this->familyInput['contacts'] = $this->familyContactInput;
         
         // Instantiate mocked objects with dummy data
-        $this->mockedFamilyRepo = Mockery::mock('app\repositories\FamilyRepository');
-        $this->app->instance('app\repositories\FamilyRepository', $this->mockedFamilyRepo);
+        $this->mockedFamilyRepo = Mockery::mock('App\Repositories\FamilyRepository');
+        $this->app->instance('App\Repositories\FamilyRepository', $this->mockedFamilyRepo);
         
-        $this->mockedFamilyContactRepo = Mockery::mock('app\repositories\FamilyContactRepository');
-        $this->app->instance('app\repositories\FamilyContactRepository', $this->mockedFamilyContactRepo);
+        $this->mockedFamilyContactRepo = Mockery::mock('App\Repositories\FamilyContactRepository');
+        $this->app->instance('App\Repositories\FamilyContactRepository', $this->mockedFamilyContactRepo);
         
-        $this->mockedVolunteerHoursRepo = Mockery::mock('app\repositories\VolunteerHoursRepository');
-        $this->app->instance('app\repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
+        $this->mockedVolunteerHoursRepo = Mockery::mock('App\Repositories\VolunteerHoursRepository');
+        $this->app->instance('App\Repositories\VolunteerHoursRepository', $this->mockedVolunteerHoursRepo);
         
         //$this->mockedFamilyController = Mockery::mock('App\Controllers\FamilyController');
         //$this->app->instance('App\Controllers\FamilyController', $this->mockedFamilyController);

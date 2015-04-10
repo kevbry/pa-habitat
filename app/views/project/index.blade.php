@@ -79,7 +79,7 @@ Session::get('access_level') === 'administrator' ))
                            )
                        )
                   }}'  ><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-                @endif</th><th>Project Coordinator</th><th></th>
+                @endif</th>
         </tr>
     </thead>
     @foreach($projects as $project)
