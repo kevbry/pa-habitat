@@ -78,6 +78,7 @@ return array(
         "alphaspacenum"        => "The :attribute must contain letters, spaces and numbers only",
         "address"              => "The :attribute must contain letters, spaces, dashes and numbers only",
         "safetymeetingdate"    => "The :attribute cannot be in the future",
+        "beforedate"           => "The :attribute must be before the end date", 
 
 	/*
 	|--------------------------------------------------------------------------
@@ -94,12 +95,15 @@ return array(
 		'attribute-name' => array(
 			'rule-name' => 'custom-message',
 		),
+                'beforedate' => ":attribute must be before :other",
 	),
+
         'custom' => array(
 		'primary_contact_1' => array(
 			'required' => 'The :attribute is required and must be selected from the suggested list of contacts.',
 		),
 	),
+        
 	/*
 	|--------------------------------------------------------------------------
 	| Custom Validation Attributes

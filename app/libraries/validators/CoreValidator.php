@@ -53,10 +53,7 @@ class CoreValidator extends Illuminate\Validation\Validator {
         return preg_match("^\A(\d+[a-zA-Z]{0,1}\s{0,1}[-]{1}\s{0,1}\d*[a-zA-Z]{0,1}|\d+[a-zA-Z-]{0,1}\d*[a-zA-Z]{0,1})\s*+(.*)$^",$value);  
     }
 
-
-   /**
-     * Validator to ensure the inputted date is not in the future
-     * 
+	/*
      * @param string $attribute
      * @param date $value
      * @param string $parameters
@@ -72,14 +69,42 @@ class CoreValidator extends Illuminate\Validation\Validator {
         $todaysDate->format('Y-m-d');
       
         //The inputted date
-        $inputDate = new DateTime($value);
-        $inputDate->format('Y-m-d');
-        
-        //If todaysDate is greather than or equal to the inputDate, the date is valid
-        if( $todaysDate >= $inputDate || $value == nullValue() )
+        if($value != null)
         {
-            $return_value = TRUE;
+            $inputDate = new DateTime($value);
+            $inputDate->format('Y-m-d');
+            
+            //If todaysDate is greater than or equal to the inputDate, the date is valid
+            if( $todaysDate >= $inputDate)
+            {
+                $return_value = TRUE;
+            }
         }
+ 
         return $return_value;
     }
+
+	/*
+     * @param string $value
+     * @param string $parameters
+     * @return int
+     */
+    public function validateBeforeDate($attribute, $value, $parameters)
+    {
+        $otherValue =Input::get('end_date');
+        
+
+        $check = true;
+        
+       if( $otherValue )
+        {
+          //we compare with the provided value
+          $check = ( strtotime( $value ) < strtotime( $otherValue ) );
+        }
+               
+      return $check;       
+    }
+    
+
+    
 }

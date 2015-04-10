@@ -83,19 +83,39 @@ class ProjectController extends \BaseController {
         $projectInput['blueprint_plan_number'] = Input::get('blueprint_plan_number');
         $projectInput['blueprint_designer'] = Input::get('blueprint_designer');
 
+        if($projectInput['start_date'] == null)
+        {
+            $dateTime = new DateTime();
+            $result = $dateTime->format('Y-m-d');
+          //  str
+            $projectInput['start_date'] = $result;           
+        }
+        
+        
         if (Input::get('family_id') > 0) {
             $projectInput['family_id'] = Input::get('family_id');
         }
 
+//Create a validator, based on the contact validator I created.
+        $v = new App\Libraries\validators\ProjectValidator($projectInput);
+        //If the validator passes with the input provided, based on the rules in the validator class.
+            if($v->passes())
+            {
+                //Assign returned value of a project id created to a variable.
+                $projectID = $this->createProjectWith($projectInput);
+                
+                // Grab the id of the new project
+                $id = $projectID;
 
-//Assign returned value of a project id created to a variable.
-        $projectID = $this->createProjectWith($projectInput);
-
-// Grab the id of the new project
-        $id = $projectID;
-
-// Redirect to view the newly created project
-        return Redirect::action('ProjectController@show', array($id));
+                // Redirect to view the newly created project
+                return Redirect::action('ProjectController@show', array($id));
+            }       
+            else
+            {
+                //otherwise return back to the contact, with the same inputs, and the error messages.
+                return Redirect::action('ProjectController@create')->withInput()
+                        ->withErrors($v->getErrors());
+            }
     }
 
     /**
@@ -139,7 +159,7 @@ class ProjectController extends \BaseController {
      */
     public function edit($id) {
         $project = $this->projectRepo->getProject($id);
-
+        //$family;
         if (( $family = $this->familyRepo->getFamily($project->family_id)) != null) {
 
             return View::make('project.edit')
@@ -205,32 +225,42 @@ class ProjectController extends \BaseController {
 
         //Used to count the field number based on the number of time through
         //the for each loop
-        $counter = 0;
-        //Creating an associate array for the update
-        $fieldUpdateValues = array();
+        $v= new App\Libraries\validators\ProjectEditValidator($projectInfo);
+        if($v->passes())
+        {
+                   
+            $counter = 0;
+            //Creating an associate array for the update
+            $fieldUpdateValues = array();
 
-        //added key value pairs to the array
-        foreach ($projectInfo as $fieldValue) {
-            $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
-            $counter++;
-        }
+            //added key value pairs to the array
+            foreach ($projectInfo as $fieldValue) {
+                $fieldUpdateValues = array_add($fieldUpdateValues, $fieldNames[$counter], $fieldValue);
+                $counter++;
+            }
 
-        //updating the record in the contact table for the contact with the id passed in
-        //var_dump($id);
-        //var_dump($fieldUpdateValues);
-        $affectedRows = Project::where('id', '=', $id)->update($fieldUpdateValues);
-        //$affectedRows = 0;
-        //var_dump($affectedRows);
-        //use affected rows to dertirming if it was a success or not
-        if ($affectedRows > 0) {
-        // Redirect to view the updated contact info
-            $redirectVariable = Redirect::action('ProjectController@show', $id);
-        } else {
-        //Redirect back to the edit page with an error message
-            $redirectVariable = Redirect::action('ProjectController@edit', $id)->withErrors(['Error', 'The Message']);
+            //updating the record in the contact table for the contact with the id passed in
+            //var_dump($id);
+            //var_dump($fieldUpdateValues);
+            $affectedRows = Project::where('id', '=', $id)->update($fieldUpdateValues);
+            //$affectedRows = 0;
+            //var_dump($affectedRows);
+            //use affected rows to dertirming if it was a success or not
+            if ($affectedRows > 0) {
+            // Redirect to view the updated contact info
+                $redirectVariable = Redirect::action('ProjectController@show', $id);
+            } else {
+            //Redirect back to the edit page with an error message
+                $redirectVariable = Redirect::action('ProjectController@edit', $id)->withErrors(['Error', 'The Message']);
+            }
+            // return to redirect
+            return $redirectVariable;
         }
-        // return to redirect
-        return $redirectVariable;
+        else
+        {
+            return Redirect::action('ProjectController@edit', $id)->withInput()
+                        ->withErrors($v->getErrors());
+        }
     }
 
     /**
