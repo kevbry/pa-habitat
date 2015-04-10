@@ -40,9 +40,9 @@ class ValidateProjectTest extends TestCase {
     public function testValidateBeforeDateFail()
     {
         $this->goodProjectInfo["start_date"] = "2015-04-09";
-        $this->goodProjectInfo["end_date"] =  "201-01-08";
+        $this->goodProjectInfo["end_date"] =  "2014-01-08";
         $projectValidator = new App\Libraries\validators\ProjectValidator($this->goodProjectInfo);
 
-        $this->assertFalse(false);
+        $this->assertFalse($projectValidator->passes());
     }
 }

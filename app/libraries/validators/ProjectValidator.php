@@ -16,7 +16,7 @@ class ProjectValidator extends Validator {
         'postal_code' => 'postalcode',
         'city' => 'required|alphaspace',
         'province' => 'required|alphaspace',
-        'start_date' => 'beforedate',
+        'start_date' => 'before:end_date',
         'end_date' => '',
         'comments' => '',
         'building_permit_date' => '',
