@@ -22,7 +22,7 @@ class ProjectEditValidator extends Validator {
         'building_permit_number' => 'alpha_num',
         'mortgage_date' => '',
         'blueprint_plan_number' => 'alpha_num',
-        'blueprint_designer' => 'alpha_num',
+        'blueprint_designer' => 'alphaspacenum',
     );
 
 }

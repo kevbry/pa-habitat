@@ -16,14 +16,14 @@ class ProjectValidator extends Validator {
         'postal_code' => 'postalcode',
         'city' => 'required|alphaspace',
         'province' => 'required|alphaspace',
-        'start_date' => 'before:end_date',
+        'start_date' => 'beforedate',
         'end_date' => '',
         'comments' => '',
         'building_permit_date' => '',
         'building_permit_number' => 'alpha_num',
         'mortgage_date' => '',
         'blueprint_plan_number' => 'alpha_num',
-        'blueprint_designer' => 'alpha_num',
+        'blueprint_designer' => 'alphaspacenum',
     );
 
 }
