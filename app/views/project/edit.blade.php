@@ -82,8 +82,6 @@ Edit Project
 @stop
 @if($errors->any())
 
-
-<h1>{{$errors->first()}}</h1>
 @endif
 @section('content')
 <h2>Editing Details for {{ $project->name }}</h2>

@@ -103,7 +103,7 @@ class ContactController extends \BaseController {
                                             'comments');
             }
              
-            $v = new App\Libraries\validators\ContactValidator($contactInfo);
+            $v = new App\Libraries\Validators\ContactValidator($contactInfo);
             if($v->passes())
             {
                 $id = $this->storeContactWith($contactInfo);          
@@ -286,7 +286,7 @@ class ContactController extends \BaseController {
         
         //updating the record in the contact table for the contact with the id passed in
         //Create validator
-        $v = new App\Libraries\validators\ContactValidator($contactInfoTwo);
+        $v = new App\Libraries\Validators\ContactValidator($contactInfoTwo);
         
         //If the validator passes, redirect to the show, otherwise redirect back to edit with inputs and errors
         //var_dump($v->passes());

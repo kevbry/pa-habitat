@@ -97,7 +97,7 @@ class ProjectController extends \BaseController {
         }
 
 //Create a validator, based on the contact validator I created.
-        $v = new App\Libraries\validators\ProjectValidator($projectInput);
+        $v = new App\Libraries\Validators\ProjectValidator($projectInput);
         //If the validator passes with the input provided, based on the rules in the validator class.
             if($v->passes())
             {
@@ -225,7 +225,7 @@ class ProjectController extends \BaseController {
 
         //Used to count the field number based on the number of time through
         //the for each loop
-        $v= new App\Libraries\validators\ProjectEditValidator($projectInfo);
+        $v= new App\Libraries\Validators\ProjectEditValidator($projectInfo);
         if($v->passes())
         {
                    

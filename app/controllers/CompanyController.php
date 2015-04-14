@@ -70,7 +70,7 @@ class CompanyController extends \BaseController {
         $companyInput['name'] = Input::get('name');
         $companyInput['contact_id'] = Input::get('primary_contact_1');
 
-        $v = new App\Libraries\validators\CompanyValidator($errorList);
+        $v = new App\Libraries\Validators\CompanyValidator($errorList);
         if($v->passes())
         {
             //Store company
@@ -134,7 +134,7 @@ class CompanyController extends \BaseController {
    
         $counter = 0;
         
-        $v = new App\Libraries\validators\CompanyValidator($errorList);
+        $v = new App\Libraries\Validators\CompanyValidator($errorList);
         if($v->passes())
         {
             $fieldUpdateValues = array();

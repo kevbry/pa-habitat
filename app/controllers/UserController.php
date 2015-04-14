@@ -137,19 +137,25 @@ class UserController extends \BaseController
         // Temp 
         if ($newPassword === Input::get('confirm_password'))
         {
-            if (!empty($newUserInfo['password']))
+            if (!empty($newPassword))
             {
                 $newUserInfo['password'] = Hash::make($newPassword);
             }
+            else
+            {
+                return Redirect::action('UserController@edit', $userID)
+                    ->withInput(Input::except(array('password', 'confirm_password')))
+                    ->withErrors(['Password cannot be empty']);
+            }
 
             // Update the user row with new values
-            $affectedRows = User::where($userID, '=', $userID)->update($newUserInfo);            
+            $affectedRows = User::where('contact_id', '=', $userID)->update($newUserInfo);            
         }
-        else if ($newUserInfo['password'] !== Input::get('confirm_password'))
+        else if ($newPassword !== Input::get('confirm_password'))
         {
             return Redirect::action('UserController@edit', $userID)
                 ->withInput(Input::except(array('password', 'confirm_password')))
-                ->withErrors(['PasswordMismatch', 'Passwords do not match']);
+                ->withErrors(['Passwords do not match']);
         }
 
         

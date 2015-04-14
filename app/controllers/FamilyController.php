@@ -99,7 +99,16 @@ class FamilyController extends \BaseController
                     $familyContactInput['currently_active'] = true;
 
                     // Add the record to the database
-                    $this->createFamilyContactWith($familyContactInput);                       
+                    $familyContacts = $this->familyContactRepo->getContactsInFamily($familyID);
+                    
+                    var_dump($familyID);
+
+                    // Prevent the system from adding duplicate contacts into a family
+                    if ( in_array($familyContactInput['contact_id'], $familyContacts->all()))
+                    {
+                        $this->createFamilyContactWith($familyContactInput);  
+                    }
+                 
                 }
             }
         }

@@ -8,8 +8,10 @@ User Details
 @if(!empty($user))
 {{ Form::open(array('method'=>'PUT','route'=>array('user.update', $user->contact_id), 'class'=>'form-horizontal', 'id'=>'form')) }}
 <h1>{{ $user->contact->first_name . " " . $user->contact->last_name . "'s User Details" }}</h1>
+<div class="inputError">
+    <?php foreach($errors->all() as $error=>$message){printf($message . "<br />");} ?>
+</div>
 <section class="row generalInfo col-md-7">
-
     <!-- <div class="form-group">
      {{ Form::label('username','Username: ',array('class'=>'col-sm-3')) }}
      <div class="col-sm-7">

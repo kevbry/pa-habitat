@@ -53,7 +53,7 @@ class VolunteerHourValidator extends Validator {
         {
             static::$rules['volunteer_id.' . $arrayIndexes[$i]] = 'required';
             static::$rules['hours.' . $arrayIndexes[$i]] = 'required|integer|between:1,24';
-            static::$rules['date_of_contribution.' . $arrayIndexes[$i]] = 'required';
+            static::$rules['date_of_contribution.' . $arrayIndexes[$i]] = 'required|safetymeetingdate';
             static::$rules['project_id.' . $arrayIndexes[$i]] = 'required';
             static::$rules['paid_hours.' . $arrayIndexes[$i]] = '';
             static::$rules['family_id.' . $arrayIndexes[$i]] = '';

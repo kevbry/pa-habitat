@@ -61,7 +61,7 @@ class ProjectHourValidator extends Validator {
         {
             static::$rules['volunteer_id.' . $i] = '';
             static::$rules['hours.' . $i] = 'required|integer|between:1,24';
-            static::$rules['date_of_contribution.' . $i] = 'required';
+            static::$rules['date_of_contribution.' . $i] = 'required|safetymeetingdate';
             static::$rules['project_id.' . $i] = 'required';
             static::$rules['paid_hours.' . $i] = '';
             static::$rules['family_id.' . $i] = '';
