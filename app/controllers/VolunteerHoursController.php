@@ -71,7 +71,10 @@ class VolunteerHoursController extends \BaseController {
         //Created our own method to call the specific view.
         $volunteer = $this->volunteerRepo->getVolunteer($contactId);
         $projects = $this->projectRepo->getAllProjectsNonPaginated();
-        $volunteerHours = $this->volunteerHrsRepo->getHoursForVolunteerNonPaginated($contactId);
+        if($contactId > -1)
+        {
+            $volunteerHours = $this->volunteerHrsRepo->getHoursForVolunteerNonPaginated($contactId);
+        }
        
         $families = $this->familyRepo->getAllFamiliesNonPaginated();
        //Create view and pass in necessary parameters.
@@ -86,12 +89,33 @@ class VolunteerHoursController extends \BaseController {
      */
     public function storehours() {
         $hoursInfo = array();
-        for ($i = 0; $i < count(Input::get('volunteer_id')); $i++) {
-            $hoursInfo['volunteer_id'] = Input::get('volunteer_id')[$i];
+        $validationArray = array();
+        $inputCount = count(Input::get('hours'));
+        $type=Input::get('pageType');
+        
+ 
+        
+        for ($i = 0; $i < $inputCount; $i++) {
+            $hoursInfo['id'] = $i;
+            if($type === 'volunteer')
+            {
+                $hoursInfo['volunteer_id'] = Input::get('volunteer_id'); 
+                $hoursInfo['project_id'] = Input::get('project_id')[$i];
+            }
+            else
+            {
+                $hoursInfo['volunteer_id'] = Input::get('volunteer_id')[$i]; 
+                $hoursInfo['project_id'] = Input::get('project_id');
+                $hoursInfo['volunteer_id'] = $hoursInfo['volunteer_id'] != 0 ? $hoursInfo['volunteer_id'] : null;
+            }
+
             $hoursInfo['hours'] = Input::get('hours')[$i];
             $hoursInfo['date_of_contribution'] = Input::get('date_of_contribution')[$i];
-            $hoursInfo['project_id'] = Input::get('project_id')[$i];
             $hoursInfo['paid_hours'] = Input::get('paid_hours')[$i];
+            
+            
+            $hoursInfo['project_id'] = $hoursInfo['project_id'] != 0 ? $hoursInfo['project_id'][0] : null;
+            
             if (Input::get('family_id')[$i] != 0) {
                 $hoursInfo['family_id'] = Input::get('family_id')[$i];
             }
@@ -103,21 +127,48 @@ class VolunteerHoursController extends \BaseController {
             if (empty($hoursInfo)) {
                 throw new Exception('No Hours info inserted.');
             }
-            $this->storeHoursWith($hoursInfo);
+            $validationArray[$i] = $hoursInfo;
         }
-$type=Input::get('pageType');
-        if($type=='volunteer')
+        
+        $v = new App\Libraries\Validators\VolunteerHourValidator($validationArray, $inputCount);
+
+        //If the validator passes with the input provided, based on the rules in the validator class.
+        if($v->passes())
         {
-             return Redirect::action('VolunteerHoursController@indexForContact', $hoursInfo['volunteer_id']);
+            foreach($validationArray as $hoursInfo)
+            {
+                //Call our helper method on the row, to update it.
+                $this->storeHoursWith($hoursInfo);
+            }            
+            //Store the contact and redirect to their show
+
+            if($type==='volunteer')
+            {
+                return Redirect::action('VolunteerHoursController@indexForContact', $hoursInfo['volunteer_id']);
+            }
+            else
+            {
+                return Redirect::action('VolunteerHoursController@indexForProject', $hoursInfo['project_id']);
+            }
         }
-        else{
-             return Redirect::action('VolunteerHoursController@indexForProject', $hoursInfo['project_id']);
+        {
+            if($type==='volunteer')
+            {
+                return Redirect::action('VolunteerHoursController@createForContact', $hoursInfo['volunteer_id'])
+                    ->withInput()->withErrors($v->getErrors());
+
+            }
+            else
+            {
+                return Redirect::action('VolunteerHoursController@createForProject', $hoursInfo['project_id'])
+                    ->withInput()->withErrors($v->getErrors());
+            }
         }
-       
     }
 
     public function storeHoursWith($hoursInfo) {
-
+        
+        unset($hoursInfo['id']);
         $hours = new VolunteerHours($hoursInfo);
 
         // Store contact
@@ -133,29 +184,61 @@ $type=Input::get('pageType');
         $hoursInfo = array();
         //Fill an array with the inputs from the page, have to loop as they are
         //arrays
-        for ($i = 0; $i < count(Input::get('row_id')); $i++) {
-            $hoursInfo['id'] = Input::get('row_id')[$i];
-            $hoursInfo['volunteer_id'] = Input::get('volunteer_id')[$i];
-            $hoursInfo['hours'] = Input::get('hours')[$i];
-            $hoursInfo['date_of_contribution'] = Input::get('date_of_contribution')[$i];
-            $hoursInfo['project_id'] = Input::get('project_id')[$i];
-            $hoursInfo['paid_hours'] = Input::get('paid_hours')[$i];
-            if (Input::get('family_id')[$i] != 0) {
-                $hoursInfo['family_id'] = Input::get('family_id')[$i];
-            }
-            else
-            {
-                $hoursInfo['family_id'] = null;
-            }
-
-            if (empty($hoursInfo)) {
-                throw new Exception('No Hours info inserted.');
-            }
-            //Add the specific hour row information into the $infoArray.
-            $infoArray[$i] = $hoursInfo;
-            //Call our helper method on the row, to update it.
-            $this->updateHoursWith($hoursInfo);
+        $rowCount = count(Input::get('row_id'));
+        
+        $counter = 0;
+        
+        if ($rowCount > 0)
+        {
+            $arrayIndexes = array_keys(Input::get('hours'));
         }
+
+        
+
+        for ($i = 0; $i < $rowCount; $i++) {
+            
+            $rowIndex =  Input::get('row_id')[$counter];
+            if (in_array($rowIndex, $arrayIndexes))
+            {
+                $hoursInfo['id'] = Input::get('row_id')[$counter];
+                $hoursInfo['volunteer_id'] = Input::get('vol_id');
+                $hoursInfo['hours'] = Input::get('hours')[$rowIndex];
+                $hoursInfo['date_of_contribution'] = Input::get('date_of_contribution')[$rowIndex];
+                $hoursInfo['project_id'] = Input::get('project_id')[$rowIndex];
+                $hoursInfo['paid_hours'] = Input::get('paid_hours')[$rowIndex];
+                if (Input::get('family_id')[$rowIndex] != 0) {
+                    $hoursInfo['family_id'] = Input::get('family_id')[$rowIndex];
+                }
+                else
+                {
+                    $hoursInfo['family_id'] = null;
+                }
+
+                if (empty($hoursInfo)) {
+                    throw new Exception('No Hours info inserted.');
+                }
+                //Add the specific hour row information into the $infoArray.
+                $infoArray[$i] = $hoursInfo;
+            }
+            
+            $counter++;
+        }
+        $v = new App\Libraries\Validators\VolunteerHourValidator($infoArray, $rowCount);
+        
+        if($v->passes())
+        {
+            foreach($infoArray as $hoursInfo)
+            {
+                //Call our helper method on the row, to update it.
+                $this->updateHoursWith($hoursInfo);
+            }
+        }
+        else
+        {
+            return Redirect::action('VolunteerHoursController@indexForEditContact', $hoursInfo['volunteer_id'] )
+                    ->withInput()->withErrors($v->getErrors());
+        }
+        
         //Get a form field that gets the volunteers id that we are editing.
         //For safety sake made anothing variable that won't change on inputs.
         $id = Input::get('vol_id');
@@ -171,6 +254,7 @@ $type=Input::get('pageType');
             //$infoArray is the inputs
             //$hourArray is the database
             //If the input array wasn't empty.
+           
             if(!empty($infoArray))
             {
                 foreach($infoArray as $formEntry)
@@ -305,28 +389,61 @@ $type=Input::get('pageType');
         $projectId = Input::get('proj_id');
         //For every field on the page, populate the hoursInfo array
         //With the values form the page.
-        for ($i = 0; $i < count(Input::get('row_id')); $i++) {
-            $hoursInfo['id']= Input::get('row_id')[$i];
-            $hoursInfo['project_id'] = Input::get('project_id')[$i];
-            $hoursInfo['volunteer_id'] = Input::get('volunteer_id')[$i];
-            $hoursInfo['hours'] = Input::get('hours')[$i];
-            $hoursInfo['date_of_contribution'] = Input::get('date_of_contribution')[$i];
-            $hoursInfo['paid_hours'] = Input::get('paid_hours')[$i];
-            if (Input::get('family_id')[$i] != 0) {
-                $hoursInfo['family_id'] = Input::get('family_id')[$i];
-            }
-            else
+        
+        $rowCount = count(Input::get('row_id'));
+        
+        if ($rowCount > 0)
+        {
+            $arrayIndexes = array_keys(Input::get('hours'));
+        }
+
+        $counter = 0;
+        
+        for ($i = 0; $i < $rowCount; $i++) {
+            
+            $rowIndex = Input::get('row_id')[$counter];
+
+            if (in_array($rowIndex, $arrayIndexes))
             {
-                $hoursInfo['family_id'] = null;
+                $hoursInfo['id']= Input::get('row_id')[$counter];
+                $hoursInfo['project_id'] = Input::get('project_id')[$rowIndex];
+                $hoursInfo['volunteer_id'] = Input::get('volunteer_id')[array_search($rowIndex, $arrayIndexes)];
+                $hoursInfo['hours'] = Input::get('hours')[$rowIndex];
+                $hoursInfo['date_of_contribution'] = Input::get('date_of_contribution')[$rowIndex];
+                $hoursInfo['paid_hours'] = Input::get('paid_hours')[$rowIndex];
+                if (Input::get('family_id')[$rowIndex] != 0) {
+                    $hoursInfo['family_id'] = Input::get('family_id')[$rowIndex];
+                }
+                else
+                {
+                    $hoursInfo['family_id'] = null;
+                }
+
+                if (empty($hoursInfo)) {
+                    throw new Exception('No Hours info inserted.');
+                }
+                //Add the hoursInfo data to the infoArray
+                $infoArray[$i] = $hoursInfo;
             }
 
-            if (empty($hoursInfo)) {
-                throw new Exception('No Hours info inserted.');
+            $counter++;
+        }
+
+        
+        $v = new App\Libraries\Validators\VolunteerHourValidator($infoArray, count(Input::get('row_id')));
+        
+        if($v->passes())
+        {
+            foreach($infoArray as $hoursInfo)
+            {
+                //Calls our helper method to update the hour row
+                $this->projectUpdateHoursWith($hoursInfo);
             }
-            //Add the hoursInfo data to the infoArray
-            $infoArray[$i] = $hoursInfo;
-            //Calls our helper method to update the hour row, right below.
-            $this->projectUpdateHoursWith($hoursInfo);
+        }
+        else
+        {
+            return Redirect::action('VolunteerHoursController@indexForEditProject', $hoursInfo['project_id'] )
+                ->withInput()->withErrors($v->getErrors());
         }
         //Get the hours for the project from the database.
         $hourArray = $this->volunteerHrsRepo->getHoursForProjectNonPaginated($projectId);

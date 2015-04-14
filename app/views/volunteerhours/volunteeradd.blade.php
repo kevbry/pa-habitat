@@ -5,40 +5,69 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
 @stop
 
 @section('content')
+
+<?php
+
+$count = 0;
+//Define our array of error messages
+//Need to set this to the number of inputs you want validated, for
+//simplicities sake down the road.
+$errorList = array();
+
+//for each input array, add the fields appended with their number.
+for($i = 0; $i < count(Input::old('hours')); $i++)
+{
+    $errorList['volunteer id.' . $i] = '';
+    $errorList['hours.' . $i] = '';
+    $errorList['date of contribution.' . $i] = '';
+    $errorList['project id.' . $i] = '';
+    $errorList['paid hours.' . $i] = '';
+    $errorList['family id.' . $i] = '';
+}
+    //If there are errors
+if($errors->any())
+{
+    //For every error
+    foreach($errors->all() as $error)
+    {
+        $counter = 0;
+        //For every entry in the "errorList" array
+        //This array contains labels for each error, in order to append to
+        //The correct fields and allow for scalability.
+        foreach($errorList as $errorKey)
+        {
+            if($counter == 0)
+            {
+                prev($errorList);
+                $counter++;
+            }
+            //If the error message contains the same field name aka 'first name'
+            //Note this is not the field name first_name, this is the name
+            //that is used in ContactValidator, or the name that comes up in
+            //the actually error message.
+            if(strpos($error,key($errorList)) !== FALSE)
+            {
+                //Add it to the array under the key, so we can use it later.
+
+                $errorList[key($errorList)] = preg_replace('/\.\d+/', '', $error);
+            }
+            //Move the key pointer.
+            next($errorList);
+        }
+    }
+}
+?>
+
 <script type="text/html" id="rowtemplate">
-    <tr class="formrow">
-            <td>
-                <select name="volunteer_id[]" class="form-control">
-            
-                    <option value="{{$volunteer->id}}">{{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name}}</option>
-             
-           
-                </select>
-            </td>  
-            <td>{{Form::number('hours[]', '0',array('min'=>0,'class'=>'form-control'))}}</td>
-            <td>{{Form::input('date', 'date_of_contribution[]', null, array('class' => 'form-control', 'placeholder' => 'Date'))}}</td>
-            <td>{{Form::select('paid_hours[]', array('0' => 'Volunteer', '1' => 'Paid'), '', array('min'=>0,'class'=>'form-control'));}}</td>
-            <td>
-                <select name="project_id[]" class="form-control">
-                    @if(!empty($projects))
-                        @foreach($projects as $project)
-                            <option value="{{$project->id}}">{{$project->name}}</option>
-                        @endforeach
-                    @endif
-                </select>
-            </td>
-            <td>
-                <select name="family_id[]" class="form-control">
-                    <option value="0" selected>--</option>
-                @if (!empty($families))
-                @foreach($families as $family)
-                    <option value="{{$family->id}}">{{$family->name}}</option>
-                @endforeach
-                @endif
-                </select>
-            </td>
-            <td><a href="#" class="remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-        </tr>
+               <?php $testrow = new DataRowBuilder(
+                    $volunteer->id, 
+                    $volunteer->contact->first_name . ' ' . $volunteer->contact->last_name,
+                    $projects, 
+                    $families,
+                    $errorList, 1,
+                    array());
+
+                echo $testrow->compileRow(); ?>
 </script>
 <h1>Volunteer Hours for {{$volunteer->contact->first_name. ' ' .$volunteer->contact->last_name}}</h1>
 {{Form::open(array('route'=>'storehours','class'=>'form-horizontal'))}}
@@ -49,39 +78,42 @@ Add Volunteer Hours for Volunteer {{$volunteer->contact->first_name. ' ' .$volun
         <tr><th>Name</th><th>Hours</th><th>Date</th><th>Hour type</th><th>Project</th><th>Family</th></tr>
     </thead>
     <tbody>
-        <tr class="formrow">
-            <td>
-                <select name="volunteer_id[]" class="form-control">
-            
-                    <option value="{{$volunteer->id}}">{{$volunteer->contact->first_name . ' ' . $volunteer->contact->last_name}}</option>
-             
-           
-                </select>
-            </td>  
-            <td>{{Form::number('hours[]', '0',array('min'=>0,'class'=>'form-control'))}}</td>
-            <td>{{Form::input('date', 'date_of_contribution[]', null, array('class' => 'form-control', 'placeholder' => 'Date'))}}</td>
-            <td>{{Form::select('paid_hours[]', array('0' => 'Volunteer', '1' => 'Paid'), '', array('min'=>0,'class'=>'form-control'));}}</td>
-            <td>
-                <select name="project_id[]" class="form-control">
-                    @if(!empty($projects))
-                        @foreach($projects as $project)
-                            <option value="{{$project->id}}">{{$project->name}}</option>
-                        @endforeach
-                    @endif
-                </select>
-            </td>
-            <td>
-                <select name="family_id[]" class="form-control">
-                    <option value="0" selected>--</option>
-                @if (!empty($families))
-                @foreach($families as $family)
-                    <option value="{{$family->id}}">{{$family->name}}</option>
-                @endforeach
-                @endif
-                </select>
-            </td>
-            <td><a href="#" class="remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-        </tr>   
+        <?php
+            if (count(Input::old('hours')) === 0)
+            {
+                $testrow = new DataRowBuilder(
+                    $volunteer->id, 
+                    $volunteer->contact->first_name . ' ' . $volunteer->contact->last_name,
+                    $projects, 
+                    $families, 
+                    $errorList, 0,
+                    array());
+
+                echo $testrow->compileRow();
+            }
+        
+            // Add the rows  
+            for($i=0; $i < count(Input::old('hours')); $i++)
+            {
+                $rowData = array();
+                $rowData['volunteer_id'] = Input::old('volunteer_id');
+                $rowData['hours'] = Input::old('hours')[$i];
+                $rowData['date_of_contribution'] = Input::old('date_of_contribution')[$i];
+                $rowData['paid_hours'] = Input::old('paid_hours')[$i];
+                $rowData['project_id'] = Input::old('project_id')[$i];
+                $rowData['family_id'] = Input::old('family_id')[$i];
+                
+                $testrow = new DataRowBuilder(
+                    $volunteer->id, 
+                    $volunteer->contact->first_name . ' ' . $volunteer->contact->last_name,
+                    $projects, 
+                    $families, 
+                    $errorList, $i,
+                    $rowData);
+
+                echo $testrow->compileRow();
+            }    
+        ?>
     </tbody>
 </table>
 

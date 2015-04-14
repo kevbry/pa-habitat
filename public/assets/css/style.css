@@ -180,3 +180,9 @@ span.twitter-typeahead{
     position: absolute;
     left: 0px
 }
+.deletedrow {
+    background-color: #d9534f;
+}
+.deletedrow input, .deletedrow select {
+    opacity: 0.3;
+}

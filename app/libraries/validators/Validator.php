@@ -1,4 +1,4 @@
-<?php namespace App\Libraries\validators;
+<?php namespace App\Libraries\Validators;
 
 /**
  * Description of Validator
