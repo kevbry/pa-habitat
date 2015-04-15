@@ -1,6 +1,6 @@
 <?php
 use Mockery as m;
-use App\Libraries\validators\ProjectValidator;
+use App\Libraries\Validators\ProjectValidator;
 
 class ValidateProjectTest extends TestCase {
     
@@ -23,7 +23,7 @@ class ValidateProjectTest extends TestCase {
    }
    public function testValidatorPassesAll()
     {
-        $projectValidator = new App\Libraries\validators\ProjectValidator($this->goodProjectInfo);
+        $projectValidator = new App\Libraries\Validators\ProjectValidator($this->goodProjectInfo);
         
         $this->assertTrue($projectValidator->passes());
     }
@@ -32,7 +32,7 @@ class ValidateProjectTest extends TestCase {
     {
         $this->goodProjectInfo["start_date"] = "2015-01-20";
         $this->goodProjectInfo["end_date"] = "2015-02-20";
-        $projectValidator = new App\Libraries\validators\ProjectValidator($this->goodProjectInfo);
+        $projectValidator = new App\Libraries\Validators\ProjectValidator($this->goodProjectInfo);
 
         $this->assertTrue($projectValidator->passes());
     }
@@ -41,7 +41,7 @@ class ValidateProjectTest extends TestCase {
 //    {
 //        $this->goodProjectInfo["start_date"] = "2015-04-09";
 //        $this->goodProjectInfo["end_date"] =  "2014-01-08";
-//        $projectValidator = new App\Libraries\validators\ProjectValidator($this->goodProjectInfo);
+//        $projectValidator = new App\Libraries\Validators\ProjectValidator($this->goodProjectInfo);
 //
 //        $this->assertFalse($projectValidator->passes());
 //    }

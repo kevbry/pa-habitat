@@ -47,6 +47,7 @@ class VolunteerHourValidator extends Validator {
         //call the parent constructor
         parent::__construct($arrayInput);
 
+        
         //for each row, add rules for that row, ex required and whatever we need.
         //This is exactly like the normal rules array for the thing.
         for($i = 0; $i < $rowcount; $i++)

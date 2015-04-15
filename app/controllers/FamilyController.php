@@ -69,7 +69,9 @@ class FamilyController extends \BaseController
         $familyInput['comments'] = Input::get('comments');
 
         // Capture FamilyContact entries to store in database
-        $contactArray = array_keys(Input::all());
+        // Clears any duplicate contacts from the family
+        $contactArray = array_keys(array_unique(Input::all()));
+
         
         // Pull any array key that references a contact id
         $contactRegEx = '/[a-z_]*contact_\d/';
@@ -99,16 +101,10 @@ class FamilyController extends \BaseController
                     $familyContactInput['currently_active'] = true;
 
                     // Add the record to the database
-                    $familyContacts = $this->familyContactRepo->getContactsInFamily($familyID);
-                    
-                    var_dump($familyID);
+                    $this->familyContactRepo->getContactsInFamily($familyID);
 
-                    // Prevent the system from adding duplicate contacts into a family
-                    if ( in_array($familyContactInput['contact_id'], $familyContacts->all()))
-                    {
-                        $this->createFamilyContactWith($familyContactInput);  
-                    }
-                 
+                    $this->createFamilyContactWith($familyContactInput);  
+
                 }
             }
         }

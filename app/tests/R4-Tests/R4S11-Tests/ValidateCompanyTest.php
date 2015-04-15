@@ -1,7 +1,7 @@
 <?php
  
 use Mockery as m;
-use App\Libraries\validators\CompanyValidator;
+use App\Libraries\Validators\CompanyValidator;
  
 //This will create a volunteer and fill out every field, including the last 
 //attended safety meeting date. The tests are then run on everything.
@@ -20,21 +20,21 @@ class ValidateCompanyTest extends TestCase {
     }
     public function testValidatorPassesAll()
      {
-         $companyValidator = new App\Libraries\validators\CompanyValidator($this->goodCompanyInfo);
+         $companyValidator = new App\Libraries\Validators\CompanyValidator($this->goodCompanyInfo);
 
          $this->assertTrue($companyValidator->passes());
      }
      public function testValidateNamePass()
     {
         $this->goodCompanyInfo["name"] = "name";
-        $companyValidator = new App\Libraries\validators\CompanyValidator($this->goodCompanyInfo);
+        $companyValidator = new App\Libraries\Validators\CompanyValidator($this->goodCompanyInfo);
 
         $this->assertTrue($companyValidator->passes());
     }
     public function testValidateNameFail()
     {
         $this->goodCompanyInfo["name"] = "";
-        $companyValidator = new App\Libraries\validators\CompanyValidator($this->goodCompanyInfo);
+        $companyValidator = new App\Libraries\Validators\CompanyValidator($this->goodCompanyInfo);
 
         $this->assertFalse($companyValidator->passes());
     }
@@ -42,14 +42,14 @@ class ValidateCompanyTest extends TestCase {
     public function testValidatePrimaryContact1Pass()
     {
         $this->goodCompanyInfo["primary_contact_1"] = "1";
-        $companyValidator = new App\Libraries\validators\CompanyValidator($this->goodCompanyInfo);
+        $companyValidator = new App\Libraries\Validators\CompanyValidator($this->goodCompanyInfo);
 
         $this->assertTrue($companyValidator->passes());
     }
     public function testValidatePrimaryContact1Fail()
     {
         $this->goodCompanyInfo["primary_contact_1"] = "";
-        $companyValidator = new App\Libraries\validators\CompanyValidator($this->goodCompanyInfo);
+        $companyValidator = new App\Libraries\Validators\CompanyValidator($this->goodCompanyInfo);
 
         $this->assertFalse($companyValidator->passes());
     }
