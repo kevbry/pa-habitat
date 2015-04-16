@@ -180,13 +180,14 @@ class VolunteerHoursController extends \BaseController {
         //Create two arrays that will be used to delete/update
         $infoArray = array();
         $hoursInfo = array();
+        $arrayIndexes = array();
         //Fill an array with the inputs from the page, have to loop as they are
         //arrays
         $rowCount = count(Input::get('row_id'));
-        
+        $countInput = count(Input::get('hours'));
         $counter = 0;
         
-        if ($rowCount > 0)
+        if ($countInput > 0)
         {
             $arrayIndexes = array_keys(Input::get('hours'));
         }
@@ -221,7 +222,7 @@ class VolunteerHoursController extends \BaseController {
             
             $counter++;
         }
-        $v = new App\Libraries\Validators\VolunteerHourValidator($infoArray, $rowCount);
+        $v = new App\Libraries\Validators\VolunteerHourValidator($infoArray, $countInput);
         
         if($v->passes())
         {
@@ -383,14 +384,15 @@ class VolunteerHoursController extends \BaseController {
         //Two arrays that will hold hour information later.
         $infoArray = array();
         $hoursInfo = array();
+        $arrayIndexes = array();
         //The static projectID that doesn't change on the page.
         $projectId = Input::get('proj_id');
         //For every field on the page, populate the hoursInfo array
         //With the values form the page.
-        
+        $countInput = count(Input::get('hours'));
         $rowCount = count(Input::get('row_id'));
         
-        if ($rowCount > 0)
+        if ($countInput > 0)
         {
             $arrayIndexes = array_keys(Input::get('hours'));
         }
@@ -428,7 +430,7 @@ class VolunteerHoursController extends \BaseController {
         }
 
         
-        $v = new App\Libraries\Validators\VolunteerHourValidator($infoArray, count(Input::get('row_id')));
+        $v = new App\Libraries\Validators\VolunteerHourValidator($infoArray, $countInput);
         
         if($v->passes())
         {

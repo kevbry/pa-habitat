@@ -2,10 +2,16 @@ $(document).ready(function($){
     
     $('#addhours').click(function(e){
         e.preventDefault();
+        
+        // Find the last row in the form
         var existingRow = $('.formrow:last-of-type');
+        
+        // Create a template row
         var template = document.getElementById('rowtemplate').innerHTML;
 
         var counter = $('.volunteer_id').length;
+        
+        // Update all of the new row's indexes
         if(counter !== 1)
         {
             template = template.replace("volunteer_id[1]", "volunteer_id[" + counter + "]");
@@ -18,22 +24,35 @@ $(document).ready(function($){
         }
         console.log(counter++);
         
+        // Add row to form
         var newRow = existingRow.after(template);
     });
 
- 
+    // Attach on click event handlers
     $('body').on('click', '.remove', removeRow);
     $('body').on('click', '.removeEdit', removeRowEdit);
 
+    /**
+     * Purpose: Marks a row as deleted in an edit page
+     * @param {type} e
+     * @returns {undefined}
+     */
     function removeRowEdit(e)
     {
         e.preventDefault();
+        
+        // Find the row to delete
         var row = $(this).closest('.formrow');
         
+        // Toggle deleted state for a row already marked as deleted
         if (row.hasClass("deletedrow"))
         {
+            //$(".hiddenInput").remove();
+            
+            // Remove deleted indicator from the row
             row.removeClass("deletedrow");
             
+            // Undisable all the row's controls
             $.each(row.find("input, select"), 
             function(){
                 $(this).removeAttr("disabled");
@@ -41,20 +60,24 @@ $(document).ready(function($){
         }
         else
         {
+            // Mark the row as deleted
             row.addClass("deletedrow");
 
+            // For each form control in the row
             $.each(row.find("input, select"), 
             function(){
                 
-                console.log($(this).attr("id"));
-                
+                // Mark all controls but the row_id control as disabled
                 if ($(this).attr("id") !== "row_id[]")
                 {
                         $(this).attr("disabled", "disabled");
 
+                        // Grab the selected value from the controls
                         var selectedValue = $(this).is("input") ? $(this).attr('value') : $(this).find(":selected").val() ;
 
+                        // Add a hidden field to pass deleted rows to the controller
                         $("<input>").attr({
+                                class: 'hiddenInput',
                                 type: 'hidden',
                                 name: "deleted_" + $(this).attr('name'),
                                 value: selectedValue}).insertAfter($(this));
@@ -63,10 +86,15 @@ $(document).ready(function($){
         }
     }
     
-    
+    /**
+     * Remove a row from an Add page
+     * @param {type} e
+     * @returns {undefined}
+     */
     function removeRow(e) {
         e.preventDefault();
         
+        // 
         var clearAll = false;
         
         if ($(".btn").html().search("Add") < 0)

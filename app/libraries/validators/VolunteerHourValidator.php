@@ -50,6 +50,8 @@ class VolunteerHourValidator extends Validator {
         
         //for each row, add rules for that row, ex required and whatever we need.
         //This is exactly like the normal rules array for the thing.
+        
+        
         for($i = 0; $i < $rowcount; $i++)
         {
             static::$rules['volunteer_id.' . $arrayIndexes[$i]] = 'required';

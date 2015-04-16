@@ -13,6 +13,7 @@
  */
 class ProjectRowBuilder extends DataRowBuilder
 {   
+    //Template for the volunteer select control.
     const VOLUNTEER_SELECT_CONTROL_TEMPLATE = <<<EOT
             <select name="volunteer_id[%s]" class="form-control">
                 <option value="0">--</option>
@@ -22,6 +23,7 @@ class ProjectRowBuilder extends DataRowBuilder
                 %s
             </div>
 EOT;
+    //Template for the project ID control.
     const PROJECT_ID_CONTROL_TEMPLATE = <<<EOT
         <input id='project_id[]' name='project_id[%s]' type='hidden' value='%s'></input>
         <input readonly="readonly" name="project_name" class="form-control volunteer_id" value="%s" />
@@ -34,7 +36,16 @@ EOT;
     private $volunteers;
     private $families;
     private $selectedDataArray;
-    
+    /**
+     * Constructor to build the RowBuilder, inherits from DataRowBuilder.
+     * @param type $projectID
+     * @param type $projectName
+     * @param type $volunteers
+     * @param type $families
+     * @param type $errorList
+     * @param type $controlIndex
+     * @param type $selectedDataArray
+     */
     public function __construct($projectID, $projectName, $volunteers, $families, $errorList, $controlIndex, $selectedDataArray) 
     {
         parent::__construct($projectID, $projectName, $volunteers, $families, $errorList, $controlIndex, $selectedDataArray);
@@ -46,7 +57,10 @@ EOT;
         $this->errorList = $errorList;
         $this->selectedDataArray = $selectedDataArray;
     }
-    
+    /**
+     * Compiles the row.
+     * @return type
+     */
     public function compileRow()
     {
         $rowTemplate = <<<EOT
@@ -74,7 +88,7 @@ EOT;
                 </td>
             </tr>    
 EOT;
-        
+                //Building all of the templates. with specified values
         $projectIDControl = sprintf(self::PROJECT_ID_CONTROL_TEMPLATE, $this->controlIndex, $this->projectID,$this->projectName);
 
         $hoursControl = $this->buildControl(parent::HOURS_INPUT_CONTROL_TEMPLATE, 'hours');
@@ -103,28 +117,51 @@ EOT;
 
     }
     
-    
+    /**
+     * Replaces the default values of the select boxes when passed back
+     */
     public function replaceDefaultValueWithSelected($needle, $replacement, $haystack)
     {
         return str_replace($needle, $replacement, $haystack);
     }
-    
+    /**
+     * Builds the volunteer select control, with specified values below
+     * @param type $volunteerID
+     * @param type $volunteerName
+     * @return type
+     */
     public function buildVolunteerSelectControl($volunteerID, $volunteerName)
     {   
         return sprintf(self::VOLUNTEER_ID_CONTROL_TEMPLATE, $volunteerID, $volunteerName);
     }
-                           
+    /**
+     * Builds the regular input controls with specified values below
+     * @param type $stringTemplate
+     * @param type $controlName
+     * @return type
+     */           
     public function buildControl($stringTemplate, $controlName)
     {
         return sprintf($stringTemplate, $this->controlIndex, $this->outputErrorMessageFor("$controlName." . $this->controlIndex));
     }
-    
+    /**
+     * Builds the regular select controls with specified values
+     * @param type $stringTemplate
+     * @param type $optionsList
+     * @param type $controlName
+     * @return type
+     */
     public function buildSelectControl($stringTemplate, $optionsList, $controlName)
     {
         return sprintf($stringTemplate, $this->controlIndex, $optionsList, $this->outputErrorMessageFor("$controlName." . $this->controlIndex));
         
     }
-    
+    /**
+     * Builds the option lists for the select boxes, based on the specified values below.
+     * @param type $arrayData
+     * @param type $controlName
+     * @return type
+     */
     public function buildOptionList($arrayData, $controlName)
     {
         $optionsTemplate = "<option value='%s'%s>%s</option>";
@@ -156,7 +193,11 @@ EOT;
         return $returnString;
     }
     
-    
+    /**
+     * Builds the error messages for each of the controls, based on values below.
+     * @param type $controlName
+     * @return type
+     */
     public function outputErrorMessageFor($controlName)
     {
         return (! empty($this->errorList[$controlName])) ? $this->errorList[$controlName] : "";

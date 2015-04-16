@@ -32,16 +32,6 @@ class ProjectHourValidator extends Validator {
                 $arrayInput['paid_hours.' . $i] = $rowInput['paid_hours'];
                 $arrayInput['family_id.' . $i++] = $rowInput['family_id'];
             }
-            
-//            for($i = 0; $i < $rowcount; $i++)
-//            {
-//                $arrayInput['volunteer_id.' . $i] = $input[$i]['volunteer_id'];
-//                $arrayInput['hours.' . $i] = $input[$i]['hours'];
-//                $arrayInput['date_of_contribution.' . $i] = $input[$i]['date_of_contribution'];
-//                $arrayInput['project_id.' . $i] = $input[$i]['project_id'];
-//                $arrayInput['paid_hours.' . $i] = $input[$i]['paid_hours'];
-//                $arrayInput['family_id.' . $i] = $input[$i]['family_id'];
-//            }
 
             //unset the base names of the array, not needed.
             unset($arrayInput['volunteer_id']);
