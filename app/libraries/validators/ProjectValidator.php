@@ -13,7 +13,7 @@ class ProjectValidator extends Validator {
         'build_number' => 'required|alpha_num',
         'name' => 'required',
         'street_number' => 'required|address',
-        'postal_code' => 'postalcode',
+        'postal_code' => 'required|postalcode',
         'city' => 'required|alphaspace',
         'province' => 'required|alphaspace',
         'start_date' => 'beforedate',

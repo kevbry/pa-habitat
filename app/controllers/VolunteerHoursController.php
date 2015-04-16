@@ -92,7 +92,7 @@ class VolunteerHoursController extends \BaseController {
         $validationArray = array();
         $inputCount = count(Input::get('hours'));
         $type=Input::get('pageType');
-        
+                
         for ($i = 0; $i < $inputCount; $i++) {
             $hoursInfo['id'] = $i;
             if($type === 'volunteer')
@@ -103,7 +103,7 @@ class VolunteerHoursController extends \BaseController {
             else
             {
                 $hoursInfo['volunteer_id'] = Input::get('volunteer_id')[$i]; 
-                $hoursInfo['project_id'] = Input::get('project_id');
+                $hoursInfo['project_id'] = Input::get('project_id')[$i];
                 $hoursInfo['volunteer_id'] = $hoursInfo['volunteer_id'] != 0 ? $hoursInfo['volunteer_id'] : null;
             }
 
@@ -127,6 +127,7 @@ class VolunteerHoursController extends \BaseController {
             }
             $validationArray[$i] = $hoursInfo;
         }
+        
         $v = new App\Libraries\Validators\VolunteerHourValidator($validationArray, $inputCount);
 
         //If the validator passes with the input provided, based on the rules in the validator class.

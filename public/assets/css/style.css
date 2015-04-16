@@ -183,6 +183,6 @@ span.twitter-typeahead{
 .deletedrow {
     background-color: #d9534f;
 }
-.deletedrow input, .deletedrow select {
+.deletedrow .form-control {
     opacity: 0.3;
 }
