@@ -25,7 +25,9 @@ Create a User
             ->configureSettings()
             ->build();
 ?>
-
+<div class="inputError">
+    <?php foreach($errors->all() as $error=>$message){printf($message . "<br />");} ?>
+</div>
 <section class="row">
 <section class="col-md-7">
     <div class="form-group">

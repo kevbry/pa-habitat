@@ -40,9 +40,16 @@ class UserController extends \BaseController
         // Get form input
         $userInfo = Input::only('password', 'contact_id', 'username');
         $confirmPassword = Input::get('confirm_password');
-        
+        $userID = -1;
         $response = null;
         
+        if($userInfo['contact_id'] == null)
+        {
+            // Redirect back with errors
+            return Redirect::action('UserController@create')
+                    ->withInput(Input::except(array('password', 'confirm_password')))
+                    ->withErrors(['Must specify contact for User']);
+        }
         
         // Ensure only one user is added for a contact
         if((User::where('contact_id', '=', $userInfo['contact_id'])->first()) !== null)
@@ -50,7 +57,7 @@ class UserController extends \BaseController
             // Redirect back with errors
             return Redirect::action('UserController@create')
                     ->withInput(Input::except(array('password', 'confirm_password')))
-                    ->withErrors(['DuplicateUser', 'user already exists']);
+                    ->withErrors(['User already exists']);
         }
         else
         {
@@ -60,15 +67,26 @@ class UserController extends \BaseController
                 // Redirect back with errors
                 return Redirect::action('UserController@create')
                         ->withInput(Input::except(array('password', 'confirm_password')))
-                        ->withErrors(['PasswordMismatch', 'Passwords do not match']);
+                        ->withErrors(['Passwords do not match']);
             }
             else
             {
                 // Hash the user's password for storage
                 $userInfo['password'] = Hash::make($userInfo['password']);
-
-                // Save user to database
-                $userID = $this->storeUserWith($userInfo);
+                
+                //Make sure the username isn't already in use
+                if(!$this->checkUserExists($userInfo['username']))
+                {
+                    // Save user to database
+                    $userID = $this->storeUserWith($userInfo);
+                }
+                else
+                {
+                    //Redirect back with errors
+                    return Redirect::action('UserController@create')
+                        ->withInput(Input::except(array('password', 'confirm_password')))
+                        ->withErrors(['Username already exists']);
+                }
                 
                 if ($userID > 0)
                 {
@@ -94,7 +112,6 @@ class UserController extends \BaseController
         return $userInfo['contact_id'];
     }
     
-    
     /**
      * Show the form for creating a new resource.
      *
@@ -119,7 +136,6 @@ class UserController extends \BaseController
         return View::make('user.edit')->with('user', $editUser);
         
     }
-    
     
     /**
      * Show the form for creating a new resource.
@@ -166,5 +182,16 @@ class UserController extends \BaseController
         
         return Redirect::action('UserController@index');
     }    
+    
+    public function checkUserExists($username)
+    {
+        $foundUsers = User::where('username', '=', $username);
+        
+        if($foundUsers->first())
+        {
+            return true;
+        }
+        return false;
+    }
     
 }

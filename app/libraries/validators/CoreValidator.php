@@ -50,10 +50,8 @@ class CoreValidator extends Illuminate\Validation\Validator {
     //Validator Regex for more complex addresses such as 45-a West Street, East
     public function validateAddress($attribute, $value, $parameters)
     {
-        $old = "^\A((\w+|\d+)[a-zA-Z]{0,1}\s{0,1}[-]{1}\s{0,1}\d*[a-zA-Z]{0,1}|(\w+|\d+)[a-zA-Z-]{0,1}\d*[a-zA-Z]{0,1})\s*+(.*)$^";
-        $new = "/[^\?\<\>\!\@\#\$\%\^\&\*\(\)\+\=\\\|\/\:\;\"\'\`\~]*/";
-        
-        return preg_match($old,$value); 
+
+        return preg_match("^\A((\w+|\d+)[a-zA-Z]{0,1}\s{0,1}[-]{1}\s{0,1}\d*[a-zA-Z]{0,1}|(\w+|\d+)[a-zA-Z-]{0,1}\d*[a-zA-Z]{0,1})\s*+(.*)$^",$value); 
         
         
     }
