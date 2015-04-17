@@ -44,6 +44,8 @@ $(document).ready(function($){
         // Find the row to delete
         var row = $(this).closest('.formrow');
         
+        console.log(row.find(".hiddenInput"));
+        
         // Toggle deleted state for a row already marked as deleted
         if (row.hasClass("deletedrow"))
         {
@@ -56,6 +58,12 @@ $(document).ready(function($){
             $.each(row.find("input, select"), 
             function(){
                 $(this).removeAttr("disabled");
+            });
+            
+            // Remove deleted row hidden inputs when marking a row as un-deleted
+            $.each(row.find(".hiddenInput"),
+            function(){
+                $(this).remove();
             });
         }
         else
