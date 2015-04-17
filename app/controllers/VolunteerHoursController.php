@@ -12,6 +12,13 @@ class VolunteerHoursController extends \BaseController {
     public $volunteerHrsRepo;
     public $familyRepo;
 
+    /**
+     * Constructor
+     * @param \App\Repositories\VolunteerRepository $volunteerRepo
+     * @param \App\Repositories\ProjectRepository $projectRepo
+     * @param \App\Repositories\VolunteerHoursRepository $volunteerHrsRepo
+     * @param \App\Repositories\FamilyRepository $familyRepo
+     */
     public function __construct(VolunteerRepository $volunteerRepo, ProjectRepository $projectRepo, VolunteerHoursRepository $volunteerHrsRepo, FamilyRepository $familyRepo) {
         $this->volunteerRepo = $volunteerRepo;
         $this->projectRepo = $projectRepo;
@@ -35,6 +42,11 @@ class VolunteerHoursController extends \BaseController {
                     'families' => $families));
     }
 
+    /**
+     * Display a list of contacts
+     * @param type $contactId
+     * @return type
+     */
     public function indexForContact($contactId)
     {
         $volunteer = $this->volunteerRepo->getVolunteer($contactId);
@@ -48,6 +60,11 @@ class VolunteerHoursController extends \BaseController {
                     'families' => $families));
     }
     
+    /**
+     * Creates view for adding hours to a project
+     * @param type $projectId
+     * @return type
+     */
     public function createForProject($projectId) {
         $volunteers = $this->volunteerRepo->getAllVolunteersNonPaginated();
         $project = $this->projectRepo->getProject($projectId);
@@ -57,6 +74,11 @@ class VolunteerHoursController extends \BaseController {
                     'families' => $families));
     }
     
+    /**
+     * Creates view for adding hours to a volunteer
+     * @param type $contactId
+     * @return type
+     */
     public function createForContact($contactId) {
         $volunteer = $this->volunteerRepo->getVolunteer($contactId);
         $projects = $this->projectRepo->getAllProjectsNonPaginated();
@@ -67,6 +89,11 @@ class VolunteerHoursController extends \BaseController {
                     'families' => $families));
     }
 
+    /**
+     * Creates view for editing hours for a contact
+     * @param type $contactId
+     * @return type
+     */
     public function indexForEditContact($contactId) {
         //Created our own method to call the specific view.
         $volunteer = $this->volunteerRepo->getVolunteer($contactId);
@@ -82,6 +109,7 @@ class VolunteerHoursController extends \BaseController {
                     'projects' => $projects, 'volunteerhours' => $volunteerHours,
                     'families' => $families));
     }
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -93,8 +121,12 @@ class VolunteerHoursController extends \BaseController {
         $inputCount = count(Input::get('hours'));
         $type=Input::get('pageType');
                 
+        // Loop through each row
         for ($i = 0; $i < $inputCount; $i++) {
+            // Set the row ID
             $hoursInfo['id'] = $i;
+            
+            // Set input unique for storing volunteer hours
             if($type === 'volunteer')
             {
                 $hoursInfo['volunteer_id'] = Input::get('volunteer_id'); 
@@ -102,18 +134,23 @@ class VolunteerHoursController extends \BaseController {
             }
             else
             {
+                // Set input unique for storing project hours
                 $hoursInfo['volunteer_id'] = Input::get('volunteer_id')[$i]; 
                 $hoursInfo['project_id'] = Input::get('project_id')[$i];
+                
+                // set id to null for validation purposes
                 $hoursInfo['volunteer_id'] = $hoursInfo['volunteer_id'] != 0 ? $hoursInfo['volunteer_id'] : null;
             }
 
+            // Set the rest of the input for a single row
             $hoursInfo['hours'] = Input::get('hours')[$i];
             $hoursInfo['date_of_contribution'] = Input::get('date_of_contribution')[$i];
             $hoursInfo['paid_hours'] = Input::get('paid_hours')[$i];
             
-            
+            // set project id to null for validation purposes
             $hoursInfo['project_id'] = $hoursInfo['project_id'] != 0 ? $hoursInfo['project_id'] : null;
             
+            // set family id to null for validation purposes
             if (Input::get('family_id')[$i] != 0) {
                 $hoursInfo['family_id'] = Input::get('family_id')[$i];
             }
@@ -122,12 +159,14 @@ class VolunteerHoursController extends \BaseController {
                 $hoursInfo['family_id'] = null;
             }
             
+            // Throw exception if nothing was set
             if (empty($hoursInfo)) {
                 throw new Exception('No Hours info inserted.');
             }
             $validationArray[$i] = $hoursInfo;
         }
         
+        // Create validator
         $v = new App\Libraries\Validators\VolunteerHourValidator($validationArray, $inputCount);
 
         //If the validator passes with the input provided, based on the rules in the validator class.
@@ -138,8 +177,8 @@ class VolunteerHoursController extends \BaseController {
                 //Call our helper method on the row, to update it.
                 $this->storeHoursWith($hoursInfo);
             }            
-            //Store the contact and redirect to their show
 
+            //Store the contact and redirect to their show
             if($type==='volunteer')
             {
                 return Redirect::action('VolunteerHoursController@indexForContact', $hoursInfo['volunteer_id']);
@@ -164,6 +203,11 @@ class VolunteerHoursController extends \BaseController {
         }
     }
 
+    /**
+     * Save a volunteer
+     * @param type $hoursInfo
+     * @return type
+     */
     public function storeHoursWith($hoursInfo) {
         
         unset($hoursInfo['id']);
@@ -174,6 +218,7 @@ class VolunteerHoursController extends \BaseController {
 
         return $hours->id;
     }
+    
     //Method for getting the inputs from the volunteeredit view.
     public function updatehours()
     {
@@ -187,16 +232,19 @@ class VolunteerHoursController extends \BaseController {
         $countInput = count(Input::get('hours'));
         $counter = 0;
         
+        // Get an array of input row id's
         if ($countInput > 0)
         {
             $arrayIndexes = array_keys(Input::get('hours'));
         }
 
-        
-
+        // Curate row data for use in validation
         for ($i = 0; $i < $rowCount; $i++) {
             
+            // Get the individual row id
             $rowIndex =  Input::get('row_id')[$counter];
+            
+            // Add the row information to the validation array if its not deleted
             if (in_array($rowIndex, $arrayIndexes))
             {
                 $hoursInfo['id'] = Input::get('row_id')[$counter];
@@ -222,8 +270,11 @@ class VolunteerHoursController extends \BaseController {
             
             $counter++;
         }
+        
+        // Create validator
         $v = new App\Libraries\Validators\VolunteerHourValidator($infoArray, $countInput);
         
+        // Validate data
         if($v->passes())
         {
             foreach($infoArray as $hoursInfo)
@@ -387,10 +438,10 @@ class VolunteerHoursController extends \BaseController {
         $arrayIndexes = array();
         //The static projectID that doesn't change on the page.
         $projectId = Input::get('proj_id');
-        //For every field on the page, populate the hoursInfo array
-        //With the values form the page.
+
         $countInput = count(Input::get('hours'));
         $rowCount = count(Input::get('row_id'));
+        
         
         if ($countInput > 0)
         {
@@ -399,6 +450,8 @@ class VolunteerHoursController extends \BaseController {
 
         $counter = 0;
         
+        //For every field on the page, populate the hoursInfo array
+        //With the values form the page.
         for ($i = 0; $i < $rowCount; $i++) {
             
             $rowIndex = Input::get('row_id')[$counter];
@@ -429,9 +482,10 @@ class VolunteerHoursController extends \BaseController {
             $counter++;
         }
 
-        
+        // Create validator
         $v = new App\Libraries\Validators\VolunteerHourValidator($infoArray, $countInput);
         
+        // Do validation
         if($v->passes())
         {
             foreach($infoArray as $hoursInfo)
